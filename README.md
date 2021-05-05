@@ -10,7 +10,7 @@
   
   <br>
 <hr>
-  <h2>개발환경</h2>
+  <h2>Configuration</h2>
   <ul>
     <li>Java: jdk1.8.0_281</li>
     <li>JQuery: 3.6.0</li>
