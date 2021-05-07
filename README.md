@@ -23,7 +23,7 @@
 <hr>
   <h3>References</h3>
   <ul>
-    <li>Font: <<a href="https://fonts.google.com/">Link</a>></li>
-    <li>icon: <<a href="https://fontawesome.com/icons">Link</a>></li>
-    <li>color: <<a href="https://flatuicolors.com/">Link</a>></li>
+    <li>Font: Google Fonts<sub><<a href="https://fonts.google.com/">Link</a>><sub></li>
+    <li>icon: Font Awesome<sub><<a href="https://fontawesome.com/icons">Link</a>><sub></li>
+    <li>color: UI Colors<sub><<a href="https://flatuicolors.com/">Link</a>><sub></li>
   </ul>
