@@ -18,3 +18,12 @@
     <li>Apache Tomcat: 9.0.43</li>
     <li>STS: 3.9.11</li>
   </ul>
+  
+  <br>
+<hr>
+  <h3>References</h3>
+  <ul>
+    <li>Font: <<a href="https://fonts.google.com/">Link</a>></li>
+    <li>icon: <<a href="https://fontawesome.com/icons">Link</a>></li>
+    <li>color: <<a href="https://flatuicolors.com/">Link</a>></li>
+  </ul>
