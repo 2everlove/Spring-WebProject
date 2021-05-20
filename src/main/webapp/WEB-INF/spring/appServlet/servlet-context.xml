@@ -21,6 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<resources location="/resources/**" mapping="/resources"></resources>
+	
 	<context:component-scan base-package="web.spring.controller" />
 	
 	
