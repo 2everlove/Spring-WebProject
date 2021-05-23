@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.log4j.Log4j;
 
 @Controller
+@RequestMapping("/product")
 @Log4j
-public class MainController {
+public class ProductController {
 	
-	@GetMapping("/main")
-	public void getMain() {
-		log.info("main...........");
+	@GetMapping("/productList")
+	public void getProductList() {
+		log.info("productList...........");
 	}
 }
