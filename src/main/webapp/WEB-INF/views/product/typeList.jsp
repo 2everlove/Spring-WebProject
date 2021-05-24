@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
     <!-- 페이징, 목록, 가격, 정렬 -->
-    ${pBList}
     <section class="section__content">
         <!-- New -->
         <div class="section__wrapper">
@@ -37,7 +36,13 @@
 		    		</c:forEach>
         		</c:when>
         		<c:otherwise>
-        			<h2> 준비된 상품이 없습니다. </h2>
+        			<div class="product__wrapper" id="new">
+				    	<div class="new__product">
+					        <div class="new__detail">
+			        			<h1> 준비된 상품이 없습니다. </h1>
+					        </div>
+				        </div>
+			        </div>
         		</c:otherwise>
         	</c:choose>
 		    	

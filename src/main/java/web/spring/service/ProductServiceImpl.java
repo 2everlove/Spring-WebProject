@@ -25,5 +25,16 @@ public class ProductServiceImpl implements ProductService{
 	public List<PBoardVO> getPBoardList() {
 		return productMapper.getPBoardList();
 	}
+
+	@Override
+	public List<PBoardVO> getTypeBoardList(String product_category) {
+		
+		return productMapper.getTypeBoardList(product_category);
+	}
+
+	@Override
+	public List<ProductVO> getTypeList(String product_category) {
+		return productMapper.getTypeList(product_category);
+	}
 	
 }

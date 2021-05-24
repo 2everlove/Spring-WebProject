@@ -12,4 +12,8 @@ public interface ProductService {
 	public List<ProductVO> getProductList();
 	
 	public List<PBoardVO> getPBoardList();
+	
+	public List<ProductVO> getTypeList(String product_category);
+	
+	public List<PBoardVO> getTypeBoardList(String product_category);
 }

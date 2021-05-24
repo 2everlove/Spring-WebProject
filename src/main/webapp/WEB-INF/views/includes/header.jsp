@@ -34,7 +34,7 @@
 	        <div id="navbar__wrapper">
 	           	<i class="fas fa-bars" id="navbar__log-bar"></i>
 	            <div class="navbar__log">
-	                <a href="#"><i class="fab fa-slideshare"></i>widele</a>
+	                <a href="/main"><i class="fab fa-slideshare"></i>widele</a>
 	            </div>
 	            <div class="navbar__search">
 	                <input type="text" name="search" id="navbar__search__iput">
@@ -49,7 +49,7 @@
    	             <div class="navbar__wrapper-letf">
 	             	<div class="navbar__menu-left">
 	             		<ul class="category__list">
-	             			<li class="list"><a href="mobile">휴대폰</a></li>
+	             			<li class="list"><a href="tablet" >휴대폰</a></li>
 	             			<li class="list"><a href="computer">컴퓨터</a></li>
 	             			<li class="list"><a href="notebook">노트북</a></li>
 	             			<li class="list"><a href="life">생활가전</a></li>

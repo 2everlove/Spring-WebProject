@@ -26,4 +26,13 @@ public class ProductMapperTests {
 	public void getPBoardList() {
 		log.info(productMapper.getPBoardList());
 	}
+	
+	@Test
+	public void getTypeList() {
+		log.info(productMapper.getTypeList("tablet"));
+	}
+	@Test
+	public void getTypeBoardList() {
+		log.info(productMapper.getTypeBoardList("tablet"));
+	}
 }

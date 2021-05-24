@@ -5,8 +5,15 @@
 	<select id="getProductList" resultType="web.spring.vo.ProductVO">
 		select * from products_info
 	</select>
+	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
+		select * from (select rownum num, board.*, rank() over(partition by product_id order by pboard_unit_price) each_rank from (select pboard.* from product_board pboard  where product_id in(select product_id from products_info where product_category='tablet') order by TO_NUMBER(pboard_unit_price) asc) board) where each_rank between 1 and 5
+	</select>
 	
 	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, board.* from (select pboard.* from product_board pboard order by TO_NUMBER(pboard_unit_price) asc) board
+	</select>
+	
+	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_category=#{product_category}
 	</select>
 </mapper>
