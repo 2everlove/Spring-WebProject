@@ -1,57 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
         <!-- New -->
         <div class="section__wrapper">
         	<div class="section__productsList">
-	    		<div class="section__title">
-	    			<h1>New</h1>
-	    		</div>
-	    		<div class="section__title-icon">
-		   			<h2><i class="fas fa-plus"></i></h2>
-		   		</div>
-		    	<div class="product__wrapper" id="new">
-			    	<div class="new__product">
-			    		<a href="">
+		    	<c:if test="${!empty pList}">
+		    		<c:forEach var="products" items="${pList}">
+		    		<div class="product__wrapper" id="new">
+				    	<div class="new__product">
 					        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">
-					        <h1 class="new__title">아이패드4</h1>
-					        <h3 class="new__description">매우 빠른 A14 바이오닉(Bionic) 프로세서, Usb-c 타입</h3>
-					        <h2 class="new__price"><span>40000</span>원</h2>
-					        <button class="new__shops">판매처</button>
-			    		</a>
-			        </div>
-			    	<div class="new__product">
-				        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">
-				        <h1 class="new__title">아이패드4</h1>
-				        <h3 class="new__description">매우 빠른 A14 바이오닉(Bionic) 프로세서, Usb-c 타입</h3>
-				        <h2 class="new__price"><span>40000</span>원</h2>
-				        <button class="new__shops">판매처</button>
-			        </div>
-			    	<div class="new__product">
-				        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">
-				        <h1 class="new__title">아이패드4</h1>
-				        <h3 class="new__description">매우 빠른 A14 바이오닉(Bionic) 프로세서, Usb-c 타입</h3>
-				        <h2 class="new__price"><span>40000</span>원</h2>
-				        <button class="new__shops">판매처</button>
-			        </div>
-			    	<div class="new__product">
-				        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">
-				        <h1 class="new__title">아이패드4</h1>
-				        <h3 class="new__description">매우 빠른 A14 바이오닉(Bionic) 프로세서, Usb-c 타입</h3>
-				        <h2 class="new__price"><span>40000</span>원</h2>
-				        <button class="new__shops">판매처</button>
-			        </div>
-			    	<div class="new__product">
-				        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">
-				        <h1 class="new__title">아이패드4</h1>
-				        <h3 class="new__description">매우 빠른 A14 바이오닉(Bionic) 프로세서, Usb-c 타입</h3>
-				        <h2 class="new__price"><span>40000</span>원</h2>
-				        <button class="new__shops">판매처</button>
-			        </div>
-		    	</div>
+					        <div class="new__detail">
+						        <h1 class="new__title">${products.product_name}</h1>
+						        <c:if test="${!empty products.product_description}">
+						        	<h3 class="new__description">${products.product_description}</h3>
+						        </c:if>
+   						        <c:if test="${!empty pBList }">
+						        	<div class="seller_list">
+								        <c:forEach var="productSellers" items="${pBList}">
+									        <c:if test="${products.product_id == productSellers.product_id}">
+									        	<fmt:formatNumber type="number" maxFractionDigits="3" value="${productSellers.pboard_unit_price}" var="commonPrice"></fmt:formatNumber>
+										        <h2 class="new__price"><span>${commonPrice}</span>원</h2>
+										        <a href="pDetail?no=${productSellers.pboard_unit_no}" class="new__shops">판매처</a>
+									        </c:if>
+								        </c:forEach>
+							        </div>
+						        </c:if>
+					        </div>
+				        </div>
+		    		</div>
+		    		</c:forEach>
+		    	</c:if>
 	    	</div>
 	    	
     	</div>

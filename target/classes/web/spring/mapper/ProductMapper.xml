@@ -5,4 +5,8 @@
 	<select id="getProductList" resultType="web.spring.vo.ProductVO">
 		select * from products_info
 	</select>
+	
+	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
+		select rownum num, board.* from (select pboard.* from product_board pboard order by TO_NUMBER(pboard_unit_price) asc) board
+	</select>
 </mapper>
