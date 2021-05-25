@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -16,7 +15,6 @@ import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
 @Controller
-@RequestMapping("/main")
 @Log4j
 public class MainController {
 	
@@ -28,7 +26,7 @@ public class MainController {
 		log.info("main...........");
 	}
 	
-	@GetMapping("/{type}")
+	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
 		log.info("type.....");
 		productService.getTypeList(product_category);
@@ -38,6 +36,18 @@ public class MainController {
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		return "/product/typeList";
+	}
+	
+	@GetMapping("/pDetail/{no}")
+	public String getDetail(@PathVariable("no") String no, Model model) {
+		log.info("pDetail.....");
+		PBoardVO pBoard = productService.getProduct(no);
+		if(pBoard != null) {
+			model.addAttribute("pBoard", pBoard);
+			return "/product/pDetail";
+		} else {
+			return "/error";
+		}
 	}
 	
 }

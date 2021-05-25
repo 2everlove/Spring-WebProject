@@ -6,11 +6,13 @@
         <!-- New -->
         <div class="section__wrapper">
         	<div class="section__productsList">
-	    		<div class="section__title">
-	    			<h1>New</h1>
-	    		</div>
-	    		<div class="section__title-icon">
-		   			<h2><i class="fas fa-plus"></i></h2>
+	        	<div class="section__typoWrapper">
+		    		<div class="section__title">
+		    			<h1>New</h1>
+		    		</div>
+		    		<div class="section__title-icon">
+			   			<h2><i class="fas fa-plus"></i></h2>
+	        		</div>
 		   		</div>
 		    	<div class="product__wrapper" id="new">
 			    	<div class="new__product">
@@ -55,11 +57,13 @@
 	    	
 	   	    <!-- Sale -->
 	   	    <div class="section__productsList">
-		    	<div class="section__title">
-		   			<h1>Sale</h1>
-		   		</div>
-		   		<div class="section__title-icon">
-		   			<h2><i class="fas fa-plus"></i></h2>
+		   	    <div class="section__typoWrapper">
+			    	<div class="section__title">
+			   			<h1>Sale</h1>
+			   		</div>
+			   		<div class="section__title-icon">
+			   			<h2><i class="fas fa-plus"></i></h2>
+			   		</div>
 		   		</div>
 		    	<div class="product__wrapper" id="sale">
 		    		<div class="sale__product">
@@ -73,11 +77,13 @@
 	    	</div>
 	    	<!-- Event -->
 	    	<div class="section__productsList">
-	    		<div class="section__title">
-	    			<h1>Event</h1>
-	    		</div>
-	    		<div class="section__title-icon">
-		   			<h2><i class="fas fa-plus"></i></h2>
+		    	<div class="section__typoWrapper">
+		    		<div class="section__title">
+		    			<h1>Event</h1>
+		    		</div>
+		    		<div class="section__title-icon">
+			   			<h2><i class="fas fa-plus"></i></h2>
+			   		</div>
 		   		</div>
 		    	<div class="product__wrapper" id="event">
 		    		<div class="event__product">
@@ -92,12 +98,14 @@
 	    	
 	    	<!-- Recommend -->
 	    	<div class="section__productsList">
+	    	<div class="section__typoWrapper">
 	   			<div class="section__title">
 	    			<h1>Recommend</h1>
 	    		</div>
 	    		<div class="section__title-icon">
 		   			<h2><i class="fas fa-plus"></i></h2>
 		   		</div>
+	   		</div>
 		    	<div class="product__wrapper" id="recommend">
 		    		<div class="recommend__product">
 				    	<img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">

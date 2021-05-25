@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
     <!-- 페이징, 목록, 가격, 정렬 -->
-    ${pBList}
     <section class="section__content">
         <!-- New -->
         <div class="section__wrapper">
@@ -13,31 +12,44 @@
         		<c:when test="${!empty pList}">
 		    		<c:forEach var="products" items="${pList}">
 		    		<div class="product__wrapper" id="new">
-				    	<div class="new__product">
-					        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products">
-					        <div class="new__detail">
-						        <h1 class="new__title">${products.product_name}</h1>
+				    	<div class="type__product">
+					        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products-type">
+					        <div class="type__detail">
+						        <h1 class="type__title">${products.product_name}</h1>
 						        <c:if test="${!empty products.product_description}">
-						        	<h3 class="new__description">${products.product_description}</h3>
+						        	<h3 class="type__description">${products.product_description}</h3>
 						        </c:if>
-   						        <c:if test="${!empty pBList }">
-						        	<div class="seller_list">
-								        <c:forEach var="productSellers" items="${pBList}">
-									        <c:if test="${products.product_id == productSellers.product_id}">
-									        	<fmt:formatNumber type="number" maxFractionDigits="3" value="${productSellers.pboard_unit_price}" var="commonPrice"></fmt:formatNumber>
-										        <h2 class="new__price"><span>${commonPrice}</span>원</h2>
-										        <a href="pDetail?no=${productSellers.pboard_unit_no}" class="new__shops">판매처</a>
-									        </c:if>
-								        </c:forEach>
-							        </div>
-						        </c:if>
+						        <c:forEach var="productCost" items="${pBList}" varStatus="status">
+						        	<c:if test="${productCost.each_rank == 1 && products.product_id==productCost.product_id}">
+						        		<fmt:formatNumber type="number" maxFractionDigits="3" value="${productCost.pboard_unit_price}" var="minPrice"></fmt:formatNumber>
+								        <h1 class="min__price"><span>${minPrice}</span>원</h1>
+						        	</c:if>
+						        </c:forEach>
 					        </div>
+					        <c:if test="${!empty pBList }">
+					        	<div class="seller__list">
+							        <c:forEach var="productSellers" items="${pBList}">
+								        <c:if test="${products.product_id == productSellers.product_id}">
+								        	<fmt:formatNumber type="number" maxFractionDigits="3" value="${productSellers.pboard_unit_price}" var="commonPrice"></fmt:formatNumber>
+									        <h2 class="type__price"><span>${commonPrice}</span>원</h2>
+									        <a href="pDetail?no=${productSellers.pboard_unit_no}" class="type__shops">판매처</a>
+								        </c:if>
+							        </c:forEach>
+						        </div>
+					        </c:if>
 				        </div>
 		    		</div>
 		    		</c:forEach>
         		</c:when>
         		<c:otherwise>
-        			<h2> 준비된 상품이 없습니다. </h2>
+        			<div class="product__wrapper" id="new">
+				    	<div class="type__product">
+					        <div class="type__detail">
+			        			<h1> 준비된 상품이 없습니다.</h1><a href="javascript:history.back();">뒤로가기</a>
+			        			
+					        </div>
+				        </div>
+			        </div>
         		</c:otherwise>
         	</c:choose>
 		    	
