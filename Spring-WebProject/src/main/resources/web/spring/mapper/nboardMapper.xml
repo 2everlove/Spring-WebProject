@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="web.spring.mapper.nboardMapper">
+
+	<select id="getList" resultType="web.spring.vo.nboardVo">
+		select * 
+		from 
+		(select ROW_NUMBER() OVER (ORDER BY nboard_no desc) row_num, tbl.*
+		    from notice_board tbl
+		    where 1=1
+		    <!-- 조건은 있을수도 있고 없을 수도 있음 
+		    검색조건의 타입과 키워드 값에 의해 생성이 될수도 있고 안될수도 있음-->
+		    <if test="type=='nboard_title' and keyword != ''">
+				and nboard_title like '%'  || #{keyword}  ||  '%'
+		    </if>
+		    <if test="type=='nboard_content' and keyword != ''">
+				and nboard_content like '%'  || #{keyword}  ||  '%'
+		    </if>
+		    <if test="type=='user_id' and keyword != ''">
+				and user_id like '%'  || #{keyword}  ||  '%'
+		    </if>
+		)
+		where row_num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+	</select>
+	
+	<select id="getTotal" resultType="int">
+	select count(*) from notice_board
+		where 1=1
+		    <!-- 조건은 있을수도 있고 없을 수도 있음 
+		    검색조건의 타입과 키워드 값에 의해 생성이 될수도 있고 안될수도 있음-->
+		    <if test="type=='nboard_title' and keyword != ''">
+				and nboard_title like '%'  || #{keyword}  ||  '%'
+		    </if>
+		    <if test="type=='nboard_content' and keyword != ''">
+				and nboard_content like '%'  || #{keyword}  ||  '%'
+		    </if>
+		    <if test="type=='user_id' and keyword != ''">
+				and user_id like '%'  || #{keyword}  ||  '%'
+		    </if>
+	</select>
+	<!-- 수정쿼리 -->
+	<update id="update">
+		update notice_board
+		set nboard_title=#{nboard_title}, nboard_content=#{nboard_content}, nboard_updateDate=sysdate , nboard_category=#{nboard_category},user_id=#{user_id},file_pictureId=#{file_pictureId}
+		where nboard_no=#{nboard_no}
+	</update>
+	<!-- 잠긴글쿼리 -->	
+	<update id="nboardLock">
+		update notice_board set nboard_public=#{nboard_public} where nboard_no=#{nboard_no}
+	</update>
+	<!-- 삭제쿼리 -->
+	<delete id="delete" parameterType="int">
+		delete from notice_board where nboard_no=#{nboard_no}
+	</delete>
+	<!-- 상세보기쿼리 -->
+	<select id="get" resultType="web.spring.vo.nboardVo">
+		select * from notice_board where nboard_no=#{nboard_no}
+	</select>
+	<insert id="insertNboard">
+		<selectKey keyProperty="nboard_no" resultType="int" order="BEFORE">
+			select nboard_sequence.nextval from dual
+		</selectKey>
+		insert into notice_board (nboard_no, nboard_title, nboard_content, nboard_regdate, nboard_category,nboard_public, user_id, file_pictureid)
+		values (#{nboard_no}, #{nboard_title}, #{nboard_content}, sysdate, #{nboard_category}, 'N', #{user_id}, #{file_pictureId})
+	</insert>
+	
+</mapper>
