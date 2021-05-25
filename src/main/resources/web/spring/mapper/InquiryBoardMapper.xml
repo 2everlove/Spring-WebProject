@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.InquiryBoardMapper">
+
+
+	<!-- 문의사항 리스트 불러오기 -->
+	<select id="getInquiryBoardList"
+		resultType="web.spring.vo.InquiryBoardVO">
+		select * from INQUIRY_BOARD
+	</select>
+
+	<!-- 문의사항 등록 -->
+	<insert id="insertInquiry">
+
+		<selectKey keyProperty="iboard_no" resultType="int"
+			order="BEFORE">
+			select IBOARD_SEQUENCE.nextval from dual
+		</selectKey>
+
+		insert into tbl_board (bno, title, content, writer, regdate, attachNo)
+		values (#{bno}, #{title}, #{content}, #{writer}, sysdate, #{attachNo})
+	</insert>
+</mapper>
