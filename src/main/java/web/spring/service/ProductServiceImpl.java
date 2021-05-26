@@ -41,5 +41,10 @@ public class ProductServiceImpl implements ProductService{
 	public PBoardVO getProduct(String no) {
 		return productMapper.getProduct(no);
 	}
+
+	@Override
+	public ProductVO getProductInfo(String product_id) {
+		return productMapper.getProductInfo(product_id);
+	}
 	
 }

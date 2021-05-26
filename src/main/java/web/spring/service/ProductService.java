@@ -18,4 +18,6 @@ public interface ProductService {
 	public List<PBoardVO> getTypeBoardList(String product_category);
 	
 	public PBoardVO getProduct(String no);
+	
+	public ProductVO getProductInfo(String product_id);
 }

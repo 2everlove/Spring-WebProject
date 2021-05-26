@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+<script type="text/javascript">
+	document.title='${search} : widele';
+</script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
         <!-- New -->

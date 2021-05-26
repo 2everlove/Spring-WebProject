@@ -16,6 +16,7 @@ public class UserVO {
 	private String User_birth;
 	private String User_address;
 	private String User_interesting;
+	private String User_nickname;
 	private String User_enabledContent;
 	private String file_pictureId;
 }

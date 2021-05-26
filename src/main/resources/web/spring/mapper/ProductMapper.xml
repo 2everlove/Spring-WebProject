@@ -25,4 +25,7 @@
 	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
 		select * from product_board where pboard_unit_no=#{pboard_unit_no}
 	</select>
+	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_id=#{product_id}
+	</select>
 </mapper>
