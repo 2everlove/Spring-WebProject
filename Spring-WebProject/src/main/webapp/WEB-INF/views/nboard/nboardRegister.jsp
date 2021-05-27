@@ -1,52 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- nboard css -->
 <link rel="stylesheet" href="../../../resources/css/nboard.css">
 <jsp:include page="../includes/header.jsp"/>
+<script type="text/javascript">
+function registerSubmit(){
+	document.registerForm.submit();
+	$("select[nboard_category]").val();
+}
+</script>
 
 	 <section class="section__content">
+	<form action="/nboard/nboardRegister" name="registerForm" method="post">
 	  <div id="nboard-wrapper">
             <!-- /.row -->
+            <div id="nboard_upper"></div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <button type="button" onclick="" class="btn btn-default">등록</button>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" >
-                                <thead>
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>제목</th>
-                                        <th>작성자</th>
-                                        <th>작성시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                
-                             
-                                
-                                </tbody>
-                            </table>
+                            
+                            	<p><label>nboard_title</label>
+                            		<input name="nboard_title" value="${vo.nboard_title}"></p>
+                            	<p><label>nboard_content</label>
+                            		<textarea name=nboard_content>${vo.nboard_content }</textarea></p>
+                            	<p><label>user_id</label>
+                            		<input name="user_id" value="${vo.user_id }">
+                            	<p><label>category</label>
+                            		<select name="nboard_category" >
+                            			<option value="E">이벤트</option>
+                            			<option value="N">공지</option>
+                           				<option value="O">기타</option>
+									</select></p>
+                            	<p><label>file_pictureId</label>
+                            	<input name="file_pictureId" value="${vo.file_pictureId }"></p>
+                            	<p><label>file_public</label>
+                            	<input placeholder="잠긴글" name="nboard_public" value="${vo.nboard_public }"></p>
+                            	<input type="button" onClick="registerSubmit()" value="등록"> 
+                            
 						</div>	<!-- panel-body -->
 					</div>	<!-- panel panel-default -->
 				</div><!-- col-lg-12 -->
 			</div>	<!-- row -->
 			<!-- Heading -->
-
-		<!-- 페이징 소스 -->
-		<ul class="pagination">
-			<li><a href="#0">&lt;</a></li>
-			<li><a class="active" href="#0">1</a></li>
-			<li><a href="#0">2</a></li>
-			<li><a href="#0">3</a></li>
-			<li><a href="#0">4</a></li>
-			<li><a href="#0">&gt;</a></li>
-		</ul>
-		<!-- 페이징 끝 -->
+			
+		
 			
 		</div>	<!-- nboard-wrapper -->
+		</form>
 	</section>
 <jsp:include page="../includes/footer.jsp"/>

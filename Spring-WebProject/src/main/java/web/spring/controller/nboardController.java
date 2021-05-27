@@ -21,9 +21,9 @@ public class nboardController {
 	nboardService service;
 	
 	
-	@GetMapping("/nboard/get")
+	@GetMapping("/nboard/nboardGet")
 	public String get(Criteria cri, nboardVo vo, Model model) {
-		log.info("+++++++++++++++++++++++++++"+vo.getNboard_no());
+		log.info(vo.getNboard_no());
 		vo=service.get(vo.getNboard_no());
 		model.addAttribute("vo",vo);
 		return "nboard/nboardGet";
@@ -54,7 +54,7 @@ public class nboardController {
 		// 삭제 실패 -> 상세화면
 			resMsg = "게시글 삭제 처리에 실패 했습니다.";
 			rttr.addFlashAttribute("resMsg", resMsg);
-			rttr.addAttribute("bno", vo.getNboard_no());
+			rttr.addAttribute("Nboard_no", vo.getNboard_no());
 			rttr.addAttribute("pageNo",cri.getPageNo());
 			rttr.addAttribute("type",cri.getType());
 			rttr.addAttribute("keyword",cri.getKeyword());
@@ -65,10 +65,8 @@ public class nboardController {
 	
 	@PostMapping("/nboard/update")
 	public String editExe(Criteria cri, nboardVo vo, RedirectAttributes rttr) {
-		
 		int res = service.update(vo);
 		String resMsg = "";
-		
 		if(res>0) {
 			resMsg = "수정 되었습니다.";
 		} else {
@@ -76,11 +74,10 @@ public class nboardController {
 		}
 		
 		// 상세화면 이동시 필요한 파라메터를 세팅
-		rttr.addAttribute("bno", vo.getNboard_no());
+		rttr.addAttribute("Nboard_no", vo.getNboard_no());
 		rttr.addAttribute("pageNo",cri.getPageNo());
 		rttr.addAttribute("type",cri.getType());
 		rttr.addAttribute("keyword",cri.getKeyword());
-		
 		rttr.addFlashAttribute("resMsg",resMsg);
 		return "redirect:/nboard/nboardGet";
 	}//update
@@ -94,8 +91,7 @@ public class nboardController {
 		//모델에 담아서 화면에 전달
 		model.addAttribute("vo", vo);
 		log.info("============"+vo);
-		//리턴이 없으므로 /board/get(URL)로 페이지 연결
-		
+		//리턴이 없으므로 /nboard/nboardGet(URL)로 페이지 연결
 		return "/nboard/nboardUpdate";
 	}
 		//1. 등록페이지로 이동

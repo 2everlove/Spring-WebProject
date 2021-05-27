@@ -12,7 +12,7 @@ public class nboardVo {
 	String nboard_content;	//공지글 내용
 	Date nboard_regDate;		//공지글 등록일
 	Date nboard_updateDate; 	//공지글 수정일
-	String nboard_category;	//공지글 분류 'E' :이벤트 'S' : 세일
+	String nboard_category;	//공지글 분류 'E' : 이벤트 'N' : 공지 'O'  : 기타
 	String nboard_public;	//잠긴글 처리 'Y' : 잠김 'N' : 공개
 	String user_id;			//유저 아이디
 	String file_pictureId;	//썸네일 아이디

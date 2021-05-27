@@ -91,4 +91,18 @@ public class nboardTest {
 		vo.setNboard_public("Y");
 		mapper.nboardLock(vo);
 	}
+	@Test
+	public void addList() {
+		for(int i=0;i<=100;i++) {
+			nboardVo vo = new nboardVo();
+			vo.setFile_pictureId("testfile");
+			vo.setNboard_category("E");
+			vo.setNboard_content(i+"번 공지게시판 테스트입니다.");
+			vo.setNboard_public("N");
+			vo.setNboard_title(i+"번 공지글 제목");
+			vo.setUser_id("testuser");
+			service.insertNboard(vo);
+		}
+	}
+	
 }

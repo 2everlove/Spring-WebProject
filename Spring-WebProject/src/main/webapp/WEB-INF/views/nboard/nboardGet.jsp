@@ -1,52 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- nboard css -->
 <link rel="stylesheet" href="../../../resources/css/nboard.css">
 <jsp:include page="../includes/header.jsp"/>
+<script type="text/javascript">
+if('${resMsg}' != ''){
+	alert('${resMsg}');	
+}
+
+// 페이지로 이동
+function detailBtn(url){
+	document.detailForm.action=url;
+	document.detailForm.submit();
+}
+</script>
 
 	 <section class="section__content">
+	
 	  <div id="nboard-wrapper">
             <!-- /.row -->
+            <div id="nboard_upper"></div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <button type="button" onclick="" class="btn btn-default">등록</button>
+                            DataTables Advanced Tables
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" >
-                                <thead>
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>제목</th>
-                                        <th>작성자</th>
-                                        <th>작성시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                
-                             
-                                
-                                </tbody>
-                            </table>
-						</div>	<!-- panel-body -->
-					</div>	<!-- panel panel-default -->
+                            <div class="form-group">
+                                <label>제목</label>
+                                <input readonly class="form-control" value="${vo.nboard_title}">
+                            </div>
+                            <div class="form-group">
+                                <label>내용</label>
+                                <textarea readonly class="form-control" rows="3">${vo.nboard_content}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>작성자</label>
+                                <input readonly class="form-control" value="${vo.user_id}">
+                            </div>
+                            <div class="form-group">
+                                <label>등록시간</label>
+                                <input readonly class="form-control" value="${vo.nboard_regDate}">
+                            </div>
+                            <button type="button" onClick="detailBtn('/nboard/update')" class="btn btn-default">수정</button>
+							<button class="btn btn-default" onClick="detailBtn('/nboard/delete')">삭제</button>
+							<button class="btn btn-default" onClick="detailBtn('/nboard/nboardList')">목록</button>
+	
+						<form method="get" name="detailForm">
+							<input type="hidden" name=nboard_no value=${vo.nboard_no}>
+							<input type="hidden" name=pageNo value=${criteria.pageNo}>
+							<input type="hidden" name=type value=${criteria.type}>
+							<input type="hidden" name=keyword value=${criteria.keyword}>
+						</form>
+                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
 				</div><!-- col-lg-12 -->
 			</div>	<!-- row -->
 			<!-- Heading -->
-
-		<!-- 페이징 소스 -->
-		<ul class="pagination">
-			<li><a href="#0">&lt;</a></li>
-			<li><a class="active" href="#0">1</a></li>
-			<li><a href="#0">2</a></li>
-			<li><a href="#0">3</a></li>
-			<li><a href="#0">4</a></li>
-			<li><a href="#0">&gt;</a></li>
-		</ul>
-		<!-- 페이징 끝 -->
-			
+	
 		</div>	<!-- nboard-wrapper -->
+		
 	</section>
 <jsp:include page="../includes/footer.jsp"/>
