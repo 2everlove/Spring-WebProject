@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryBoardService;
+import web.spring.vo.InquiryBoardVO;
 
 
 
@@ -42,6 +44,15 @@ public class InquiryController {
 	public void inquiryRegister() {
 		
 	}
+	
+	@PostMapping("/inquiryRegister")
+	public String inquiryRegisterInsert(InquiryBoardVO vo) {
+		log.info(vo);
+		service.insertInquiry(vo);
+		return "redirect:/inquiry";
+	}
+	
+	
 	
 	
 

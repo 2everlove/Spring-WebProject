@@ -19,6 +19,12 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	public List<InquiryBoardVO> getInquiryBoardList() {
 		return mapper.getInquiryBoardList();
 	}
+
+
+	@Override
+	public int insertInquiry(InquiryBoardVO vo) {
+		return mapper.insertInquiry(vo);
+	}
 	
 
 }

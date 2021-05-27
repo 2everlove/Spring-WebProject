@@ -27,5 +27,18 @@ public class InquiryBoardMapperTests {
 		log.info(list);
 		
 	}
+	
+	@Test
+	public void getinquiryRegisterInsert() {
+		InquiryBoardVO vo = new InquiryBoardVO();
+		vo.setIboard_category("주문/배송");
+		vo.setIboard_title("테스트제목");
+		vo.setIboard_content("테스트내용");
+		vo.setIboard_public(1);
+		log.info(mapper.insertInquiry(vo));
+		
+	}
+	
+	
 
 }

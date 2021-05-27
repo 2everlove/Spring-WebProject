@@ -6,11 +6,20 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 
 </head>
+<script type="text/javascript">
+// 상세보기 이동
+function detail(bno){
+	document.listForm.action="/inquiryDetail";
+	document.listForm.iboard_no.value=iboard_no;
+	document.listForm.submit();
+}
+
+</script>
 <h1>게시판</h1>
 <div>
 	<div>
 		<div>
-			<table width="100%">
+			<table>
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -24,7 +33,7 @@
 					<c:forEach var="inquiryList1" items="${inquiryList}">
 						<tr>
 							<td>${inquiryList1.iboard_no }</td>
-							<td>${inquiryList1.iboard_title }</td>
+							<td onClick=detail(${inquiryList1.iboard_no})><a href="#">${inquiryList1.iboard_title }</a></td>
 							<td>${inquiryList1.iboard_category }</td>
 							<td>${inquiryList1.user_id }</td>
 							<td>${inquiryList1.iboard_regdate }</td>

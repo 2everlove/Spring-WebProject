@@ -9,6 +9,7 @@
 		resultType="web.spring.vo.InquiryBoardVO">
 		select * from INQUIRY_BOARD
 	</select>
+	<!-- 문의사항 리스트 불러오기 끝 -->
 
 	<!-- 문의사항 등록 -->
 	<insert id="insertInquiry">
@@ -17,8 +18,11 @@
 			order="BEFORE">
 			select IBOARD_SEQUENCE.nextval from dual
 		</selectKey>
-
-		insert into tbl_board (bno, title, content, writer, regdate, attachNo)
-		values (#{bno}, #{title}, #{content}, #{writer}, sysdate, #{attachNo})
+		insert into INQUIRY_BOARD (iboard_no, iboard_title, iboard_content,
+		iboard_category, iboard_public)
+		values
+		(#{iboard_no}, #{iboard_title}, #{iboard_content},
+		#{iboard_category}, #{iboard_public})
 	</insert>
+	<!-- 문의사항 등록 끝 -->
 </mapper>
