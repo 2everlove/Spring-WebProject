@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import web.spring.service.PaymentService;
+import web.spring.vo.OrderVo;
 import web.spring.vo.ProductVo;
 import web.spring.vo.UserVo;
 
@@ -22,9 +24,10 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/payment")
-	public String payment(Model model) {
+	public String payment(OrderVo ovo, Model model, RedirectAttributes rttr) {
+		int res = paymentService.insertOrder(ovo);
 		UserVo vo = paymentService.get("user01");
-		ProductVo pvo = paymentService.getProduct("product01");
+		ProductVo pvo = paymentService.getProduct("1");
 		model.addAttribute("vo", vo);
 		model.addAttribute("pvo", pvo);
 		return "/order/payment";
@@ -33,7 +36,7 @@ public class PaymentController {
 	@PostMapping("/paymentAction")
 	public String paymentAction(Model model) {
 		UserVo vo = paymentService.get("user01");
-		ProductVo pvo = paymentService.getProduct("product01");
+		ProductVo pvo = paymentService.getProduct("1");
 		model.addAttribute("vo", vo);
 		model.addAttribute("pvo", pvo);
 		return "/order/paymentAction";

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.spring.mapper.PaymentMapper;
+import web.spring.vo.OrderVo;
 import web.spring.vo.ProductVo;
 import web.spring.vo.UserVo;
 
@@ -21,6 +22,11 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public ProductVo getProduct(String product_id) {
 		return mapper.getProduct(product_id);
+	}
+
+	@Override
+	public int insertOrder(OrderVo ovo) {
+		return mapper.insertOrder(ovo);
 	}
 
 }

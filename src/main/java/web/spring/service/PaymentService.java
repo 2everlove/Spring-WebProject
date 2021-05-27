@@ -2,6 +2,7 @@ package web.spring.service;
 
 import org.springframework.stereotype.Service;
 
+import web.spring.vo.OrderVo;
 import web.spring.vo.ProductVo;
 import web.spring.vo.UserVo;
 
@@ -12,4 +13,5 @@ public interface PaymentService {
 	
 	public ProductVo getProduct(String product_id);
 	
+	public int insertOrder(OrderVo ovo);
 }
