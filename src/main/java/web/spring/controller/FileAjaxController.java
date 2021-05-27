@@ -18,7 +18,7 @@ import web.spring.service.FileService;
 
 @RestController
 @Log4j
-public class FileController {
+public class FileAjaxController {
 	
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;

@@ -63,7 +63,7 @@
 		            <div class="navbar__menu-right">
 		                <button class="navbar__menu__item-login"><i class="fas fa-sign-in-alt"></i>  로그인</button>
 		                <button class="navbar__menu__item-login"><i class="fas fa-users"></i>  회원가입</button>
-		                <button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button>
+		                <a href="/myPage/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
 		                <button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button>
 		                <button class="navbar__menu__item active"><i class="fas fa-hand-sparkles"></i> New</button>
 		                <button class="navbar__menu__item"><i class="fas fa-dollar-sign"></i>  Sale</button>

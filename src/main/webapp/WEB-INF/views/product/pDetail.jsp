@@ -29,6 +29,7 @@
         <div class="section__wrapper">
         	<div class="section__productsList">
 	        	<div class="detail__wrapper">
+	        	 
 	        		<img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products-detail">
 	        		<form action="/order/productOrder" method="post" class="detail__form">
 				    	<div>
@@ -45,8 +46,9 @@
 				    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_stocks}" var="stocks"></fmt:formatNumber>
 				    		<fmt:formatDate var="regdate" value="${pBoard.pboard_unit_regdate}" pattern="yy.MM.dd" timeZone="Asia/Seoul"/>
 				    		<fmt:formatDate var="updateDate" value="${pBoard.pboard_unit_updateDate}" pattern="yy.MM.dd" timeZone="Asia/Seoul"/>
-				    		<p>가격 ${price}
-				    		<p>재고 ${stocks}
+				    		<p>제품 <span>${productVO.product_name}</span>
+				    		<p>가격 <span>${price}</span>
+				    		<p>재고 <span> ${stocks}</span>
 				    		<p><span class="detail__count"><input type="text" name="order_totalcount" class="detail__count-input" value="1">
 					    			<span>
 					    				<button type="button" class="up-button"><i class="fas fa-chevron-up"></i></button>

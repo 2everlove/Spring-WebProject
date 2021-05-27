@@ -8,9 +8,11 @@
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
+    
         <!-- New -->
         <div class="section__wrapper">
         	<div class="section__productsList">
+        	
         	<c:choose>
         		<c:when test="${!empty pList}">
 		    		<c:forEach var="products" items="${pList}">
@@ -29,6 +31,7 @@
 						        	</c:if>
 						        </c:forEach>
 					        </div>
+					       
 					        <c:if test="${!empty pBList }">
 					        	<div class="seller__list">
 							        <c:forEach var="productSellers" items="${pBList}">

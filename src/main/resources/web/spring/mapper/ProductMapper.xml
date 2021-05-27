@@ -28,4 +28,22 @@
 	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
 		select * from products_info where product_id=#{product_id}
 	</select>
+	
+	<insert id="productInfoInsert">
+		insert into products_info(product_id, file_pictureId, product_manufacturer, product_name, product_category, product_color, product_description) 
+		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color}, #{product_description})
+	</insert>
+	
+	<delete id="productInfoDelete">
+		delete from products_info where product_id=#{product_id}
+	</delete>
+	
+	<select id="searchProductCategory" resultType="String">
+		select distinct code_value from code_info where code_type = #{code_type} and code_value like '%'||#{code_value}||'%'
+	</select>
+	
+	<insert id="insertCodeInfo">
+		insert into code_info(code_no, code_type, code_value) values(code_sequence.nextval, #{code_type}, #{code_value})
+	</insert>
+	
 </mapper>

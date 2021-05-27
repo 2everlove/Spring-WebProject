@@ -46,5 +46,15 @@ public class ProductServiceImpl implements ProductService{
 	public ProductVO getProductInfo(String product_id) {
 		return productMapper.getProductInfo(product_id);
 	}
+
+	@Override
+	public List<String> searchProductCategory(String code_type, String code_value) {
+		return productMapper.searchProductCategory(code_type, code_value);
+	}
+
+	@Override
+	public int insertCodeInfo(String code_type, String code_value) {
+		return productMapper.insertCodeInfo(code_type, code_value);
+	}
 	
 }

@@ -2,6 +2,7 @@ package web.spring.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import web.spring.vo.PBoardVO;
@@ -20,4 +21,8 @@ public interface ProductService {
 	public PBoardVO getProduct(String no);
 	
 	public ProductVO getProductInfo(String product_id);
+	
+	public List<String> searchProductCategory(String code_type, String code_value);
+	
+	public int insertCodeInfo(String code_type, String code_value);
 }

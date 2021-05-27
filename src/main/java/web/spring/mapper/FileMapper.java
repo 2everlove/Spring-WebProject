@@ -13,4 +13,8 @@ public interface FileMapper {
 	public List<FileVO> getListFile(String file_pictureId);
 	
 	public int fileDelete(@Param("file_pictureId")String file_pictureId,@Param("file_uuid") String file_uuid);
+	
+	public int fileInsert(FileVO fileVO);
+	
+	public String getFileSeq();
 }
