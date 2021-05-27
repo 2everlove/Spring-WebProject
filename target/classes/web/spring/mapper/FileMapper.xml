@@ -17,4 +17,8 @@
 	from common_file
 	where file_pictureId=#{file_pictureId}
 	</select>
+	
+	<delete id="fileDelete">
+	delete from common_file where file_uuid=#{file_uuid} and file_pictureId=#{file_pictureId}
+</delete>
 </mapper>

@@ -68,6 +68,14 @@
 		    			<li><a href="javascript:void(0)" role="presentation">Q&A</a></li>
 		    		</ul>
 		    	</div>
+		    	<div class="detail__description">
+		    	<c:if test="${!empty fileList}">
+		    		<c:forEach var="files" items="${fileList }">
+		    			<img id="detail__description-img"alt="${files.file_name}" src="/fileDisplay?file_name=${files.file_s_savePath}">		    		
+		    		</c:forEach>
+		    		${fileList }
+		    	</c:if>
+		    	</div>
 		    	
 	    	</div>
     	</div>

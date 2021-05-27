@@ -468,6 +468,18 @@ p{
 	 width: 170px;
 	 padding: 5px 0px;
 }
+.detail__description{
+	width: 750px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#detail__description-img{
+	width: 700px;
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+}
 
 
 /* footer */

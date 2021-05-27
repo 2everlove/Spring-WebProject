@@ -25,5 +25,10 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getListFile(file_pictureId);
 	}
 
+	@Override
+	public int fileDelete(String file_pictureId, String file_uuid) {
+		return fileMapper.fileDelete(file_pictureId, file_uuid);
+	}
+
 	
 }
