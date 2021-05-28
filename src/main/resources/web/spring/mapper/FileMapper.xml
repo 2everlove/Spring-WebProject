@@ -18,6 +18,14 @@
 		where file_pictureId=#{file_pictureId}
 	</select>
 	
+	<select id="getFileALL" resultType="web.spring.vo.FileVO">
+		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate
+        	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
+        	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
+		from common_file
+		where file_pictureId=#{file_pictureId}
+	</select>
+	
 	<delete id="fileDelete">
 		delete from common_file where file_uuid=#{file_uuid} and file_pictureId=#{file_pictureId}
 	</delete>

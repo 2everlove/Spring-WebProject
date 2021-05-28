@@ -12,5 +12,11 @@ public interface FileService {
 	
 	public List<FileVO> getListFile(String file_pictureId);
 	
+	public FileVO getFileALL(String file_pictureId);
+	
 	public int fileDelete(String file_pictureId, String file_uuid);
+	
+	public String getFileSeq();
+	
+	public int fileInsert(FileVO fileVO);
 }

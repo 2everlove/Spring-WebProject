@@ -30,5 +30,20 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.fileDelete(file_pictureId, file_uuid);
 	}
 
+	@Override
+	public String getFileSeq() {
+		return fileMapper.getFileSeq();
+	}
+
+	@Override
+	public int fileInsert(FileVO fileVO) {
+		return fileMapper.fileInsert(fileVO);
+	}
+
+	@Override
+	public FileVO getFileALL(String file_pictureId) {
+		return fileMapper.getFileALL(file_pictureId);
+	}
+
 	
 }

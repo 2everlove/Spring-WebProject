@@ -56,5 +56,25 @@ public class ProductServiceImpl implements ProductService{
 	public int insertCodeInfo(String code_type, String code_value) {
 		return productMapper.insertCodeInfo(code_type, code_value);
 	}
+
+	@Override
+	public List<ProductVO> searchManuCate(String product_manufacturer, String product_category) {
+		return productMapper.searchManuCate(product_manufacturer, product_category);
+	}
+
+	@Override
+	public int inserPBoard(PBoardVO pBoardVO) {
+		return productMapper.inserPBoard(pBoardVO);
+	}
+
+	@Override
+	public List<ProductVO> searchProductManuCate(String product_name) {
+		return productMapper.searchProductManuCate(product_name);
+	}
+
+	@Override
+	public ProductVO searchManufCategoty(String product_id) {
+		return productMapper.searchManufCategoty(product_id);
+	}
 	
 }

@@ -28,5 +28,12 @@ public interface ProductMapper {
 	
 	public int insertCodeInfo(@Param("code_type")String code_type, @Param("code_value") String code_value);
 	
+	public List<ProductVO> searchManuCate(@Param("product_manufacturer")String product_manufacturer, @Param("product_category") String product_category);
+	
+	public int inserPBoard(PBoardVO pBoardVO);
+	
+	public List<ProductVO> searchProductManuCate(@Param("product_name")String product_name);
+	
+	public ProductVO searchManufCategoty(@Param("product_id") String product_id);
 	
 }

@@ -492,6 +492,12 @@ p{
 	text-align: center;
 }
 
+/* 상품등록 */
+.search__wrapper{
+	width: 750px;
+	margin: 0 auto;
+}
+
 
 /* footer */
 .footer{
@@ -522,7 +528,7 @@ p{
 }
 .footer__language{
 	font-size: var(--font-large);
-	margin-top: 40px;
+	margin-top: 20px;
 	float: right;
 }
 .footer__language select{

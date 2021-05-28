@@ -25,4 +25,12 @@ public interface ProductService {
 	public List<String> searchProductCategory(String code_type, String code_value);
 	
 	public int insertCodeInfo(String code_type, String code_value);
+	
+	public List<ProductVO> searchManuCate(String product_manufacturer, String product_category);
+	
+	public int inserPBoard(PBoardVO pBoardVO);
+
+	public List<ProductVO> searchProductManuCate(String product_name);
+	
+	public ProductVO searchManufCategoty(String product_id);
 }

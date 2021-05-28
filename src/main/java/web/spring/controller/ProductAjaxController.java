@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.ProductService;
+import web.spring.vo.ProductVO;
 
 @RestController
 @Log4j
@@ -20,17 +21,47 @@ public class ProductAjaxController {
 	@Setter(onMethod_= @Autowired)
 	private ProductService productService;
 	
-	@GetMapping("/checkProduct/{code_type}/{code_value}")
-	public Map<String, Object> AjaxCheckProductInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
-		log.info(code_type+"\n"+code_value);
+	@GetMapping("/checkProduct/{product_manufacturer}/{product_category}")
+	public Map<String, Object> AjaxCheckProductInfo(@PathVariable("product_manufacturer")String product_manufacturer, @PathVariable("product_category")String product_category) {
+		log.info(product_manufacturer+"\n"+product_category);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> list = productService.searchProductCategory(code_type, code_value);
+		List<ProductVO> list = productService.searchManuCate(product_manufacturer, product_category);
 		if(list != null) {
 			if(list.size()>0) {
 				map.put("result", list);
 			} else {
 				map.put("result", "error");
 			}
+		} else {
+			map.put("result", "error");
+		}
+		return map;
+	}
+	
+	@GetMapping("/checkProduct/{product_name}")
+	public Map<String, Object> AjaxgetProductInfo(@PathVariable("product_name")String product_name) {
+		log.info("AjaxgetProductInfo"+product_name);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ProductVO> list = productService.searchProductManuCate(product_name);
+		if(list != null) {
+			if(list.size()>0) {
+				map.put("result", list);
+			} else {
+				map.put("result", "error");
+			}
+		} else {
+			map.put("result", "error");
+		}
+		return map;
+	}
+	
+	@GetMapping("/searchProductId/{product_id}")
+	public Map<String, Object> AjaxsearchManuCate(@PathVariable("product_id") String product_id) {
+		log.info("AjaxCheckProductInfo"+product_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		ProductVO list = productService.searchManufCategoty(product_id);
+		if(list != null) {
+			map.put("result", list);
 		} else {
 			map.put("result", "error");
 		}

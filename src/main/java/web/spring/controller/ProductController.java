@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -49,12 +50,16 @@ public class ProductController {
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
-			List<FileVO> fileList = fileService.getListFile(pBoard.getFile_pictureId());
+			FileVO fileList = fileService.getFileALL(pBoard.getFile_pictureId());
 			if(productVO != null) {
 				model.addAttribute("pBoard", pBoard);
 				model.addAttribute("productVO", productVO);
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
-				model.addAttribute("fileList", fileList);
+				if(fileList!=null) {
+					model.addAttribute("fileList", fileList);
+				} else {
+					model.addAttribute("fileList", "error");
+				}
 				return "/product/pDetail";
 			} else {
 				return "/error";
@@ -62,6 +67,13 @@ public class ProductController {
 		} else {
 			return "/error";
 		}
+	}
+	
+	@PostMapping("/product/insertProductBoard")
+	public String insertPBoard(PBoardVO pBoardVO) {
+		log.info(pBoardVO);
+		productService.inserPBoard(pBoardVO);
+		return "redirect:../myPage/myPage";
 	}
 	
 	@GetMapping("/product/productRegister")
