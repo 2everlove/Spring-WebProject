@@ -3,6 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+<<script type="text/javascript" >
+<!--
+
+//-->
+</script>
 <script type="text/javascript">
 	document.title='마이페이지 : widele';
 </script>

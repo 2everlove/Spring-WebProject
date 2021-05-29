@@ -40,6 +40,7 @@ public class ProductController {
 		List<FileVO> fileList = fileService.getTypeListFile(product_category);
 		log.info("pList...."+pList);
 		log.info("pBList...."+pBList);
+		log.info("fileList...."+fileList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);

@@ -23,7 +23,7 @@
         	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
         	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
 		from common_file
-		where file_pictureid in (select file_pictureid from products_info where product_category in (select product_category from product_board where product_category='tablet'))
+		where file_pictureid in (select file_pictureid from products_info where product_category in (select product_category from product_board where product_category=#{product_category}))
 	</select>
 	
 	<select id="getMainListFile" resultType="web.spring.vo.FileVO">

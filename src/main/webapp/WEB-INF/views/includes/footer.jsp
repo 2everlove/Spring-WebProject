@@ -34,5 +34,12 @@
     	</div>
     	
     </footer>
+    <!-- Arrow up -->
+    <button class="arrow-up">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>

@@ -3,12 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="./includes/header.jsp" %>
+
     <section class="section__content">
     
 		<div class="section__wrapper">
 			<c:if test="${!empty pBoardList}">
 				<!-- New -->
-	        	<div class="section__productsList">
+	        	<div class="section__productsList" id="new">
 		        	<div class="section__typoWrapper">
 			    		<div class="section__title">
 			    			<h1>New</h1>
@@ -18,7 +19,7 @@
 		        		</div>
 			   		</div>
 			   		
-			    	<div class="product__wrapper" id="new">
+			    	<div class="product__wrapper">
 					<c:forEach var="pBoard" items="${pBoardList}">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
@@ -39,7 +40,7 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
-											        <button class="new__shops">${user.user_id}</button>
+											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
 								        </c:if>
@@ -52,7 +53,7 @@
 		    	</div>
   					
 				<!-- Sale -->
-		   	    <div class="section__productsList">
+		   	    <div class="section__productsList" id="sale">
 			   	    <div class="section__typoWrapper">
 				    	<div class="section__title">
 				   			<h1>Sale</h1>
@@ -61,7 +62,7 @@
 				   			<h2><i class="fas fa-plus"></i></h2>
 				   		</div>
 			   		</div>
-			    	<div class="product__wrapper" id="sale">
+			    	<div class="product__wrapper">
 	    			<c:forEach var="pBoard" items="${pBoardList}">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
@@ -82,7 +83,7 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
-											        <button class="new__shops">${user.user_id}</button>
+											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
 								        </c:if>
@@ -94,7 +95,7 @@
 			    	</div>
 		    	</div>
 				<!-- Event -->
-		    	<div class="section__productsList">
+		    	<div class="section__productsList" id="event">
 			    	<div class="section__typoWrapper">
 			    		<div class="section__title">
 			    			<h1>Event</h1>
@@ -103,7 +104,7 @@
 				   			<h2><i class="fas fa-plus"></i></h2>
 				   		</div>
 			   		</div>
-			    	<div class="product__wrapper" id="event">
+			    	<div class="product__wrapper">
 		    		<c:forEach var="pBoard" items="${pBoardList}">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
@@ -124,7 +125,7 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
-											        <button class="new__shops">${user.user_id}</button>
+											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
 								        </c:if>
@@ -136,7 +137,7 @@
 			    	</div>
 		    	</div>
 				<!-- Recommend -->
-		    	<div class="section__productsList">
+		    	<div class="section__productsList"  id="recommend">
 		    	<div class="section__typoWrapper">
 		   			<div class="section__title">
 		    			<h1>Recommend</h1>
@@ -145,7 +146,7 @@
 			   			<h2><i class="fas fa-plus"></i></h2>
 			   		</div>
 		   		</div>
-		    	<div class="product__wrapper" id="recommend">
+		    	<div class="product__wrapper">
 		    		<c:forEach var="pBoard" items="${pBoardList}">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
@@ -166,7 +167,7 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
-											        <button class="new__shops">${user.user_id}</button>
+											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
 								        </c:if>
@@ -179,14 +180,15 @@
     		</div>
 
 			</c:if>
-        
-        
-	    	
-	   	    
-	    	
-	    	
-	    	
     	</div>
    	</section>
+   	
+   	   	    <!-- Arrow up -->
+    <button class="arrow-up">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
 
 <%@include file="./includes/footer.jsp" %>
+<script type="text/javascript" src="/resources/js/main-page.js">
+</script>

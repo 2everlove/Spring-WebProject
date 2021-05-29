@@ -51,11 +51,6 @@ public class FileServiceImpl implements FileService{
 	}
 
 	@Override
-	public List<FileVO> getMainListFile() {
-		return fileMapper.getMainListFile();
-	}
-
-	@Override
 	public List<FileVO> getPDetailThum(String pboard_unit_no) {
 		return fileMapper.getPDetailThum(pboard_unit_no);
 	}
@@ -63,6 +58,12 @@ public class FileServiceImpl implements FileService{
 	@Override
 	public List<FileVO> getPDetailDesc(String pboard_unit_no) {
 		return fileMapper.getPDetailDesc(pboard_unit_no);
+	}
+	
+	//메인
+	@Override
+	public List<FileVO> getMainListFile() {
+		return fileMapper.getMainListFile();
 	}
 
 	

@@ -20,6 +20,7 @@
 				    	<div class="type__product">
 				    	<c:forEach var="files" items="${fileList }">
 				    	<c:if test="${products.file_pictureId == files.file_pictureId }">
+				    	
 				    	<c:url value="/fileDisplay" var="url">
 				    		<c:param name="file_name" value="${files.file_s_savePath}"></c:param>
 				    	</c:url>
