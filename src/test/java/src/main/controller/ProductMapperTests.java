@@ -60,4 +60,15 @@ public class ProductMapperTests {
 	public void insertCodeTest() {
 		log.info(productMapper.insertCodeInfo("category", "computer"));
 	}
+	
+	//main---
+	
+	@Test
+	public void getMainPBoardList() {
+		log.info(productMapper.getMainPBoardList());
+	}
+	@Test
+	public void getMainProductList() {
+		log.info(productMapper.getMainProductList());
+	}
 }

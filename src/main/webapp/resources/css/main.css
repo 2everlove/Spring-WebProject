@@ -485,7 +485,7 @@ p{
 	text-align: center;
 }
 
-#detail__description-img{
+.detail__description-img{
 	width: 700px;
 	margin: 0 auto;
 	display: block;

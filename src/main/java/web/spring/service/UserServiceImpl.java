@@ -1,5 +1,7 @@
 package web.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO getUser(String user_id) {
 		return userMapper.getUser(user_id);
+	}
+
+	@Override
+	public List<UserVO> getUserList() {
+		return userMapper.getUserList();
 	}
 
 }

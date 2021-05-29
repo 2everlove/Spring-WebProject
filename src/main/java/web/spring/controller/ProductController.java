@@ -37,9 +37,12 @@ public class ProductController {
 		productService.getTypeList(product_category);
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
+		List<FileVO> fileList = fileService.getTypeListFile(product_category);
+		log.info("pList...."+pList);
 		log.info("pBList...."+pBList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("search", product_category);
 		return "/product/typeList";
 	}
@@ -50,16 +53,14 @@ public class ProductController {
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
-			FileVO fileList = fileService.getFileALL(pBoard.getFile_pictureId());
+			List<FileVO> fileThumList = fileService.getPDetailThum(pBoard.getPboard_unit_no());
+			List<FileVO> fileDescList = fileService.getPDetailDesc(pBoard.getPboard_unit_no());
 			if(productVO != null) {
 				model.addAttribute("pBoard", pBoard);
 				model.addAttribute("productVO", productVO);
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
-				if(fileList!=null) {
-					model.addAttribute("fileList", fileList);
-				} else {
-					model.addAttribute("fileList", "error");
-				}
+				model.addAttribute("fileThumList", fileThumList);
+				model.addAttribute("fileDescList", fileDescList);
 				return "/product/pDetail";
 			} else {
 				return "/error";

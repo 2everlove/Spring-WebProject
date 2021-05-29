@@ -36,4 +36,8 @@ public interface ProductMapper {
 	
 	public ProductVO searchManufCategoty(@Param("product_id") String product_id);
 	
+	//main 페이지------------
+	public List<PBoardVO> getMainPBoardList();
+	
+	public List<ProductVO> getMainProductList();
 }

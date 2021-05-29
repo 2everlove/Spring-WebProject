@@ -49,13 +49,13 @@
    	             <div class="navbar__wrapper-letf">
 	             	<div class="navbar__menu-left">
 	             		<ul class="category__list">
-	             			<li class="list"><a href="/type/tablet" >휴대폰</a></li>
-	             			<li class="list"><a href="/computer">컴퓨터</a></li>
-	             			<li class="list"><a href="/notebook">노트북</a></li>
-	             			<li class="list"><a href="/life">생활가전</a></li>
-	             			<li class="list"><a href="/video">영상가전</a></li>
-	             			<li class="list"><a href="/sound">음향가전</a></li>
-	             			<li class="list"><a href="/software">소프트웨어</a></li>
+	             			<li class="list"><a href="/type/tablet" >태블릿</a></li>
+	             			<li class="list"><a href="/type/computer">컴퓨터</a></li>
+	             			<li class="list"><a href="/type/notebook">노트북</a></li>
+	             			<li class="list"><a href="/type/life">생활가전</a></li>
+	             			<li class="list"><a href="/type/video">영상가전</a></li>
+	             			<li class="list"><a href="/type/sound">음향가전</a></li>
+	             			<li class="list"><a href="/type/software">소프트웨어</a></li>
              			</ul>
 		            </div>
 	             </div>

@@ -117,7 +117,7 @@
 					//만약 이미지면 이미지 보여줌
 					if(data.file_type=='Y'){
 						result += "<li>"
-									+"<img src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'><br>"
+									+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'><br>"
 									+"<a href=/fileDisplay?file_name="+file_savePath+" download="+data.file_name+">"
 									+data.file_name+"</a>"
 									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer'>❌</span></li>";

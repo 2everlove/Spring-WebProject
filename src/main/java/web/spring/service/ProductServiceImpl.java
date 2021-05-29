@@ -77,4 +77,15 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.searchManufCategoty(product_id);
 	}
 	
+	//메인
+	@Override
+	public List<PBoardVO> getMainPBoardList() {
+		return productMapper.getMainPBoardList();
+	}
+
+	@Override
+	public List<ProductVO> getMainProductList() {
+		return productMapper.getMainProductList();
+	}
+	
 }

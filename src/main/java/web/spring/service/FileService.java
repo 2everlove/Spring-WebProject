@@ -19,4 +19,13 @@ public interface FileService {
 	public String getFileSeq();
 	
 	public int fileInsert(FileVO fileVO);
+	
+	public List<FileVO> getTypeListFile(String product_category);
+	
+	public List<FileVO> getPDetailThum(String pboard_unit_no);//pBoard no로 product의 이미지
+	
+	public List<FileVO> getPDetailDesc(String pboard_unit_no);//pBoard no로 board의 상세이미지
+	
+	//메인
+	public List<FileVO> getMainListFile();
 }

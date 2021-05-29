@@ -33,4 +33,9 @@ public interface ProductService {
 	public List<ProductVO> searchProductManuCate(String product_name);
 	
 	public ProductVO searchManufCategoty(String product_id);
+	
+	//메인 ---
+	public List<PBoardVO> getMainPBoardList();
+	
+	public List<ProductVO> getMainProductList();
 }

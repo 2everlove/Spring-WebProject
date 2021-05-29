@@ -25,7 +25,7 @@ public class FileMapperTests {
 	
 	@Test 
 	public void insertFeil() {
-		FileVO fileVO = new FileVO();
+		FileVO fileVO = new FileVO(null, null, null);
 		fileVO.setFile_name("file_name.jpg");
 		fileVO.setFile_pictureId(fileMapper.getFileSeq());
 		fileVO.setFile_type("file_type");
@@ -38,6 +38,15 @@ public class FileMapperTests {
 	@Test
 	public void deleteFile() {
 		log.info(fileMapper.fileDelete("24", "file_uuid"));
+	}
+	
+	@Test
+	public void product_category() {
+		log.info(fileMapper.getTypeListFile("tablet"));
+	}
+	@Test
+	public void getMainListFile() {
+		log.info(fileMapper.getMainListFile());
 	}
 	
 }

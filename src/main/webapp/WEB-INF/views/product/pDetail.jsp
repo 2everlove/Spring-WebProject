@@ -22,58 +22,9 @@
 				$("input[name=order_totalcount]").val(totalcount);
 		});
 		
-		if("${fileList}"!=""){
-			viewFile();
-		}
+		
 	});
 	
-	
-	//파일view
-	function viewFile(){
-		$.ajax({
-			url:'/fileUploadAjax/'+'${fileList.file_pictureId}',
-			method : 'get',
-			dataType : 'json',
-			success : function(datas){
-				let result ="";
-				$.each(datas, function(i, data){
-					console.log(data);
-					//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
-					
-					var file_s_savePath = encodeURIComponent(data.file_s_savePath);
-					var file_savePath = encodeURIComponent(data.file_savePath);
-					console.log(file_s_savePath);
-					console.log(data.file_s_savePath);
-					
-					console.log("인코딩 후 : "+file_savePath);
-					let fName = data.file_name;
-					//만약 이미지면 이미지 보여줌
-					if(data.file_type=='Y'){
-						result += "<li>"
-									+"<img id='detail__description-img' src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'></li>";
-					} else {
-						//이미지가 아니면 파일이름을 출력
-						result += "<li>"
-									+"<a href=/fileDisplay?file_name="+file_savePath+" download='"+fName +"'></li>";
-					}
-					
-				});
-				if(datas.length == 0){
-					alert(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색해주세요.');
-					$('#file_pictureId').val("");
-					$('#file_pictureId').select();
-				}
-				$('#fileList').html(result);
-				if($(location).attr('pathname').match('/board/get')){
-					$('span[data-type=image]').remove();
-				}
-				
-			},
-			error : function(){
-				
-			}
-		});
-	}
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
@@ -81,8 +32,13 @@
         <div class="section__wrapper">
         	<div class="section__productsList">
 	        	<div class="detail__wrapper">
+	        	 <c:forEach var="fileThum" items="${fileThumList }">
+	        	 	<c:url value="/fileDisplay" var="urlThum">
+			    		<c:param name="file_name" value="${fileThum.file_s_savePath}"></c:param>
+			    	</c:url>
+	        		<img src="${urlThum }" class="thumnail__products-detail">
+	        	 </c:forEach>
 	        	 
-	        		<img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products-detail">
 	        		<form action="/order/productOrder" method="post" class="detail__form">
 				    	<div>
 				    		<input type="hidden" value="${pBoard.pboard_unit_no}" name="pboard_unit_no">
@@ -124,7 +80,12 @@
 		    	</div>
 		    	<div class="detail__description">
 		    		<ul id="fileList">
-			
+						<c:forEach var="fileDesc" items="${fileDescList }">
+							<c:url value="/fileDisplay" var="urlDesc">
+					    		<c:param name="file_name" value="${fileDesc.file_savePath}"></c:param>
+					    	</c:url>
+					    	<img src="${urlDesc}" class='detail__description-img' >
+						</c:forEach>
 					</ul>
 		    	</div>
 		    	

@@ -69,4 +69,19 @@
    		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId})
 	</insert>
 	
+	<!-- main -->
+	
+	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
+		select pboard.* from (select board.*, row_number() over(partition by product_id order by dbms_random.random) each_rank from product_board board) pboard where each_rank='1'
+	</select>
+	
+	<select id="getMainProductList" resultType="web.spring.vo.ProductVO">
+		select * from products_info 
+			where product_id in (
+				select pboard.product_id from (
+					select board.*, row_number() over(partition by product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
+						from product_board board) 
+					pboard where each_rank='1')
+	</select>
+	
 </mapper>

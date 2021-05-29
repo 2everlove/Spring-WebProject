@@ -45,5 +45,25 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getFileALL(file_pictureId);
 	}
 
+	@Override
+	public List<FileVO> getTypeListFile(String product_category) {
+		return fileMapper.getTypeListFile(product_category);
+	}
+
+	@Override
+	public List<FileVO> getMainListFile() {
+		return fileMapper.getMainListFile();
+	}
+
+	@Override
+	public List<FileVO> getPDetailThum(String pboard_unit_no) {
+		return fileMapper.getPDetailThum(pboard_unit_no);
+	}
+
+	@Override
+	public List<FileVO> getPDetailDesc(String pboard_unit_no) {
+		return fileMapper.getPDetailDesc(pboard_unit_no);
+	}
+
 	
 }
