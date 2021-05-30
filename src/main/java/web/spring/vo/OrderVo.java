@@ -3,7 +3,7 @@ package web.spring.vo;
 import lombok.Data;
 
 @Data
-public class OrderVo {
+public class OrderVO {
 	
 	String order_id;
 	String order_address;

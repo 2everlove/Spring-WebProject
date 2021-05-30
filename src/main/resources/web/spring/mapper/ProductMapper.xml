@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.ProductMapper">
+	<select id="getProductList" resultType="web.spring.vo.ProductVO">
+		select * from products_info
+	</select>
+	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
+		select rownum num, pboard.* from (
+			select board.*, rank() over(partition by product_id order by pboard_unit_price) each_rank from (
+    			select * from product_board where product_id in(
+        			select product_id from products_info where product_category=#{product_category}) 
+        		) board
+        	) pboard where each_rank between 1 and 5
+	</select>
+	
+	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
+		select rownum num, board.* from (select pboard.* from product_board pboard order by TO_NUMBER(pboard_unit_price) asc) board
+	</select>
+	
+	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_category=#{product_category}
+	</select>
+	
+	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
+		select * from product_board where pboard_unit_no=#{pboard_unit_no}
+	</select>
+	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_id=#{product_id}
+	</select>
+	
+	<insert id="productInfoInsert">
+		insert into products_info(product_id, file_pictureId, product_manufacturer, product_name, product_category, product_color, product_description) 
+		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color}, #{product_description})
+	</insert>
+	
+	<delete id="productInfoDelete">
+		delete from products_info where product_id=#{product_id}
+	</delete>
+	
+	<select id="searchProductCategory" resultType="String">
+		select distinct code_value from code_info where code_type = #{code_type} and code_value like '%'||#{code_value}||'%'
+	</select>
+	
+	<insert id="insertCodeInfo">
+		insert into code_info(code_no, code_type, code_value) values(code_sequence.nextval, #{code_type}, #{code_value})
+	</insert>
+	
+</mapper>

@@ -15,7 +15,7 @@
 		    	<div class="product__wrapper" id="new">
 			    	<div class="new__product">
 			    		<a href="#">
-					        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products" onclick="location.href='payment'">
+					        <img src="/resources/images/Apple/Tablet/ipad4.png" class="thumnail__products" onclick="location.href='pDetail'">
 					        <h1 class="new__title">아이패드4</h1>
 					        <h3 class="new__description">매우 빠른 A14 바이오닉(Bionic) 프로세서, Usb-c 타입</h3>
 					        <h2 class="new__price"><span>40000</span>원</h2>

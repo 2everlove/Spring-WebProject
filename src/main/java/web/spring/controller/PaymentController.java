@@ -5,12 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import web.spring.service.PaymentService;
-import web.spring.vo.OrderVo;
-import web.spring.vo.ProductVo;
-import web.spring.vo.UserVo;
+import web.spring.service.ProductService;
+import web.spring.vo.OrderVO;
+import web.spring.vo.PBoardVO;
+import web.spring.vo.UserVO;
 
 @Controller
 public class PaymentController {
@@ -18,27 +18,22 @@ public class PaymentController {
 	@Autowired
 	PaymentService paymentService;
 	
-	@GetMapping("/main")
-	public String main() {
-		return "/main/main";
-	}
+	@Autowired
+	ProductService productService;
 	
-	@GetMapping("/payment")
-	public String payment(OrderVo ovo, Model model, RedirectAttributes rttr) {
-		int res = paymentService.insertOrder(ovo);
-		UserVo vo = paymentService.get("user01");
-		ProductVo pvo = paymentService.getProduct("1");
-		model.addAttribute("vo", vo);
-		model.addAttribute("pvo", pvo);
+	@PostMapping("/payment")
+	public String payment(Model model, PBoardVO pBoard) {
+		UserVO uvo = paymentService.get("user01");
+		pBoard = paymentService.getProduct(pBoard.getPboard_unit_no());
+		model.addAttribute("uvo", uvo);
+		model.addAttribute("pBoard", pBoard);
 		return "/order/payment";
 	}
 	
-	@PostMapping("/paymentAction")
-	public String paymentAction(Model model) {
-		UserVo vo = paymentService.get("user01");
-		ProductVo pvo = paymentService.getProduct("1");
-		model.addAttribute("vo", vo);
-		model.addAttribute("pvo", pvo);
+	@PostMapping("/productOrder")
+	public String paymentAction(Model model, OrderVO ovo) {
+		int res = paymentService.insertOrder(ovo);
+		model.addAttribute("ovo", ovo);
 		return "/order/paymentAction";
 	}
 	

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.FileMapper">
+	<select id="getFile" resultType="web.spring.vo.FileVO">
+		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate
+        	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
+        	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
+		from common_file
+		where file_pictureId=#{file_pictureId} and file_uuid=#{file_uuid}
+	</select>
+	
+	<select id="getListFile" resultType="web.spring.vo.FileVO">
+		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate
+        	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
+        	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
+		from common_file
+		where file_pictureId=#{file_pictureId}
+	</select>
+	
+	<delete id="fileDelete">
+		delete from common_file where file_uuid=#{file_uuid} and file_pictureId=#{file_pictureId}
+	</delete>
+	
+	<select id="getFileSeq" resultType="String">
+		select file_sequence.nextval from dual
+	</select>
+	
+	<insert id="fileInsert">
+		insert into common_file(file_pictureId, file_name, file_uuid, file_uploadPath, file_type, file_usingType) 
+    	values (#{file_pictureId}, #{file_name}, #{file_uuid}, #{file_uploadPath}, #{file_type}, #{file_usingType})
+	</insert>
+</mapper>

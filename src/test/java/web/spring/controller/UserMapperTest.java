@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.mapper.PaymentMapper;
-import web.spring.vo.OrderVo;
+import web.spring.vo.OrderVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -30,7 +30,7 @@ public class UserMapperTest {
 	
 	@Test
 	public void insertOrderTest() {
-		OrderVo vo = new OrderVo();
+		OrderVO vo = new OrderVO();
 		
 		vo.setOrder_address("test");
 		vo.setOrder_name("test");

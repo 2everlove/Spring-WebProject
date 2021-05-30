@@ -6,11 +6,21 @@
 
 <mapper namespace="web.spring.mapper.PaymentMapper">
 
-	<select id="get" resultType="web.spring.vo.UserVo">
+	<select id="get" resultType="web.spring.vo.UserVO">
 		select user_name, user_address from user_info where user_id = #{user_id}
 	</select>
 	
-	<select id="getProduct" resultType="web.spring.vo.ProductVo">
-		select pboard_unit_price, product_id from product_board where product_id = #{product_id}
+	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
+		select pboard_unit_price, pboard_unit_stocks, pboard_unit_updateDate, pboard_unit_regdate from product_board where pboard_unit_no = #{pboard_unit_no}
 	</select>
+	
+	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_id=#{product_id}
+	</select>
+	
+	<insert id="insertOrder">
+		<selectKey resultType="int" order="AFTER" keyProperty="order_id">select order_sequence from dual</selectKey>
+		insert into order_board (order_id, order_address, order_name, order_status, user_id, product_id, pboard_unit_no, order_totalprice, order_totalcount)
+		values (order_sequence.nextval , #{user_address}, #{user_name}, '1', #{user_id}, #{product_id}, #{pboard_unit_no}, #{order_totalprice}, #{order_totalcount});
+	</insert>
 </mapper>
