@@ -23,7 +23,9 @@
 <!-- prefix-free -->
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>
+<script type="text/javascript">
 
+</script>
 </head>
 <body>
     <header id="header">
@@ -35,10 +37,12 @@
 	            <div class="navbar__log">
 	                <a href="/main"><i class="fab fa-slideshare"></i>widele</a>
 	            </div>
-	            <div class="navbar__search">
-	                <input type="text" name="search" id="navbar__search__iput">
-	                <button type="button" id="navbar__search__button"><i class="fas fa-search"></i></button>
-	            </div>
+	            <form action="/search" method="get">
+		            <div class="navbar__search">
+		                <input type="text" name="product_search" id="navbar__search__iput">
+		                <button type="submit" id="navbar__search__button"><i class="fas fa-search"></i></button>
+		            </div>
+	            </form>
 	            <!-- <div class="navbar__relatedTags">
 	            	추천 검색어
 	            	<ul>

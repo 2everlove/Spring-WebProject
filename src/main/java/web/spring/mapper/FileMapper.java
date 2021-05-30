@@ -26,6 +26,9 @@ public interface FileMapper {
 	
 	public String getFileSeq();
 	
+	//검색
+	public List<FileVO> getSearchListFile(String product_search);
+	
 	//메인
 	public List<FileVO> getMainListFile();
 	

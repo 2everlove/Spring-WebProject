@@ -25,6 +25,15 @@
 		from common_file
 		where file_pictureid in (select file_pictureid from products_info where product_category in (select product_category from product_board where product_category=#{product_category}))
 	</select>
+	<select id="getSearchListFile" resultType="web.spring.vo.FileVO">
+		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate
+        	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
+        	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
+		from common_file
+		where file_pictureid in (select file_pictureid from products_info where product_id in( select product_id from (
+   			select pboard.*, product_manufacturer||' '||product_category||' '||product_name product_search1, product_manufacturer||' '||product_name product_search2, product_name||' '||product_category||' '||product_manufacturer product_search3, product_name||' '||product_manufacturer||' '||product_category product_search4 from products_info pboard
+		) where product_search1 like '%'||#{product_search}||'%' or product_search2 like '%'||#{product_search}||'%' or product_search3 like '%'||#{product_search}||'%' or product_search4 like '%'||#{product_search}||'%'))
+	</select>
 	
 	<select id="getMainListFile" resultType="web.spring.vo.FileVO">
 		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate

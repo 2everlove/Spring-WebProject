@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -46,6 +47,23 @@ public class MainController {
 	@GetMapping("/myPage/myPage")
 	public void getMyPage() {
 		log.info("mypage.....");
+	}
+	
+	@GetMapping("/search")
+	public String getSearch(Model model, String product_search) {
+		if(!product_search.equals("")) {
+			List<ProductVO> pList = productService.getSearchProductList(product_search);
+			List<PBoardVO> pBList = productService.getSearchBoardList(product_search);
+			List<FileVO> fileList = fileService.getSearchListFile(product_search);
+			model.addAttribute("pList", pList);
+			model.addAttribute("pBList", pBList);
+			model.addAttribute("fileList", fileList);
+			model.addAttribute("searchValue", product_search);
+		} else {
+			model.addAttribute("error", "");
+			model.addAttribute("search", product_search);
+		}
+		return "/product/SearchList";
 	}
 	
 }

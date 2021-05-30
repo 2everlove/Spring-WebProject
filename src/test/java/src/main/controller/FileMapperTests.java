@@ -48,5 +48,9 @@ public class FileMapperTests {
 	public void getMainListFile() {
 		log.info(fileMapper.getMainListFile());
 	}
+	@Test
+	public void getSearchListFile() {
+		log.info(fileMapper.getSearchListFile("ta"));
+	}
 	
 }

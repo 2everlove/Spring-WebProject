@@ -77,6 +77,18 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.searchManufCategoty(product_id);
 	}
 	
+	//검색
+
+	@Override
+	public List<ProductVO> getSearchProductList(String product_search) {
+		return productMapper.getSearchProductList(product_search);
+	}
+
+	@Override
+	public List<PBoardVO> getSearchBoardList(String product_search) {
+		return productMapper.getSearchBoardList(product_search);
+	}
+	
 	//메인
 	@Override
 	public List<PBoardVO> getMainPBoardList() {
@@ -87,5 +99,6 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductVO> getMainProductList() {
 		return productMapper.getMainProductList();
 	}
+
 	
 }

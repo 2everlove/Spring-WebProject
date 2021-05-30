@@ -14,6 +14,24 @@
         	) pboard where each_rank between 1 and 5
 	</select>
 	
+	
+	<select id="getSearchProductList" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_id in( select product_id from (
+   			select pboard.*, product_manufacturer||' '||product_category||' '||product_name product_search1, product_manufacturer||' '||product_name product_search2, product_name||' '||product_category||' '||product_manufacturer product_search3, product_name||' '||product_manufacturer||' '||product_category product_search4 from products_info pboard
+		) where product_search1 like '%'||#{product_search}||'%' or product_search2 like '%'||#{product_search}||'%' or product_search3 like '%'||#{product_search}||'%' or product_search4 like '%'||#{product_search}||'%')
+	</select>
+	
+	<select id="getSearchBoardList" resultType="web.spring.vo.PBoardVO">
+		select rownum num, pboard.* from (
+			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+    			select * from product_board where product_id in(
+        			select product_id from products_info where product_id in ( select product_id from (
+   			select pboard.*, product_manufacturer||' '||product_category||' '||product_name product_search1, product_manufacturer||' '||product_name product_search2, product_name||' '||product_category||' '||product_manufacturer product_search3, product_name||' '||product_manufacturer||' '||product_category product_search4 from products_info pboard
+		) where product_search1 like '%'||#{product_search}||'%' or product_search2 like '%'||#{product_search}||'%' or product_search3 like '%'||#{product_search}||'%' or product_search4 like '%'||#{product_search}||'%')) 
+        		) board
+        	) pboard where each_rank between 1 and 5
+	</select>
+	
 	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, board.* from (select pboard.* from product_board pboard order by TO_NUMBER(pboard_unit_price) asc) board
 	</select>

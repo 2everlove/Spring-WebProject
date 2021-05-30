@@ -2,7 +2,6 @@ package web.spring.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import web.spring.vo.PBoardVO;
@@ -33,6 +32,11 @@ public interface ProductService {
 	public List<ProductVO> searchProductManuCate(String product_name);
 	
 	public ProductVO searchManufCategoty(String product_id);
+	
+	//검색
+	public List<ProductVO> getSearchProductList(String product_search);
+	
+	public List<PBoardVO> getSearchBoardList(String product_search);
 	
 	//메인 ---
 	public List<PBoardVO> getMainPBoardList();

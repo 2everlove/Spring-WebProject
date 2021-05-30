@@ -60,11 +60,19 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getPDetailDesc(pboard_unit_no);
 	}
 	
+	//검색
+	@Override
+	public List<FileVO> getSearchListFile(String product_search) {
+		return fileMapper.getSearchListFile(product_search);
+	}
+	
 	//메인
 	@Override
 	public List<FileVO> getMainListFile() {
 		return fileMapper.getMainListFile();
 	}
+
+	
 
 	
 }

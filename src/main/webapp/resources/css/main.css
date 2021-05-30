@@ -293,7 +293,7 @@ p{
 /* section */
 
 .section__wrapper{
-	width: 800px;
+	display: block;
 	margin: 0 auto;
 }
 .section__productsList{
@@ -301,6 +301,7 @@ p{
 	height: 15%;
 	width: 95%;
 	float: left;
+	margin: 0 auto;
 }
 
 .section__myPage{
@@ -530,6 +531,7 @@ p{
 }
 
 .footer__wrapper{
+	min-width: 600px;
 	padding-top: 30px;
 	margin: 0 auto;
 	width: 50%
@@ -566,8 +568,8 @@ p{
 /* top */
 .arrow-up{
     position: fixed;
-    bottom: 82px;
-    right: 50px;
+    bottom: 52px;
+    right: 10px;
     width: 70px;
     height: 70px;
     font-size: 50px;

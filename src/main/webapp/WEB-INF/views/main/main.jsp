@@ -114,4 +114,8 @@
 
 
 <%@include file="../includes/footer.jsp" %>
+<script type="text/javascript">
+<!--
 
+//-->
+</script>

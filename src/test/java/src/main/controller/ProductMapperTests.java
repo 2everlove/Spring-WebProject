@@ -71,4 +71,13 @@ public class ProductMapperTests {
 	public void getMainProductList() {
 		log.info(productMapper.getMainProductList());
 	}
+	
+	@Test
+	public void getSearchBoardList() {
+		log.info(productMapper.getSearchBoardList("ta"));
+	}
+	@Test
+	public void getSearchProductList() {
+		log.info(productMapper.getSearchProductList("ta"));
+	}
 }
