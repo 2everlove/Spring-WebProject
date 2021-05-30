@@ -76,6 +76,16 @@ public class ProductServiceImpl implements ProductService{
 	public ProductVO searchManufCategoty(String product_id) {
 		return productMapper.searchManufCategoty(product_id);
 	}
+
+	@Override
+	public List<ProductVO> getCondList(String pboard_unit_condition) {
+		return productMapper.getCondList(pboard_unit_condition);
+	}
+
+	@Override
+	public List<PBoardVO> getCondBoardList(String pboard_unit_condition) {
+		return productMapper.getCondBoardList(pboard_unit_condition);
+	}
 	
 	//검색
 
@@ -99,6 +109,7 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductVO> getMainProductList() {
 		return productMapper.getMainProductList();
 	}
+
 
 	
 }

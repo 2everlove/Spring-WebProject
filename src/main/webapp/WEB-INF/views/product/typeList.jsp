@@ -5,6 +5,14 @@
 <%@include file="../includes/header.jsp" %>
 <script type="text/javascript">
 	document.title='${search} : widele';
+	$(document).ready(function(){
+		let searchValue = "${search}";
+		
+		if(searchValue!=""){
+			$("#navbar__search__iput").val(searchValue);
+		}
+			
+	});
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">

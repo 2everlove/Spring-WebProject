@@ -26,6 +26,8 @@ public interface FileService {
 	
 	public List<FileVO> getPDetailDesc(String pboard_unit_no);//pBoard no로 board의 상세이미지
 	
+	public List<FileVO> getCondListFile(String pboard_unit_condition);
+	
 	//검색
 	public List<FileVO> getSearchListFile(String product_search);
 	

@@ -25,6 +25,14 @@
 		from common_file
 		where file_pictureid in (select file_pictureid from products_info where product_category in (select product_category from product_board where product_category=#{product_category}))
 	</select>
+	
+	<select id="getCondListFile" resultType="web.spring.vo.FileVO">
+		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate
+        	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
+        	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
+		from common_file
+		where file_pictureid in (select file_pictureid from products_info where product_id in (select product_id from product_board where pboard_unit_condition=#{pboard_unit_condition}))
+	</select>
 	<select id="getSearchListFile" resultType="web.spring.vo.FileVO">
 		select file_pictureId,file_uuid,file_uploadPath,file_name,file_type,file_regdate
         	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath

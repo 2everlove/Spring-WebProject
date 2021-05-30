@@ -44,13 +44,16 @@ public class MainController {
 		log.info("main...........");
 	}
 	
-	@GetMapping("/myPage/myPage")
-	public void getMyPage() {
+	@GetMapping("/myPage")
+	public String getMyPage() {
 		log.info("mypage.....");
+		return "/myPage/myPage";
 	}
 	
 	@GetMapping("/search")
 	public String getSearch(Model model, String product_search) {
+		String tmp = product_search; //대문자 검색 내용 넘겨주기
+		product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
 		if(!product_search.equals("")) {
 			List<ProductVO> pList = productService.getSearchProductList(product_search);
 			List<PBoardVO> pBList = productService.getSearchBoardList(product_search);
@@ -58,12 +61,35 @@ public class MainController {
 			model.addAttribute("pList", pList);
 			model.addAttribute("pBList", pBList);
 			model.addAttribute("fileList", fileList);
-			model.addAttribute("searchValue", product_search);
+			model.addAttribute("search", tmp);
 		} else {
 			model.addAttribute("error", "");
-			model.addAttribute("search", product_search);
+			model.addAttribute("search", tmp);
 		}
-		return "/product/SearchList";
+		return "/product/typeList";
+	}
+	
+	@GetMapping("/cond/{pboard_unit_condition}")
+	public String getType(@PathVariable("pboard_unit_condition") String pboard_unit_condition, Model model) {
+		log.info("type.....");
+		productService.getTypeList(pboard_unit_condition);
+		List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
+		List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
+		List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
+		log.info("pList...."+pList);
+		log.info("pBList...."+pBList);
+		log.info("fileList...."+fileList);
+		model.addAttribute("pList", pList);
+		model.addAttribute("pBList", pBList);
+		model.addAttribute("fileList", fileList);
+		if(pboard_unit_condition.equals("0")) {
+			model.addAttribute("search", "New");
+		} else if (pboard_unit_condition.equals("1")) {
+			model.addAttribute("search", "Sale");
+		} else if (pboard_unit_condition.equals("2")) {
+			model.addAttribute("search", "event");
+		}
+		return "/product/typeList";
 	}
 	
 }

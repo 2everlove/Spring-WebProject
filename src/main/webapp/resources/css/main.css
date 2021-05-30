@@ -30,8 +30,8 @@
 
     /* Font size */
     --font-large: 20px;
-    --font-medium: 15px;
-    --font-regular: 13px;
+    --font-medium: 16px;
+    --font-regular: 14px;
     --font-small: 10px;
     --font-micro: 8px;
 
@@ -584,4 +584,21 @@ p{
 .arrow-up.visible{
     opacity: 1;
     pointer-events: visible;
+}
+
+/* tablet 768px */
+@media screen and (max-width: 786px){
+	:root{
+     /* Font size */
+	    --font-large: 30px;
+	    --font-medium: 18px;
+	    --font-regular: 16px;
+	    --font-small: 14px;
+	    --font-micro: 12px;
+    }
+}
+
+/* mobile 479px */
+@media screen and (max-width: 479px){
+
 }

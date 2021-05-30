@@ -60,6 +60,11 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getPDetailDesc(pboard_unit_no);
 	}
 	
+	@Override
+	public List<FileVO> getCondListFile(String pboard_unit_condition) {
+		return fileMapper.getCondListFile(pboard_unit_condition);
+	}
+	
 	//검색
 	@Override
 	public List<FileVO> getSearchListFile(String product_search) {
@@ -72,7 +77,4 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getMainListFile();
 	}
 
-	
-
-	
 }

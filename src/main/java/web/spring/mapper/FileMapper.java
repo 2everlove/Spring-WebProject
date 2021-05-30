@@ -18,6 +18,8 @@ public interface FileMapper {
 	
 	public List<FileVO> getTypeListFile(String product_category);
 	
+	public List<FileVO> getCondListFile(String pboard_unit_condition);
+	
 	public FileVO getFileALL(String file_pictureId);
 	
 	public int fileDelete(@Param("file_pictureId")String file_pictureId,@Param("file_uuid") String file_uuid);

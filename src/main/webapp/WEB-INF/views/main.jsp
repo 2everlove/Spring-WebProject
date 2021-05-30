@@ -15,7 +15,7 @@
 			    			<h1>New</h1>
 			    		</div>
 			    		<div class="section__title-icon">
-				   			<h2><i class="fas fa-plus"></i></h2>
+				   			<h2><a href="/cond/0"><i class="fas fa-plus"></i></a></h2>
 		        		</div>
 			   		</div>
 			   		
@@ -59,7 +59,7 @@
 				   			<h1>Sale</h1>
 				   		</div>
 				   		<div class="section__title-icon">
-				   			<h2><i class="fas fa-plus"></i></h2>
+				   			<h2><a href="/cond/1"><i class="fas fa-plus"></i></a></h2>
 				   		</div>
 			   		</div>
 			    	<div class="product__wrapper">
@@ -101,7 +101,7 @@
 			    			<h1>Event</h1>
 			    		</div>
 			    		<div class="section__title-icon">
-				   			<h2><i class="fas fa-plus"></i></h2>
+				   			<h2><a href="/cond/2"><i class="fas fa-plus"></i></a></h2>
 				   		</div>
 			   		</div>
 			    	<div class="product__wrapper">
@@ -143,7 +143,7 @@
 		    			<h1>Recommend</h1>
 		    		</div>
 		    		<div class="section__title-icon">
-			   			<h2><i class="fas fa-plus"></i></h2>
+			   			<h2><a href="/cond/3"><i class="fas fa-plus"></i></a></h2>
 			   		</div>
 		   		</div>
 		    	<div class="product__wrapper">
