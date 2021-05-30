@@ -21,8 +21,18 @@
 		insert into INQUIRY_BOARD (iboard_no, iboard_title, iboard_content,
 		iboard_category, iboard_public)
 		values
-		(#{iboard_no}, #{iboard_title}, #{iboard_content},
+		(#{iboard_no}, #{iboard_title},
+		#{iboard_content},
 		#{iboard_category}, #{iboard_public})
 	</insert>
 	<!-- 문의사항 등록 끝 -->
+	<select id="detailInquiry" resultType= "web.spring.vo.InquiryBoardVO">
+		select * from INQUIRY_BOARD where iboard_no=#{iboard_no}
+	</select>
+	<!-- 문의사항 상세보기 -->
+	
+	
+	<!-- 문의사항 상세보기 끝 -->
+	
+	
 </mapper>

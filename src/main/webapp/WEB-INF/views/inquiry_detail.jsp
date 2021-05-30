@@ -7,45 +7,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function() {
-		$("button").click(function() {
-			$("select[name=iboard_category]").val();
-			$("input:radio[name=iboard_public]").is(':checked()');
-			
-		
 
-			if ($("#iboard_title").val() == '') {
-				alert("제목을 입력해주세요");
-				return false;
-			}
-
-			if ($("#iboard_category").val() == '') {
-				alert("카테고리를 선택해주세요");
-				return false;
-			}
-
-			if ($("#iboard_content").val() == '') {
-				alert("내용을 입력해주세요");
-				return false;
-			}
-
-			$("#inquiryForm").submit();
-			alert("게시글이 작성되었습니다.");
-		});
-	});
-	
-	$(document).ready(function() {
-	    $('#iboard_content').on('keyup', function() {
-	        $('#iboard_content_wordcount').html("("+$(this).val().length+" / 500)");
-	 
-	        if($(this).val().length > 500) {
-	            $(this).val($(this).val().substring(0, 500));
-	            $('#iboard_content_wordcount').html("(500 / 500)");
-	            alert("글자수가 초과했습니다.");
-	        }
-	    });
-	});
-	
 </script>
 </head>
 
@@ -57,7 +19,7 @@
 			id="inquiryForm">
 			<p>
 				<label>제목</label> <input type="text" name="iboard_title"
-					id="iboard_title" maxlength="100"> <label>카테고리</label> <select
+					id="iboard_title" maxlength="100" value="${ }"> <label>카테고리</label> <select
 					name="iboard_category" id="iboard_category">
 					<option value="">카테고리 선택</option>
 					<option value="주문/배송">주문/배송</option>

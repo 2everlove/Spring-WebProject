@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%-- <%@include file="./includes/header.jsp" %> --%>
 <head>
 <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
@@ -8,7 +9,7 @@
 </head>
 <script type="text/javascript">
 // 상세보기 이동
-function detail(bno){
+function detail(iboard_no){
 	document.listForm.action="/inquiryDetail";
 	document.listForm.iboard_no.value=iboard_no;
 	document.listForm.submit();
@@ -33,7 +34,9 @@ function detail(bno){
 					<c:forEach var="inquiryList1" items="${inquiryList}">
 						<tr>
 							<td>${inquiryList1.iboard_no }</td>
-							<td onClick=detail(${inquiryList1.iboard_no})><a href="#">${inquiryList1.iboard_title }</a></td>
+							
+							<td onClick=detail(${inquiryList1.iboard_no})><a href="#">${inquiryList1.iboard_title }<c:if test="${inquiryList1.iboard_public == 1}">(비공개)</c:if></a></td>
+							
 							<td>${inquiryList1.iboard_category }</td>
 							<td>${inquiryList1.user_id }</td>
 							<td>${inquiryList1.iboard_regdate }</td>

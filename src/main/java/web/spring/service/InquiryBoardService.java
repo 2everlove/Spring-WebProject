@@ -13,6 +13,8 @@ public interface InquiryBoardService {
 	
 	public int insertInquiry(InquiryBoardVO vo); // 문의사항 등록 
 	
+	public InquiryBoardVO detailInquiry(int iboard_no); //문의사항 상세보기
+	
 	
 
 }
