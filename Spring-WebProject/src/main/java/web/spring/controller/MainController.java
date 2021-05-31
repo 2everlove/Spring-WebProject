@@ -1,5 +1,7 @@
 package web.spring.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +20,18 @@ import web.spring.vo.ProductVO;
 @Log4j
 public class MainController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductService productService;
 	
 	@GetMapping("/main")
 	public void getMain() {
-		log.info("main...........");
 	}
 	
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
-		log.info("type.....");
 		productService.getTypeList(product_category);
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
-		log.info("pBList...."+pBList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		return "/product/typeList";
@@ -40,7 +39,6 @@ public class MainController {
 	
 	@GetMapping("/pDetail/{no}")
 	public String getDetail(@PathVariable("no") String no, Model model) {
-		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard != null) {
 			model.addAttribute("pBoard", pBoard);

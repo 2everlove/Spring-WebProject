@@ -41,7 +41,7 @@ function detail(nboard_no){
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" >
                                 <thead>
-                                    <tr>
+                                    <tr class="odd gradeX">
                                         <th>번호</th>
                                         <th>제목</th>
                                         <th>내용</th>
@@ -50,15 +50,28 @@ function detail(nboard_no){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="vo" items="${list}">
-                                	<tr class="odd gradeX">
-                             			<td>${vo.nboard_no }</td>
-                                        <td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }</a></td>
-                                        <td>${vo.nboard_content}</td>
-                                        <td>${vo.user_id }</td>
-                                        <td class="center">${vo.nboard_regDate }</td>
-                                    </tr>
-                                </c:forEach>
+		                            <c:forEach var="vo" items="${list}">
+		                            	<c:choose>
+		                            	<c:when test="${vo.nboard_public=='Y'}">
+		                                	<tr class="odd gradeX">
+		                             			<td>${vo.nboard_no }</td>
+		                                        <td onClick=detail(${vo.nboard_no})><a href="#">잠긴글</a></td>
+		                                        <td>잠긴글</td>
+		                                        <td>${vo.user_id }</td>
+		                                        <td class="center">${vo.nboard_regDate }</td>
+		                                    </tr>
+		                                 </c:when>
+		                                 <c:otherwise>
+		                                	<tr class="odd gradeX">
+		                             			<td>${vo.nboard_no }</td>
+		                                        <td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }</a></td>
+		                                        <td>${vo.nboard_content}</td>
+		                                        <td>${vo.user_id }</td>
+		                                        <td class="center">${vo.nboard_regDate }</td>
+		                                    </tr>
+	                             	   </c:otherwise>
+	                             	   </c:choose>
+		                            </c:forEach>
                                 <c:if test="${list.size() == 0 }">
                                 <tr class="odd gradeX">
                                 	<td colspan='4' align="center">

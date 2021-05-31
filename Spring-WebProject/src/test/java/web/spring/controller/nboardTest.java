@@ -12,10 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import web.spring.vo.PageNavi;
 import lombok.extern.log4j.Log4j;
 import oracle.sql.DATE;
-import web.spring.mapper.nboardMapper;
-import web.spring.service.nboardService;
+import web.spring.mapper.NBoardMapper;
+import web.spring.service.NBoardService;
 import web.spring.vo.Criteria;
-import web.spring.vo.nboardVo;
+import web.spring.vo.NBoardVo;
 
 @Log4j
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -23,15 +23,15 @@ import web.spring.vo.nboardVo;
 public class nboardTest {
 
 	@Autowired
-	nboardMapper mapper;
+	NBoardMapper mapper;
 	
 	@Autowired
-	nboardService service;
+	NBoardService service;
 	
 	
 	@Test
 	public void insertNboardMapperTest() {
-		nboardVo vo = new nboardVo();
+		NBoardVo vo = new NBoardVo();
 		vo.setFile_pictureId("testfile");
 		vo.setNboard_category("E");
 		vo.setNboard_content("공지게시판 테스트입니다.");
@@ -42,7 +42,7 @@ public class nboardTest {
 	}
 	@Test
 	public void insertNboardServiceTest() {
-		nboardVo vo = new nboardVo();
+		NBoardVo vo = new NBoardVo();
 		vo.setFile_pictureId("testfile");
 		vo.setNboard_category("E");
 		vo.setNboard_content("공지게시판 테스트입니다.");
@@ -65,12 +65,12 @@ public class nboardTest {
 	public void getList() {
 		Criteria cri = new Criteria();
 		PageNavi pageNavi = new PageNavi(cri, 150);
-		List<nboardVo>list = mapper.getList(cri);
+		List<NBoardVo>list = mapper.getList(cri);
 		log.info(list);
 	}
 	@Test
 	public void Update() {
-		nboardVo vo = new nboardVo();
+		NBoardVo vo = new NBoardVo();
 		vo.setNboard_no(12);
 		vo.setNboard_title("junit테스트");
 		vo.setNboard_content("수정된 내용");
@@ -86,7 +86,7 @@ public class nboardTest {
 	}
 	@Test
 	public void LockTest() {
-		nboardVo vo= new nboardVo();
+		NBoardVo vo= new NBoardVo();
 		vo.setNboard_no(14);
 		vo.setNboard_public("Y");
 		mapper.nboardLock(vo);
@@ -94,7 +94,7 @@ public class nboardTest {
 	@Test
 	public void addList() {
 		for(int i=0;i<=100;i++) {
-			nboardVo vo = new nboardVo();
+			NBoardVo vo = new NBoardVo();
 			vo.setFile_pictureId("testfile");
 			vo.setNboard_category("E");
 			vo.setNboard_content(i+"번 공지게시판 테스트입니다.");

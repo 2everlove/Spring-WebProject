@@ -9,6 +9,7 @@
 function updateSubmit(){
 	document.updateForm.submit();
 	$("select[nboard_category]").val();
+	$("select[nboard_public]").val();
 }
 </script>
 
@@ -42,7 +43,10 @@ function updateSubmit(){
                             	<p><label>file_pictureId</label>
                             	<input name="file_pictureId" value="${vo.file_pictureId }"></p>
                             	<p><label>file_public</label>
-                            	<input placeholder="잠긴글" name="nboard_public" value="${vo.nboard_public }"></p>
+                            		<select name="nboard_public">
+                            			<option value='N'>공개</option>
+                            			<option value='Y'>잠긴글</option>
+                            		</select></p>
                             	<input type="submit" onClick="updateSubmit()" value="수정"> 
                             	<a href="/nboard/nboardList"><input type="button" value="취소"> </a>
 						</div>	<!-- panel-body -->

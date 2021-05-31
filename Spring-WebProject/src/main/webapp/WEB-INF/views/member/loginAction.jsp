@@ -21,8 +21,8 @@
                         <h3 class="panel-title">로그인을 환영합니다.</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="/board/list" method="get">
-                           		<button type=submit>리스트</button><br>
+                        <form role="form" action="/main" method="get">
+                           		<button type=submit>메인페이지</button><br>
                         </form>
                     </div>
                 </div>

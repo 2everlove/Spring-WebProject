@@ -26,26 +26,57 @@ function detailBtn(url){
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            DataTables Advanced Tables
+                            상세글보기
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label>제목</label>
-                                <input readonly class="form-control" value="${vo.nboard_title}">
-                            </div>
-                            <div class="form-group">
-                                <label>내용</label>
-                                <textarea readonly class="form-control" rows="3">${vo.nboard_content}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>작성자</label>
-                                <input readonly class="form-control" value="${vo.user_id}">
-                            </div>
-                            <div class="form-group">
-                                <label>등록시간</label>
-                                <input readonly class="form-control" value="${vo.nboard_regDate}">
-                            </div>
+                        	<!-- 잠긴글처리 -->
+                        	<c:choose>
+                        		<c:when test="${vo.nboard_public=='Y'}">
+		                            <div class="form-group">
+		                                <label>제목</label>
+		                                <input readonly class="form-control" value="잠긴글입니다.">
+		                            </div>
+		                            <div class="form-group">
+		                                <label>분류</label>
+		                                <input readonly class="form-control" value="${vo.nboard_category }">
+		                            </div>
+		                            <div class="form-group">
+		                                <label>내용</label>
+		                                <textarea readonly class="form-control" rows="3">잠긴글입니다.</textarea>
+		                            </div>
+		                            <div class="form-group">
+		                                <label>작성자</label>
+		                                <input readonly class="form-control" value="${vo.user_id}">
+		                            </div>
+		                            <div class="form-group">
+		                                <label>등록시간</label>
+		                                <input readonly class="form-control" value="${vo.nboard_regDate}">
+		                            </div>
+	                            </c:when>
+	                            <c:otherwise>
+	                            	<div class="form-group">
+		                                <label>제목</label>
+		                                <input readonly class="form-control" value="${vo.nboard_title}">
+		                            </div>
+		                            <div class="form-group">
+		                                <label>분류</label>
+		                                <input readonly class="form-control" value="${vo.nboard_category }">
+		                            </div>
+		                            <div class="form-group">
+		                                <label>내용</label>
+		                                <textarea readonly class="form-control" rows="3">${vo.nboard_content}</textarea>
+		                            </div>
+		                            <div class="form-group">
+		                                <label>작성자</label>
+		                                <input readonly class="form-control" value="${vo.user_id}">
+		                            </div>
+		                            <div class="form-group">
+		                                <label>등록시간</label>
+		                                <input readonly class="form-control" value="${vo.nboard_regDate}">
+		                            </div>
+	                            </c:otherwise>
+                            </c:choose>
                             <button type="button" onClick="detailBtn('/nboard/update')" class="btn btn-default">수정</button>
 							<button class="btn btn-default" onClick="detailBtn('/nboard/delete')">삭제</button>
 							<button class="btn btn-default" onClick="detailBtn('/nboard/nboardList')">목록</button>

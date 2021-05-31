@@ -39,8 +39,6 @@ function registerSubmit(){
 									</select></p>
                             	<p><label>file_pictureId</label>
                             	<input name="file_pictureId" value="${vo.file_pictureId }"></p>
-                            	<p><label>file_public</label>
-                            	<input placeholder="잠긴글" name="nboard_public" value="${vo.nboard_public }"></p>
                             	<input type="button" onClick="registerSubmit()" value="등록"> 
                             
 						</div>	<!-- panel-body -->

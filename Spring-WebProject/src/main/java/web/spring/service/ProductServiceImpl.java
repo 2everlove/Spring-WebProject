@@ -13,7 +13,7 @@ import web.spring.vo.ProductVO;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductMapper productMapper;
 	
 	@Override
