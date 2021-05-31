@@ -19,12 +19,12 @@
     
         <!-- New -->
         <div class="section__wrapper">
-        	<div class="section__productsList">
+        	<div class="section__productsList" id="new">
         	
         	<c:choose>
         		<c:when test="${!empty pList}">
 		    		<c:forEach var="products" items="${pList}">
-		    		<div class="product__wrapper" id="new">
+		    		<div class="product__wrapper">
 				    	<div class="type__product">
 				    	<c:forEach var="files" items="${fileList }">
 				    	<c:if test="${products.file_pictureId == files.file_pictureId }">
@@ -81,3 +81,8 @@
    	</section>
 
 <%@include file="../includes/footer.jsp" %>
+<script type="text/javascript" src="/resources/js/typeList.js">
+<!--
+
+//-->
+</script>

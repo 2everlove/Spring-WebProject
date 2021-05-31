@@ -30,7 +30,7 @@
     <section class="section__content">
         <!-- New -->
         <div class="section__wrapper">
-        	<div class="section__productsList">
+        	<div class="section__productsList" id="new">
 	        	<div class="detail__wrapper">
 	        	 <c:forEach var="fileThum" items="${fileThumList }">
 	        	 	<c:url value="/fileDisplay" var="urlThum">
@@ -95,3 +95,8 @@
    	
 
 <%@include file="../includes/footer.jsp" %>
+<script type="text/javascript" src="/resources/js/detail.js">
+<!--
+
+//-->
+</script>

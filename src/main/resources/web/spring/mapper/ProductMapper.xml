@@ -84,22 +84,59 @@
 	</insert>
 	
 	<!-- search -->
-	<select id="getSearchProductList" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_id in( select product_id from (
-   			select pboard.*, lower(product_manufacturer||' '||product_category||' '||product_name) product_search1, lower(product_manufacturer||' '||product_name) product_search2, lower(product_name||' '||product_category||' '||product_manufacturer) product_search3, lower(product_name||' '||product_manufacturer||' '||product_category) product_search4 from products_info pboard
-		) where product_search1 like '%'||#{product_search}||'%' or product_search2 like '%'||#{product_search}||'%' or product_search3 like '%'||#{product_search}||'%' or product_search4 like '%'||#{product_search}||'%')
-	</select>
+
 	
-	<select id="getSearchBoardList" resultType="web.spring.vo.PBoardVO">
+	<select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
     			select * from product_board where product_id in(
-        			select product_id from products_info where product_id in ( select product_id from (
-   			select pboard.*, lower(product_manufacturer||' '||product_category||' '||product_name) product_search1, lower(product_manufacturer||' '||product_name) product_search2, lower(product_name||' '||product_category||' '||product_manufacturer) product_search3, lower(product_name||' '||product_manufacturer||' '||product_category) product_search4 from products_info pboard
-		) where product_search1 like '%'||#{product_search}||'%' or product_search2 like '%'||#{product_search}||'%' or product_search3 like '%'||#{product_search}||'%' or product_search4 like '%'||#{product_search}||'%')) 
-        		) board
+        			select product_id from products_info 
+		where product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_manufacturer) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_category) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_name) like '%'||#{item}||'%'
+			</foreach>
+		)
+        		)) board
         	) pboard where each_rank between 1 and 5
 	</select>
+	
+	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
+		select * from products_info 
+		where product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_manufacturer) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_category) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_name) like '%'||#{item}||'%'
+			</foreach>
+		)
+	</select>
+	
 	
 	<!-- main -->
 	

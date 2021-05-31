@@ -1,6 +1,7 @@
 package web.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -38,9 +39,9 @@ public interface ProductService {
 	public ProductVO searchManufCategoty(String product_id);
 	
 	//검색
-	public List<ProductVO> getSearchProductList(String product_search);
+	public List<ProductVO> getSearchProductList(Map<String, Object> search_Map);
 	
-	public List<PBoardVO> getSearchBoardList(String product_search);
+	public List<PBoardVO> getSearchBoardList(Map<String, Object> search_Map);
 	
 	//메인 ---
 	public List<PBoardVO> getMainPBoardList();

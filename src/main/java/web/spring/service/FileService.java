@@ -1,6 +1,7 @@
 package web.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public interface FileService {
 	public List<FileVO> getCondListFile(String pboard_unit_condition);
 	
 	//검색
-	public List<FileVO> getSearchListFile(String product_search);
+	public List<FileVO> getSearchListFile(Map<String, Object> search_Map);
 	
 	//메인
 	public List<FileVO> getMainListFile();

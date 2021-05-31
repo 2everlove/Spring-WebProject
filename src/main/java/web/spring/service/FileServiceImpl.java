@@ -1,6 +1,7 @@
 package web.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,8 +68,8 @@ public class FileServiceImpl implements FileService{
 	
 	//검색
 	@Override
-	public List<FileVO> getSearchListFile(String product_search) {
-		return fileMapper.getSearchListFile(product_search);
+	public List<FileVO> getSearchListFile(Map<String, Object> search_Map) {
+		return fileMapper.getSearchListFile(search_Map);
 	}
 	
 	//메인

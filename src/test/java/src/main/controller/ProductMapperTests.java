@@ -1,5 +1,10 @@
 package src.main.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.mapper.ProductMapper;
+import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,13 +77,36 @@ public class ProductMapperTests {
 	public void getMainProductList() {
 		log.info(productMapper.getMainProductList());
 	}
+
+	@Test
+	public void getSearchCategory() {
+		String str = "samsung ipad";
+		String[] strList = str.split(" ");
+		
+		ArrayList<String> arr = new ArrayList<String>();
+		for(String item : strList) {
+			System.out.println(item);
+			arr.add(item);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search_Map", arr);
+		List<ProductVO> list = productMapper.getSearchProductList(map);
+		log.info(list);
+	}
+	@Test
+	public void getSearchBo() {
+		String str = "samsung ipad";
+		String[] strList = str.split(" ");
+		
+		ArrayList<String> arr = new ArrayList<String>();
+		for(String item : strList) {
+			System.out.println(item);
+			arr.add(item);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search_Map", arr);
+		List<PBoardVO> list = productMapper.getSearchBoardList(map);
+		log.info(list);
+	}
 	
-	@Test
-	public void getSearchBoardList() {
-		log.info(productMapper.getSearchBoardList("ta"));
-	}
-	@Test
-	public void getSearchProductList() {
-		log.info(productMapper.getSearchProductList("ta"));
-	}
 }

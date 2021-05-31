@@ -1,6 +1,9 @@
 package web.spring.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,22 +53,37 @@ public class MainController {
 		return "/myPage/myPage";
 	}
 	
+	/*
+	 * @GetMapping("/search") public String getSearch(Model model, String
+	 * product_search) { String tmp = product_search; //대문자 검색 내용 넘겨주기
+	 * product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
+	 * if(!product_search.equals("")) { List<ProductVO> pList =
+	 * productService.getSearchProductList(product_search); List<PBoardVO> pBList =
+	 * productService.getSearchBoardList(product_search); List<FileVO> fileList =
+	 * fileService.getSearchListFile(product_search); model.addAttribute("pList",
+	 * pList); model.addAttribute("pBList", pBList); model.addAttribute("fileList",
+	 * fileList); model.addAttribute("search", tmp); } else {
+	 * model.addAttribute("error", ""); model.addAttribute("search", tmp); } return
+	 * "/product/typeList"; }
+	 */
+	
 	@GetMapping("/search")
-	public String getSearch(Model model, String product_search) {
+	public String getSearchNew(Model model, String product_search) {
 		String tmp = product_search; //대문자 검색 내용 넘겨주기
 		product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
-		if(!product_search.equals("")) {
-			List<ProductVO> pList = productService.getSearchProductList(product_search);
-			List<PBoardVO> pBList = productService.getSearchBoardList(product_search);
-			List<FileVO> fileList = fileService.getSearchListFile(product_search);
-			model.addAttribute("pList", pList);
-			model.addAttribute("pBList", pBList);
-			model.addAttribute("fileList", fileList);
-			model.addAttribute("search", tmp);
-		} else {
-			model.addAttribute("error", "");
-			model.addAttribute("search", tmp);
+		String[] search_array = product_search.split(" ");
+		ArrayList<String> search_list = new ArrayList<String>();
+		for(String keyWord : search_array) {
+			search_list.add(keyWord);
 		}
+		Map<String, Object> search_Map = new HashMap<String, Object>();
+		search_Map.put("search_Map", search_list);
+		List<ProductVO> pList = productService.getSearchProductList(search_Map);
+		List<PBoardVO> pBList = productService.getSearchBoardList(search_Map);
+		List<FileVO> fileList = fileService.getSearchListFile(search_Map);
+		model.addAttribute("pList", pList);
+		model.addAttribute("pBList", pBList);
+		model.addAttribute("fileList", fileList);
 		return "/product/typeList";
 	}
 	

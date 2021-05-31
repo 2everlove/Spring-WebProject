@@ -1,6 +1,7 @@
 package web.spring.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -29,7 +30,7 @@ public interface FileMapper {
 	public String getFileSeq();
 	
 	//검색
-	public List<FileVO> getSearchListFile(String product_search);
+	public List<FileVO> getSearchListFile(Map<String, Object> search_Map);
 	
 	//메인
 	public List<FileVO> getMainListFile();

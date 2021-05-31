@@ -1,6 +1,7 @@
 package web.spring.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -41,9 +42,10 @@ public interface ProductMapper {
 	public ProductVO searchManufCategoty(@Param("product_id") String product_id);
 	
 	//검색
-	public List<ProductVO> getSearchProductList(@Param("product_search") String product_search);
 	
-	public List<PBoardVO> getSearchBoardList(@Param("product_search") String product_search);
+	public List<ProductVO> getSearchProductList(Map<String, Object> search_Map);
+	
+	public List<PBoardVO> getSearchBoardList(Map<String, Object> search_Map);
 	
 	
 	//main 페이지------------

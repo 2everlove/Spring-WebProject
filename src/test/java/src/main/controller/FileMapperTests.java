@@ -1,5 +1,9 @@
 package src.main.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +54,17 @@ public class FileMapperTests {
 	}
 	@Test
 	public void getSearchListFile() {
-		log.info(fileMapper.getSearchListFile("ta"));
+		String str = "samsung ipad";
+		String[] strList = str.split(" ");
+		
+		ArrayList<String> arr = new ArrayList<String>();
+		for(String item : strList) {
+			System.out.println(item);
+			arr.add(item);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search_Map", arr);
+		log.info(fileMapper.getSearchListFile(map));
 	}
 	
 }

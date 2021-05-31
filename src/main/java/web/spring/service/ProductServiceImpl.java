@@ -1,6 +1,7 @@
 package web.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,13 +91,13 @@ public class ProductServiceImpl implements ProductService{
 	//검색
 
 	@Override
-	public List<ProductVO> getSearchProductList(String product_search) {
-		return productMapper.getSearchProductList(product_search);
+	public List<ProductVO> getSearchProductList(Map<String, Object> search_Map) {
+		return productMapper.getSearchProductList(search_Map);
 	}
 
 	@Override
-	public List<PBoardVO> getSearchBoardList(String product_search) {
-		return productMapper.getSearchBoardList(product_search);
+	public List<PBoardVO> getSearchBoardList(Map<String, Object> search_Map) {
+		return productMapper.getSearchBoardList(search_Map);
 	}
 	
 	//메인
