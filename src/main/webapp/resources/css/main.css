@@ -525,7 +525,7 @@ p{
 .footer{
 	clear: both;
 	background-color: var(--color-white-footer);
-	height: 250px;
+	height: 550px;
 	width: 100%;
 	z-index: -50;
 }

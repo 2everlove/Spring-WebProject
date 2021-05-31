@@ -23,7 +23,59 @@
 <!-- prefix-free -->
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>
+<script>
+	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&"
+	let country = "region="+window.navigator.language.substring(3,5);
+	let lang = "&language="+window.navigator.language.substring(0,2);
+	let callback = "&callback=initMap&libraries=&v=weekly";
+	var script = document.createElement("script");
+	script.src = (url+country+lang+callback);
+	document.head.appendChild(script);
+
+	function initMap() {
+	  // The location of Uluru
+	  const lat1= 37.4851619;
+	  const lng1= 126.8987031;
+	  const zoom1= 18;
+	  
+	  const widele = { lat: lat1, lng: lng1 };
+	  // The map, centered at Uluru
+	  const map = new google.maps.Map(document.getElementById("map"), {
+	    zoom: 15,
+	    center: widele,
+	  });
+	  const contentString =
+		    '<div id="content">' +
+		    '<div id="siteNotice">' +
+		    "</div>" +
+		    '<h1 id="firstHeading" class="firstHeading">WorldJobFriend</h1>' +
+		    '<div id="bodyContent">' +
+		    "<p><b>ワールドジョブフレンド</b>, Springを利用したプロジェクト " +
+		    '<p><span style="color:blue;"><b>プロジェクト名</b> : Widele</span>, <b><a href="https://google.co.kr/maps/@'+lat1+','+lng1+','+zoom1+'z" target="_blank">' +
+		    "Our Location&lt;Link&gt;</a></b></p> " +
+		    "</div>" +
+		    "</div>";
+		  const infowindow = new google.maps.InfoWindow({
+		    content: contentString,
+		  });
+		  const marker = new google.maps.Marker({
+		    position: widele, map,
+		    title: "WorldJobFriend 4th (日本就職過程)",
+		  });
+		  marker.addListener("click", () => {
+		    infowindow.open(map, marker);
+		  });
+		  map.addListener("mouseout", () => {
+		    infowindow.close();
+		  });
+		  
+		  
+	}
+</script>
+<script id="googleMap">
+</script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	const pathName = window.location.pathname;
 
