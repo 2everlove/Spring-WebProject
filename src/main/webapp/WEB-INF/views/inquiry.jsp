@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<jsp:useBean id="now" class="java.util.Date" />
+
+
+
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+
+<fmt:formatDate value="${inquiryList1.iboard_regdate_new}" pattern="yyyy-MM-dd" var="inquiryList1.iboard_regdate_new"/>
+
+
+
 
 <%-- <%@include file="./includes/header.jsp" %> --%>
 <head>
@@ -8,13 +19,9 @@
 
 </head>
 <script type="text/javascript">
-// 상세보기 이동
-function detail(iboard_no){
-	document.listForm.action="/inquiryDetail";
-	document.listForm.iboard_no.value=iboard_no;
-	document.listForm.submit();
-}
-
+	if ('${resMsg}' != '') {
+		alert('${resMsg}');
+	}
 </script>
 <h1>게시판</h1>
 <div>
@@ -34,9 +41,12 @@ function detail(iboard_no){
 					<c:forEach var="inquiryList1" items="${inquiryList}">
 						<tr>
 							<td>${inquiryList1.iboard_no }</td>
-							
-							<td onClick=detail(${inquiryList1.iboard_no})><a href="#">${inquiryList1.iboard_title }<c:if test="${inquiryList1.iboard_public == 1}">(비공개)</c:if></a></td>
-							
+
+							<td><a
+								href="/inquiry_detail?iboard_no=${inquiryList1.iboard_no }">${inquiryList1.iboard_title }</a>
+							<c:if test="${today <= inquiryList1.iboard_regdate_new}">(New)</c:if>
+								<c:if test="${inquiryList1.iboard_public == 1}">(비공개)</c:if></td>
+
 							<td>${inquiryList1.iboard_category }</td>
 							<td>${inquiryList1.user_id }</td>
 							<td>${inquiryList1.iboard_regdate }</td>

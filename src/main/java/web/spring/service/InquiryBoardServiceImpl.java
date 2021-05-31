@@ -26,11 +26,16 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 		return mapper.insertInquiry(vo);
 	}
 
-	//문의 사항 상세보기
+	//문의사항 상세보기
 	@Override
-	public InquiryBoardVO detailInquiry(int iboard_no) {
-		// TODO Auto-generated method stub
+	public InquiryBoardVO detailInquiry(String iboard_no) {
 		return mapper.detailInquiry(iboard_no);
+	}
+
+	//문의사항 삭제
+	@Override
+	public int deleteInquiry(int iboard_no) {
+		return mapper.deleteInquiry(iboard_no);
 	}
 	
 	

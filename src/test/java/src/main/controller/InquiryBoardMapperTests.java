@@ -39,6 +39,11 @@ public class InquiryBoardMapperTests {
 		
 	}
 	
+	@Test
+	public void deleteInquiry() {
+		mapper.deleteInquiry(1);
+	}
+	
 	
 
 }
