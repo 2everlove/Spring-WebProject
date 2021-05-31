@@ -19,6 +19,17 @@ public class UserMapperTest {
 	PaymentMapper mapper;
 	
 	@Test
+	public void getPayment() {
+		OrderVO vo = new OrderVO();
+		vo.setOrder_address("서울시 구로구");
+		vo.setOrder_name("홍길동");
+		vo.setUser_id("2");
+		vo.setOrder_totalprice("40000");
+		vo.setOrder_totalcount("1");
+		System.out.println(mapper.insertOrder(vo));
+	}
+	
+	@Test
 	public void getTest() {
 		System.out.println(mapper.get("user01"));
 	}

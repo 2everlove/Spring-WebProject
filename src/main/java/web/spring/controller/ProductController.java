@@ -21,22 +21,22 @@ import web.spring.vo.ProductVO;
 @Log4j
 public class ProductController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductService productService;
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private UserService userService;
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private FileService fileService;
 	
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
-		log.info("type.....");
+		System.out.println("type.....");
 		productService.getTypeList(product_category);
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
-		log.info("pBList...."+pBList);
+		System.out.println("pBList...."+pBList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("search", product_category);
@@ -62,7 +62,7 @@ public class ProductController {
 	
 	@GetMapping("/product/productRegister")
 	public void getRegister() {
-		log.info("productRegister........");
+		System.out.println("productRegister........");
 	}
 	
 }

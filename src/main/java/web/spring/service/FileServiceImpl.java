@@ -5,14 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.Setter;
 import web.spring.mapper.FileMapper;
 import web.spring.vo.FileVO;
 
 @Service
 public class FileServiceImpl implements FileService{
 
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private FileMapper fileMapper;
 
 	@Override

@@ -1,5 +1,7 @@
 package web.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,13 @@ public class PaymentServiceImpl implements PaymentService {
 	PaymentMapper mapper;
 	
 	@Override
-	public UserVO get(String user_id) {
-		return mapper.get(user_id);
+	public UserVO get(String User_id) {
+		return mapper.get(User_id);
 	}
 
 	@Override
-	public PBoardVO getProduct(String product_id) {
-		return mapper.getProduct(product_id);
+	public PBoardVO getProduct(String pboard_unit_no) {
+		return mapper.getProduct(pboard_unit_no);
 	}
 
 	@Override
@@ -31,8 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public ProductVO getProductInfo(String product_id) {
-		return mapper.getProductInfo(product_id);
+	public OrderVO getCart(String user_id) {
+		return mapper.getCart(user_id);
 	}
 
 }

@@ -21,6 +21,12 @@
 			}
 			$("input[name=order_totalcount]").val(totalcount);
 		});
+		$("form").submit(function() {
+			var count = $(".detail__count-input").val();
+			console.log(count);
+			alert("개수는 " + count + "개 입니다.");
+			location.href = "payment";
+		});
 	});
 </script>
 <!-- 페이징, 목록, 가격, 정렬 -->
@@ -32,7 +38,7 @@
 
 				<img src="/resources/images/Apple/Tablet/ipad4.png"
 					class="thumnail__products-detail">
-				<form role="form" action="/payment" method="post"
+				<form role="form" action="/payment" method="get"
 					class="detail__form">
 					<div>
 						<input type="hidden" value="${pBoard.pboard_unit_no}"

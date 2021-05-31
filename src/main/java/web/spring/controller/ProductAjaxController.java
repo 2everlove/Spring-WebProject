@@ -17,12 +17,12 @@ import web.spring.service.ProductService;
 @Log4j
 public class ProductAjaxController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductService productService;
 	
 	@GetMapping("/checkProduct/{code_type}/{code_value}")
 	public Map<String, Object> AjaxCheckProductInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
-		log.info(code_type+"\n"+code_value);
+		System.out.println(code_type+"\n"+code_value);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<String> list = productService.searchProductCategory(code_type, code_value);
 		if(list != null) {
@@ -39,7 +39,7 @@ public class ProductAjaxController {
 
 	@GetMapping("/checkInsertCodeValue/{code_type}/{code_value}")
 	public Map<String, Object> AjaxInsetCodeInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
-		log.info(code_type+"\n"+code_value);
+		System.out.println(code_type+"\n"+code_value);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<String> list = productService.searchProductCategory(code_type, code_value);
 		if(list != null) {

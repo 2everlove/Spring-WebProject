@@ -7,17 +7,11 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script type="text/javascript">
-	$(document).ready(
-			function() {
-				$("#paymentAction").submit(
-						function() {
-							alert("결제 성공했습니다.\n수량은 "
-									+ $('#amount option:selected').val()
-									+ "개 입니다.");
-						});
-			});
-</script> -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		console.log(count);
+	});
+</script>
 <style>
 .order {
 	text-align: center;
@@ -53,31 +47,39 @@ fieldset {
 </head>
 <body class="order">
 	<div class="content">
-		<h2>결제 성공했습니다.</h2>
-		<fieldset>
-			<label>받는 사람 정보</label>
-			<div class="content2">
-				<label>이름</label> <label class="view">${uvo.user_name}</label>
-			</div>
-			<div class="content2">
-				<label>주소</label> <label class="view">${uvo.user_address}</label>
-			</div>
-		</fieldset>
-		<fieldset>
-			<label>결제 정보</label>
-			<div class="content2">
-				<label>상품 아이디</label> <label class="view">${pBoard.pboard_unit_no}</label>
-			</div>
-			<div class="content2">
-				<label>상품 개수</label> <label class="view">${pBoard.pboard_unit_stocks}</label>
-			</div>
-			<div class="content2">
-				<label>총 결제 금액</label> <label class="view">${pBoard.pboard_unit_price * pBoard.pboard_unit_stocks}</label>
-			</div>
-		</fieldset>
-		<button type="submit" id="button">결제</button>
-		<input class="button" type="button" value="장바구니"
-			onclick="location.href='cart'">
+		<h2>결제/주문</h2>
+		<form role="form" action="/productOrder" method="post" class="payment_form">
+			<fieldset>
+				<label>받는 사람 정보</label>
+				<div class="content2">
+					<input class="view" name="user_id" value="${pBoard.user_id}">
+					<label>이름</label>
+					<input class="view" name="order_name" value="${uvo.user_name}">
+				</div>
+				<div class="content2">
+					<label>주소</label>
+					<input class="view" name="order_address" value="${uvo.user_address}">
+				</div>
+			</fieldset>
+			<fieldset>
+				<label>결제 정보</label>
+				<div class="content2">
+					<label>상품 이름</label>
+					<input class="view" name="product_name" value="${productVO.product_name}">
+				</div>
+				<div class="content2">
+					<label>상품 개수</label>
+					<input class="view" name="order_totalcount" value="${param.order_totalcount}">
+				</div>
+				<div class="content2">
+					<label>총 결제 금액</label>
+					<input class="view" name="order_totalprice" value="${pBoard.pboard_unit_price * param.order_totalcount}">
+				</div>
+			</fieldset>
+			<button type="submit" id="button">결제</button>
+			<input class="button" type="button" value="장바구니"
+				onclick="location.href='cart'">
+		</form>
 	</div>
 </body>
 </html>

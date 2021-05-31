@@ -1,8 +1,5 @@
 package web.spring.vo;
 
-import lombok.Data;
-
-@Data
 public class OrderVO {
 	
 	String order_id;

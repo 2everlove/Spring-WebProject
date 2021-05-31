@@ -34,27 +34,7 @@ fieldset {
 <title>Insert title here</title>
 </head>
 <body>
-	<fieldset>
-		<label>받는 사람 정보</label>
-		<div class="content2">
-			<label>이름</label> <label class="view">${uvo.user_name}</label>
-		</div>
-		<div class="content2">
-			<label>주소</label> <label class="view">${uvo.user_address}</label>
-		</div>
-	</fieldset>
-	<fieldset>
-		<label>결제 정보</label>
-		<div class="content2">
-			<label>상품 아이디</label> <label class="view">${pBoard.pboard_unit_no}</label>
-		</div>
-		<div class="content2">
-			<label>상품 개수</label> <label class="view">${pBoard.pboard_unit_stocks}</label>
-		</div>
-		<div class="content2">
-			<label>총 결제 금액</label> <label class="view">${pBoard.pboard_unit_price * pBoard.pboard_unit_stocks}</label>
-		</div>
-	</fieldset>
+	<h1>결제가 완료되었습니다.</h1>
 	<p>
 		<a href="/cart">장바구니</a> <a href="/myPage">마이페이지</a>
 	</p>

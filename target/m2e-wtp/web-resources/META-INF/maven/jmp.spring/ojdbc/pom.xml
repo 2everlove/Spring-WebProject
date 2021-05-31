@@ -247,10 +247,12 @@
 		    <artifactId>spring-security-taglibs</artifactId>
 		    <version>5.0.6.RELEASE</version>
 		</dependency>
-
 		
-		
-		
+		<dependency>
+			<groupId>com.oracle.ojdbc</groupId>
+			<artifactId>orai18n</artifactId>
+			<version>19.3.0.0</version>
+			</dependency>
 	</dependencies>
     <build>
         <plugins>

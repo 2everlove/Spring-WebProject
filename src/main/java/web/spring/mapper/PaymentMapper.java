@@ -2,16 +2,15 @@ package web.spring.mapper;
 
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
-import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
 
 public interface PaymentMapper {
 	
-	public UserVO get(String user_id);
+	public UserVO get(String User_id);
 	
-	public PBoardVO getProduct(String product_id);
+	public PBoardVO getProduct(String board_unit_no);
 	
 	public int insertOrder(OrderVO vo);
 	
-	public ProductVO getProductInfo(String product_id);
+	public OrderVO getCart(String user_id);
 }
