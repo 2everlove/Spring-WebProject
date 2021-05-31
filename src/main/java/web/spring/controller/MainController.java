@@ -84,6 +84,7 @@ public class MainController {
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);
+		model.addAttribute("search", tmp);
 		return "/product/typeList";
 	}
 	
@@ -105,7 +106,7 @@ public class MainController {
 		} else if (pboard_unit_condition.equals("1")) {
 			model.addAttribute("search", "Sale");
 		} else if (pboard_unit_condition.equals("2")) {
-			model.addAttribute("search", "event");
+			model.addAttribute("search", "Event");
 		}
 		return "/product/typeList";
 	}

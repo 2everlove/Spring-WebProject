@@ -181,6 +181,7 @@
 			
 		});
 	}
+	
 	//code에서 따온 제조사, 카테고리로 상품검색
 	function getProductId(){
 		let parentElement = $('input[name=product_name]').closest("div");
@@ -215,6 +216,7 @@
 			
 		});
 	}
+	
 	//상품으로 제조사, 카테고리 검색
 	function getProductManuCate(){
 		let parentElement = $('input[name=product_name]').closest("div");
@@ -334,7 +336,7 @@
 						<form name="uploadForm" action="/uploadFile" method="post" enctype="multipart/form-data">
 							<input type="text" class="form__file" name="file_usingType" id="file_usingType" value="3">
 							<input type="text" class="form__file" name="file_pictureId" id="file_pictureId">
-							<input type="file" name="uploadFile" id="fileUpload" multiple="multiple">
+							<input type="file" name="uploadFile" id="fileUpload" multiple="multiple" accept="image/*">
 							<br>
 							<br>
 							<button type="button" id="uploadBtn" style="border: 1px solid black; border-radius: 3px;">upload</button>

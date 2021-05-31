@@ -24,6 +24,30 @@
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	const pathName = window.location.pathname;
+
+	//console.log(pathName);
+
+	if(!pathName.match("main")){
+		$(".navbar__menu__item").click(function(){
+			let data = $(this).attr("data-link");
+			let href = "/cond/";
+			if(data.match("new")){
+				location.href = href+"0";
+			}
+			if(data.match("sale")){
+				location.href = href+"1";
+			}
+			if(data.match("event")){
+				location.href = href+"2";
+			}
+			if(data.match("recommend")){
+				location.href = href+"3";
+			}
+		});
+	}
+});
 
 </script>
 </head>

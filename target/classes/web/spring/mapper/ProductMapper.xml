@@ -84,8 +84,6 @@
 	</insert>
 	
 	<!-- search -->
-
-	
 	<select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (

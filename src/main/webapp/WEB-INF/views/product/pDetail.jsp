@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
 <script type="text/javascript" defer="defer">
-	document.title='${sellerVO.user_nickname} : widele';
+	document.title='${sellerVO.user_name} : widele';
 	$(document).ready(function(){
 		$(".up-button").click(function(){
 			let tempcount = $("input[name=order_totalcount]").val();
@@ -21,7 +21,6 @@
 			}
 				$("input[name=order_totalcount]").val(totalcount);
 		});
-		
 		
 	});
 	
@@ -88,7 +87,6 @@
 						</c:forEach>
 					</ul>
 		    	</div>
-		    	
 	    	</div>
     	</div>
    	</section>

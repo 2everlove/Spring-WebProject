@@ -27,6 +27,20 @@
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 	
+	<beans:bean id="authInterceptor" class="web.spring.interceptor.AuthInterceptor"></beans:bean>
+	<beans:bean id="loginInterceptor" class="web.spring.interceptor.LoginInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/nboard/**" />	
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/loginAction" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+	</interceptors>
+	
 	
 	
 </beans:beans>
