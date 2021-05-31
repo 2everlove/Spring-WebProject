@@ -21,6 +21,7 @@ public class ProductAjaxController {
 	@Setter(onMethod_= @Autowired)
 	private ProductService productService;
 	
+	//제조사, 카테고리로 상품 검색
 	@GetMapping("/checkProduct/{product_manufacturer}/{product_category}")
 	public Map<String, Object> AjaxCheckProductInfo(@PathVariable("product_manufacturer")String product_manufacturer, @PathVariable("product_category")String product_category) {
 		log.info(product_manufacturer+"\n"+product_category);
@@ -38,6 +39,7 @@ public class ProductAjaxController {
 		return map;
 	}
 	
+	//상품 이름으로 product 제조사 및 카테고리 검색
 	@GetMapping("/checkProduct/{product_name}")
 	public Map<String, Object> AjaxgetProductInfo(@PathVariable("product_name")String product_name) {
 		log.info("AjaxgetProductInfo"+product_name);
@@ -55,6 +57,7 @@ public class ProductAjaxController {
 		return map;
 	}
 	
+	//상품id 로 제조사, 카테고리 입력
 	@GetMapping("/searchProductId/{product_id}")
 	public Map<String, Object> AjaxsearchManuCate(@PathVariable("product_id") String product_id) {
 		log.info("AjaxCheckProductInfo"+product_id);
@@ -67,7 +70,8 @@ public class ProductAjaxController {
 		}
 		return map;
 	}
-
+	
+	//code_table에서 category 및 제조사 의 값 확인
 	@GetMapping("/checkInsertCodeValue/{code_type}/{code_value}")
 	public Map<String, Object> AjaxInsetCodeInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
 		log.info(code_type+"\n"+code_value);

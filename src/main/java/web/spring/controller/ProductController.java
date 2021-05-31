@@ -31,6 +31,7 @@ public class ProductController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
 		log.info("type.....");
@@ -48,6 +49,7 @@ public class ProductController {
 		return "/product/typeList";
 	}
 	
+	//product detail page
 	@GetMapping("/pDetail/{no}")
 	public String getDetail(@PathVariable("no") String no, Model model) {
 		log.info("pDetail.....");
@@ -71,6 +73,7 @@ public class ProductController {
 		}
 	}
 	
+	//상품 등록 처리 구현
 	@PostMapping("/product/insertProductBoard")
 	public String insertPBoard(PBoardVO pBoardVO) {
 		log.info(pBoardVO);
@@ -78,6 +81,7 @@ public class ProductController {
 		return "redirect:../myPage/myPage";
 	}
 	
+	//상품 등록 페이지
 	@GetMapping("/product/productRegister")
 	public void getRegister() {
 		log.info("productRegister........");

@@ -34,19 +34,25 @@ public class MainController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	//main
 	@GetMapping("/main")
 	public void getMain(Model model) {
 		List<PBoardVO> pBoardList = productService.getMainPBoardList();
 		List<ProductVO> productList = productService.getMainProductList();
 		List<FileVO> fileList = fileService.getMainListFile();
 		List<UserVO> userList = userService.getUserList();
-		model.addAttribute("pBoardList", pBoardList);
-		model.addAttribute("productList", productList);
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("userList", userList);
+		if(pBoardList != null)
+			model.addAttribute("pBoardList", pBoardList);
+		if(productList!=null)
+			model.addAttribute("productList", productList);
+		if(fileList!=null)
+			model.addAttribute("fileList", fileList);
+		if(userList!=null)
+			model.addAttribute("userList", userList);
 		log.info("main...........");
 	}
 	
+	//mypage
 	@GetMapping("/myPage")
 	public String getMyPage() {
 		log.info("mypage.....");
@@ -67,6 +73,7 @@ public class MainController {
 	 * "/product/typeList"; }
 	 */
 	
+	//search
 	@GetMapping("/search")
 	public String getSearchNew(Model model, String product_search) {
 		String tmp = product_search; //대문자 검색 내용 넘겨주기
@@ -88,6 +95,7 @@ public class MainController {
 		return "/product/typeList";
 	}
 	
+	//new,sale,event
 	@GetMapping("/cond/{pboard_unit_condition}")
 	public String getType(@PathVariable("pboard_unit_condition") String pboard_unit_condition, Model model) {
 		log.info("type.....");
