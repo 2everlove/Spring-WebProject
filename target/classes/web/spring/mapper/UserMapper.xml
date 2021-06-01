@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.UserMapper">
+	<select id="getUser" resultType="web.spring.vo.UserVO">
+		select * from user_info where user_id = #{user_id}
+	</select>
+	<select id="getUserList" resultType="web.spring.vo.UserVO">
+		select * from user_info 
+		where user_id in (
+			select user_id from products_info where product_id in (
+				select pboard.product_id from (
+					select board.*, row_number() over(partition by product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank from product_board board
+				) pboard where each_rank='1'
+			)
+		)
+	</select>
+		<!-- 로그인 -->
+	<select id="login" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id=#{User_id}
+	</select>
+	
+	<update id="updateSessionkey">
+		update user_info set sessionkey = #{sessionkey}, sessionlimit = sysdate + 7 
+		where user_id=#{User_id}
+	</update>
+	<select id="loginSessionkey" resultType="web.spring.vo.UserVO">
+		select * from user_info
+		where sessionkey = #{sessionkey} and sessionlimit > sysdate
+	</select>
+	<insert id="insertUser" >
+		insert into user_info (User_id, User_email,User_name, User_password, User_contact, User_enabled, User_type, User_regdate, User_gender,User_birth,User_address,User_interesting,file_pictureId) 
+		values (#{User_id},#{User_email},#{User_name},#{User_password},#{User_contact},1,#{User_type},sysdate, #{User_gender},#{User_birth},#{User_address},#{User_interesting},#{file_pictureId})
+	</insert>
+	<select id="checkIdReapet" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id = #{User_id}
+	</select>
+	<select id="checkId" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_name = #{User_name} and User_email = #{User_email}
+	</select>
+	<select id="checkPwd" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id = #{User_id} and User_email = #{User_email}
+	</select>
+	<update id="updateUser">
+		update user_info set User_email=#{User_email}, User_name=#{User_name}, User_password=#{User_password}, User_contact=#{User_contact}, User_enabled=#{User_enabled}, User_type=#{User_type}, User_gender=#{User_gender},User_birth=#{User_birth},User_address=#{User_address},User_interesting=#{User_interesting},User_enabledContent=#{User_enabledContent},file_pictureId=#{file_pictureId}
+		where User_id= #{User_id}
+	</update>
+</mapper>
