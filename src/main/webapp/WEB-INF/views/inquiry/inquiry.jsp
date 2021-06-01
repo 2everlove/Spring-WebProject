@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:useBean id="now" class="java.util.Date" />
 
-<%-- <%@include file="./includes/header.jsp" %> --%>
+<%-- <%@include file="../includes/header.jsp" %> --%>
 <head>
 <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 
@@ -73,4 +73,4 @@
 
 
 
-<%-- <%@include file="./includes/footer.jsp" %> --%>
+<%-- <%@include file="../includes/footer.jsp" %> --%>
