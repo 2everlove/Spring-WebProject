@@ -77,8 +77,7 @@ fieldset {
 				</div>
 			</fieldset>
 			<button type="submit" id="button">결제</button>
-			<input class="button" type="button" value="장바구니"
-				onclick="location.href='cart'">
+			<button type="button" class="detail__btn cart" onclick="location.href='cart'">장바구니</button>
 		</form>
 	</div>
 </body>

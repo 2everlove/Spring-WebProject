@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
+import web.spring.vo.CartVO;
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
@@ -22,18 +23,10 @@ public class PaymentController {
 	@Autowired
 	ProductService productService;
 	
-	@PostMapping("/payment")
-	public String payment(Model model, PBoardVO pBoard) {
-		UserVO uvo = paymentService.get("user01");
-		pBoard = paymentService.getProduct(pBoard.getPboard_unit_no());
-		model.addAttribute("uvo", uvo);
-		model.addAttribute("pBoard", pBoard);
-		return "/order/payment";
-	}
-	
 	@GetMapping("/payment")
 	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO) {
 		PBoardVO pBoard = pBoardVO;
+		userVO = paymentService.get(userVO.getUser_id());
 		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
 		model.addAttribute("uvo", userVO);
 		model.addAttribute("pBoard", pBoard);
@@ -48,10 +41,21 @@ public class PaymentController {
 		return "/order/paymentAction";
 	}
 	
-	@GetMapping("/cart")
-	public String cart(Model model) {
-		OrderVO ovo = paymentService.getCart("user01");
-		model.addAttribute("ovo", ovo);
-		return "/order/cart";
+	@GetMapping("/cartAction")
+	public String cartAction(Model model, UserVO userVO, PBoardVO pBoardVO) {
+		PBoardVO pBoard = pBoardVO;
+		userVO = paymentService.get(userVO.getUser_id());
+		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
+		model.addAttribute("uvo", userVO);
+		model.addAttribute("pBoard", pBoard);
+		model.addAttribute("productVO", productVO);
+		return "/order/cartAction";
+	}
+	
+	@PostMapping("/insertCart")
+	public String insertCart(Model model, CartVO cvo) {
+		int res = paymentService.insertCart(cvo);
+		model.addAttribute("cvo", cvo);
+		return "/order/insertCart";
 	}
 }

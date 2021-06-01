@@ -20,7 +20,13 @@
 		values (order_sequence.nextval, #{order_address}, #{order_name}, '0', #{user_id}, #{order_totalprice}, #{order_totalcount})
 	</insert>
 
-	<select id="getCart" resultType="String">
-		select order_address, order_name, order_regdate, order_totalcount, order_totalprice from order_board where user_id=#{user_id}
-	</select>
+	<insert id="insertCart">
+		<selectKey resultType="String" order="AFTER" keyProperty="cart_id"> select cart_sequence.nextval from dual </selectKey>
+		insert into cart_board (cart_id, user_address, user_name, user_id, product_name, cart_totalprice, cart_totalcount)
+		values (cart_sequence.nextval, #{user_address}, #{user_name}, #{user_id}, #{product_name}, #{cart_totalprice}, #{cart_totalcount})
+	</insert>
+	
+	<!-- <select id="getCartList" resultType="web.spring.vo.CartVO">
+		
+	</select> -->
 </mapper>
