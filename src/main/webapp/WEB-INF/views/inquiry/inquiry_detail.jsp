@@ -30,8 +30,8 @@
 		<form action="/inquiry_delete" method="post" name="inquiry_delete"
 			id="inquiry_delete">
 			<!-- 게시글 넘버 히든처리 -->
-			<input type="text" name="iboard_no"
-				value="${inquiry_detail.iboard_no}" readonly hidden>
+			<input type="hidden" name="iboard_no"
+				value="${inquiry_detail.iboard_no}" readonly >
 			<p>
 				<label>제목</label> <input type="text" name="iboard_title"
 					id="iboard_title" maxlength="100"
@@ -44,7 +44,7 @@
 				id="iboard_content" maxlength="500" readonly>${inquiry_detail.iboard_content}</textarea>
 			<p>
 				<label>작성자</label> <input type="text" name="user_id" id="user_id"
-					value="${inquiry_detail.user_id }" readonly> user01
+					value="${inquiry_detail.user_id }" readonly>
 			</p>
 			<p>
 				<label>작성일자</label><input type="text" name="inquiry_regdate"

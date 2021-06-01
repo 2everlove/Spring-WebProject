@@ -74,7 +74,11 @@
 			<label><input type="radio" name="iboard_public"
 				id="iboard_public" value="0" checked>전체공개</label> <label><input
 				type="radio" name="iboard_public" value="1">비공개</label>
-			<!-- 1 비공개, 0 공개 -->
+				<!-- 1 비공개, 0 공개 -->
+				
+				<!-- user-id 히든 처리 -->
+			<input type="hidden" name="user_id" id="user_id" value="user01">
+			
 
 
 

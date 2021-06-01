@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.InquiryReplyMapper">
+
+
+	<!-- 답변 등록하기 -->
+	<insert id="insertReply">
+
+		<selectKey keyProperty="ireply_no" resultType="int"
+			order="BEFORE">
+			select IREPLY_SEQUENCE.nextval from dual
+		</selectKey>
+
+		INSERT INTO INQUIRY_REPLY VALUES (IREPLY_SEQUENCE.NEXTVAL,
+		#{ireply_content}, sysdate,
+		#{iboard_no})
+
+	</insert>
+
+
+</mapper>

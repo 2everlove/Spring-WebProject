@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryBoardService;
+import web.spring.service.InquiryReplyService;
 import web.spring.vo.InquiryBoardVO;
 
 @Controller
@@ -19,6 +20,7 @@ public class InquiryController {
 
 	@Autowired
 	InquiryBoardService service;
+	InquiryReplyService replyService;
 
 	/**
 	 * @author 문의사항 리스트 불러오기
@@ -27,7 +29,7 @@ public class InquiryController {
 	@GetMapping("/inquiry")
 	public String getInquiryBoardList(Model model) {
 		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
-		if(inquiryList!=null) {
+		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
 		}
 		log.info("inquiry.....");
@@ -53,7 +55,7 @@ public class InquiryController {
 		service.insertInquiry(vo);
 		String resMsg = "게시글이 등록되었습니다.";
 		rttr.addFlashAttribute("resMsg", resMsg);
-		return "redirect:/inquiry/inquiry";
+		return "redirect:/inquiry";
 	}
 
 	/**
@@ -87,4 +89,12 @@ public class InquiryController {
 
 	}
 
+// =========================================================================
+// =========================================================================
+// =============================Reply 영역===================================
+// =========================================================================
+// =========================================================================
+
+	
+	
 }

@@ -14,47 +14,51 @@
 		alert('${resMsg}');
 	}
 </script>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+
+<fmt:formatDate value="${inquiryList1.iboard_regdate_new}"
+	pattern="yyyy-MM-dd" var="inquiryList1.iboard_regdate_new" />
+	
 <c:if test="${!empty inquiryList}">
-<h1>게시판</h1>
-<div>
+	<h1>게시판</h1>
 	<div>
 		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>카테고리</th>
-						<th>작성자</th>
-						<th>작성일시</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="inquiryList1" items="${inquiryList}">
+			<div>
+				<table>
+					<thead>
 						<tr>
-							<td>${inquiryList1.iboard_no }</td>
-
-							<td><a
-								href="/inquiry_detail?iboard_no=${inquiryList1.iboard_no }">${inquiryList1.iboard_title }</a>
-							<c:if test="${today <= inquiryList1.iboard_regdate_new}">(New)</c:if>
-								<c:if test="${inquiryList1.iboard_public == 1}">(비공개)</c:if></td>
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
-							
-							<fmt:formatDate value="${inquiryList1.iboard_regdate_new}" pattern="yyyy-MM-dd" var="inquiryList1.iboard_regdate_new"/>
-							<td>${inquiryList1.iboard_category }</td>
-							<td>${inquiryList1.user_id }</td>
-							<td>${inquiryList1.iboard_regdate }</td>
+							<th>번호</th>
+							<th>제목</th>
+							<th>카테고리</th>
+							<th>작성자</th>
+							<th>작성일시</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach var="inquiryList1" items="${inquiryList}">
+							<tr>
+								<td>${inquiryList1.iboard_no }</td>
+
+								<td><a
+									href="/inquiry_detail?iboard_no=${inquiryList1.iboard_no }">${inquiryList1.iboard_title }</a>
+									<c:if test="${inquiryList1.iboard_public == 1}">(비공개)</c:if> <c:if
+										test="${today <= inquiryList1.iboard_regdate_new}">(New)</c:if>
+								</td>
+
+								<td>${inquiryList1.iboard_category }</td>
+								<td>${inquiryList1.user_id }</td>
+								<td>${inquiryList1.iboard_regdate }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
-<button type="button" onclick="location.href='/inquiry_register'">문의하기</button>
+	<button type="button" onclick="location.href='/inquiry_register'">문의하기</button>
 </c:if>
 <c:if test="${empty inquiryList}">
-<p>데이터가 없습니다.
+	<p>데이터가 없습니다.
 </c:if>
 <%-- 
 <table border=1>
