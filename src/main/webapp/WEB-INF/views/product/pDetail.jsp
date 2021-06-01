@@ -38,12 +38,10 @@
 	        		<img src="${urlThum }" class="thumnail__products-detail">
 	        	 </c:forEach>
 	        	 
-	        		<form action="/order/productOrder" method="post" class="detail__form">
+	        		<form action="/payment" method="get" class="detail__form">
 				    	<div>
 				    		<input type="hidden" value="${pBoard.pboard_unit_no}" name="pboard_unit_no">
 				    		<input type="hidden" value="${pBoard.file_pictureId}" name="file_pictureId">
-				    		<input type="hidden" value="${pBoard.pboard_unit_regdate}" name="pboard_unit_regdate">
-				    		<input type="hidden" value="${pBoard.pboard_unit_updateDate}" name="pboard_unit_updateDate">
 				    		<input type="hidden" value="${pBoard.pboard_unit_price}" name="pboard_unit_price">
 				    		<input type="hidden" value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks">
 				    		<input type="hidden" value="${pBoard.product_id}" name="product_id">
@@ -66,7 +64,7 @@
 				    		<p>등록일 <span>${regdate}</span>
 				    		<p>수정일 <span>${updateDate}</span>
 				    		<p><button type="button" class="detail__btn cart">장바구니</button>
-				    		<button type="button" class="detail__btn purchase">구매하기</button>
+				    		<button type="submit" class="detail__btn purchase">구매하기</button>
 				    	</div>
 	        		</form>
 	        	</div>

@@ -180,6 +180,9 @@
     		</div>
 
 			</c:if>
+			<c:if test="${empty pboardList}">
+				
+			</c:if>
     	</div>
    	</section>
    	

@@ -58,7 +58,6 @@ public class UserController {
 		} else {
 			return "reduplication";
 		}
-		
 	}
 	
 	
