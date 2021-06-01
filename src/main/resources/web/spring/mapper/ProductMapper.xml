@@ -5,11 +5,21 @@
 	<select id="getProductList" resultType="web.spring.vo.ProductVO">
 		select * from products_info
 	</select>
+	
 	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price) each_rank from (
+			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
     			select * from product_board where product_id in(
         			select product_id from products_info where product_category=#{product_category}) 
+        		) board
+        	) pboard where each_rank between 1 and 5
+	</select>
+	
+	<select id="getCondBoardList" resultType="web.spring.vo.PBoardVO">
+		select rownum num, pboard.* from (
+			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+    			select * from product_board where product_id in(
+        			select product_id from products_info where pboard_unit_condition=#{pboard_unit_condition}) 
         		) board
         	) pboard where each_rank between 1 and 5
 	</select>
@@ -20,6 +30,10 @@
 	
 	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
 		select * from products_info where product_category=#{product_category}
+	</select>
+	
+	<select id="getCondList" resultType="web.spring.vo.ProductVO">
+		select * from products_info where product_id in (select product_id from product_board where pboard_unit_condition = #{pboard_unit_condition})
 	</select>
 	
 	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
@@ -45,5 +59,96 @@
 	<insert id="insertCodeInfo">
 		insert into code_info(code_no, code_type, code_value) values(code_sequence.nextval, #{code_type}, #{code_value})
 	</insert>
+	
+	<select id="searchManuCate" resultType="web.spring.vo.ProductVO">
+		select * 
+		from products_info 
+		where product_manufacturer=#{product_manufacturer} and product_category = #{product_category}
+	</select>
+	
+	<select id="searchProductManuCate" resultType="web.spring.vo.ProductVO">
+		select distinct product_category, product_manufacturer, product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
+		from products_info 
+		where product_name like '%'||#{product_name}||'%'
+	</select>
+	
+	<select id="searchManufCategoty" resultType="web.spring.vo.ProductVO">
+		select distinct product_category, product_manufacturer, product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
+		from products_info 
+		where product_id = #{product_id}
+	</select>
+	
+	<insert id="inserPBoard">
+		insert into product_board(pboard_unit_no, pboard_unit_price, pboard_unit_condition, pboard_unit_stocks, product_id, user_id, file_pictureId)
+   		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId})
+	</insert>
+	
+	<!-- search -->
+	<select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
+		select rownum num, pboard.* from (
+			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+    			select * from product_board where product_id in(
+        			select product_id from products_info 
+		where product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_manufacturer) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_category) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_name) like '%'||#{item}||'%'
+			</foreach>
+		)
+        		)) board
+        	) pboard where each_rank between 1 and 5
+	</select>
+	
+	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
+		select * from products_info 
+		where product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_manufacturer) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_category) like '%'||#{item}||'%'
+			</foreach>
+		) or product_id in (
+			select product_id from products_info 
+			where 
+			<foreach collection="search_Map" item="item" separator="or" index="0">
+				Lower(product_name) like '%'||#{item}||'%'
+			</foreach>
+		)
+	</select>
+	
+	
+	<!-- main -->
+	
+	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
+		select pboard.* from (select board.*, row_number() over(partition by product_id order by dbms_random.random) each_rank from product_board board) pboard where each_rank='1'
+	</select>
+	
+	<select id="getMainProductList" resultType="web.spring.vo.ProductVO">
+		select * from products_info 
+			where product_id in (
+				select pboard.product_id from (
+					select board.*, row_number() over(partition by product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
+						from product_board board) 
+					pboard where each_rank='1')
+	</select>
 	
 </mapper>

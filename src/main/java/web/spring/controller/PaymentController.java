@@ -1,7 +1,5 @@
 package web.spring.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,12 +30,12 @@ public class PaymentController {
 		model.addAttribute("pBoard", pBoard);
 		return "/order/payment";
 	}
+	
 	@GetMapping("/payment")
-	public String getPayment(Model model) {
-		UserVO uvo = paymentService.get("user01");
-		PBoardVO pBoard = productService.getProduct("2");
-		ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
-		model.addAttribute("uvo", uvo);
+	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO) {
+		PBoardVO pBoard = pBoardVO;
+		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
+		model.addAttribute("uvo", userVO);
 		model.addAttribute("pBoard", pBoard);
 		model.addAttribute("productVO", productVO);
 		return "/order/payment";
@@ -55,10 +53,5 @@ public class PaymentController {
 		OrderVO ovo = paymentService.getCart("user01");
 		model.addAttribute("ovo", ovo);
 		return "/order/cart";
-	}
-	
-	@GetMapping("/myPage")
-	public String myPage() {
-		return "/order/myPage";
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -21,36 +22,48 @@ import web.spring.vo.ProductVO;
 @Log4j
 public class ProductController {
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private ProductService productService;
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private UserService userService;
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
-		System.out.println("type.....");
+		log.info("type.....");
 		productService.getTypeList(product_category);
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
-		System.out.println("pBList...."+pBList);
+		List<FileVO> fileList = fileService.getTypeListFile(product_category);
+		log.info("pList...."+pList);
+		log.info("pBList...."+pBList);
+		log.info("fileList...."+fileList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("search", product_category);
 		return "/product/typeList";
 	}
 	
+	//product detail page
 	@GetMapping("/pDetail/{no}")
-	public String pDetail(@PathVariable("no") String no, Model model) {
+	public String getDetail(@PathVariable("no") String no, Model model) {
+		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
+			List<FileVO> fileThumList = fileService.getPDetailThum(pBoard.getPboard_unit_no());
+			List<FileVO> fileDescList = fileService.getPDetailDesc(pBoard.getPboard_unit_no());
 			if(productVO != null) {
 				model.addAttribute("pBoard", pBoard);
 				model.addAttribute("productVO", productVO);
+				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
+				model.addAttribute("fileThumList", fileThumList);
+				model.addAttribute("fileDescList", fileDescList);
 				return "/product/pDetail";
 			} else {
 				return "/error";
@@ -60,9 +73,18 @@ public class ProductController {
 		}
 	}
 	
+	//상품 등록 처리 구현
+	@PostMapping("/product/insertProductBoard")
+	public String insertPBoard(PBoardVO pBoardVO) {
+		log.info(pBoardVO);
+		productService.inserPBoard(pBoardVO);
+		return "redirect:../myPage/myPage";
+	}
+	
+	//상품 등록 페이지
 	@GetMapping("/product/productRegister")
 	public void getRegister() {
-		System.out.println("productRegister........");
+		log.info("productRegister........");
 	}
 	
 }

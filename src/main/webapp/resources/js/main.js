@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 $(document).ready(function(){
 	//우측 사이드바 제어
 	 $('.navbar__toggle-btn-right').click(function(){
