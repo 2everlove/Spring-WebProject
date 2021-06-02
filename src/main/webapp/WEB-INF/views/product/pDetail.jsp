@@ -82,7 +82,7 @@
 							수정일 <span>${updateDate}</span> 
 						<p>
 							<input type="submit" class="detail__btn payment" value="결제" onclick="javascript: form.action='/payment';" />
-							<input type="submit" class="detail__btn cart" value="장바구니" onclick="javascript: form.action='/cartAction';" />
+							<input type="submit" class="detail__btn cart" value="장바구니" onclick="javascript: form.action='/cart';" />
 					</div>
 				</form>
 			</div>

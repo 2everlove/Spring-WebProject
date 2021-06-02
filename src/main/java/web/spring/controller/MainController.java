@@ -25,13 +25,13 @@ import web.spring.vo.UserVO;
 @Log4j
 public class MainController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductService productService;
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private UserService userService;
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private FileService fileService;
 	
 	//main
@@ -49,20 +49,20 @@ public class MainController {
 			model.addAttribute("fileList", fileList);
 		if(userList!=null)
 			model.addAttribute("userList", userList);
-		log.info("main...........");
+		System.out.println("main...........");
 	}
 	
 	//mypage
 	@GetMapping("/myPage")
 	public String getMyPage() {
-		log.info("mypage.....");
+		System.out.println("mypage.....");
 		return "/myPage/myPage";
 	}
 	
 	/*
 	 * @GetMapping("/search") public String getSearch(Model model, String
-	 * product_search) { String tmp = product_search; //대문자 검색 내용 넘겨주기
-	 * product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
+	 * product_search) { String tmp = product_search; //��臾몄옄 寃��깋 �궡�슜 �꽆寃⑥＜湲�
+	 * product_search = product_search.toLowerCase().trim(); //�냼臾몄옄濡� 蹂��솚& �븵�뮘 怨듬갚 �젣嫄�
 	 * if(!product_search.equals("")) { List<ProductVO> pList =
 	 * productService.getSearchProductList(product_search); List<PBoardVO> pBList =
 	 * productService.getSearchBoardList(product_search); List<FileVO> fileList =
@@ -76,8 +76,8 @@ public class MainController {
 	//search
 	@GetMapping("/search")
 	public String getSearchNew(Model model, String product_search) {
-		String tmp = product_search; //대문자 검색 내용 넘겨주기
-		product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
+		String tmp = product_search; //��臾몄옄 寃��깋 �궡�슜 �꽆寃⑥＜湲�
+		product_search = product_search.toLowerCase().trim(); //�냼臾몄옄濡� 蹂��솚& �븵�뮘 怨듬갚 �젣嫄�
 		String[] search_array = product_search.split(" ");
 		ArrayList<String> search_list = new ArrayList<String>();
 		for(String keyWord : search_array) {
@@ -98,14 +98,14 @@ public class MainController {
 	//new,sale,event
 	@GetMapping("/cond/{pboard_unit_condition}")
 	public String getType(@PathVariable("pboard_unit_condition") String pboard_unit_condition, Model model) {
-		log.info("type.....");
+		System.out.println("type.....");
 		productService.getTypeList(pboard_unit_condition);
 		List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
 		List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
 		List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
-		log.info("pList...."+pList);
-		log.info("pBList...."+pBList);
-		log.info("fileList...."+fileList);
+		System.out.println("pList...."+pList);
+		System.out.println("pBList...."+pBList);
+		System.out.println("fileList...."+fileList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);

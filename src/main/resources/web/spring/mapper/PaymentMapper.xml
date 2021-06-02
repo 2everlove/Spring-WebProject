@@ -26,7 +26,7 @@
 		values (cart_sequence.nextval, #{user_address}, #{user_name}, #{user_id}, #{product_name}, #{cart_totalprice}, #{cart_totalcount})
 	</insert>
 	
-	<!-- <select id="getCartList" resultType="web.spring.vo.CartVO">
-		
-	</select> -->
+	<select id="getCartList" resultType="web.spring.vo.CartVO">
+		select user_name, user_address, product_name, cart_totalprice, cart_totalcount from cart_board where user_id = #{user_id}
+	</select>
 </mapper>

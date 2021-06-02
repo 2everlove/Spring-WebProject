@@ -21,30 +21,30 @@ import web.spring.vo.ProductVO;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class ProductMapperTests {
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductMapper productMapper;
 	
 	@Test
 	public void getProductListTest() {
-		log.info(productMapper.getProductList());
+		System.out.println(productMapper.getProductList());
 	}
 
 	@Test
 	public void getPBoardListTest() {
-		log.info(productMapper.getPBoardList());
+		System.out.println(productMapper.getPBoardList());
 	}
 	
 	@Test
 	public void getTypeListTest() {
-		log.info(productMapper.getTypeList("tablet"));
+		System.out.println(productMapper.getTypeList("tablet"));
 	}
 	@Test
 	public void getTypeBoardListTest() {
-		log.info(productMapper.getTypeBoardList("tablet"));
+		System.out.println(productMapper.getTypeBoardList("tablet"));
 	}
 	@Test
 	public void getproductTest() {
-		log.info(productMapper.getProduct("10"));
+		System.out.println(productMapper.getProduct("10"));
 	}
 	
 	@Test
@@ -55,27 +55,27 @@ public class ProductMapperTests {
 		productVO.setProduct_color("color");
 		productVO.setProduct_manufacturer("product_manufacturer");
 		productVO.setProduct_name("product_name");
-		log.info(productMapper.productInfoInsert(productVO ));
+		System.out.println(productMapper.productInfoInsert(productVO ));
 	}
 	
 	@Test
 	public void searchProductTest() {
-		log.info(productMapper.searchProductCategory("category","ta"));
+		System.out.println(productMapper.searchProductCategory("category","ta"));
 	}
 	@Test
 	public void insertCodeTest() {
-		log.info(productMapper.insertCodeInfo("category", "computer"));
+		System.out.println(productMapper.insertCodeInfo("category", "computer"));
 	}
 	
 	//main---
 	
 	@Test
 	public void getMainPBoardList() {
-		log.info(productMapper.getMainPBoardList());
+		System.out.println(productMapper.getMainPBoardList());
 	}
 	@Test
 	public void getMainProductList() {
-		log.info(productMapper.getMainProductList());
+		System.out.println(productMapper.getMainProductList());
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class ProductMapperTests {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search_Map", arr);
 		List<ProductVO> list = productMapper.getSearchProductList(map);
-		log.info(list);
+		System.out.println(list);
 	}
 	@Test
 	public void getSearchBo() {
@@ -106,7 +106,7 @@ public class ProductMapperTests {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search_Map", arr);
 		List<PBoardVO> list = productMapper.getSearchBoardList(map);
-		log.info(list);
+		System.out.println(list);
 	}
 	
 }

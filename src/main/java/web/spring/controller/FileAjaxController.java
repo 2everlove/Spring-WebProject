@@ -31,25 +31,25 @@ import web.spring.vo.FileVO;
 @Log4j
 public class FileAjaxController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private FileService fileService;
 	
 	private static final String ROOT_DIR = "C:\\upload\\temp\\";
 	
 	@GetMapping("/fileUploadAjax/{file_pictureId}")
 	public List<FileVO> getList(@PathVariable("file_pictureId") Long file_pictureId){
-		log.info("getList........");
+		System.out.println("getList........");
 		List<FileVO> list = fileService.getListFile(String.valueOf(file_pictureId));
-		log.info(list);
+		System.out.println(list);
 	return list;	
 	}
 	
 	@GetMapping("/fileDisplay")
 	public ResponseEntity<byte[]> fileDisplay(@Param("file_name") String file_name){
-		log.info("fileDisplay...."+file_name);
+		System.out.println("fileDisplay...."+file_name);
 		HttpHeaders headers = new HttpHeaders();
 		File file = new File(ROOT_DIR+file_name);
-		log.info(file);
+		System.out.println(file);
 		if(file.exists()) {
 			try {
 				headers.add("Content-Type", Files.probeContentType(file.toPath()));
@@ -64,7 +64,7 @@ public class FileAjaxController {
 	
 	@PostMapping("/fileUploadAjax")
 	public Map<String, String> fileUpload(MultipartFile[] uploadFile, Long file_pictureId, String file_usingType) {
-		log.info("fileUpload...Ajax Post..."+file_pictureId);
+		System.out.println("fileUpload...Ajax Post..."+file_pictureId);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		int res=0;
@@ -75,7 +75,7 @@ public class FileAjaxController {
 		
 		for(MultipartFile multipartFile : uploadFile) {
 			
-			//중복 방지를 위해 UUID를 생성하여 파일명 앞에 붙여준다.(일련 번호 대신 유추하기 힘든 식별자를 사용)
+			//以묐났 諛⑹�瑜� �쐞�빐 UUID瑜� �깮�꽦�븯�뿬 �뙆�씪紐� �븵�뿉 遺숈뿬以��떎.(�씪�젴 踰덊샇 ���떊 �쑀異뷀븯湲� �옒�뱺 �떇蹂꾩옄瑜� �궗�슜)
 			//universally unique identifier (UUID)
 			
 			
@@ -83,13 +83,13 @@ public class FileAjaxController {
 			
 			//String uploadFileName = "_"+multipartFile.getOriginalFilename();
 			
-			log.info("File Name: "+multipartFile.getOriginalFilename());
-			log.info("File Size: "+multipartFile.getSize());
-			log.info("File Size: "+multipartFile.getContentType());
-			log.info("===================================");
+			System.out.println("File Name: "+multipartFile.getOriginalFilename());
+			System.out.println("File Size: "+multipartFile.getSize());
+			System.out.println("File Size: "+multipartFile.getContentType());
+			System.out.println("===================================");
 		
 			
-			//파일을 서버에 저장
+			//�뙆�씪�쓣 �꽌踰꾩뿉 ���옣
 			try {
 				FileVO fileVO = new FileVO(String.valueOf(file_pictureId), uploadPath, multipartFile.getOriginalFilename());
 				
@@ -97,27 +97,27 @@ public class FileAjaxController {
 				File saveFile = new File(ROOT_DIR+fileVO.getFile_savePath());
 				multipartFile.transferTo(saveFile);
 				
-				//확장자를 이용하여 MimeType을 결정
-				//마임타입을 확인하지 못하면 null 반
+				//�솗�옣�옄瑜� �씠�슜�븯�뿬 MimeType�쓣 寃곗젙
+				//留덉엫���엯�쓣 �솗�씤�븯吏� 紐삵븯硫� null 諛�
 				String contentType = Files.probeContentType(saveFile.toPath());
 				fileVO.setFile_usingType(file_usingType);
 				
-				//이미지 파일인 경우 썸네일 생성
-				//contentType이 image로 시작하면 썸네일 생성
+				//�씠誘몄� �뙆�씪�씤 寃쎌슦 �뜽�꽕�씪 �깮�꽦
+				//contentType�씠 image濡� �떆�옉�븯硫� �뜽�꽕�씪 �깮�꽦
 				if(null != contentType && contentType.startsWith("image")) {
-					//썸네일 생성할 경로 지정 (ex: 2021\5\2\s_fileName)
+					//�뜽�꽕�씪 �깮�꽦�븷 寃쎈줈 吏��젙 (ex: 2021\5\2\s_fileName)
 					//String thmbanil = ROOT_DIR+uploadPath+"s_"+uploadFileName;
-					//원본 파일의 size를 지정해서 경로에 저장
+					//�썝蹂� �뙆�씪�쓽 size瑜� 吏��젙�빐�꽌 寃쎈줈�뿉 ���옣
 					Thumbnails.of(saveFile).size(1280, 720).toFile(ROOT_DIR+fileVO.getFile_s_savePath());
 					
-					//이미지면 VO의 fileType을 Y로 저장
+					//�씠誘몄�硫� VO�쓽 fileType�쓣 Y濡� ���옣
 					fileVO.setFile_type("Y");
-					log.info(fileVO.getFile_type());
+					System.out.println(fileVO.getFile_type());
 					
 				} else {
 					fileVO.setFile_type("N");
 				}
-				//VO에 저장된 파일정보를 DB에 저장
+				//VO�뿉 ���옣�맂 �뙆�씪�젙蹂대�� DB�뿉 ���옣
 				if(fileService.fileInsert(fileVO)>0) {
 					res++;
 				};
@@ -125,7 +125,7 @@ public class FileAjaxController {
 				e.printStackTrace();
 			}			
 		}
-		//attachNo에 해당하는 파일리스틀를 조회하여 화면에 출력
+		//attachNo�뿉 �빐�떦�븯�뒗 �뙆�씪由ъ뒪��瑜� 議고쉶�븯�뿬 �솕硫댁뿉 異쒕젰
 		//List<AttachFileVO> list =  service.getList(attachNo);
 		map.put("file_pictureId", file_pictureId+"");
 		map.put("count", res+"");
@@ -135,19 +135,19 @@ public class FileAjaxController {
 	
 	private String getFolder() {
 		String uploadPath="";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//날짜 형식을 지정 (yyyy-MM-dd)
-		String str = sdf.format(new Date());//오늘 날짜를 형식에 맞게 가져옴
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//�궇吏� �삎�떇�쓣 吏��젙 (yyyy-MM-dd)
+		String str = sdf.format(new Date());//�삤�뒛 �궇吏쒕�� �삎�떇�뿉 留욊쾶 媛��졇�샂
 		
-		//separator는 UNIX systems '/', Windows systems '\\'로 나눠준다.
+		//separator�뒗 UNIX systems '/', Windows systems '\\'濡� �굹�닠以��떎.
 		//ex) 2021\05\03\
-		uploadPath = str.replace("-", File.separator)+File.separator; //경로만 받자! ROOT_DIR뺴고
-		log.info("uploadPath : "+uploadPath);
+		uploadPath = str.replace("-", File.separator)+File.separator; //寃쎈줈留� 諛쏆옄! ROOT_DIR類닿퀬
+		System.out.println("uploadPath : "+uploadPath);
 		
 		File saveFile = new File(ROOT_DIR+uploadPath);
 		
-		//경로가 존재하지 않으면 경로 생성
+		//寃쎈줈媛� 議댁옱�븯吏� �븡�쑝硫� 寃쎈줈 �깮�꽦
 		if(!saveFile.exists()) {
-			//여러개의 파일을 만들땐 mkdirs
+			//�뿬�윭媛쒖쓽 �뙆�씪�쓣 留뚮뱾�븧 mkdirs
 			saveFile.mkdirs();
 		}
 		return uploadPath;

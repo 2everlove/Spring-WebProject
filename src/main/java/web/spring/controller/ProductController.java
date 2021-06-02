@@ -22,26 +22,26 @@ import web.spring.vo.ProductVO;
 @Log4j
 public class ProductController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductService productService;
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private UserService userService;
 	
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private FileService fileService;
 	
 	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
-		log.info("type.....");
+		System.out.println("type.....");
 		productService.getTypeList(product_category);
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
 		List<FileVO> fileList = fileService.getTypeListFile(product_category);
-		log.info("pList...."+pList);
-		log.info("pBList...."+pBList);
-		log.info("fileList...."+fileList);
+		System.out.println("pList...."+pList);
+		System.out.println("pBList...."+pBList);
+		System.out.println("fileList...."+fileList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);
@@ -52,7 +52,7 @@ public class ProductController {
 	//product detail page
 	@GetMapping("/pDetail/{no}")
 	public String getDetail(@PathVariable("no") String no, Model model) {
-		log.info("pDetail.....");
+		System.out.println("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
@@ -73,18 +73,18 @@ public class ProductController {
 		}
 	}
 	
-	//상품 등록 처리 구현
+	//�긽�뭹 �벑濡� 泥섎━ 援ы쁽
 	@PostMapping("/product/insertProductBoard")
 	public String insertPBoard(PBoardVO pBoardVO) {
-		log.info(pBoardVO);
+		System.out.println(pBoardVO);
 		productService.inserPBoard(pBoardVO);
 		return "redirect:../myPage/myPage";
 	}
 	
-	//상품 등록 페이지
+	//�긽�뭹 �벑濡� �럹�씠吏�
 	@GetMapping("/product/productRegister")
 	public void getRegister() {
-		log.info("productRegister........");
+		System.out.println("productRegister........");
 	}
 	
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.Setter;
 import web.spring.mapper.ProductMapper;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
@@ -14,7 +13,7 @@ import web.spring.vo.ProductVO;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-	@Setter(onMethod_= @Autowired)
+	@Autowired
 	private ProductMapper productMapper;
 	
 	@Override
@@ -88,7 +87,7 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.getCondBoardList(pboard_unit_condition);
 	}
 	
-	//검색
+	//寃��깋
 
 	@Override
 	public List<ProductVO> getSearchProductList(Map<String, Object> search_Map) {
@@ -100,7 +99,7 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.getSearchBoardList(search_Map);
 	}
 	
-	//메인
+	//硫붿씤
 	@Override
 	public List<PBoardVO> getMainPBoardList() {
 		return productMapper.getMainPBoardList();

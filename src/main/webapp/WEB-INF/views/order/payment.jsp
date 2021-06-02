@@ -7,11 +7,6 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		console.log(count);
-	});
-</script>
 <style>
 .order {
 	text-align: center;
@@ -52,7 +47,7 @@ fieldset {
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input class="view" name="user_id" value="${pBoard.user_id}">
+					<input class="view" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>
 					<input class="view" name="order_name" value="${uvo.user_name}">
 				</div>

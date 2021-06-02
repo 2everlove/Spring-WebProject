@@ -28,7 +28,7 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
-	/*여기다 userupdate넣자
+	/*�뿬湲곕떎 userupdate�꽔�옄
 	 * @PostMapping("/")
 	 */
 	@GetMapping("/login")
@@ -43,15 +43,15 @@ public class UserController {
 	
 	@PostMapping("/registerMember")
 	public String registerMember(UserVO user,RedirectAttributes rttr) {
-		log.info(userService.insertUser(user));
-		rttr.addFlashAttribute("resMsg",user.getUser_id()+"님 환영합니다.");
+		System.out.println(userService.insertUser(user));
+		rttr.addFlashAttribute("resMsg",user.getUser_id()+"�떂 �솚�쁺�빀�땲�떎.");
 		return "/member/login";
 	}
 	
 	@GetMapping("/checkIdRepeat/{User_id}")
 	@ResponseBody
 	public String checkIdRepeat(@PathVariable("User_id") String User_id) {
-		//아이디 중복 체크
+		//�븘�씠�뵒 以묐났 泥댄겕
 		UserVO user = userService.checkIdReapet(User_id);
 		if(user != null) {
 			return user.getUser_id();

@@ -19,11 +19,6 @@ public class UserMapperTest {
 	PaymentMapper mapper;
 	
 	@Test
-	public void getCart() {
-		System.out.println(mapper.getCart("user01"));
-	}
-	
-	@Test
 	public void getPayment() {
 		OrderVO vo = new OrderVO();
 		vo.setOrder_address("서울시 구로구");

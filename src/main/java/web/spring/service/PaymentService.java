@@ -1,5 +1,7 @@
 package web.spring.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import web.spring.vo.CartVO;
@@ -17,4 +19,6 @@ public interface PaymentService {
 	public int insertOrder(OrderVO ovo);
 	
 	public int insertCart(CartVO cvo);
+	
+	public List<CartVO> getCartList(String user_id);
 }

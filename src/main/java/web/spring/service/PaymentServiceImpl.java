@@ -9,7 +9,6 @@ import web.spring.mapper.PaymentMapper;
 import web.spring.vo.CartVO;
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
-import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
 
 @Service
@@ -36,6 +35,11 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public int insertCart(CartVO cvo) {
 		return mapper.insertCart(cvo);
+	}
+
+	@Override
+	public List<CartVO> getCartList(String user_id) {
+		return mapper.getCartList(user_id);
 	}
 
 }

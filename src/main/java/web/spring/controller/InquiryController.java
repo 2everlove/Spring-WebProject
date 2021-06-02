@@ -21,7 +21,7 @@ public class InquiryController {
 	InquiryBoardService service;
 
 	/**
-	 * @author 문의사항 리스트 불러오기
+	 * @author 臾몄쓽�궗�빆 由ъ뒪�듃 遺덈윭�삤湲�
 	 *
 	 */
 	@GetMapping("/inquiry")
@@ -30,57 +30,57 @@ public class InquiryController {
 		if(inquiryList!=null) {
 			model.addAttribute("inquiryList", inquiryList);
 		}
-		log.info("inquiry.....");
+		System.out.println("inquiry.....");
 		return "/inquiry/inquiry";
 	}
 
 	/**
-	 * @author 문의사항 등록 매핑
+	 * @author 臾몄쓽�궗�빆 �벑濡� 留ㅽ븨
 	 */
 
 	@GetMapping("/inquiry_register")
 	public String inquiryRegister() {
-		log.info("inquiry_register.....");
+		System.out.println("inquiry_register.....");
 		return "/inquiry/inquiry_register";
 	}
 
 	/**
-	 * @author 문의사항 등록 프로세스 매핑
+	 * @author 臾몄쓽�궗�빆 �벑濡� �봽濡쒖꽭�뒪 留ㅽ븨
 	 */
 	@PostMapping("/inquiryRegister")
 	public String inquiryRegisterInsert(InquiryBoardVO vo, RedirectAttributes rttr) {
-		log.info(vo);
+		System.out.println(vo);
 		service.insertInquiry(vo);
-		String resMsg = "게시글이 등록되었습니다.";
+		String resMsg = "寃뚯떆湲��씠 �벑濡앸릺�뿀�뒿�땲�떎.";
 		rttr.addFlashAttribute("resMsg", resMsg);
 		return "redirect:/inquiry/inquiry";
 	}
 
 	/**
-	 * @author 문의사항 상세보기 매핑
+	 * @author 臾몄쓽�궗�빆 �긽�꽭蹂닿린 留ㅽ븨
 	 */
 	@GetMapping("/inquiry_detail")
 	public String detailInquiry(String iboard_no, InquiryBoardVO vo, Model model) {
 
 		vo = service.detailInquiry(iboard_no);
 		model.addAttribute("inquiry_detail", vo);
-		log.info("inquiry detail...." + iboard_no);
+		System.out.println("inquiry detail...." + iboard_no);
 		return "/inquiry/inquiry_detail";
 	}
 
 	/**
-	 * @author 문의사항 삭제
+	 * @author 臾몄쓽�궗�빆 �궘�젣
 	 */
 	@PostMapping("/inquiry_delete")
 	public String deleteInquiry(InquiryBoardVO vo, RedirectAttributes rttr) {
 		int res = service.deleteInquiry(vo.getIboard_no());
 		String resMsg = "";
 		if (res > 0) {
-			resMsg = "게시글이 삭제되었습니다.";
+			resMsg = "寃뚯떆湲��씠 �궘�젣�릺�뿀�뒿�땲�떎.";
 			rttr.addFlashAttribute("resMsg", resMsg);
 			return "redirect:/inquiry";
 		} else {
-			resMsg = "오류가 발생했습니다.";
+			resMsg = "�삤瑜섍� 諛쒖깮�뻽�뒿�땲�떎.";
 			rttr.addFlashAttribute("resMsg", resMsg);
 			return "redirect:/inquiry/inquiry_detail";
 		}

@@ -40,9 +40,9 @@ public class NBoardController {
 		
 		int res = service.delete(vo.getNboard_no());
 		String resMsg = "";
-		// 삭제 성공 -> 리스트
+		// �궘�젣 �꽦怨� -> 由ъ뒪�듃
 		if(res>0) {
-			resMsg = vo.getNboard_no()+"번 게시글이 삭제 되었습니다.";
+			resMsg = vo.getNboard_no()+"踰� 寃뚯떆湲��씠 �궘�젣 �릺�뿀�뒿�땲�떎.";
 			rttr.addFlashAttribute("resMsg", resMsg);
 			rttr.addAttribute("pageNo",cri.getPageNo());
 			rttr.addAttribute("type",cri.getType());
@@ -50,8 +50,8 @@ public class NBoardController {
 			
 			return "redirect:/nboard/nboardList";
 		} else {
-		// 삭제 실패 -> 상세화면
-			resMsg = "게시글 삭제 처리에 실패 했습니다.";
+		// �궘�젣 �떎�뙣 -> �긽�꽭�솕硫�
+			resMsg = "寃뚯떆湲� �궘�젣 泥섎━�뿉 �떎�뙣 �뻽�뒿�땲�떎.";
 			rttr.addFlashAttribute("resMsg", resMsg);
 			rttr.addAttribute("Nboard_no", vo.getNboard_no());
 			rttr.addAttribute("pageNo",cri.getPageNo());
@@ -68,13 +68,13 @@ public class NBoardController {
 		service.nboardLock(vo);
 		String resMsg = "";
 		if(res>0) {
-			resMsg = "수정 되었습니다.";
+			resMsg = "�닔�젙 �릺�뿀�뒿�땲�떎.";
 		}
 		else {
-			resMsg = "수정 작업 실패 했습니다. 관리자에게 문의해주세요.";
+			resMsg = "�닔�젙 �옉�뾽 �떎�뙣 �뻽�뒿�땲�떎. 愿�由ъ옄�뿉寃� 臾몄쓽�빐二쇱꽭�슂.";
 		}
 		
-		// 상세화면 이동시 필요한 파라메터를 세팅
+		// �긽�꽭�솕硫� �씠�룞�떆 �븘�슂�븳 �뙆�씪硫뷀꽣瑜� �꽭�똿
 		rttr.addAttribute("Nboard_no", vo.getNboard_no());
 		rttr.addAttribute("pageNo",cri.getPageNo());
 		rttr.addAttribute("type",cri.getType());
@@ -85,17 +85,17 @@ public class NBoardController {
 	
 	@GetMapping("/nboard/update")
 	public String edit(Criteria cri, NBoardVO vo,Model model) {
-		log.info("============"+vo.getNboard_no());
-		// 상세정보 조회
+		System.out.println("============"+vo.getNboard_no());
+		// �긽�꽭�젙蹂� 議고쉶
 		vo = service.get(vo.getNboard_no());
-		log.info("============"+vo.getNboard_no());
-		//모델에 담아서 화면에 전달
+		System.out.println("============"+vo.getNboard_no());
+		//紐⑤뜽�뿉 �떞�븘�꽌 �솕硫댁뿉 �쟾�떖
 		model.addAttribute("vo", vo);
-		log.info("============"+vo);
-		//리턴이 없으므로 /nboard/nboardGet(URL)로 페이지 연결
+		System.out.println("============"+vo);
+		//由ы꽩�씠 �뾾�쑝誘�濡� /nboard/nboardGet(URL)濡� �럹�씠吏� �뿰寃�
 		return "/nboard/nboardUpdate";
 	}
-		//1. 등록페이지로 이동
+		//1. �벑濡앺럹�씠吏�濡� �씠�룞
 		@GetMapping("/nboard/nboardRegister")
 		public String insert() {
 			return "/nboard/nboardRegister";
@@ -107,7 +107,7 @@ public class NBoardController {
 			int res = service.insertNboard(vo);
 			System.out.println("===========vo : "+vo);
 			
-			rttr.addFlashAttribute("resMsg",vo.getNboard_no()+"번 게시글이 작성 되었습니다.");
+			rttr.addFlashAttribute("resMsg",vo.getNboard_no()+"踰� 寃뚯떆湲��씠 �옉�꽦 �릺�뿀�뒿�땲�떎.");
 			
 			return "redirect:/nboard/nboardList";
 		}

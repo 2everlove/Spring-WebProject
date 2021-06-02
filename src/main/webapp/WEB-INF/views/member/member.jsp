@@ -99,9 +99,9 @@
                  <div class="form-group">
                 	<label>BIRTH</label>
                 	<select name="User_type">
-                		<option value="C">고객</option>
-                		<option value="E">기업</option>
-                		<option value="A">어드민</option>
+                		<option value="2">고객</option>
+                		<option value="1">기업</option>
+                		<option value="0">어드민</option>
                 	</select>
                 </div>
                 <div class="form-group">

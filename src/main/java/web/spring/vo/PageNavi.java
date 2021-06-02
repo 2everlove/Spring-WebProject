@@ -1,45 +1,89 @@
 package web.spring.vo;
 
-import lombok.Data;
-
-// 페이지 처리
-@Data
 public class PageNavi {
 
-	// 페이지 네비게이션의 시작 번호
+	// �럹�씠吏� �꽕鍮꾧쾶�씠�뀡�쓽 �떆�옉 踰덊샇
 	int startPage;
-	// 페이지 네비게이션의 끝번호
+	// �럹�씠吏� �꽕鍮꾧쾶�씠�뀡�쓽 �걹踰덊샇
 	int endPage;
-	// 이전 페이지 여부
+	// �씠�쟾 �럹�씠吏� �뿬遺�
 	boolean prev;
-	// 다음 페이지 여부
+	// �떎�쓬 �럹�씠吏� �뿬遺�
 	boolean next;
 	
-	// 페이지 정보
+	// �럹�씠吏� �젙蹂�
 	Criteria cri;
-	// 게시물의 총 건수
+	// 寃뚯떆臾쇱쓽 珥� 嫄댁닔
 	int total;
 	
 	public PageNavi(Criteria cri, int total) {
 		this.cri = cri;
 		this.total = total;
 		
-		// 페이지 네비게이션의 끝 번호
+		// �럹�씠吏� �꽕鍮꾧쾶�씠�뀡�쓽 �걹 踰덊샇
 		endPage = (int)(Math.ceil(cri.getPageNo() / 10.0)) *10;
-		// 페이지 네비게이션의 시작 번호
+		// �럹�씠吏� �꽕鍮꾧쾶�씠�뀡�쓽 �떆�옉 踰덊샇
 		startPage = endPage - 9;
-		// 실제 마지막 페이지 번호
+		// �떎�젣 留덉�留� �럹�씠吏� 踰덊샇
 		int realEndPage = (int)Math.ceil((total*1.0)/cri.getAmount());
 		
-		// 네비게이션의 마지막 페이지 번호 보다 실제 페이지 번호가 클경우 마지막 페이지 번호를 수정
+		// �꽕鍮꾧쾶�씠�뀡�쓽 留덉�留� �럹�씠吏� 踰덊샇 蹂대떎 �떎�젣 �럹�씠吏� 踰덊샇媛� �겢寃쎌슦 留덉�留� �럹�씠吏� 踰덊샇瑜� �닔�젙
 		endPage = endPage > realEndPage ? realEndPage : endPage;  
 		
 		prev = startPage>1;
 		
-		// 실제 마지막 페이지가 현재 내비게이션의 끝 페이지 번호 보다 크면
+		// �떎�젣 留덉�留� �럹�씠吏�媛� �쁽�옱 �궡鍮꾧쾶�씠�뀡�쓽 �걹 �럹�씠吏� 踰덊샇 蹂대떎 �겕硫�
 		next = realEndPage > endPage;
 		
 			
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public boolean isPrev() {
+		return prev;
+	}
+
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+
+	public boolean isNext() {
+		return next;
+	}
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+	public Criteria getCri() {
+		return cri;
+	}
+
+	public void setCri(Criteria cri) {
+		this.cri = cri;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	
