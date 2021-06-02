@@ -15,8 +15,23 @@
 		INSERT INTO INQUIRY_REPLY VALUES (IREPLY_SEQUENCE.NEXTVAL,
 		#{ireply_content}, sysdate,
 		#{iboard_no})
-
 	</insert>
+
+	<!-- 답변 불러오기 -->
+	<select id="getInquiryReply"
+		resultType="web.spring.vo.InquiryReplyVO">
+
+		select ireply_content,
+		case
+		when to_char(sysdate,'yyyymmdd') = to_char(ireply_regdate,'yyyymmdd')
+		then to_char(ireply_regdate,'hh24:mm:ss')
+		else
+		to_char(ireply_regdate,'yyyy-MM-dd')
+		end ireply_regdate
+
+		from inquiry_reply where iboard_no = {iboard_no}
+
+	</select>
 
 
 </mapper>

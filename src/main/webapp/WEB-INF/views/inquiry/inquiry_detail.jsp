@@ -55,6 +55,6 @@
 		<button onclick="mainInquiry()">목록</button>
 	</div>
 </body>
-
+<%@include file="../inquiry/inquiry_reply.jsp" %> 
 
 <%-- <%@include file="../includes/footer.jsp" %> --%>
