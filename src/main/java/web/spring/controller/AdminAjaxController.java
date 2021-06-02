@@ -1,6 +1,8 @@
 package web.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -20,10 +23,10 @@ import web.spring.vo.PageNavi;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
 
-@Controller
+@RestController
 @Log4j
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminAjaxController {
 	@Setter(onMethod_= @Autowired)
 	private ProductService productService;
 	
@@ -33,25 +36,13 @@ public class AdminController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
-	//상품관리
-	@GetMapping("/productControl")
-	public String getProductList(Criteria cri, Model model) {
-		List<ProductVO> productList = productService.getProductList(cri);
-		model.addAttribute("productList", productList);
-		model.addAttribute("pageNavi",new PageNavi(cri,productService.getProductTotal(cri)));
-		return "/admin/productManage";
-	}
-	
-	//상품 관리글 관리
-	@GetMapping("/pBoardControl")
-	public String getPBoardList(Criteria cri, Model model) {
-		List<UserVO> userList = userService.getUserList();
-		List<ProductVO> productList = productService.getProductAllList();
-		List<PBoardVO> PBoardList = productService.getAllPBoardList(cri);
-		model.addAttribute("PBoardList", PBoardList);
-		model.addAttribute("productList", productList);
-		model.addAttribute("userList", userList);
-		model.addAttribute("pageNavi",new PageNavi(cri,productService.getTotal(cri)));
-		return "/admin/pBoardManage";
+	@PostMapping("/pBoardUpdate")
+	public Map<String, Object> updateBoardList(PBoardVO pBoardVO) {
+		log.info(pBoardVO);
+		int res = productService.updatepBoard(pBoardVO);
+		PBoardVO board = productService.getProduct(pBoardVO.getPboard_unit_no());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", board);
+		return map;
 	}
 }

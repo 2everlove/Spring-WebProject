@@ -15,8 +15,26 @@
     <section class="section__content">
         <!-- New -->
         <div class="section__wrapper">
-        	<div class="section__myPage">
-		    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="far fa-plus-square"></i>상품 등록</button></a>
+        	<div class="section__pBoard" style="margin: 0 auto; text-align: center;">
+		    				${pBoardList}
+		    	<table style="padding-top: 80px;text-align: center;">
+		    		<thead>
+		    			<tr>
+		    				<th><input type="checkbox"></th>
+		    				<th>제조사</th>
+		    				<th>카테고리</th>
+		    				<th>제품명</th>
+		    				<th>설명</th>
+		    				<th>색</th>
+		    				<th>생성일</th>
+		    				<th>썸네일</th>
+		    			</tr>
+		    			<c:forEach var="product" items="${pBoardList}">
+		    			<tr>
+		    			</tr>
+		    			</c:forEach>
+		    		</thead>
+		    	</table>
 	    	</div>
     	</div>
    	</section>

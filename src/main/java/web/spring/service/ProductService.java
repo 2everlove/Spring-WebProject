@@ -5,12 +5,23 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
 @Service
 public interface ProductService {
-	public List<ProductVO> getProductList();
+	public List<ProductVO> getProductList(Criteria cri);
+	
+	public List<ProductVO> getProductAllList();
+	
+	public List<PBoardVO> getAllPBoardList(Criteria cri);
+	
+	public int getTotal(Criteria cri);
+	
+	public int getProductTotal(Criteria cri);
+	
+	public int updatepBoard(PBoardVO pBoardVO);
 	
 	public List<PBoardVO> getPBoardList();
 	

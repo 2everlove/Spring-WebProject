@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import web.spring.mapper.ProductMapper;
+import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
@@ -18,8 +19,8 @@ public class ProductServiceImpl implements ProductService{
 	private ProductMapper productMapper;
 	
 	@Override
-	public List<ProductVO> getProductList() {
-		return productMapper.getProductList();
+	public List<ProductVO> getProductList(Criteria cri) {
+		return productMapper.getProductList(cri);
 	}
 
 	@Override
@@ -109,6 +110,32 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductVO> getMainProductList() {
 		return productMapper.getMainProductList();
+	}
+
+	@Override
+	public List<PBoardVO> getAllPBoardList(Criteria cri) {
+		return productMapper.getAllPBoardList(cri);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return productMapper.getTotal(cri);
+	}
+
+	@Override
+	public int updatepBoard(PBoardVO pBoardVO) {
+		return productMapper.updatepBoard(pBoardVO);
+	}
+
+	@Override
+	public int getProductTotal(Criteria cri) {
+		return productMapper.getProductTotal(cri);
+	}
+
+	@Override
+	public List<ProductVO> getProductAllList() {
+		// TODO Auto-generated method stub
+		return productMapper.getProductAllList();
 	}
 
 
