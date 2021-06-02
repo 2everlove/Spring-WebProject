@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +28,7 @@
 	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&"
 	let country = "region="+window.navigator.language.substring(3,5);
 	let lang = "&language="+window.navigator.language.substring(0,2);
-	let callback = "&callback=initMap&libraries=&v=weekly";
+	let callback = "&callback=initMap&libraries=places,&v=weekly";
 	var script = document.createElement("script");
 	script.src = (url+country+lang+callback);
 	document.head.appendChild(script);
@@ -43,6 +44,7 @@
 	  const map = new google.maps.Map(document.getElementById("map"), {
 	    zoom: 15,
 	    center: widele,
+	    disableDefaultUI: true,
 	  });
 	  const contentString =
 		    '<div id="content">' +
@@ -68,8 +70,6 @@
 		  map.addListener("mouseout", () => {
 		    infowindow.close();
 		  });
-		  
-		  
 	}
 </script>
 <script id="googleMap">
@@ -128,15 +128,29 @@ $(document).ready(function(){
    	             
 	            <div class="navbar__wrapper-right">
 		            <div class="navbar__menu-right">
-		                <button class="navbar__menu__item-login"><i class="fas fa-sign-in-alt"></i>  로그인</button>
-		                <button class="navbar__menu__item-login"><i class="fas fa-users"></i>  회원가입</button>
-		                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
-		                <button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button>
-		                <button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
-		                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
-		                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
-		                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
-		                <button class="navbar__menu__item-history">History</button>
+		            <c:choose>
+		            	<c:when test="${empty sessionScope.user}">
+			            	<a href="/login"><button class="navbar__menu__item-login"><i class="fas fa-sign-in-alt"></i>  로그인</button></a>
+			                <a href="/member"><button class="navbar__menu__item-login"><i class="fas fa-users"></i>  회원가입</button></a>
+			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
+		                	<a href="/cart"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
+			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
+			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
+			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
+			                <button class="navbar__menu__item-history">History</button>
+		            	</c:when>
+		            	<c:otherwise>
+			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
+			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
+		                	<a href="/cart"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
+			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
+			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
+			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
+			                <button class="navbar__menu__item-history">History</button>
+		            	</c:otherwise>
+		            </c:choose>
 		            </div>
 		            <!-- Toggle button -->
 		<!--             	<i class="fas fa-arrow-left"></i> -->

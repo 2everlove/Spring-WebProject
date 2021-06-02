@@ -12,7 +12,7 @@ public class UserVO {
 	private String User_password;
 	private String User_contact;
 	private String User_enabled;	//유저 사용시 1
-	private String User_type;		//어드민 : A, 기업 : E, 고객 : C
+	private String User_type;		//어드민 : 0, 기업 : 1, 고객 : 2
 	private String User_regdate;
 	private String User_gender;
 	private String User_birth;

@@ -63,8 +63,13 @@
 				    		
 				    		<p>등록일 <span>${regdate}</span>
 				    		<p>수정일 <span>${updateDate}</span>
-				    		<p><button type="button" class="detail__btn cart">장바구니</button>
-				    		<button type="submit" class="detail__btn purchase">구매하기</button>
+				    		<c:if test="${pBoard.pboard_unit_enabled == 0 or pBoard.pboard_unit_stocks>0}">
+					    		<p><button type="button" class="detail__btn cart">장바구니</button>
+					    		<button type="submit" class="detail__btn purchase">구매하기</button>
+				    		</c:if>
+				    		<c:if test="${pBoard.pboard_unit_enabled == 1 or pBoard.pboard_unit_stocks<=0}">
+				    			<p><button type="button" class="detail__btn cart">판매가 중지된 상품입니다.</button></p>
+				    		</c:if>
 				    	</div>
 	        		</form>
 	        	</div>

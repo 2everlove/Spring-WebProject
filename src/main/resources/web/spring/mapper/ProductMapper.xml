@@ -9,7 +9,7 @@
 	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where product_id in(
+    			select * from product_board where pboard_unit_enabled = '0' and product_id in(
         			select product_id from products_info where product_category=#{product_category}) 
         		) board
         	) pboard where each_rank between 1 and 5
@@ -18,14 +18,14 @@
 	<select id="getCondBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where product_id in(
+    			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info where pboard_unit_condition=#{pboard_unit_condition}) 
         		) board
-        	) pboard where each_rank between 1 and 5
+        	) pboard where each_rank between 1 and 5 
 	</select>
 	
 	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
-		select rownum num, board.* from (select pboard.* from product_board pboard order by TO_NUMBER(pboard_unit_price) asc) board
+		select rownum num, board.* from (select pboard.* from product_board pboard where pboard_unit_enabled = '0' order by TO_NUMBER(pboard_unit_price) asc) board
 	</select>
 	
 	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
@@ -45,7 +45,7 @@
 	
 	<insert id="productInfoInsert">
 		insert into products_info(product_id, file_pictureId, product_manufacturer, product_name, product_category, product_color, product_description) 
-		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color}, #{product_description})
+		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color}, #{product_description, jdbcType=VARCHAR})
 	</insert>
 	
 	<delete id="productInfoDelete">
@@ -79,15 +79,15 @@
 	</select>
 	
 	<insert id="inserPBoard">
-		insert into product_board(pboard_unit_no, pboard_unit_price, pboard_unit_condition, pboard_unit_stocks, product_id, user_id, file_pictureId)
-   		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId})
+		insert into product_board(pboard_unit_no, pboard_unit_price, pboard_unit_condition, pboard_unit_stocks, product_id, user_id, file_pictureId, pboard_unit_enabled)
+   		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId}, '0')
 	</insert>
 	
 	<!-- search -->
 	<select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where product_id in(
+    			select * from product_board where pboard_unit_enabled = '0' and product_id in(
         			select product_id from products_info 
 		where product_id in (
 			select product_id from products_info 
@@ -139,7 +139,7 @@
 	<!-- main -->
 	
 	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
-		select pboard.* from (select board.*, row_number() over(partition by product_id order by dbms_random.random) each_rank from product_board board) pboard where each_rank='1'
+		select pboard.* from (select board.*, row_number() over(partition by product_id order by dbms_random.random) each_rank from product_board board where pboard_unit_enabled = '0') pboard where each_rank='1'
 	</select>
 	
 	<select id="getMainProductList" resultType="web.spring.vo.ProductVO">
@@ -147,7 +147,7 @@
 			where product_id in (
 				select pboard.product_id from (
 					select board.*, row_number() over(partition by product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
-						from product_board board) 
+						from product_board board where pboard_unit_enabled = '0') 
 					pboard where each_rank='1')
 	</select>
 	

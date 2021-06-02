@@ -254,7 +254,7 @@ p{
 	z-index: 10;
 }
 
-.navbar__menu__item.active, .navbar__menu__item:hover, .navbar__menu__item-member:hover, .navbar__menu__item-login:hover, .navbar__menu__item-history:hover{
+.navbar__menu__item.active, .navbar__menu__item:hover, .navbar__menu__item-member:hover, .navbar__menu__item-login:hover, .navbar__menu__item-history:hover, .navbar__menu__item-logout:hover{
 	border: 2px solid var(--color-dark-pink);
 	border-radius: var(--size-border-radius);
 	color: var(--color-white);
@@ -277,6 +277,16 @@ p{
 	flex-wrap: wrap;
 	height: 10%;
 	width: 120px;
+	text-align: center;
+	z-index: 10;
+}
+.navbar__menu__item-logout{
+	border: 1px solid var(--color-dark-white);
+	background-color: var(--color-white);
+	margin: 0 auto;
+	flex-wrap: wrap;
+	height: 10%;
+	width: 240px;
 	text-align: center;
 	z-index: 10;
 }

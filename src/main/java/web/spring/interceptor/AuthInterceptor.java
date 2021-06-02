@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.AutomapConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
@@ -47,8 +46,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		// 로그인 OK
 		if( user != null) {
 			// ROLE_USER 권한 체크
-			if(user.hasRole("C")) {
-				return true;		
+			if(Integer.parseInt(user.getUser_type())==0) {
+				return true;	
+			} else if(Integer.parseInt(user.getUser_type())==1) {
+				return true;
+			} else if(Integer.parseInt(user.getUser_type())==2) {
+				return true;
 			} else {
 				System.out.println(request.getRequestURI());
 				System.out.println(request.getQueryString());

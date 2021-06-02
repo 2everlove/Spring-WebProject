@@ -151,7 +151,42 @@ public class FileAjaxController {
 			saveFile.mkdirs();
 		}
 		return uploadPath;
-	}
+	}//
+	
+	//delete file
+	//@return String
+	//path로 부터 parameter를 추출해야하므로 {parameter}로 작성
+	@GetMapping("/fileDelete/{file_uuid}/{file_pictureId}")
+	public String fileDelete(@PathVariable("file_uuid") String file_uuid , @PathVariable("file_pictureId") String file_pictureId) {
+		log.info("delete..........."+file_uuid+"========"+file_pictureId);
+		Long attachno = Long.parseLong(file_pictureId);
+		String res="";
+		FileVO fileVO = fileService.getFile(file_pictureId, file_uuid);
+		int de = fileService.fileDelete(file_pictureId, file_uuid);
+		
+		if(de>0) {
+			//저장된 파일을 조회
+			log.info(fileVO);
+			File file = new File(ROOT_DIR+fileVO.getFile_savePath());
+			
+			//서버에 저장된 파일을 삭제
+			if(file.exists())
+				log.info("normal file: "+file);
+				file.delete();
+			
+			//만약에 이미지이면 서버에 이미지 파일의 썸네일도 삭제
+			if(fileVO.getFile_type().equals("Y")) {
+				File sFile = new File(ROOT_DIR+fileVO.getFile_s_savePath());
+				
+				if(sFile.exists())
+					log.info("normal sFile: "+sFile);
+					sFile.delete();
+			}
+			res=attachno+"가 삭제되었습니다.";
+		} else
+			res="error";
+		return res;
+	}//
 
 	
-}
+}//

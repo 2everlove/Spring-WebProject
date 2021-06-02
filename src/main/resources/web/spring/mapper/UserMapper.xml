@@ -30,7 +30,7 @@
 	</select>
 	<insert id="insertUser" >
 		insert into user_info (User_id, User_email,User_name, User_password, User_contact, User_enabled, User_type, User_regdate, User_gender,User_birth,User_address,User_interesting,file_pictureId) 
-		values (#{User_id},#{User_email},#{User_name},#{User_password},#{User_contact},1,#{User_type},sysdate, #{User_gender},#{User_birth},#{User_address},#{User_interesting},#{file_pictureId})
+		values (#{User_id},#{User_email},#{User_name},#{User_password},#{User_contact},1,#{User_type},sysdate, #{User_gender, jdbcType=VARCHAR},#{User_birth, jdbcType=VARCHAR},#{User_address, jdbcType=VARCHAR},#{User_interesting, jdbcType=VARCHAR},#{file_pictureId})
 	</insert>
 	<select id="checkIdReapet" resultType="web.spring.vo.UserVO">
 		select * from user_info where User_id = #{User_id}

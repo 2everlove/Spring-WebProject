@@ -16,18 +16,20 @@
 			if($(this).val()!=""){
 				checkProductName($(this).attr("name"), $(this).val(), parentElement);
 			}
-		});
+		});//
 		
 		$('input[name=product_name]').change(function(){
+			$('input[name=manufacturer]').val("");
+			$('input[name=category]').val("");
 			let parentmanu = $('input[name=manufacturer]').closest("div");
 			let parentcate = $('input[name=category]').closest("div");
 			getProductManuCate();
-		});
+		});//
 		
 		
 		$("#file_pictureId").change(function(){
 			$('#file_pictureIdClone').val($("#file_pictureId").val());
-		});
+		});//
 			
 		$(".search__select").focusout(function(){
 			console.log("fo");
@@ -38,7 +40,7 @@
 			if($('input[name=manufacturer]').attr('data') && $('input[name=category]').attr('data') && $('input[name=product_name]').val()==""){
 				getProductId(parentElement);
 			}
-		});
+		});//
 		
 		$(".search__select").click(function(){
 				let searchValue = $(this).val();
@@ -52,11 +54,11 @@
 						getManuCate(searchDataValue);
 					}
 				}
-		});
+		});//
 		
 		$('#file_pictureId').on("change", function(){
 			viewFile($('#file_pictureId').val());
-		});
+		});//
 		
 		//파일 업로드
 		$("#uploadBtn").on("click", function(){
@@ -93,7 +95,7 @@
 			});
 		});
 		
-	});
+	});//
 	
 	//파일view
 	function viewFile(file_pictureId){
@@ -116,36 +118,55 @@
 					let fName = data.file_name;
 					//만약 이미지면 이미지 보여줌
 					if(data.file_type=='Y'){
-						result += "<li>"
+						result += "<li><div class='img_wrapper' style='position: relative;'>"
 									+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'><br>"
-									+"<a href=/fileDisplay?file_name="+file_savePath+" download="+data.file_name+">"
-									+data.file_name+"</a>"
-									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer'>❌</span></li>";
+									+data.file_name
+									+"<span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer; position: absolute; right: 20px; top: 15px; font-size:20px;'>❌</span>"
+									+"<p class='arrow_box'>close</p></div></li>";
 					} else {
 						//이미지가 아니면 파일이름을 출력
 						result += "<li>"
 									+"<a href=/fileDisplay?file_name="+file_savePath+" download='"+fName +"'><br>"
 									+data.file_name+"</a>"
-									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); style='cursor: pointer'>❌</span></li>";
+									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); style='cursor: pointer; position: absolute; left: 80%; top: 10%;'>❌</span></li>";
 					}
 					
 				});
 				if(datas.length == 0){
-					alert(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색해주세요.');
-					$('#file_pictureId').val("");
-					$('#file_pictureId').select();
+					if(confirm(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색을 원하시면 확인, \n'+file_pictureId+'번에 데이터를 저장하시려면 취소를 눌러주세요')){
+						$('#file_pictureId').val("");
+						$('#fileUpload').val("");
+						$('#file_pictureId').select();
+					} else {
+						$('#fileUpload').val("");
+						$('#fileUpload').click();
+					}
 				}
 				$('#fileList').html(result);
 				if($(location).attr('pathname').match('/board/get')){
 					$('span[data-type=image]').remove();
 				}
-				
 			},
 			error : function(){
 				
 			}
 		});
-	}
+	}//
+	
+	//file 삭제
+	function attachFileDelete(file_uuid, file_pictureId){
+		$.ajax({
+			url:'/fileDelete/'+file_uuid+'/'+file_pictureId,
+			method:'get',
+			success: function(datas){
+				console.log(datas);
+				viewFile(file_pictureId);
+			},
+			error : function(errorThrown){
+				console.log(errorThrown);
+			}
+		})
+	}//
 	
 	//code 확인
 	function checkProductName(code_type,code_value, parentElement){
@@ -180,7 +201,7 @@
 			}
 			
 		});
-	}
+	}//
 	
 	//code에서 따온 제조사, 카테고리로 상품검색
 	function getProductId(){
@@ -215,7 +236,7 @@
 			}
 			
 		});
-	}
+	}//
 	
 	//상품으로 제조사, 카테고리 검색
 	function getProductManuCate(){
@@ -252,7 +273,7 @@
 			}
 			
 		});
-	}
+	}//
 	
 	//상품id 로 제조사, 카테고리 입력
 	function getManuCate(searchDataValue){
@@ -286,7 +307,9 @@
 			}
 			
 		});
-	}
+	}//
+	
+
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
@@ -343,7 +366,7 @@
 						</form>
 							<br>
 							<br>
-			    		<div contentEditable="true" id="upload__view" style="border: 1px solid black; border-radius: 3px; min-height: 50px; width: 700px;">
+			    		<div id="upload__view" style="border: 1px solid black; border-radius: 3px; min-height: 50px; width: 700px;">
 							<ul id="fileList">
 								
 							</ul>
@@ -356,3 +379,39 @@
    	</section>
 
 <%@include file="../includes/footer.jsp" %>
+<style>
+.arrow_box {
+  display: none;
+  position: absolute;
+  width: 50px;
+  padding: 8px;
+  text-align: center;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;  
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+.arrow_box:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 10px;
+  pointer-events: none;
+  content: " ";
+}
+
+span:hover + p.arrow_box {
+  display: block;
+  top:50px;
+  right:8px;
+}
+</style>

@@ -36,6 +36,10 @@
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 		<interceptor>
+			<mapping path="//myPage/**" />	
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
 			<mapping path="/loginAction" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>

@@ -64,15 +64,15 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession();
+		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
+		if(loginCookie != null) {
+			loginCookie.setMaxAge(0);
+			loginCookie.setPath("/");
+			res.addCookie(loginCookie);
+		}
 		session.invalidate();
 		
-		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
-		loginCookie.setMaxAge(0);
-		loginCookie.setPath("/");
-		
-		res.addCookie(loginCookie);
-		
-		return "/member/login";
+		return "redirect:/main";
 	}
 	
 	@PostMapping("/loginAction")
@@ -86,7 +86,7 @@ public class UserController {
 			session.setAttribute("user", user);
 			model.addAttribute("msg",user.getUser_id()+"님 환영합니다.");
 			//model.addAttribute("user", user);
-			return "/member/loginAction";
+			return "redirect:/main";
 		}//else
 		
 	}//loginAction
