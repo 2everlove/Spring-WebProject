@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/main.css">
 <script type="text/javascript">
 	document.title='상품등록 : widele';
 	$(document).ready(function(){
@@ -59,6 +60,45 @@
 		$('#file_pictureId').on("change", function(){
 			viewFile($('#file_pictureId').val());
 		});//
+		
+		
+		$('#pRegisterBtn').click(function(){
+			if($('input[name=product_id]').val()==""){
+				$('input[name=product_name]').select();
+				return false;
+			}
+			if($('input[name=category]').val() ==""){
+				$('input[name=category]').select();
+				return false;
+			}
+			if($('input[name=manufacturer]').val()==""){
+				$('input[name=manufacturer]').select();
+				return false;
+			}
+			if($('input[name=pboard_unit_price]').val()==""){
+				$('input[name=pboard_unit_price]').select();
+				return false;
+			}
+			if($('input[name=pboard_unit_stocks]').val()==""){
+				$('input[name=pboard_unit_stocks]').select();
+				return false;
+			}
+			if($('input[name=product_name]').val()==""){
+				$('input[name=product_name]').select();
+				return false;
+			}
+			if($('input[name=file_pictureId]').val()==""){
+				$('input[name=uploadFile]').select();
+				return false;
+			}
+			if($('input[name=file_pictureIdClone]').val()==""){
+				$('input[name=uploadFile]').select();
+				return false;
+			}
+			$("form[name=pBoardForm]").submit(); 
+		});
+
+		
 		
 		//파일 업로드
 		$("#uploadBtn").on("click", function(){
@@ -318,6 +358,7 @@
         	<div class="section__productsList">
 	        	<div class="search__wrapper-input">
 	        		<div class="search__wrapper">
+	        		<button type="button" id="pRegisterBtn">등록</button>
 			    		<div class="search__input">
 			    			<label>카테고리 <input type="text" name="category" class="code_type" onKeypress="javascript:if(event.keyCode==13){}"></label>
 			    			<select class="search__select" name="">
@@ -335,10 +376,10 @@
 			    		</div>
 			    		<form method="post" action="insertProductBoard" name="pBoardForm">
 			        		<div class="search__input">
-				    			<label>파일 <input type="text" name="file_pictureId" id="file_pictureIdClone"></label>
+				    			<label><input type="hidden" name="file_pictureId" id="file_pictureIdClone"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>상품 아이디<input type="text" name="product_id"></label>
+				    			<label><input type="hidden" name="product_id"></label>
 				    		</div>
 				    		<div class="search__input">
 				    			<label>new<input type="radio" name="pboard_unit_condition" value="0" checked;></label>
@@ -354,11 +395,11 @@
 				    		<div class="search__input">
 				    			<label>작성자 <input type="text" name="user_id" value="${sessionScope.user.user_id}"></label>
 				    		</div>
-				    		<button type="submit">등록</button>
+				    		
 			    		</form>
 						<form name="uploadForm" action="/uploadFile" method="post" enctype="multipart/form-data">
-							<input type="text" class="form__file" name="file_usingType" id="file_usingType" value="3">
-							<input type="text" class="form__file" name="file_pictureId" id="file_pictureId">
+							<input type="hidden" class="form__file" name="file_usingType" id="file_usingType" value="3">
+							<input type="hidden" class="form__file" name="file_pictureId" id="file_pictureId">
 							<input type="file" name="uploadFile" id="fileUpload" multiple="multiple" accept="image/*">
 							<br>
 							<br>

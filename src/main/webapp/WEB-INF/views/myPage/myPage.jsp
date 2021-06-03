@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/main.css">
 <script type="text/javascript" >
 <!--
 
@@ -15,12 +16,17 @@
         <div class="section__wrapper">
         	<div class="section__myPage">
         		<!-- 고객 -->
-		    	<a href="/member"><button class="navbar__menu__item"><i class="fas fa-user-cog"></i> 회원정보 수정</button></a>
+		    	<a href="/userUpdate"><button class="navbar__menu__item"><i class="fas fa-user-cog"></i> 회원정보 수정</button></a>
 		    	<a href="#"><button class="navbar__menu__item"><i class="fas fa-cart-arrow-down"></i> 주문 내역</button></a>
 		    	<c:if test="${sessionScope.user.user_type<=1}">
 			    	<!-- 기업,관리자 -->
 			    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="fas fa-plus-square"></i> 상품 게시글 등록</button></a>
-			    	<a href="/product/pBoardUpdate"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
+			    	<c:if test="${sessionScope.user.user_type>0}">
+				    	<a href="/product/pBoardUpdate"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
+			    	</c:if>
+			    	<c:if test="${sessionScope.user.user_type==0}">
+				    	<a href="/admin/pBoardControl"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
+			    	</c:if>
 		    	</c:if>
 	    	</div>
 	    	<!-- 관리자 -->

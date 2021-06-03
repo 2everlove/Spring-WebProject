@@ -24,6 +24,7 @@
 	border-collapse: collapse;
 }
 table{
+	table-layout:fixed;
 	width: 1500px;
 	padding: 5px;
 	display: block;
@@ -134,3 +135,17 @@ th,td{
 .pagination li:last-child a {
   border-radius: 0 30px 30px 0;
 }
+
+.colorPickSelector {
+  border-radius: 5px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  -webkit-transition: all linear .2s;
+  -moz-transition: all linear .2s;
+  -ms-transition: all linear .2s;
+  -o-transition: all linear .2s;
+  transition: all linear .2s;
+}
+
+.colorPickSelector:hover { transform: scale(1.1); }

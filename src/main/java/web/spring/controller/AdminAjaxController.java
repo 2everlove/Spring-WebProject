@@ -17,6 +17,7 @@ import lombok.extern.log4j.Log4j;
 import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
+import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
@@ -49,10 +50,23 @@ public class AdminAjaxController {
 	@PostMapping("/productUpdate")
 	public Map<String, Object> updateProductList(ProductVO productVO) {
 		log.info(productVO);
-		int res = productService.updateProduct(productVO);
-		ProductVO product = productService.getProductInfo(productVO.getProduct_id());
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", product);
+		if(productVO.getProduct_id() != null) {
+			int res = productService.updateProduct(productVO);
+			ProductVO product = productService.getProductInfo(productVO.getProduct_id());
+			map.put("result", product);
+		} else {
+			int product =  productService.productInfoInsert(productVO);
+			map.put("result", product);
+		}
+		CodeVO code1 = productService.getCode("manufacturer",productVO.getProduct_manufacturer().toLowerCase());
+		CodeVO code2 = productService.getCode("category",productVO.getProduct_category().toLowerCase());
+		if(code1 == null) {
+			productService.insertCode("manufacturer",productVO.getProduct_manufacturer().toLowerCase());
+		} 
+		if(code2 == null) {
+			productService.insertCode("category",productVO.getProduct_category().toLowerCase());
+		}
 		return map;
 	}
 

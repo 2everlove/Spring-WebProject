@@ -3,11 +3,14 @@ package web.spring.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 @Service
 public interface ProductService {
@@ -17,14 +20,20 @@ public interface ProductService {
 	
 	public List<PBoardVO> getAllPBoardList(Criteria cri);
 	
+	public List<PBoardVO> getUserPBoardList(String user_id, Criteria cri);
+	
 	public int getTotal(Criteria cri);
 	
 	public int getProductTotal(Criteria cri);
+	
+	public int getPboardUserTotal(String user_id, Criteria cri);
 	
 	//admin
 	public int updatepBoard(PBoardVO pBoardVO);
 	
 	public int updateProduct(ProductVO productVO);
+	
+	public String getProductSeq();
 	//
 	
 	public List<PBoardVO> getPBoardList();
@@ -48,6 +57,8 @@ public interface ProductService {
 	public List<ProductVO> searchManuCate(String product_manufacturer, String product_category);
 	
 	public int inserPBoard(PBoardVO pBoardVO);
+	
+	public int productInfoInsert(ProductVO productVO);
 
 	public List<ProductVO> searchProductManuCate(String product_name);
 	
@@ -62,4 +73,8 @@ public interface ProductService {
 	public List<PBoardVO> getMainPBoardList();
 	
 	public List<ProductVO> getMainProductList();
+
+	public CodeVO getCode(String code_type, String code_value);
+	
+	public int insertCode(String code_type, String code_value);
 }

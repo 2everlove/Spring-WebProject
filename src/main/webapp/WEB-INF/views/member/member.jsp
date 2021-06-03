@@ -51,125 +51,13 @@
 				}//success
 			});//ajax
 		});	//checkIdRepaet
-		
-		$("#file_clone").change(function(){
-			$('#file_pictureId').val($("#file_clone").val());
-		});//
-		
-		$('#file_pictureId').on("change", function(){
-			viewFile($('#file_pictureId').val());
-		});//
-		
-		//파일 업로드
-		$("#file_clone").on("change", function(){
-			if($('#fileUpload').val()==""){
-				alert("파일을 선택하세요.");
-				$('#fileUpload').click();
-				return false;
-			}
-			let formData = new FormData(document.uploadForm);
-			console.log(formData.get("file_pictureId")+formData.get("uploadFile"));
-			//파일업로드 컨트롤러 -> 서버에 저장
-			$.ajax({
-				url : '/fileUploadAjax',
-				method : 'POST',
-				dataType : 'json',
-				processData : false,
-				contentType : false,
-				data : formData,
-				success : function(datas){
-					console.log("success");
-					console.log(datas);
-					alert(datas.count+"개가 업로드 되었습니다.");
-					let file_pictureId = "";
-					//$('#attachNo').val(datas.attachNo);
-					/* $("") 태그 $("#") id $(".") class */
-					$('input[name=file_pictureId]').val(datas.file_pictureId);
-					//document.uploadForm.uploadFile.value="";
-					$('#fileupload').val("");
-					viewFile(datas.file_pictureId);
-				},
-				error : function(errorThrown){
-					console.log(errorThrown);
-				}
-			});
-		});
 	});//function
 
 	function pwdCheck(){
 		if(!($("input[name=User_password]").val() === $("input[name=pwdCheck]").val())){
 			 alert("비밀번호가 일치하지 않습니다.");
 		} 
-	}//
-	
-	//파일view
-	function viewFile(file_pictureId){
-		$.ajax({
-			url:'/fileUploadAjax/'+file_pictureId,
-			method : 'get',
-			dataType : 'json',
-			success : function(datas){
-				let result ="";
-				$.each(datas, function(i, data){
-					console.log(data);
-					//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
-					
-					var file_s_savePath = encodeURIComponent(data.file_s_savePath);
-					var file_savePath = encodeURIComponent(data.file_savePath);
-					console.log(file_s_savePath);
-					console.log(data.file_s_savePath);
-					
-					console.log("인코딩 후 : "+file_savePath);
-					let fName = data.file_name;
-					//만약 이미지면 이미지 보여줌
-					if(data.file_type=='Y'){
-						result += "<li><div class='img_wrapper' style='position: relative;'>"
-									+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'><br>"
-									+data.file_name
-									+"<span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer; position: absolute; right: 20px; top: 15px; font-size:20px;'>❌</span>"
-									+"<p class='arrow_box'>close</p></div></li>";
-					} else {
-						//이미지가 아니면 파일이름을 출력
-						result += "<li>"
-									+"<a href=/fileDisplay?file_name="+file_savePath+" download='"+fName +"'><br>"
-									+data.file_name+"</a>"
-									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); style='cursor: pointer; position: absolute; left: 80%; top: 10%;'>❌</span></li>";
-					}
-					
-				});
-				if(datas.length == 0){
-					if(confirm(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색을 원하시면 확인, \n'+file_pictureId+'번에 데이터를 저장하시려면 취소를 눌러주세요')){
-						$('#file_pictureId').val("");
-						$('#file_pictureId').select();
-					} else {
-						$('#fileUpload').click();
-					}
-				}
-				$('#fileList').html(result);
-				if($(location).attr('pathname').match('/board/get')){
-					$('span[data-type=image]').remove();
-				}
-			},
-			error : function(){
-				
-			}
-		});
-	}//
-	
-	//file 삭제
-	function attachFileDelete(file_uuid, file_pictureId){
-		$.ajax({
-			url:'/fileDelete/'+file_uuid+'/'+file_pictureId,
-			method:'get',
-			success: function(datas){
-				console.log(datas);
-				viewFile(file_pictureId);
-			},
-			error : function(errorThrown){
-				console.log(errorThrown);
-			}
-		})
-	}//
+	}
 </script>
     <section class="section__content">
     	<div id="user_upper"></div>
@@ -211,9 +99,9 @@
                  <div class="form-group">
                 	<label>BIRTH</label>
                 	<select name="User_type">
-                		<option value="2">고객</option>
-                		<option value="1">기업</option>
-                		<option value="0">어드민</option>
+                		<option value="C">고객</option>
+                		<option value="E">기업</option>
+                		<option value="A">어드민</option>
                 	</select>
                 </div>
                 <div class="form-group">
@@ -230,24 +118,15 @@
                 	<label><input type="checkbox" name="User_interesting" value="노트북">노트북</label>
                 	<label><input type="checkbox" name="User_interesting" value="가전제품">가전제품</label>
                		<label><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
-	               	<label><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
+	               	<label><input type="checkbox" name="User_interesting" value="태븦릿">태블릿</label>
                 </div>
                 <div>
-                	<label><input type="file" name="file_pictureId" id="fileupload">file_pictureId</label>
-                	<label><input type="file" id="file_clone">file_pictureId</label>
+                	<label><input type="file" name="file_pictureId">file_pictureId</label>
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <button type="button" id="registerBtn" >회원가입</button>
             </fieldset>
         </form>
-        <form name="uploadForm" action="/uploadFile" method="post" enctype="multipart/form-data">
-			<input type="text" class="form__file" name="file_usingType" id="file_usingType" value="3">
-			<input type="text" class="form__file" name="file_pictureId" id="file_pictureId">
-			<input type="file" name="uploadFile" id="fileUpload" multiple="multiple" accept="image/*">
-			<br>
-			<br>
-			<button type="button" id="uploadBtn" style="border: 1px solid black; border-radius: 3px;">upload</button>
-		</form>
    	</section>
 
 <%@include file="../includes/footer.jsp" %>

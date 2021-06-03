@@ -71,7 +71,7 @@ public class FileAjaxController {
 		if(null == file_pictureId || 0 == file_pictureId) {
 			file_pictureId = Long.parseLong(fileService.getFileSeq());
 		}
-		
+		log.info(uploadFile);
 		for(MultipartFile multipartFile : uploadFile) {
 			
 			//중복 방지를 위해 UUID를 생성하여 파일명 앞에 붙여준다.(일련 번호 대신 유추하기 힘든 식별자를 사용)

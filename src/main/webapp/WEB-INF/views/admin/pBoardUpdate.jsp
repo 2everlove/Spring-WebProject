@@ -7,10 +7,20 @@
 <script type="text/javascript">
 	document.title='마이페이지 : widele';
 	// 페이지로 이동
-	function page(page){
-		document.listForm.action="/admin/pBoardControl";
-		document.listForm.pageNo.value=page;
-		document.listForm.submit();
+	if("${sessionScope.user.user_type}"==0){
+		
+		function page(page){
+			document.listForm.action="/admin/pBoardControl";
+			document.listForm.pageNo.value=page;
+			document.listForm.submit();
+		}
+		
+	} else {
+		function page(page){
+			document.listForm.action="/product/pBoardUpdate";
+			document.listForm.pageNo.value=page;
+			document.listForm.submit();
+	}
 		
 	}
 	$(document).ready(function(){
@@ -83,14 +93,14 @@
 				    				<th>게시일</th>
 				    				<th>수정일</th>
 				    				<th>제조사 > 카테고리 > 상품명</th>
-				    				<th>게시자</th>
 				    				<th>이미지 파일</th>
 				    				<th>저장</th>
 				    				<th>보기</th>
 				    			</tr>
-				    			<c:forEach var="pBoard" items="${PBoardList}">
-					    			<c:forEach var="userOb" items="${userList}">
-				    					<c:if test="${userOb.user_id == sessionScope.user.user_id}">
+				    			<c:set var="loop" value="false"/>
+				    			<c:forEach var="pBoard" items="${PBoardList}" varStatus="status">
+				    				<c:if test="${not loop}">
+				    					<c:if test="${pBoard.user_id == sessionScope.user.user_id or sessionScope.user.user_type == 0 and !empty pBoard.no}">
 							    			<tr class="tr__desc">
 							    				<td>${pBoard.num }</td>
 							    				<td><input type="checkbox" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
@@ -132,21 +142,29 @@
 							    				<td>${regdate}</td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
 							    				<td>${updateDate}</td>
-							  				<c:forEach var="product" items="${productList}">
-							    				<c:if test="${product.product_id == pBoard.product_id}">
-							    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
-						    					</c:if>
-								   			</c:forEach>
+								  				<c:forEach var="product" items="${productList}">
+								    				<c:if test="${product.product_id == pBoard.product_id}">
+								    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+							    					</c:if>
+									   			</c:forEach>
 					    					
-								    				<td>${userOb.user_id } (<span>${userOb.user_name }</span>)</td>
 							    			
 							    				<td>${pBoard.file_pictureId}</td>
 							    				<td><button class="updateBtn" type="button">저장</button></td>
 							    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
 							    			</tr>
 					    				</c:if>
-				    				</c:forEach>
-				    			</c:forEach>
+					    				<c:if test="${empty pBoard.num}">
+						    				<tr>
+						    					<td colspan="13">작성하신 내역이 없습니다.</td>
+						    				</tr>	
+						    				<tr>
+						    					<td colspan="13" onclick="Javascript:history.back()">뒤로가기</td>
+					    					</tr>
+					    					<c:set var="loop" value="true"/>
+					    				</c:if>
+				    				</c:if>
+			    				</c:forEach>
 				    		</thead>
 				    	</table>
 	        		</form>

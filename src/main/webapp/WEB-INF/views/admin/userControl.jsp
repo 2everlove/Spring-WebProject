@@ -16,7 +16,7 @@
         <!-- New -->
         <div class="section__wrapper">
         	<div class="section__myPage">
-		    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="far fa-plus-square"></i>상품 등록</button></a>
+        		
 	    	</div>
     	</div>
    	</section>

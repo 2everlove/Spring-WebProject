@@ -64,15 +64,18 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession();
+		session.invalidate();
+		
 		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
+		
 		if(loginCookie != null) {
 			loginCookie.setMaxAge(0);
 			loginCookie.setPath("/");
 			res.addCookie(loginCookie);
 		}
-		session.invalidate();
 		
-		return "redirect:/main";
+		
+		return "/member/login";
 	}
 	
 	@PostMapping("/loginAction")
@@ -80,7 +83,7 @@ public class UserController {
 		UserVO user = userService.login(vo);
 		if (user == null) {
 			model.addAttribute("msg","로그인 실패했습니다.ID/PW를 확인 하세요.");
-			return "/login";
+			return "redirect:/login";
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", user);

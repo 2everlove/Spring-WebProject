@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import web.spring.mapper.ProductMapper;
+import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -140,6 +142,36 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int updateProduct(ProductVO productVO) {
 		return productMapper.updateProduct(productVO);
+	}
+
+	@Override
+	public List<PBoardVO> getUserPBoardList(String user_id, Criteria cri) {
+		return productMapper.getUserPBoardList(user_id, cri.getPageNo(), cri.getAmount());
+	}
+
+	@Override
+	public int getPboardUserTotal(String user_id, Criteria cri) {
+		return productMapper.getPboardUserTotal(user_id, cri.getPageNo(), cri.getAmount());
+	}
+
+	@Override
+	public CodeVO getCode(String code_type, String code_value) {
+		return productMapper.getCode(code_type, code_value);
+	}
+
+	@Override
+	public int insertCode(String code_type, String code_value) {
+		return productMapper.insertCode(code_type, code_value);
+	}
+
+	@Override
+	public String getProductSeq() {
+		return productMapper.getProductSeq();
+	}
+
+	@Override
+	public int productInfoInsert(ProductVO productVO) {
+		return productMapper.productInfoInsert(productVO);
 	}
 
 

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/main.css">
 <script type="text/javascript" defer="defer">
 	document.title='${sellerVO.user_name} : widele';
 	$(document).ready(function(){

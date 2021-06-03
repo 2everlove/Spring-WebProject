@@ -11,16 +11,21 @@
 <meta name="autors" content="Baku(Azerbaijan-Baku), skqlgpdls, 2everlove(mika), pescatorio"> 
 <title>쇼핑의 모든 것</title>
 <!-- css link -->
-<link rel="stylesheet" href="/resources/css/main.css">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="/resources/css/colorPick.dark.theme.css">
+<link rel="stylesheet" href="/resources/css/colorPick.css">
+<link rel="stylesheet" href="/resources/css/colorPick.css">
+<link rel="stylesheet" href="/resources/css/include.css">
 <!-- icon api -->
 <script src="https://kit.fontawesome.com/e8e06f0e5f.js" crossorigin="anonymous"></script>
+<script src="/resources/js/colorPick.js"></script>
+<script src="/resources/js/colorPick.min.js"></script>
 <!-- icon -->
 <link rel="icon" type="image/png" href="/resources/images/favicon1.png">
 <!-- google font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- prefix-free -->
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>

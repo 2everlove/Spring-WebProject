@@ -18,7 +18,19 @@
 	}
 	
 	$(document).ready(function(){
-		console.log($('select[name=pboard_unit_enabled]').find('option:selected').val());
+		$(".colorPickSelector").colorPick();
+		$(".colorPickSelector").colorPick({
+			  'initialColor': '#3498db',
+			  'allowRecent': true,
+			  'recentMax': 5,
+			  'allowCustomColor': false,
+			  'palette': ["#1abc9c", "#16a085", "#2ecc71", "#27ae60", "#3498db", "#2980b9", "#9b59b6", "#8e44ad", "#34495e", "#2c3e50", "#f1c40f", "#f39c12", "#e67e22", "#d35400", "#e74c3c", "#c0392b", "#ecf0f1", "#bdc3c7", "#95a5a6", "#7f8c8d"],
+			  'onColorSelected': function() {
+			    this.element.css({'backgroundColor': this.color, 'color': this.color});
+			    this.element.closest('td').find('input').val(this.color);
+			  }
+			});
+		$('#thum').hide();
 		$('.updateBtn').click(function(){
 			let currentRow = $(this).closest('tr');
 			let Formproduct_manufacturer = currentRow.find('.product_manufacturer').val();
@@ -28,8 +40,16 @@
 			let Formproduct_color = currentRow.find('.product_color').val();
 			let Formproduct_id = currentRow.find('.product_id').val();
 			let Formfile_pictureId = currentRow.find('.file_pictureId').val();
+			let formData = new FormData();
+			formData.append('product_manufacturer', Formproduct_manufacturer);
+			formData.append('product_category', Formproduct_category);
+			formData.append('product_name', Formproduct_name);
+			formData.append('product_description', Formproduct_description);
+			formData.append('product_color', Formproduct_color);
+			formData.append('product_id', Formproduct_id);
+			formData.append('file_pictureId', Formfile_pictureId);
 			console.log(Formproduct_manufacturer,Formproduct_category,Formproduct_name,Formproduct_description,Formproduct_color,Formproduct_id);
-			updateProduct(Formproduct_manufacturer, Formproduct_category, Formproduct_name, Formproduct_description, Formproduct_color, Formproduct_id, Formfile_pictureId, $(this));
+			updateProduct(formData, $(this));
 		});
 		
 		$('.updateFileBtn').hide();
@@ -41,58 +61,72 @@
 			$(this).closest('td').find('.updateFileBtn').show();
 			
 		});
-			$('.updateFileBtn').click(function(){
-				if($('.fileUpload').val()!=""){
-					let currentRow = $(this).closest('td');
-					let Formfile_usingType = currentRow.find('.file_usingType').val();
-					const Formfile_pictureId = currentRow.find('.file_pictureId').val();
-					let Formfile_uuid = currentRow.find('.file_uuid').val();
-					let FormfileUpload = currentRow.find('.fileUpload').val();
-					let Formproduct_id = $(this).closest('tr').find('.product_id').val();
-					console.log(Formfile_usingType, Formfile_pictureId, Formfile_uuid, FormfileUpload);
-					attachFileDelete(Formfile_uuid, Formfile_pictureId, Formfile_uuid);
-					attachFile($(this));
-					updateFileId(Formfile_pictureId,Formproduct_id, $(this).closest('tr'));
-					$(this).closest('td').find('input[type=file]').hide();
-					$(this).closest('td').find('.updatePicBtn').show();
-					$(this).closest('td').find('.updateFileBtn').hide();
-				} else {
-					alert("파일을 선택해주세요.");
-					$(this).closest('tr').find('.fileUpload').click();
-				}
-			});
+		
+		$('.updateFileBtn').click(function(){
+			console.log($('.fileUpload').val());
+			if($(this).closest('td').find('.fileUpload').val()!=""){
+				let currentRow = $(this).closest('td');
+				let Formfile_usingType = currentRow.find('.file_usingType').val();
+				const Formfile_pictureId = currentRow.find('.file_pictureId').val();
+				let Formfile_uuid = currentRow.find('.file_uuid').val();
+				let FormfileUpload = currentRow.find('.fileUpload').val();
+				let Formproduct_id = $(this).closest('tr').find('.product_id').val();
+				console.log(Formfile_usingType, Formfile_pictureId, Formfile_uuid, FormfileUpload);
+				let formData = new FormData(btn.closest('form[name=uploadForm]')[0]);
+
+				attachFileDelete(Formfile_uuid, Formfile_pictureId, Formfile_uuid);
+				attachFile(formData, $(this));
+				updateFileId(Formfile_pictureId,Formproduct_id, $(this).closest('tr'));
+				$(this).closest('td').find('input[type=file]').hide();
+				$(this).closest('td').find('.updatePicBtn').show();
+				$(this).closest('td').find('.updateFileBtn').hide();
+			} else {
+				alert("파일을 선택해주세요.");
+				$(this).closest('tr').find('.fileUpload').click();
+			}
+		});
 		
 		
 		
 	});
 	
 	//파일 업로드
-	function attachFile(btn){
+	function attachFile(formData, btn){
+		var num ="";
 		console.log(btn.closest('form[name=uploadForm]'));
-		let formData = new FormData(btn.closest('form[name=uploadForm]')[0]);
 		//파일업로드 컨트롤러 -> 서버에 저장
 		$.ajax({
 			url : '/fileUploadAjax',
 			method : 'POST',
+			enctype: 'multipart/form-data',
 			dataType : 'json',
-			processData : false,
-			contentType : false,
+	        processData: false,    
+	        contentType: false,      
+	        cache: false,
+	        async: false, 
 			data : formData,
 			success : function(datas){
 				console.log("success");
 				console.log(datas);
 				alert(datas.count+"개가 업로드 되었습니다.");
 				viewFile(datas.file_pictureId, btn);
+				num=datas.file_pictureId;
+				if(formData.get('product_name')!=null){
+					$('#file_pictureId').val(datas.file_pictureId);
+					console.log("탔다");
+				}
 			},
 			error : function(errorThrown){
 				console.log(errorThrown);
 			}
 		});
+		return num;
 	}
 	
 	//파일view
 	function viewFile(file_pictureId, btn){
 			console.log("viewid"+file_pictureId);
+			
 		$.ajax({
 			url:'/fileUploadAjax/'+file_pictureId,
 			method : 'get',
@@ -114,6 +148,7 @@
 					let fName = data.file_name;
 					//만약 이미지면 이미지 보여줌
 				btn.closest('tr').find('img').attr('src', "/fileDisplay?file_name="+file_savePath);
+				btn.closest('tr').find('.fileUpload').val("");
 				});
 			},
 			error : function(errorThrown){
@@ -124,29 +159,24 @@
 	
 	//file 삭제
 	function attachFileDelete(file_uuid, file_pictureId, Formfile_uuid){
+		let rtn = false;
 		$.ajax({
 			url:'/fileDelete/'+file_uuid+'/'+file_pictureId,
 			method:'get',
 			success: function(datas){
 				console.log(datas);
+				rtn = true;
 			},
 			error : function(errorThrown){
 				console.log(errorThrown);
 			}
 		})
+		return rtn;
 	}//
 	
 	
-	function updateProduct(Formproduct_manufacturer, Formproduct_category, Formproduct_name, Formproduct_description, Formproduct_color, Formproduct_id, Formfile_pictureId, btn){
+	function updateProduct(formData, btn){
 		let url = '/admin/productUpdate';
-		let formData = new FormData();
-		formData.append('product_manufacturer', Formproduct_manufacturer);
-		formData.append('product_category', Formproduct_category);
-		formData.append('product_name', Formproduct_name);
-		formData.append('product_description', Formproduct_description);
-		formData.append('product_color', Formproduct_color);
-		formData.append('product_id', Formproduct_id);
-		formData.append('file_pictureId', Formfile_pictureId);
 		console.log(formData);
 		$.ajax({
 			url : url,
@@ -286,6 +316,60 @@
                  <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
                  <!-- 상세보기 검색 유지용 끝 -->
 			</form>
+			
+			<div class="pregister__popup">
+				<div class="pregister__wrapper">
+					<form action="/productRegister" name="productRegisterForm" id="fileRegis">
+						<table class=".table-product" >
+				    		<thead>
+				    			<tr class="tr__head">
+				    				<th>제조사</th>
+				    				<th>카테고리</th>
+				    				<th>제품명</th>
+				    				<th>설명</th>
+				    				<th>색</th>
+				    				<th>썸네일</th>
+				    				<th class="file_column">사진</th>
+				    				<th></th>
+				    			</tr>
+				    			<tr>
+				    				<td><input type="text" name="product_manufacturer"></td>
+				    				<td><input type="text" name="product_category"></td>
+				    				<td><input type="text" name="product_name"></td>
+				    				<td><input type="text" name="product_description"></td>
+				    				<td><div class="colorPickSelector"></div><input type="hidden" name="product_color"></td>
+				    				<td><img id="thum" src="#" style="width: 100px; height: 100px;"></td>
+			    					<td><input type="file" name="uploadFile" id="imgUpload"><input id="file_pictureId" type="hidden" name="file_pictureId"><input type="hidden" name="file_usingType" value="3"></td>
+				    				<td><button type="button" id="registerBtn">저장</button>
+				    			</tr>
+			    			</thead>
+		    			</table>
+					</form>
+				</div>
+			</div>
    	</section>
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#thum').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
+    $("#imgUpload").change(function() {
+    	$('#thum').show();
+        readURL(this);
+        let formData = new FormData($('#fileRegis')[0]);
+        attachFile(formData, $(this));
+    });
+	$('#registerBtn').click(function(){
+        let formData = new FormData($('#fileRegis')[0]);
+		updateProduct(formData, $(this));
+		Location.reload();
+	});
+
+</script>
 <%@include file="../includes/footer.jsp" %>

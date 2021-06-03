@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,14 +76,22 @@ public class AdminController {
 	
 	//상품 관리글 관리
 	@GetMapping("/product/pBoardUpdate")
-	public String getUserPBoardList(Criteria cri, Model model) {
-		List<UserVO> userList = userService.getUserList();
-		List<ProductVO> productList = productService.getProductAllList();
-		List<PBoardVO> PBoardList = productService.getAllPBoardList(cri);
-		model.addAttribute("PBoardList", PBoardList);
-		model.addAttribute("productList", productList);
-		model.addAttribute("userList", userList);
-		model.addAttribute("pageNavi",new PageNavi(cri,productService.getTotal(cri)));
-		return "/admin/pBoardUpdate";
-	}
+	public String getUserPBoardList(Criteria cri, Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if(session.getAttribute("user") != null) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		log.info(user);
+			if(user!=null) {
+				List<ProductVO> productList = productService.getProductAllList();
+				List<PBoardVO> PBoardList = productService.getUserPBoardList(user.getUser_id(), cri);
+				if(PBoardList!=null) {
+					model.addAttribute("PBoardList", PBoardList);
+					model.addAttribute("productList", productList);
+					model.addAttribute("pageNavi",new PageNavi(cri,productService.getPboardUserTotal(user.getUser_id(), cri)));
+					return "/admin/pBoardUpdate";
+				}
+			} 
+		} 
+		return "/login";
+	}//
 }

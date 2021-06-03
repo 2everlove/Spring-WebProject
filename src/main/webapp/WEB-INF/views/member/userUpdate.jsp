@@ -112,7 +112,7 @@
 	               	<label><input type="checkbox" name="User_interesting" value="태븦릿">태블릿</label>
                 </div>
                 <div>
-                	<label><input type="hidden" name="file_pictureId">file_pictureId</label>
+                	<label><input type="file" name="file_pictureId">file_pictureId</label>
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <button type="button" id="registerBtn" >회원가입</button>

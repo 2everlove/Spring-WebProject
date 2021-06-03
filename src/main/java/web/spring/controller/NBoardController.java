@@ -16,7 +16,6 @@ import web.spring.vo.PageNavi;
 @Log4j
 @Controller
 public class NBoardController {
-
 	@Autowired
 	NBoardService service;
 	
@@ -111,5 +110,4 @@ public class NBoardController {
 			
 			return "redirect:/nboard/nboardList";
 		}
-	
 }
