@@ -50,8 +50,9 @@
 	<delete id="deleteInquiry" parameterType="int" >
 		delete from INQUIRY_BOARD where iboard_no=#{iboard_no}
 	</delete>
-
 	<!-- 문의사항 삭제 끝 -->
+
+
 
 
 </mapper>

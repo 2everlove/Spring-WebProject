@@ -21,17 +21,18 @@
 	<select id="getInquiryReply"
 		resultType="web.spring.vo.InquiryReplyVO">
 
-		select ireply_content,
-		case
-		when to_char(sysdate,'yyyymmdd') = to_char(ireply_regdate,'yyyymmdd')
-		then to_char(ireply_regdate,'hh24:mm:ss')
-		else
-		to_char(ireply_regdate,'yyyy-MM-dd')
-		end ireply_regdate
+		select ireply_content, ireply_regdate
 
-		from inquiry_reply where iboard_no = {iboard_no}
+		from inquiry_reply
+		where iboard_no = #{iboard_no}
 
 	</select>
+	
+	<!-- 답변 유무 파악 -->
+	<select id="inquiryReplyCount" resultType="int">
+		SELECT COUNT(*) FROM inquiry_reply WHERE iboard_no = #{iboard_no}
+	</select>
+
 
 
 </mapper>

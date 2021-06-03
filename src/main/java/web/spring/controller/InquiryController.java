@@ -34,6 +34,8 @@ public class InquiryController {
 	@GetMapping("/inquiry")
 	public String getInquiryBoardList(Model model) {
 		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
+		
+		
 		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
 		}
@@ -70,7 +72,9 @@ public class InquiryController {
 	public String detailInquiry(String iboard_no, InquiryBoardVO vo, Model model) {
 
 		vo = service.detailInquiry(iboard_no);
+		
 		model.addAttribute("inquiry_detail", vo);
+		
 		log.info("inquiry detail...." + iboard_no);
 		return "/inquiry/inquiry_detail";
 	}
@@ -89,7 +93,7 @@ public class InquiryController {
 		} else {
 			resMsg = "오류가 발생했습니다.";
 			rttr.addFlashAttribute("resMsg", resMsg);
-			return "redirect:/inquiry/inquiry_detail";
+			return "redirect:/inquiry";
 		}
 
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,13 +44,30 @@ public class InquiryReplyAjaxController {
 		return map;
 	}
 	
-	/*
-	 * @GetMapping("/inquiry/inquiry_reply") public List<InquiryReplyVO>
-	 * get(@PathVariable ("iboard_no") int iboard_no) { List<InquiryReplyVO> vo =
-	 * replyService.getInquiryReply(iboard_no);
-	 * 
-	 * return vo; }
-	 */
+	@GetMapping("/inquiry/inquiry_reply/{iboard_no}")
+	public Map<String, Object> getInquiryReply(@PathVariable("iboard_no") int iboard_no, Model model){
+		
+		
+		//리스트 조회
+		List<InquiryReplyVO> list = replyService.getInquiryReply(iboard_no);
+		
+		int replyCount = replyService.inquiryReplyCount(iboard_no);
+		
+		model.addAttribute("inquiryReply", list);
+		
+		log.info(replyService.getInquiryReply(iboard_no));
+		log.info(replyCount);
+		
+		//결과를 맵에 담아 리턴
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("replyCount", replyCount);
+		
+		return map;
+		
+	}
+	
+	
 	
 	
 	

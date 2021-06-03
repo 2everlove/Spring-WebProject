@@ -14,5 +14,7 @@ public interface InquiryBoardMapper {
 	
 	public int deleteInquiry(int iboard_no); //문의사항 삭제
 	
+
+	
 	
 }

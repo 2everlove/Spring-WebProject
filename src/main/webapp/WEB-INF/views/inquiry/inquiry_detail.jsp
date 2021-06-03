@@ -3,7 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <%@include file="../includes/header.jsp" %> --%>
 <head>
-<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/inquiry_detail.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -24,37 +25,73 @@
 </head>
 
 
+
+<html>
 <body>
-	<h1>문의하기</h1>
-	<div>
-		<form action="/inquiry_delete" method="post" name="inquiry_delete"
-			id="inquiry_delete">
-			<!-- 게시글 넘버 히든처리 -->
-			<input type="hidden" name="iboard_no"
-				value="${inquiry_detail.iboard_no}" readonly >
-			<p>
-				<label>제목</label> <input type="text" name="iboard_title"
-					id="iboard_title" maxlength="100"
-					value="${inquiry_detail.iboard_title }" readonly> <label>카테고리</label><input
-					type="text" name="iboard_category" id="iboard_category"
-					value="${inquiry_detail.iboard_category}" readonly>
-			</p>
-			<label for="iboard_content">내용</label>
-			<textarea cols="40" rows="8" name="iboard_content"
-				id="iboard_content" maxlength="500" readonly>${inquiry_detail.iboard_content}</textarea>
-			<p>
-				<label>작성자</label> <input type="text" name="user_id" id="user_id"
-					value="${inquiry_detail.user_id }" readonly>
-			</p>
-			<p>
-				<label>작성일자</label><input type="text" name="inquiry_regdate"
-					id="inquiry_regdate" value=${inquiry_detail.iboard_regdate }>
-			</p>
-		</form>
-		<button onClick="inquiryDelete()">삭제</button>
-		<button onclick="mainInquiry()">목록</button>
-	</div>
+	<section id="container">
+		<h2 class="page_title">1 : 1 문의하기</h2>
+		<!-- contents -->
+		<div id="contents">
+			<!--customer_tab-->
+			<!--//customer_tab-->
+			<div class="default_cell">
+				<form action="/inquiry_delete" method="post" name="inquiry_delete"
+					id="inquiry_delete">
+					<div class="table_data">
+						<table class="view">
+							<colgroup>
+								<col style="width: 200px">
+								<col style="width: auto">
+								<col style="width: 200px">
+								<col style="width: auto">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>카테고리</th>
+									<td><input type="hidden" name="iboard_category"
+										id="iboard_category" value="${inquiry_detail.iboard_category}">${inquiry_detail.iboard_category}
+									</td>
+								</tr>
+								<tr>
+									<th>아이디</th>
+									<td><input type="hidden" name="user_id" id="user_id"
+										value="user01">user01</td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td colspan="3"><input type="hidden" name="iboard_title"
+										id="iboard_title" class="full"
+										value="${inquiry_detail.iboard_title }">${inquiry_detail.iboard_title }</td>
+								</tr>
+								<tr>
+									<th class="vertical_t">내용
+									</th>
+									<td colspan="3"><textarea id="iboard_content"
+											name="iboard_content" style="height: 210px">${inquiry_detail.iboard_content}</textarea></td>
+								</tr>
+
+								<tr>
+									<th>전체 공개 여부</th>
+									<td><span><input type="radio" name="iboard_public"
+											id="iboard_public" value="0" checked>전체공개 </span><span><input
+											type="radio" name="iboard_public" value="1">비공개</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p class="btn_pop_page">
+						<button type="button" class="inquiry_button" onclick="inquiryDelete()">삭제</button>
+						<button type="button" class="cancel"
+							onclick="location.href='/inquiry'">취소</button>
+					</p>
+				</form>
+			</div>
+		</div>
+		<!-- //contents -->
+	</section>
 </body>
-<%@include file="../inquiry/inquiry_reply.jsp" %> 
+</html>
+
+<%@include file="../inquiry/inquiry_reply.jsp"%>
 
 <%-- <%@include file="../includes/footer.jsp" %> --%>
