@@ -38,9 +38,8 @@ public class FileAjaxController {
 	
 	@GetMapping("/fileUploadAjax/{file_pictureId}")
 	public List<FileVO> getList(@PathVariable("file_pictureId") Long file_pictureId){
-		log.info("getList........");
+		log.info("getList........"+file_pictureId);
 		List<FileVO> list = fileService.getListFile(String.valueOf(file_pictureId));
-		log.info(list);
 	return list;	
 	}
 	

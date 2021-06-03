@@ -30,6 +30,19 @@
 		</set>
 		where pboard_unit_no = #{pboard_unit_no} 
 	</update>
+	<update id="updateProduct">
+		update products_info
+		<set>
+			<if test="product_regdate==null">product_regdate=sysdate,</if>
+			<if test="product_manufacturer!=null">product_manufacturer=#{product_manufacturer},</if>
+			<if test="product_category!=null">product_category=#{product_category},</if>
+			<if test="product_name!=null">product_name=#{product_name},</if>
+			<if test="product_description!=null">product_description=#{product_description, jdbcType=VARCHAR},</if>
+			<if test="product_color!=null">product_color=#{product_color},</if>
+			<if test="file_pictureId!=null">file_pictureId=#{file_pictureId},</if>
+		</set>
+		where product_id = #{product_id} 
+	</update>
 	
 	<!-- 카테고리 불러오기 -->
 	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
@@ -66,7 +79,7 @@
 		select board.* from (select rownum num, pboard.* from product_board pboard)board where pboard_unit_no=#{pboard_unit_no}
 	</select>
 	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_id=#{product_id}
+		select product.* from (select rownum num, p.* from products_info p)product where product_id=#{product_id}
 	</select>
 	
 	<insert id="productInfoInsert">

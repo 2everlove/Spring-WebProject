@@ -5,11 +5,8 @@
     <footer class="footer"> 
     	<div class="footer__wrapper">
 	    	<div class="footer__site">
-	    		<a href="#">이용약관</a>
-	    		<a href="#">입점안내</a>
-	    		<a href="#">쇼핑윈도 노출안내</a>
-	    		<a href="#">쇼핑파트너 센터</a>
-	    		<a href="#">고객센터</a>
+	    		<a href="/nboard/nboardList">공지사항</a>
+	    		<a href="/inquiry">고객센터</a>
 	    	</div>
 	    	<div class="footer__company">
 	    		<p><strong>(주)Widele</strong>는 상품판매와 직접적인 관련이 없으며, 모든 상거래의 책임은 구매자와 판매자에게 있습니다.

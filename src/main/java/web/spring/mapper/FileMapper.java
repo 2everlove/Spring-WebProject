@@ -6,12 +6,15 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import web.spring.vo.FileVO;
+import web.spring.vo.PBoardVO;
 
 public interface FileMapper {
 
 	public FileVO getFile(@Param("file_pictureId")String file_pictureId,@Param("file_uuid") String file_uuid);
 	
 	public List<FileVO> getListFile(String file_pictureId);
+	
+	public List<FileVO> getListFileAdmin(Map<String, Object> product_Map);
 	
 	public List<FileVO> getListFileProduct(String product_id);
 	

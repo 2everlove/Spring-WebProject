@@ -89,61 +89,63 @@
 				    				<th>보기</th>
 				    			</tr>
 				    			<c:forEach var="pBoard" items="${PBoardList}">
-					    			<tr class="tr__desc">
-					    				<td>${pBoard.num }</td>
-					    				<td><input type="checkbox" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
-					    				<td>
-				    						<c:if test="${pBoard.pboard_unit_enabled eq 0}">
-						    					<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: green;">
-						    						<option value="0" selected style="color: green;">활성화</option>
-						    						<option value="1" style="color: red;">비활성화</option>
-				    							</select>
-				    						</c:if>
-				    						<c:if test="${pBoard.pboard_unit_enabled eq 1}">
-					    						<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: red;">
-						    						<option value="0" selected style="color: green;">활성화</option>
-						    						<option value="1" selected style="color: red;">비활성화</option>
-						    					</select>
-				    						</c:if>
-					    				</td>
-					    				<td>
-					    					<select class="pboard_unit_condition" name="pboard_unit_condition">
-					    						<c:if test="${pBoard.pboard_unit_condition eq 0}">
-						    						<option value="0" selected>New</option>
-						    						<option value="1">Sale</option>
-						    						<option value="2">Event</option>
-					    						</c:if>
-					    						<c:if test="${pBoard.pboard_unit_condition eq 1}">
-						    						<option value="0">New</option>
-						    						<option value="1" selected>Sale</option>
-						    						<option value="2">Event</option>
-					    						</c:if>
-					    						<c:if test="${pBoard.pboard_unit_condition eq 2}">
-						    						<option value="0">New</option>
-						    						<option value="1">Sale</option>
-						    						<option value="2" selected>Event</option>
-					    						</c:if>
-					    					</select></td>
-					    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}"></td>
-					    				<td><input type="text" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}"></td>
-					    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
-					    				<td>${regdate}</td>
-					    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
-					    				<td>${updateDate}</td>
-					  				<c:forEach var="product" items="${productList}">
-					    				<c:if test="${product.product_id == pBoard.product_id}">
-					    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
-				    					</c:if>
-						   			</c:forEach>
-			    					<c:forEach var="userOb" items="${userList}">
-					    				<c:if test="${userOb.user_id == pBoard.user_id}">
-						    				<td>${userOb.user_id } (<span>${userOb.user_name }</span>)</td>
+					    			<c:forEach var="userOb" items="${userList}">
+				    					<c:if test="${userOb.user_id == sessionScope.user.user_id}">
+							    			<tr class="tr__desc">
+							    				<td>${pBoard.num }</td>
+							    				<td><input type="checkbox" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
+							    				<td>
+						    						<c:if test="${pBoard.pboard_unit_enabled eq 0}">
+								    					<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: green;">
+								    						<option value="0" selected style="color: green;">활성화</option>
+								    						<option value="1" style="color: red;">비활성화</option>
+						    							</select>
+						    						</c:if>
+						    						<c:if test="${pBoard.pboard_unit_enabled eq 1}">
+							    						<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: red;">
+								    						<option value="0" selected style="color: green;">활성화</option>
+								    						<option value="1" selected style="color: red;">비활성화</option>
+								    					</select>
+						    						</c:if>
+							    				</td>
+							    				<td>
+							    					<select class="pboard_unit_condition" name="pboard_unit_condition">
+							    						<c:if test="${pBoard.pboard_unit_condition eq 0}">
+								    						<option value="0" selected>New</option>
+								    						<option value="1">Sale</option>
+								    						<option value="2">Event</option>
+							    						</c:if>
+							    						<c:if test="${pBoard.pboard_unit_condition eq 1}">
+								    						<option value="0">New</option>
+								    						<option value="1" selected>Sale</option>
+								    						<option value="2">Event</option>
+							    						</c:if>
+							    						<c:if test="${pBoard.pboard_unit_condition eq 2}">
+								    						<option value="0">New</option>
+								    						<option value="1">Sale</option>
+								    						<option value="2" selected>Event</option>
+							    						</c:if>
+							    					</select></td>
+							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}"></td>
+							    				<td><input type="text" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}"></td>
+							    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
+							    				<td>${regdate}</td>
+							    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
+							    				<td>${updateDate}</td>
+							  				<c:forEach var="product" items="${productList}">
+							    				<c:if test="${product.product_id == pBoard.product_id}">
+							    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+						    					</c:if>
+								   			</c:forEach>
+					    					
+								    				<td>${userOb.user_id } (<span>${userOb.user_name }</span>)</td>
+							    			
+							    				<td>${pBoard.file_pictureId}</td>
+							    				<td><button class="updateBtn" type="button">저장</button></td>
+							    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
+							    			</tr>
 					    				</c:if>
 				    				</c:forEach>
-					    				<td>${pBoard.file_pictureId}</td>
-					    				<td><button class="updateBtn" type="button">저장</button></td>
-					    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
-					    			</tr>
 				    			</c:forEach>
 				    		</thead>
 				    	</table>

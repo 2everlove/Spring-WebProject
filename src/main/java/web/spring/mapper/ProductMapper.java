@@ -10,9 +10,10 @@ import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
 public interface ProductMapper {
-	public List<ProductVO> getProductList(Criteria cri); // 상품 전체 조회
 	
 	public List<ProductVO> getProductAllList(); // 상품 전체 조회
+	
+	public List<ProductVO> getProductList(Criteria cri); // 상품 전체 조회
 	
 	public List<PBoardVO> getAllPBoardList(Criteria cri); // 상세페이지 전체 조회(전체)
 	
@@ -20,7 +21,11 @@ public interface ProductMapper {
 	
 	public int getProductTotal(Criteria cri);//페이지 총 수
 	
+	//admin
 	public int updatepBoard(PBoardVO pBoardVO);
+	
+	public int updateProduct(ProductVO productVO);
+	//
 	
 	public List<PBoardVO> getPBoardList(); // 상세페이지 전체 조회(enabled 0만)
 	

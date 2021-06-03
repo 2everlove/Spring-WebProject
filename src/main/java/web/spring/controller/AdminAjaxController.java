@@ -18,6 +18,7 @@ import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.Criteria;
+import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.PageNavi;
 import web.spring.vo.ProductVO;
@@ -45,4 +46,14 @@ public class AdminAjaxController {
 		map.put("result", board);
 		return map;
 	}
+	@PostMapping("/productUpdate")
+	public Map<String, Object> updateProductList(ProductVO productVO) {
+		log.info(productVO);
+		int res = productService.updateProduct(productVO);
+		ProductVO product = productService.getProductInfo(productVO.getProduct_id());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", product);
+		return map;
+	}
+
 }

@@ -21,7 +21,11 @@ public interface ProductService {
 	
 	public int getProductTotal(Criteria cri);
 	
+	//admin
 	public int updatepBoard(PBoardVO pBoardVO);
+	
+	public int updateProduct(ProductVO productVO);
+	//
 	
 	public List<PBoardVO> getPBoardList();
 	

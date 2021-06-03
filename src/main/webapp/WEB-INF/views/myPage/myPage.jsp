@@ -20,7 +20,7 @@
 		    	<c:if test="${sessionScope.user.user_type<=1}">
 			    	<!-- 기업,관리자 -->
 			    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="fas fa-plus-square"></i> 상품 게시글 등록</button></a>
-			    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
+			    	<a href="/product/pBoardUpdate"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
 		    	</c:if>
 	    	</div>
 	    	<!-- 관리자 -->
