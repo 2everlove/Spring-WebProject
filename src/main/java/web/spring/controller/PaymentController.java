@@ -33,9 +33,11 @@ public class PaymentController {
 	UserService userService;
 	
 	@GetMapping("/payment")
-	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO) {
+	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO, HttpServletRequest rq) {
 		PBoardVO pBoard = pBoardVO;
-		userVO = paymentService.get(userVO.getUser_id());
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		userVO = paymentService.get(user.getUser_id());
 		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
 		model.addAttribute("uvo", userVO);
 		model.addAttribute("pBoard", pBoard);
@@ -47,7 +49,7 @@ public class PaymentController {
 	public String paymentAction(Model model, OrderVO ovo) {
 		int res = paymentService.insertOrder(ovo);
 		model.addAttribute("ovo", ovo);
-		return "/order/paymentAction";
+		return "redirect:/orderList";
 	}
 	
 	@GetMapping("/cart")
@@ -69,11 +71,39 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/cartList")
-	public String insertCart(Model model, CartVO cvo, HttpServletRequest rq) {
+	public String insertCart(Model model, HttpServletRequest rq) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		List<CartVO> list = paymentService.getCartList(user.getUser_id());
 		model.addAttribute("list", list);
 		return "/order/cartList";
+	}
+	
+	@GetMapping("/deleteCart")
+	public String deleteCart(Model model, CartVO cvo, HttpServletRequest rq) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		int res = paymentService.deleteCart(cvo.getCart_id());
+		model.addAttribute("cvo", cvo);
+		return "redirect:/cartList";
+	}
+	
+	@GetMapping("/orderList")
+	public String orderList(Model model, HttpServletRequest rq, OrderVO ovo) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		List<OrderVO> list = paymentService.getOrderList(user.getUser_id());
+		model.addAttribute("list", list);
+		return "/order/orderList";
+	}
+	
+	@GetMapping("/orderStatus")
+	public String orderStatus(Model model, HttpServletRequest rq, OrderVO ovo) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		session.setAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
+		model.addAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
+		System.out.println("==================="+ovo.getOrder_id());
+		return "/order/orderStatus";
 	}
 }

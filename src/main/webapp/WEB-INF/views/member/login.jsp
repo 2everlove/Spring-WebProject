@@ -17,10 +17,10 @@
             <p id="errorMsgArea"></p>
                 <fieldset id="login">
                     <div class="form-group">
-                        <input  placeholder="id" name="User_id" value="testuser" autofocus>
+                        <input  placeholder="id" name="User_id" value="user01" autofocus>
                     </div>
                     <div class="form-group">
-                        <input  placeholder="Password" name="User_password" type="password" value="1234">
+                        <input  placeholder="Password" name="User_password" type="password" value="12345">
                     </div>
                     <div class="checkbox">
                         <label>

@@ -19,10 +19,15 @@ public class UserMapperTest {
 	PaymentMapper mapper;
 	
 	@Test
+	public void getOrderStatus() {
+		System.out.println(mapper.getOrderStatus("10"));
+	}
+	
+	@Test
 	public void getPayment() {
 		OrderVO vo = new OrderVO();
-		vo.setOrder_address("¼­¿ï½Ã ±¸·Î±¸");
-		vo.setOrder_name("È«±æµ¿");
+		vo.setOrder_address("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½");
+		vo.setOrder_name("È«ï¿½æµ¿");
 		vo.setUser_id("2");
 		vo.setOrder_totalprice("40000");
 		vo.setOrder_totalcount("1");
@@ -39,16 +44,13 @@ public class UserMapperTest {
 		System.out.println(mapper.getProduct("product01"));
 	}
 	
-	@Test
-	public void insertOrderTest() {
-		OrderVO vo = new OrderVO();
-		
-		vo.setOrder_address("test");
-		vo.setOrder_name("test");
-		vo.setUser_id("user01");
-		vo.setOrder_totalprice("40000");
-		vo.setOrder_totalcount("3");
-		
-		System.out.println(mapper.insertOrder(vo));
-	}
+	/*
+	 * @Test public void insertOrderTest() { OrderVO vo = new OrderVO();
+	 * 
+	 * vo.setOrder_address("test"); vo.setOrder_name("test");
+	 * vo.setUser_id("user01"); vo.setOrder_totalprice("120000");
+	 * vo.setOrder_totalcount("3");
+	 * 
+	 * System.out.println(mapper.insertOrder(vo)); }
+	 */
 }

@@ -75,7 +75,8 @@
 									<button type="button" class="down-button">
 										<i class="fas fa-chevron-down"></i>
 									</button>
-							</span> </span>
+								</span>
+							</span>
 						<p>
 							등록일 <span>${regdate}</span>
 						<p>

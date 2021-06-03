@@ -42,4 +42,18 @@ public class PaymentServiceImpl implements PaymentService {
 		return mapper.getCartList(user_id);
 	}
 
+	@Override
+	public int deleteCart(String cart_id) {
+		return mapper.deleteCart(cart_id);
+	}
+
+	@Override
+	public List<OrderVO> getOrderList(String user_id) {
+		return mapper.getOrderList(user_id);
+	}
+
+	@Override
+	public OrderVO getOrderStatus(String order_id) {
+		return mapper.getOrderStatus(order_id);
+	}
 }

@@ -8,19 +8,19 @@ public class UserVO {
 	private String User_name;
 	private String User_password;
 	private String User_contact;
-	private String User_enabled;	//�쑀�� �궗�슜�떆 1
-	private String User_type;		//�뼱�뱶誘� : A, 湲곗뾽 : E, 怨좉컼 : C
+	private String User_enabled;	//占쎌�占쏙옙 占쎄텢占쎌뒠占쎈뻻 1
+	private String User_type;		//占쎈선占쎈굡沃섓옙 : A, 疫꿸퀣毓� : E, �⑥쥒而� : C
 	private String User_regdate;
 	private String User_gender;
 	private String User_birth;
 	private String User_address;
 	private String User_interesting;
-	private String User_enabledContent;	//釉붾줉 肄붾찘�듃 - �옒紐삵븳 �씪�씠 �엳�뼱�꽌 釉붾줉�떦�븯硫� 釉붾줉�떦�븳 �씠�쑀瑜� ���옣
+	private String User_enabledContent;	//�뇡遺얠쨯 �굜遺얠컲占쎈뱜 - 占쎌삋筌륁궢釉� 占쎌뵬占쎌뵠 占쎌뿳占쎈선占쎄퐣 �뇡遺얠쨯占쎈뼣占쎈릭筌롳옙 �뇡遺얠쨯占쎈뼣占쎈립 占쎌뵠占쎌��몴占� 占쏙옙占쎌삢
 	private String file_pictureId;
 	
-	// �옄�룞濡쒓렇�씤�뿉 �븘�슂�븳 �궎媛�
+	// 占쎌쁽占쎈짗嚥≪뮄�젃占쎌뵥占쎈퓠 占쎈툡占쎌뒄占쎈립 占쎄텕揶쏉옙
 	String sessionkey;
-	// �옄�룞濡쒓렇�씤�쓽 �쑀�슚湲곌컙
+	// 占쎌쁽占쎈짗嚥≪뮄�젃占쎌뵥占쎌벥 占쎌�占쎌뒞疫꿸퀗而�
 	Date sessionlimit;
 	public boolean hasRole(String role_id) {
 		if(User_type!=null) {

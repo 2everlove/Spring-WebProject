@@ -10,6 +10,7 @@ public class PBoardVO {
 	private String pboard_unit_price;
 	private String pboard_unit_condition;
 	private String pboard_unit_stocks;
+	private String pboard_unit_enabled;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date pboard_unit_regdate;
@@ -87,4 +88,11 @@ public class PBoardVO {
 	public void setFile_pictureId(String file_pictureId) {
 		this.file_pictureId = file_pictureId;
 	}
+	public String getPboard_unit_enabled() {
+		return pboard_unit_enabled;
+	}
+	public void setPboard_unit_enabled(String pboard_unit_enabled) {
+		this.pboard_unit_enabled = pboard_unit_enabled;
+	}
+	
 }

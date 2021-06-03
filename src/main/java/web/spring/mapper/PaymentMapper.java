@@ -15,7 +15,13 @@ public interface PaymentMapper {
 	
 	public int insertOrder(OrderVO vo);
 	
+	public List<OrderVO> getOrderList(String user_id);
+	
+	public OrderVO getOrderStatus(String order_id);
+	
 	public int insertCart(CartVO cvo);
 	
 	public List<CartVO> getCartList(String user_id);
+	
+	public int deleteCart(String cart_id);
 }

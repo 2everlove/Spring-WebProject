@@ -8,33 +8,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#cartForm").submit(function(){
-		var ans = confirm('장바구니로 이동하겠습니까?');
-		
-		if(ans) {
-			location.href = "cartList";
-		}
+		alert('장바구니에 추가합니다.');
 	});
 });
 </script>
-<style>
-.order {
-	text-align: center;
-}
-
-fieldset {
-	text-align: left;
-	width: 70%;
-	margin: 30px auto;
-}
-
-.content2 {
-	padding: 10px;
-}
-
-.content {
-	padding: 150px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 	<section class="order">
 		<div class="content">
 			<h2>주문/결제 사항</h2>
@@ -42,7 +20,7 @@ fieldset {
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input name="user_id" value="${sessionScope.user.user_id}">
+					<input name="user_id" type="hidden" value="${sessionScope.user.user_id}">
 					<label>주소</label> <input class="view" name="user_address"
 						value="${uvo.user_address}">
 				</div>
@@ -55,6 +33,8 @@ fieldset {
 				<label>결제 정보</label>
 				<div class="content2">
 					<label>상품 이름</label>
+					<input name="pboard_unit_price" type="hidden" value="${pBoard.pboard_unit_price}">
+					<input class="view" name="product_id" type="hidden" value="${pBoard.product_id}">
 					<input class="view" name="product_name" value="${productVO.product_name}">
 				</div>
 				<div class="content2">
