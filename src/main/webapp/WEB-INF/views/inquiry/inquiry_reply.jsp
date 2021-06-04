@@ -80,11 +80,9 @@
 
 <body>
 	<div id="comment-write-section">
-		<c:if test="${inquiryReply.reply <= 0 }">
 			<p>관리자 작성 영역</p>
 			<textarea id="ireply_content" name="ireply_content"></textarea>
 			<button id="replyInsertBtn">작성</button>
-		</c:if>
 	</div>
 	<div id="comment-section">
 		<p>댓글 출력 영역</p>

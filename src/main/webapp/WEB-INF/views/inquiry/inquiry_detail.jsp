@@ -46,6 +46,9 @@
 								<col style="width: auto">
 							</colgroup>
 							<tbody>
+							<!-- 게시글 번호 -->
+								<input type="hidden" name="iboard_no" id="iboard_no"
+									value="${inquiry_detail.iboard_no}">
 								<tr>
 									<th>카테고리</th>
 									<td><input type="hidden" name="iboard_category"
@@ -64,8 +67,7 @@
 										value="${inquiry_detail.iboard_title }">${inquiry_detail.iboard_title }</td>
 								</tr>
 								<tr>
-									<th class="vertical_t">내용
-									</th>
+									<th class="vertical_t">내용</th>
 									<td colspan="3"><textarea id="iboard_content"
 											name="iboard_content" style="height: 210px">${inquiry_detail.iboard_content}</textarea></td>
 								</tr>
@@ -75,12 +77,15 @@
 									<td><span><input type="radio" name="iboard_public"
 											id="iboard_public" value="0" checked>전체공개 </span><span><input
 											type="radio" name="iboard_public" value="1">비공개</span></td>
+
 								</tr>
 							</tbody>
+
 						</table>
 					</div>
 					<p class="btn_pop_page">
-						<button type="button" class="inquiry_button" onclick="inquiryDelete()">삭제</button>
+						<button type="button" class="inquiry_button"
+							onclick="inquiryDelete()">삭제</button>
 						<button type="button" class="cancel"
 							onclick="location.href='/inquiry'">취소</button>
 					</p>
