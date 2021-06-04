@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.UserMapper">
+	<select id="getUser" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id = #{User_id, jdbcType = VARCHAR}
+	</select>
+	<select id="getUserList" resultType="web.spring.vo.UserVO">
+		select * from user_info 
+		where user_id in (
+			select user_id from products_info where product_id in (
+				select pboard.product_id from (
+					select board.*, row_number() over(partition by product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank from product_board board
+				) pboard where each_rank='1'
+			)
+		)
+	</select>
+	
+	<select id="getUser_type" resultType="String">
+		select User_type from user_info where User_id=#{User_id} 
+	</select>
+		<!-- 로그인 -->
+	<select id="login" resultType="web.spring.vo.UserVO">
+		select USER_ID,FILE_PICTUREID,USER_EMAIL,USER_NAME,USER_PASSWORD,USER_CONTACT,USER_ENABLED,USER_TYPE,to_char(User_regdate,'yyyy-mm-dd') User_regdate,USER_GENDER,to_char(USER_BIRTH,'yyyy-mm-dd') User_birth
+		,USER_ADDRESS,USER_INTERESTING,USER_ENABLEDCONTENT,SESSIONKEY,SESSIONLIMIT 
+		from user_info where User_id = #{User_id}
+	</select>
+	
+	<update id="updateSessionkey">
+		update user_info set sessionkey = #{sessionkey}, sessionlimit = sysdate + 7 
+		where user_id=#{User_id}
+	</update>
+	<select id="loginSessionkey" resultType="web.spring.vo.UserVO">
+		select * from user_info
+		where sessionkey = #{sessionkey} and sessionlimit > sysdate
+	</select>
+	<insert id="insertUser" >
+		insert into user_info (User_id, User_email,User_name, User_password, User_contact, User_enabled, User_type, User_regdate, User_gender,User_birth,User_address,User_interesting,file_pictureId) 
+		values (#{User_id},#{User_email},#{User_name},#{User_password},#{User_contact},1,#{User_type},sysdate, #{User_gender,jdbcType = VARCHAR},#{User_birth,jdbcType = VARCHAR},#{User_address,jdbcType = VARCHAR},#{User_interesting,jdbcType = VARCHAR},#{file_pictureId})
+	</insert>
+	<select id="checkIdReapet" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id = #{User_id}
+	</select>
+	<select id="searchId" resultType="String">
+		select * from user_info where User_name = #{User_name,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
+	</select>
+	<select id="searchPwd" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id = #{User_id,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
+	</select>
+	<update id="updateUser">
+		update user_info set User_email=#{User_email,jdbcType=VARCHAR}, User_password=#{User_password}, User_contact=#{User_contact}, User_enabled=#{User_enabled}, User_type=#{User_type}, User_gender=#{User_gender,jdbcType=VARCHAR},User_birth=#{User_birth,jdbcType=VARCHAR},User_address=#{User_address,jdbcType=VARCHAR},User_interesting=#{User_interesting,jdbcType=VARCHAR},User_enabledContent=#{User_enabledContent,jdbcType=VARCHAR},file_pictureId=#{file_pictureId}
+		where User_id= #{User_id}
+	</update>
+	<update id="updatePwd">
+		update user_info set User_password = #{User_password,jdbcType=VARCHAR} where User_id = #{User_id,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
+	</update>
+</mapper>
