@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/resources/css/main.css">
 <!-- icon api -->
 <script src="https://kit.fontawesome.com/e8e06f0e5f.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0308a0ca81.js" crossorigin="anonymous"></script>
 <!-- icon -->
 <link rel="icon" type="image/png" href="/resources/images/favicon1.png">
 <!-- google font -->

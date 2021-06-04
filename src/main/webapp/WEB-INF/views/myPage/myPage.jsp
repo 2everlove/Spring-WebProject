@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
-<<script type="text/javascript" >
+<script type="text/javascript" >
 <!--
 
 //-->
@@ -19,6 +19,12 @@
 		    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="far fa-plus-square"></i>상품 등록</button></a>
 	    	</div>
     	</div>
+    	<div class="section__wrapper">
+        	<div class="section__myPage">
+		    	<a href="/orderList"><button class="navbar__menu__item"><i class="fas fa-list-ol"></i>주문내역</button></a>
+	    	</div>
+    	</div>
+    	
    	</section>
 
 <%@include file="../includes/footer.jsp" %>

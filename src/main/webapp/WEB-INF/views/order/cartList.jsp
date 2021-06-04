@@ -23,7 +23,62 @@ $(document).ready(function(){
 		alert('장바구니에서 삭제합니다.');
 	});
 	$("#checkDelete").click(function(){
-		
+		var url = "/delete";
+		var valueArr = new Array();
+		var list = $("input[class='checkbox']");
+		for(var i=0; i<list.length; i++){
+			if(list[i].checked){
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0){
+			alert("하나 이상 선택해주세요.");
+		} else {
+			var chk = confirm("정말 삭제하시겠습니까?");
+			$.ajax({
+				url: url,
+				type: 'POST',
+				traditional: true,
+				data: {valueArr : valueArr},
+				success: function(val){
+					if(val = 1){
+						alert("삭제 성공");
+						location.replace("cartList");
+					} else {
+						alert("삭제 실패");
+					}
+				}
+			});
+		}
+	});
+	$("#payment").click(function(){
+		var url = "/payment";
+		var valueArr = new Array();
+		var list = $("input[class='checkbox']");
+		for(var i=0; i<list.length; i++){
+			if(list[i].checked){
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0){
+			alert("선택된 글이 없습니다.");
+		} else {
+			var chk = confirm("주문하시겠습니까?");
+			$.ajax({
+				url: url,
+				type: 'post',
+				traditional: true,
+				data: {valueArr : valueArr},
+				success: function(val){
+					if(val = 1){
+						alert("주문 성공");
+						location.replace("orderList");
+					} else {
+						alert("주문 실패");
+					}
+				}
+			});
+		}
 	});
 });
 </script>
@@ -54,7 +109,7 @@ $(document).ready(function(){
 
 					<c:forEach var="cvo" items="${list}">
 						<tr>
-							<td class="center"><input type="checkbox" class="checkbox">${cvo.cart_id}</td>
+							<td class="center"><input type="checkbox" value="${cvo.cart_id}" class="checkbox">${cvo.cart_id}</td>
 							<td class="center" id="order_name">${cvo.user_name}</td>
 							<td class="center" id="order_address">${cvo.user_address}</td>
 							<td class="center">${cvo.product_name}</td>
@@ -75,7 +130,7 @@ $(document).ready(function(){
 			</table>
 			<div class="button">
 				<button type="button" id="checkDelete">삭제</button>
-				<button type="button" onclick="location.href='payment'">주문</button>
+				<button type="button" id="payment">주문</button>
 			</div>
 	</div>
 </section>

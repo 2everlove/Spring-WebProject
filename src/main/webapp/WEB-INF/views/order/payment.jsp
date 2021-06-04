@@ -21,6 +21,7 @@
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
+					<input class="view" name="cart_id" value="${cvo.cart_id}">
 					<input class="view" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>
 					<input class="view" name="order_name" value="${uvo.user_name}">
@@ -50,7 +51,6 @@
 				</div>
 			</fieldset>
 			<button type="submit" id="button" class="detail__btn payment">결제</button>
-			<button type="button" class="detail__btn cart" onclick="location.href='cart'">장바구니</button>
 		</form>
 	</div>
 </section>

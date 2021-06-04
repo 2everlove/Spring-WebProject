@@ -33,7 +33,7 @@ public class PaymentController {
 	UserService userService;
 	
 	@GetMapping("/payment")
-	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO, HttpServletRequest rq) {
+	public String getPayment(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq) {
 		PBoardVO pBoard = pBoardVO;
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
@@ -42,13 +42,16 @@ public class PaymentController {
 		model.addAttribute("uvo", userVO);
 		model.addAttribute("pBoard", pBoard);
 		model.addAttribute("productVO", productVO);
+		model.addAttribute("cvo", cvo);
 		return "/order/payment";
 	}
 	
 	@PostMapping("/productOrder")
-	public String paymentAction(Model model, OrderVO ovo) {
+	public String paymentAction(Model model, OrderVO ovo, CartVO cvo) {
 		int res = paymentService.insertOrder(ovo);
+		int res2 = paymentService.deleteCart(cvo.getCart_id());
 		model.addAttribute("ovo", ovo);
+		model.addAttribute("cvo", cvo);
 		return "redirect:/orderList";
 	}
 	
@@ -67,13 +70,14 @@ public class PaymentController {
 	public String cartAction(Model model, CartVO cvo) {
 		int res = paymentService.insertCart(cvo);
 		model.addAttribute("cvo", cvo);
-		return "redirect:/main";
+		return "redirect:/cartList";
 	}
 	
 	@GetMapping("/cartList")
 	public String insertCart(Model model, HttpServletRequest rq) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
+		System.out.println("=================user"+user);
 		List<CartVO> list = paymentService.getCartList(user.getUser_id());
 		model.addAttribute("list", list);
 		return "/order/cartList";
@@ -85,6 +89,20 @@ public class PaymentController {
 		UserVO user = (UserVO)session.getAttribute("user");
 		int res = paymentService.deleteCart(cvo.getCart_id());
 		model.addAttribute("cvo", cvo);
+		return "redirect:/cartList";
+	}
+	
+	@PostMapping("/delete")
+	public String delete(HttpServletRequest rq) {
+		
+		String[] msg = rq.getParameterValues("valueArr");
+		int size = msg.length;
+		for(int i=0; i<size; i++) {
+			int res = paymentService.deleteCart(msg[i]);
+			System.out.println("===============res"+res);
+			System.out.println("============msg[i]"+msg[i]);
+		}
+		System.out.println("=============msg"+msg);
 		return "redirect:/cartList";
 	}
 	
