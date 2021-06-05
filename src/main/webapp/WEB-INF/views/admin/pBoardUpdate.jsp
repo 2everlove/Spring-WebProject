@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+
 <link rel="stylesheet" href="/resources/css/admin-product.css">
 <script type="text/javascript">
 	document.title='마이페이지 : widele';
@@ -173,7 +174,7 @@
 	    	<!-- 페이징 소스 -->
 			<div id="pagination-box">
 				<nav>
-					<ul class="pagination">
+					<ul class="pagination" style="text-align: center; margin: 0 auto;">
 						<c:if test="${pageNavi.prev}">
 							<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
 						</c:if>

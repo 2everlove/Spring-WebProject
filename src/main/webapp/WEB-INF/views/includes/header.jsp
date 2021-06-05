@@ -15,12 +15,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/resources/css/colorPick.dark.theme.css">
 <link rel="stylesheet" href="/resources/css/colorPick.css">
-<link rel="stylesheet" href="/resources/css/colorPick.css">
 <link rel="stylesheet" href="/resources/css/include.css">
-<!-- icon api -->
-<script src="https://kit.fontawesome.com/e8e06f0e5f.js" crossorigin="anonymous"></script>
 <script src="/resources/js/colorPick.js"></script>
 <script src="/resources/js/colorPick.min.js"></script>
+<!-- icon api -->
+<script src="https://kit.fontawesome.com/e8e06f0e5f.js" crossorigin="anonymous"></script>
 <!-- icon -->
 <link rel="icon" type="image/png" href="/resources/images/favicon1.png">
 <!-- google font -->
@@ -148,7 +147,7 @@ $(document).ready(function(){
 		            	<c:otherwise>
 			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
 			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
-		                	<a href="/cart"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<a href="/cartList"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>

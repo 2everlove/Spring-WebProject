@@ -1,5 +1,10 @@
 package web.spring.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,7 +106,12 @@ public class NBoardController {
 		}
 		
 		@PostMapping("/nboard/nboardRegister")
-		public String insertExe(NBoardVO vo, RedirectAttributes rttr) {
+		public String insertExe(NBoardVO vo, RedirectAttributes rttr, HttpServletRequest req, HttpServletResponse rs) {
+			//팝업용 session
+			HttpSession session = req.getSession();
+			session.setAttribute("noticeFlag", vo);
+			//
+			
 			System.out.println("===========vo : "+vo);
 			int res = service.insertNboard(vo);
 			System.out.println("===========vo : "+vo);

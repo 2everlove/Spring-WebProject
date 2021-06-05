@@ -57,7 +57,7 @@ public class AdminController {
 		model.addAttribute("fileList", fileList);
 		log.info(fileList);
 		model.addAttribute("productList", productList);
-		model.addAttribute("pageNavi",new PageNavi(cri,productService.getProductTotal(cri)));
+		model.addAttribute("pageNavi",new PageNavi(cri, productService.getProductTotal(cri)));
 		return "/admin/productManage";
 	}
 	
@@ -74,7 +74,7 @@ public class AdminController {
 		return "/admin/pBoardManage";
 	}
 	
-	//상품 관리글 관리
+	//기업회원 // 상품 관리글 관리
 	@GetMapping("/product/pBoardUpdate")
 	public String getUserPBoardList(Criteria cri, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -87,11 +87,26 @@ public class AdminController {
 				if(PBoardList!=null) {
 					model.addAttribute("PBoardList", PBoardList);
 					model.addAttribute("productList", productList);
-					model.addAttribute("pageNavi",new PageNavi(cri,productService.getPboardUserTotal(user.getUser_id(), cri)));
+					model.addAttribute("pageNavi",new PageNavi(cri, productService.getPboardUserTotal(user.getUser_id(), cri)));
 					return "/admin/pBoardUpdate";
 				}
 			} 
 		} 
 		return "/login";
 	}//
+	
+	//유저관리
+	@GetMapping("/admin/userControl")
+	public String getUserList(Criteria cri, Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user.getUser_type().equals("0")) {
+			List<UserVO> userList = userService.getAllUserList(cri);
+			model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
+			model.addAttribute("userList", userList);
+			return "/admin/userControl";
+			
+		}
+		return "/login";
+	}
 }

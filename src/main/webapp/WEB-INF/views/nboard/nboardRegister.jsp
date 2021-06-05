@@ -30,7 +30,8 @@ function registerSubmit(){
                             	<p><label>nboard_content</label>
                             		<textarea name=nboard_content>${vo.nboard_content }</textarea></p>
                             	<p><label>user_id</label>
-                            		<input name="user_id" value="${vo.user_id }">
+                            		<input name="user_id" value="${sessionScope.user.user_id }">
+                            		<input type="hidden" name="nboard_public" value="0">
                             	<p><label>category</label>
                             		<select name="nboard_category" >
                             			<option value="E">이벤트</option>

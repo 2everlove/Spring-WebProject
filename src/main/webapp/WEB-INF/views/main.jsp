@@ -4,7 +4,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="./includes/header.jsp" %>
 <link rel="stylesheet" href="/resources/css/main.css">
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		if("${sessionScope.noticeFlag.nboard_title}" != ""){
+			var popupX = (window.screen.width / 2) - (200 / 2);
+			var popupY= (window.screen.height / 2) - (300 / 2);
+			window.open('/popup', '', 'status=no, height=500, width=700, left='+ popupX + ', top='+ popupY);
+		}
+	});
+</script>
     <section class="section__content">
     
 		<div class="section__wrapper">

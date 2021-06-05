@@ -5,6 +5,15 @@
 	<select id="getUser" resultType="web.spring.vo.UserVO">
 		select * from user_info where user_id = #{user_id}
 	</select>
+	
+	<select id="getAllUserList" resultType="web.spring.vo.UserVO">
+		select us.* from (select rownum num, u.* from user_info u) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+	</select>
+	
+	<select id="getUserTotal" resultType="int">
+		select count(*) from user_info
+	</select>
+	
 	<select id="getUserList" resultType="web.spring.vo.UserVO">
 		select * from user_info 
 		where user_id in (

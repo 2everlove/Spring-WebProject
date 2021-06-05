@@ -37,6 +37,7 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	public int deleteInquiry(int iboard_no) {
 		return mapper.deleteInquiry(iboard_no);
 	}
+
 	
 	
 	

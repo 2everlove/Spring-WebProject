@@ -1,5 +1,10 @@
 package web.spring.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
+import web.spring.service.UserService;
+import web.spring.vo.CartVO;
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
@@ -22,18 +29,15 @@ public class PaymentController {
 	@Autowired
 	ProductService productService;
 	
-	@PostMapping("/payment")
-	public String payment(Model model, PBoardVO pBoard) {
-		UserVO uvo = paymentService.get("user01");
-		pBoard = paymentService.getProduct(pBoard.getPboard_unit_no());
-		model.addAttribute("uvo", uvo);
-		model.addAttribute("pBoard", pBoard);
-		return "/order/payment";
-	}
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/payment")
-	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO) {
+	public String getPayment(Model model, UserVO userVO, PBoardVO pBoardVO, HttpServletRequest rq) {
 		PBoardVO pBoard = pBoardVO;
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		userVO = paymentService.get(user.getUser_id());
 		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
 		model.addAttribute("uvo", userVO);
 		model.addAttribute("pBoard", pBoard);
@@ -45,13 +49,61 @@ public class PaymentController {
 	public String paymentAction(Model model, OrderVO ovo) {
 		int res = paymentService.insertOrder(ovo);
 		model.addAttribute("ovo", ovo);
-		return "/order/paymentAction";
+		return "redirect:/orderList";
 	}
 	
 	@GetMapping("/cart")
-	public String cart(Model model) {
-		OrderVO ovo = paymentService.getCart("user01");
-		model.addAttribute("ovo", ovo);
+	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO) {
+		PBoardVO pBoard = pBoardVO;
+		userVO = userService.getUser(userVO.getUser_id());
+		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
+		model.addAttribute("uvo", userVO);
+		model.addAttribute("pBoard", pBoard);
+		model.addAttribute("productVO", productVO);
 		return "/order/cart";
+	}
+	
+	@PostMapping("/cartAction")
+	public String cartAction(Model model, CartVO cvo) {
+		int res = paymentService.insertCart(cvo);
+		model.addAttribute("cvo", cvo);
+		return "redirect:/cartList";
+	}
+	
+	@GetMapping("/cartList")
+	public String insertCart(Model model, HttpServletRequest rq) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		List<CartVO> list = paymentService.getCartList(user.getUser_id());
+		model.addAttribute("list", list);
+		return "/order/cartList";
+	}
+	
+	@GetMapping("/deleteCart")
+	public String deleteCart(Model model, CartVO cvo, HttpServletRequest rq) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		int res = paymentService.deleteCart(cvo.getCart_id());
+		model.addAttribute("cvo", cvo);
+		return "redirect:/cartList";
+	}
+	
+	@GetMapping("/orderList")
+	public String orderList(Model model, HttpServletRequest rq, OrderVO ovo) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		List<OrderVO> list = paymentService.getOrderList(user.getUser_id());
+		model.addAttribute("list", list);
+		return "/order/orderList";
+	}
+	
+	@GetMapping("/orderStatus")
+	public String orderStatus(Model model, HttpServletRequest rq, OrderVO ovo) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		session.setAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
+		model.addAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
+		System.out.println("==================="+ovo.getOrder_id());
+		return "/order/orderStatus";
 	}
 }

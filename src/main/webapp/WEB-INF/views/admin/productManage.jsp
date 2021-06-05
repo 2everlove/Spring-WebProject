@@ -19,6 +19,7 @@
 	
 	$(document).ready(function(){
 		$(".colorPickSelector").colorPick();
+
 		$(".colorPickSelector").colorPick({
 			  'initialColor': '#3498db',
 			  'allowRecent': true,
@@ -29,7 +30,7 @@
 			    this.element.css({'backgroundColor': this.color, 'color': this.color});
 			    this.element.closest('td').find('input').val(this.color);
 			  }
-			});
+		});
 		$('#thum').hide();
 		$('.updateBtn').click(function(){
 			let currentRow = $(this).closest('tr');
@@ -64,6 +65,7 @@
 		
 		$('.updateFileBtn').click(function(){
 			console.log($('.fileUpload').val());
+			let btn = $(this);
 			if($(this).closest('td').find('.fileUpload').val()!=""){
 				let currentRow = $(this).closest('td');
 				let Formfile_usingType = currentRow.find('.file_usingType').val();
@@ -72,9 +74,9 @@
 				let FormfileUpload = currentRow.find('.fileUpload').val();
 				let Formproduct_id = $(this).closest('tr').find('.product_id').val();
 				console.log(Formfile_usingType, Formfile_pictureId, Formfile_uuid, FormfileUpload);
-				let formData = new FormData(btn.closest('form[name=uploadForm]')[0]);
+				let formData = new FormData($(this).closest('form[name=uploadForm]')[0]);
+				attachFileDelete(Formfile_uuid, Formfile_pictureId);
 
-				attachFileDelete(Formfile_uuid, Formfile_pictureId, Formfile_uuid);
 				attachFile(formData, $(this));
 				updateFileId(Formfile_pictureId,Formproduct_id, $(this).closest('tr'));
 				$(this).closest('td').find('input[type=file]').hide();
@@ -92,8 +94,6 @@
 	
 	//파일 업로드
 	function attachFile(formData, btn){
-		var num ="";
-		console.log(btn.closest('form[name=uploadForm]'));
 		//파일업로드 컨트롤러 -> 서버에 저장
 		$.ajax({
 			url : '/fileUploadAjax',
@@ -101,7 +101,7 @@
 			enctype: 'multipart/form-data',
 			dataType : 'json',
 	        processData: false,    
-	        contentType: false,      
+	        contentType: false,     
 	        cache: false,
 	        async: false, 
 			data : formData,
@@ -110,7 +110,6 @@
 				console.log(datas);
 				alert(datas.count+"개가 업로드 되었습니다.");
 				viewFile(datas.file_pictureId, btn);
-				num=datas.file_pictureId;
 				if(formData.get('product_name')!=null){
 					$('#file_pictureId').val(datas.file_pictureId);
 					console.log("탔다");
@@ -120,7 +119,6 @@
 				console.log(errorThrown);
 			}
 		});
-		return num;
 	}
 	
 	//파일view
@@ -158,7 +156,7 @@
 	}//
 	
 	//file 삭제
-	function attachFileDelete(file_uuid, file_pictureId, Formfile_uuid){
+	function attachFileDelete(file_uuid, file_pictureId){
 		let rtn = false;
 		$.ajax({
 			url:'/fileDelete/'+file_uuid+'/'+file_pictureId,
@@ -286,41 +284,10 @@
 			    	</div>
 		    	</div>
 		   	</div>
-    	<!-- 페이징 소스 -->
-			<div id="pagination-box">
-				<nav>
-					<ul class="pagination-product">
-						<c:if test="${pageNavi.prev}">
-							<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
-						</c:if>
-						<c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
-							<c:choose>
-								<c:when test="${page eq pageNavi.cri.pageNo }">
-									<li onClick="page(${page })"><a href="#">${page }<span class="active"></span></a></li> <!-- 현재페이지 -->
-								</c:when>
-								<c:otherwise>
-									<li onClick="page(${page })"><a href="#">${page }</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${pageNavi.next}">
-							<li onClick="page(${pageNavi.endPage+1});"><a href="#">&gt;</a></li>
-						</c:if>
-					</ul>
-				</nav>
-			</div>
-			<!-- 페이징 끝 -->
-			<form method=get action="/admin/productControl" name="listForm">
-                 <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
-                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
-                 <!-- 상세보기 검색 유지용 끝 -->
-			</form>
-			
-			<div class="pregister__popup">
+		   	<div class="pregister__popup" style="margin-bottom: 20px;">
 				<div class="pregister__wrapper">
 					<form action="/productRegister" name="productRegisterForm" id="fileRegis">
-						<table class=".table-product" >
+						<table class=".table-product" style="margin-bottom: 50px;">
 				    		<thead>
 				    			<tr class="tr__head">
 				    				<th>제조사</th>
@@ -347,6 +314,36 @@
 					</form>
 				</div>
 			</div>
+    		    	<!-- 페이징 소스 -->
+			<div id="pagination-box">
+				<nav aria-label="Page navigation example" style="background-color: white;">
+					<ul class="pagination" style="text-align: center;">
+						<c:if test="${pageNavi.prev}">
+							<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
+							<c:choose>
+								<c:when test="${page eq pageNavi.cri.pageNo }">
+									<li onClick="page(${page })"><a href="#">${page }<span class="active"></span></a></li> <!-- 현재페이지 -->
+								</c:when>
+								<c:otherwise>
+									<li onClick="page(${page })"><a href="#">${page }</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${pageNavi.next}">
+							<li onClick="page(${pageNavi.endPage+1});"><a href="#">&gt;</a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+			<form method=get action="/admin/productControl" name="listForm">
+                 <!-- 상세보기 검색 유지용 -->
+                 ${pageNavi.cri.type }
+                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
+                 <!-- 상세보기 검색 유지용 끝 -->
+			</form>
+			
    	</section>
 <script type="text/javascript">
     function readURL(input) {
