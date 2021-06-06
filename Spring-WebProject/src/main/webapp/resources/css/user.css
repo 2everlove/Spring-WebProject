@@ -19,6 +19,111 @@
 	box-sizing: border-box;
 	margin: 0 0 10px;
 }
+.login{
+	border: 0;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+.login-button {
+    display: inline;
+    padding: 10px 16px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background: teal;
+    -webkit-transition: color 200ms ease;
+    transition: color 200ms ease;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    outline: none;
+    font-family: "https://fonts.google.com/share?selection.family=Roboto:ital,wght@1,500";
+    font-size: 14px;
+    font-weight: 500;
+    color:#ffffff;
+    line-height: 20px;
+    height: 40px;
+    width:100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.login-group{
+	min-height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    border-top: 1px solid #e2e2e2;
+    padding: 24px 0;
+    box-sizing: border-box;
+    color: var(--color-pink);
+}
+.login-form{
+    width: 40rem;
+    margin: 0 auto;
+}
+
+.login-box{
+	font-family: "https://fonts.google.com/share?selection.family=Roboto:ital,wght@1,500";
+    font-size: 16px;
+    font-weight: 400;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 40px;
+    width: 40rem;
+    margin: 0 auto;
+    outline: none;
+    border-radius: 8px;
+    -webkit-transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, -webkit-box-shadow 200ms ease;
+    transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, -webkit-box-shadow 200ms ease;
+    transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease;
+    transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease, -webkit-box-shadow 200ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #0d0c22;
+    background-color: #f3f3f4;
+}
+.loginUpperBtn{
+	color:#a29bfe;
+}
+.viewLoginFont{
+	color:navy;
+}
+
+.viewLogin{
+	display: inline;
+    padding: 10px 30px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background: #2AF598;
+    -webkit-transition: color 200ms ease;
+    transition: color 200ms ease;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    outline: none;
+    font-family: "https://fonts.google.com/share?selection.family=Roboto:ital,wght@1,500";
+    color:#000000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    float:right;
+}
 
 
 /* nboard-paging */

@@ -24,7 +24,6 @@ public class UserVO {
 	private String sessionkey;// 자동로그인에 필요한 키값
 	private Date sessionlimit;// 자동로그인의 유효기간
 	private String tmp_password;
-	
 	public boolean hasRole(String role_id) {
 		if(User_type!=null) {
 			return User_type.contains(role_id);	

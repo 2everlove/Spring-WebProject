@@ -11,11 +11,9 @@ if('${updateErrorMsg}' != ''){
 $(document).ready(function(){
 	 $("#userUpdateBtn").on("click", function(e){
 		e.preventDefault();
-		console.log('asdfasdfasdf');
-		$("select[User_gender]").val();
-		$("select[User_type]").val();
-		$("select[file_pictureId]").val();	//썸네일 저장
-		$("select[User_enabled]").val();	
+		let User_gender=$("select[User_gender]").val();
+		let User_type=$("select[User_type]").val();
+		let User_enabled=$("select[User_enabled]").val();	
 		let User_id=$("input[name=User_id]").val();
 		let tmp_password = $("input[name=tmp_password]").val();
 		let User_password=$("input[name=User_password]").val();
@@ -24,30 +22,6 @@ $(document).ready(function(){
 		let User_email=$("input[name=User_email]").val();
 		let User_contact=$("input[name=User_contact]").val();
 		let file_pictureId=$("input[name=file_pictureId]").val();
-		if($.isEmptyObject(User_id)){
-			alert("id 입력해주세요.");
-			return;
-		}
-		if($.isEmptyObject(User_password)){
-			alert("비밀번호를 입력해주세요.");
-			return false;
-		}
-		if($.isEmptyObject(pwdCheck)){
-			alert("비밀번호 확인란을 입력해주세요.");
-			return false;
-		}
-		if($.isEmptyObject(User_name)){
-			alert("이름을 입력해주세요.");
-			return false;
-		}
-		if($.isEmptyObject(User_email)){
-			alert("이메일을 입력해주세요.");
-			return false;
-		}
-		if($.isEmptyObject(User_contact)){
-			alert("연락처를 입력해주세요.");
-			return false;
-		}
 		if($.isEmptyObject(file_pictureId)){
 			alert("썸네일을 입력해주세요.");
 			return false;
@@ -61,8 +35,8 @@ $(document).ready(function(){
 			return;
 		}
 		if($.isEmptyObject(pwdCheck)){
-			alert("패스워드 확인을 입력해주세요.");
-			return;
+			alert("비밀번호 확인란을 입력해주세요.");
+			return false;
 		}
 		if(!($("input[name=User_password]").val() === $("input[name=pwdCheck]").val())){
 			 alert("비밀번호가 일치하지 않습니다.");
@@ -102,11 +76,11 @@ $(document).ready(function(){
                 </div>
                 <div class="form-group">
                 	<label>EMAIL</label>
-                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${sessionScope.user.user_email}">
+                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${sessionScope.user.user_email}" required>
                 </div>
                 <div class="form-group">
                 	<label>CONTACT</label>
-                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${sessionScope.user.user_contact}">
+                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${sessionScope.user.user_contact}" required>
                 </div>
                 <div class="form-group">
                 	<label>GENDER</label>
@@ -134,7 +108,7 @@ $(document).ready(function(){
 	               	<label><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
                 </div>
                 <div>
-                	<label><input type="file" name="file_pictureId" value="${sessionScope.user.file_pictureId}"></label>
+                	<label><input type="file" name="file_pictureId" value="${sessionScope.user.file_pictureId}" accept="images/*"></label>
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <button type="button" id="userUpdateBtn" >회원 수정</button>

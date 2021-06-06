@@ -98,4 +98,9 @@ public class UserServiceImpl implements UserService {
 		    user.setUser_password(encodePwd);
 		    return userMapper.updatePwd(user);
 		  }
+
+	@Override
+	public String getFileSeq() {
+		return userMapper.getFileSeq();
+	}
 }

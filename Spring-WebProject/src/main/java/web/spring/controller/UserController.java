@@ -1,5 +1,7 @@
 package web.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +22,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import lombok.extern.log4j.Log4j;
+import web.spring.service.FileService;
 import web.spring.service.MailService;
 import web.spring.service.UserService;
+import web.spring.vo.FileVO;
 import web.spring.vo.UserVO;
 
 @Controller
@@ -36,7 +41,7 @@ public class UserController {
 	public UserService service;
 	@Autowired
 	public MailService mailService;
-
+	
 	@GetMapping({ "/getUser" })
 	public String getUser() {
 		return "/member/getUser";
@@ -59,7 +64,6 @@ public class UserController {
 
 	@PostMapping({ "/userUpdate" })
 	public String updateMember(UserVO user, Model model, HttpServletRequest req, HttpServletResponse res) {
-
 		boolean update = service.updateUser(user);
 		if (update == true) { // userService에서 기존 비밀번호와 복호화된 db의 비밀번호가 일치하면 db값을 수정하고 true를 넘겨받음.
 			// 세션과 쿠키를 다시 처리하는
@@ -85,7 +89,19 @@ public class UserController {
 	}
 
 	@PostMapping({ "/registerMember" })
-	public String registerMember(UserVO user, RedirectAttributes rttr) {
+	public String registerMember(UserVO user, RedirectAttributes rttr,MultipartFile[] uploadFile, int attachNo) {
+		for(MultipartFile multipartFile : uploadFile) {
+			File saveFile = new File(multipartFile.getOriginalFilename());
+			try {
+				// 화면으로 부터 넘어온 파일을 서버에 저장
+				multipartFile.transferTo(saveFile);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		service.getFileSeq();
 		service.insertUser(user);
 		rttr.addFlashAttribute("resMsg", user.getUser_id() + "님 환영합니다.");
 		return "/member/login";
@@ -123,7 +139,7 @@ public class UserController {
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);
 		model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
-		return "/member/loginAction";
+		return "/member/login";
 	}
 
 	@PostMapping({ "/searchId" })

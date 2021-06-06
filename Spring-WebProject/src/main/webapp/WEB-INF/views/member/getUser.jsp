@@ -5,6 +5,68 @@
 <%@include file="../includes/header.jsp" %>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#file_pictureId").change(function(){
+		$('#file_pictureIdClone').val($("#file_pictureId").val());
+	});
+	$('#file_pictureId').on("change", function(){
+		viewFile($('#file_pictureId').val());
+	});
+	
+	//파일view
+	function viewFile(file_pictureId){
+		$.ajax({
+			url:'/fileUploadAjax/'+file_pictureId,
+			method : 'get',
+			dataType : 'json',
+			success : function(datas){
+				let result ="";
+				$.each(datas, function(i, data){
+					console.log(data);
+					//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+					
+					var file_s_savePath = encodeURIComponent(data.file_s_savePath);
+					var file_savePath = encodeURIComponent(data.file_savePath);
+					console.log(file_s_savePath);
+					console.log(data.file_s_savePath);
+					
+					console.log("인코딩 후 : "+file_savePath);
+					let fName = data.file_name;
+					//만약 이미지면 이미지 보여줌
+					if(data.file_type=='Y'){
+						result += "<li>"
+									+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'><br>"
+									+"<a href=/fileDisplay?file_name="+file_savePath+" download="+data.file_name+">"
+									+data.file_name+"</a>"
+									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer'>❌</span></li>";
+					} else {
+						//이미지가 아니면 파일이름을 출력
+						result += "<li>"
+									+"<a href=/fileDisplay?file_name="+file_savePath+" download='"+fName +"'><br>"
+									+data.file_name+"</a>"
+									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); style='cursor: pointer'>❌</span></li>";
+					}
+					
+				});
+				if(datas.length == 0){
+					alert(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색해주세요.');
+					$('#file_pictureId').val("");
+					$('#file_pictureId').select();
+				}
+				$('#fileList').html(result);
+				if($(location).attr('pathname').match('/board/get')){
+					$('span[data-type=image]').remove();
+				}
+				
+			},
+			error : function(){
+				
+			}
+		});
+	}
+	
+});
 
 </script>
 	<c:if test="${!empty sessionScope.user}">
@@ -65,12 +127,13 @@
                 	<label>${sessionScope.user.user_interesting}</label>
                 </div>
                 <div>
-                	<label><input type="file" name="file_pictureId" value="${sessionScope.user.file_pictureId}"></label>
+                	<label><img name="file_pictureId" src="${sessionScope.user.file_pictureId }"></label>
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <a href="/userUpdate"><button type="button" >회원 수정</button></a>
             </fieldset>
         </form>
+		
    	</section>
 	</c:if>
 	<c:if test="${empty sessionScope.user}">

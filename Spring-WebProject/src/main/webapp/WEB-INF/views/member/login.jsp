@@ -82,53 +82,73 @@
 </script>
     <section class="section__content">
     	<div id="user_upper"></div>
-		<form role="form" action="/loginAction" method="post">
+		<form class="login-form" role="form" action="/loginAction" method="post">
             <p id="errorMsgArea"></p>
                 <fieldset id="login">
-                    <div class="form-group">
-                        <input  placeholder="id" name="User_id" value="testuser" autofocus>
+                	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></div>
+                    <div class="login-group">
+                    	<label>아이디</label>
+                        <input class="login-box" placeholder="id" name="User_id" value="testuser" autofocus>
                     </div>
-                    <div class="form-group">
-                        <input  placeholder="Password" name="User_password" type="password" value="1234">
+                   
+                    <div class="login-group">
+                    	<label>비밀번호</label>
+                        <input class="login-box" placeholder="Password" name="User_password" type="password" value="1234">
                     </div>
-                    <div class="checkbox">
+                    
+                    <!-- Change this to a button or input when using this as a form -->
+              		 <div class="loginCheckbox">
                         <label>
                             <input name="useCookie" type="checkbox" value="Remember Me">Remember Me
                         </label>
+              		  <div class="viewLogin">
+				          <a href="#" onclick="viewSearchId()" class="viewLoginFont">ID찾기</a> &nbsp;&nbsp;
+				          <a href="#" onclick="viewSearchPwd()" class="viewLoginFont">Pwd찾기</a></div>
+              		  <br>
                     </div>
-                    <!-- Change this to a button or input when using this as a form -->
-              		 <button type="submit" onClick="login">Login</button>
+              		 <button type="submit" class="login-button" onClick="login">Login</button>
+              		 
            		</fieldset>
      					<!-- 아이디 찾기 -->
                         <fieldset id="searchId">
-                           <div class="">
-                               <input class="" placeholder="name" id="searchId_name" value="" autofocus>
+                        	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></div>
+                           <div class="login-group">
+                           		<label>이름</label>
+                               <input class="login-box" placeholder="name" id="searchId_name" autofocus>
                            </div>
-                           <div class="">
-                               <input class="" placeholder="email" id="searchId_email" type="text" value="">
+                           <div class="login-group">
+                           		<label>이메일</label>
+                               <input class="login-box" placeholder="email" id="searchId_email" type="text">
                            </div>
                            <!-- Change this to a button or input when using this as a form -->
-                           <button id="btnSearchId" class="" type="button">아이디찾기</button>
+                           <br>
+                           <div class="viewLogin">
+                           <a href="#" onclick="viewLogin()" class="viewLoginFont">로그인화면</a>&nbsp;&nbsp;
+				           <a href="#" onclick="viewSearchPwd()" class="viewLoginFont">Pwd찾기</a>
+				           </div>
+                           <button id="btnSearchId" class="login-button" type="button">아이디찾기</button>
                        </fieldset>
                        
                        <!-- 비밀번호찾기 -->
                         <fieldset id="searchPwd">
-                           <div class="">
-                               <input class="" placeholder="id" id="searchPwd_id" value="" autofocus>
+                           	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></div>
+                           <div class="login-group">
+                           		<label>아이디</label>
+                               <input class="login-box" placeholder="id" id="searchPwd_id" autofocus>
                            </div>
-                           <div class="">
-                               <input class="" placeholder="email" id="searchPwd_email" type="text" value="">
+                           <div class="login-group">
+                           		<label>이메일</label>
+                               <input class="login-box" placeholder="email" id="searchPwd_email" type="text">
                            </div>
                            <!-- Change this to a button or input when using this as a form -->
-                           <button id="btnSearchPwd"class="" type="button">비밀번호찾기</button>
+                           <br>
+                           <div class="viewLogin">
+	                          <a href="#" onclick="viewLogin()" class="viewLoginFont">로그인화면</a>&nbsp;&nbsp;
+					          <a href="#" onclick="viewSearchId()" class="viewLoginFont">ID찾기</a>
+				          </div>
+                           <button id="btnSearchPwd"class="login-button" type="button">비밀번호찾기</button>
                        </fieldset>
            		
-           <p>
-           <a href="/member">회원가입</a><br> 
-           <a href="#" onclick="viewLogin()">로그인화면</a>&nbsp;&nbsp;
-           <a href="#" onclick="viewSearchId()">ID찾기</a> &nbsp;&nbsp;
-           <a href="#" onclick="viewSearchPwd()">Pwd찾기</a></p>
-           <p><a href="/getUser">회원상세보기</a></p>
        </form>
        
    	</section>

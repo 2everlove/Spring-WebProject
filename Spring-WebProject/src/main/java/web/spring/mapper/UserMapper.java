@@ -29,4 +29,6 @@ public interface UserMapper {
 	  public boolean updateUser(UserVO user);
 	  
 	  public int updatePwd(UserVO user);
+	  
+	  public String getFileSeq();
 }

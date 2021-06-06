@@ -14,20 +14,15 @@
 		});//중복체크 초기화
 			
 		$("#registerBtn").on("click", function(){
-			$("select[User_gender]").val();
-			$("select[User_type]").val();
-			$("select[file_pictureId]").val();	//썸네일 저장
+			let User_gender=$("select[User_gender]").val();
+			let User_type=$("select[User_type]").val();
+			let file_pictureId=$("select[file_pictureId]").val();	//썸네일 저장
 			let User_id=$("input[name=User_id]").val();
 			let User_password=$("input[name=User_password]").val();
 			let pwdCheck=$("input[name=pwdCheck]").val();
 			let User_name=$("input[name=User_name]").val();
 			let User_email=$("input[name=User_email]").val();
 			let User_contact=$("input[name=User_contact]").val();
-			let file_pictureId=$("input[name=file_pictureId]").val();
-			if($.isEmptyObject(User_id)){
-				alert("id 입력해주세요.");
-				return;
-			}
 			if($.isEmptyObject(User_password)){
 				alert("비밀번호를 입력해주세요.");
 				return false;
@@ -36,20 +31,8 @@
 				alert("비밀번호 확인란을 입력해주세요.");
 				return false;
 			}
-			if($.isEmptyObject(User_name)){
-				alert("이름을 입력해주세요.");
-				return false;
-			}
-			if($.isEmptyObject(User_email)){
-				alert("이메일을 입력해주세요.");
-				return false;
-			}
-			if($.isEmptyObject(User_contact)){
-				alert("연락처를 입력해주세요.");
-				return false;
-			}
 			if($.isEmptyObject(file_pictureId)){
-				alert("썸네일을 입력해주세요.");
+				file_pictureId="resources/images/astronut_user.png";
 				return false;
 			}
 			if(!$("input[name=User_id]").prop("dataValue")){
@@ -111,15 +94,15 @@
                 </div>
                 <div class="form-group">
                 	<label>이름</label>
-                    <input class="form-control" placeholder="name" name="User_name" >
+                    <input class="form-control" placeholder="name" name="User_name" required>
                 </div>
                 <div class="form-group">
                 	<label>EMAIL</label>
-                    <input class="form-control" placeholder="email" name="User_email" type="email">
+                    <input class="form-control" placeholder="email" name="User_email" type="email" required>
                 </div>
                 <div class="form-group">
                 	<label>CONTACT</label>
-                    <input class="form-control" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
+                    <input class="form-control" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
 
                 </div>
                 <div class="form-group">
@@ -153,7 +136,7 @@
 	               	<label><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
                 </div>
                 <div>
-                	<input type="file" name="file_pictureId" accept="image/* ">
+                	<input type="file" name="file_pictureId" placeholder="resources/images/astronut_user.png" accept=" image/*" >
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <button type="button" id="registerBtn" >회원가입</button>
