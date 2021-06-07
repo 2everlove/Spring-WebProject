@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
@@ -43,15 +45,14 @@ public class PaymentController {
 		model.addAttribute("pBoard", pBoard);
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("cvo", cvo);
+		System.out.println(cvo.getCart_totalcount());
 		return "/order/payment";
 	}
 	
 	@PostMapping("/productOrder")
 	public String paymentAction(Model model, OrderVO ovo, CartVO cvo) {
 		int res = paymentService.insertOrder(ovo);
-		int res2 = paymentService.deleteCart(cvo.getCart_id());
 		model.addAttribute("ovo", ovo);
-		model.addAttribute("cvo", cvo);
 		return "redirect:/orderList";
 	}
 	
@@ -123,5 +124,23 @@ public class PaymentController {
 		model.addAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
 		System.out.println("==================="+ovo.getOrder_id());
 		return "/order/orderStatus";
+	}
+	
+	@GetMapping("/orderAllList")
+	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		List<OrderVO> list = paymentService.getOrderAllList(ovo);
+		model.addAttribute("list", list);
+		return "/order/orderAllList";
+	}
+	
+	@GetMapping("/updateOrderList")
+	public String updateOrderList(Model model, OrderVO ovo, @RequestParam("order_status") String order_status,
+															@RequestParam("order_id") String order_id) {
+		int res = paymentService.updateOrderList(ovo);
+		System.out.println("======================주문상태:"+ovo.getOrder_status());
+		model.addAttribute("ovo", ovo);
+		return "redirect:/orderAllList";
 	}
 }

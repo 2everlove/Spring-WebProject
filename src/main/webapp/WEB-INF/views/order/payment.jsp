@@ -16,12 +16,13 @@
 	<div class="content">
 		<h2>결제/주문</h2>
 		<form role="form" action="/productOrder" method="post" class="payment_form">
+		${param.pboard_unit_price}
+		${param.cart_totalprice}
 		<fmt:formatNumber type="number" maxFractionDigits="3"
 							value="${param.pboard_unit_price * param.order_totalcount}" var="totalPrice"></fmt:formatNumber>
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input class="view" name="cart_id" value="${cvo.cart_id}">
 					<input class="view" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>
 					<input class="view" name="order_name" value="${uvo.user_name}">

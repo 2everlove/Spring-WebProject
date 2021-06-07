@@ -13,9 +13,11 @@ public interface PaymentMapper {
 	
 	public PBoardVO getProduct(String board_unit_no);
 	
-	public int insertOrder(OrderVO vo);
+	public int insertOrder(OrderVO ovo);
 	
 	public List<OrderVO> getOrderList(String user_id);
+	
+	public List<OrderVO> getOrderAllList(OrderVO ovo);
 	
 	public OrderVO getOrderStatus(String order_id);
 	
@@ -24,4 +26,6 @@ public interface PaymentMapper {
 	public List<CartVO> getCartList(String user_id);
 	
 	public int deleteCart(String cart_id);
+	
+	public int updateOrderList(OrderVO ovo);
 }

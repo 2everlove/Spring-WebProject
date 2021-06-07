@@ -24,6 +24,10 @@
 		select * from order_board where user_id = #{user_id} order by order_id
 	</select>
 	
+	<select id="getOrderAllList" resultType="web.spring.vo.OrderVO">
+		select * from order_board order by order_id
+	</select>
+	
 	<select id="getOrderStatus" resultType="web.spring.vo.OrderVO">
 		select order_status from order_board where order_id = #{order_id}
 	</select>
@@ -41,4 +45,9 @@
 	<delete id="deleteCart">
 		delete from cart_board where cart_id = #{cart_id}
 	</delete>
+	
+	<update id="updateOrderList">
+		update order_board set order_status=#{order_status} where order_id=#{order_id}
+	</update>
+	
 </mapper>

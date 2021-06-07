@@ -20,6 +20,8 @@ public interface PaymentService {
 	
 	public List<OrderVO> getOrderList(String user_id);
 	
+	public List<OrderVO> getOrderAllList(OrderVO ovo);
+	
 	public OrderVO getOrderStatus(String order_id);
 	
 	public int insertCart(CartVO cvo);
@@ -27,4 +29,6 @@ public interface PaymentService {
 	public List<CartVO> getCartList(String user_id);
 	
 	public int deleteCart(String cart_id);
+	
+	public int updateOrderList(OrderVO ovo);
 }

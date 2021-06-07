@@ -51,35 +51,6 @@ $(document).ready(function(){
 			});
 		}
 	});
-	$("#payment").click(function(){
-		var url = "/payment";
-		var valueArr = new Array();
-		var list = $("input[class='checkbox']");
-		for(var i=0; i<list.length; i++){
-			if(list[i].checked){
-				valueArr.push(list[i].value);
-			}
-		}
-		if(valueArr.length == 0){
-			alert("선택된 글이 없습니다.");
-		} else {
-			var chk = confirm("주문하시겠습니까?");
-			$.ajax({
-				url: url,
-				type: 'post',
-				traditional: true,
-				data: {valueArr : valueArr},
-				success: function(val){
-					if(val = 1){
-						alert("주문 성공");
-						location.replace("orderList");
-					} else {
-						alert("주문 실패");
-					}
-				}
-			});
-		}
-	});
 });
 </script>
 <meta charset="UTF-8">
@@ -130,7 +101,6 @@ $(document).ready(function(){
 			</table>
 			<div class="button">
 				<button type="button" id="checkDelete">삭제</button>
-				<button type="button" id="payment">주문</button>
 			</div>
 	</div>
 </section>
