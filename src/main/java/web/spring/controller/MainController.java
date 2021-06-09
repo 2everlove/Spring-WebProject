@@ -115,9 +115,11 @@ public class MainController {
 		List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
 		List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
 		List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
+		List<UserVO> userList = userService.getUserList();
 		log.info("pList...."+pList);
 		log.info("pBList...."+pBList);
 		log.info("fileList...."+fileList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);

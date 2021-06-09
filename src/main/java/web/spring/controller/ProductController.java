@@ -17,6 +17,7 @@ import web.spring.service.UserService;
 import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 @Controller
 @Log4j
@@ -39,9 +40,11 @@ public class ProductController {
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
 		List<FileVO> fileList = fileService.getTypeListFile(product_category);
+		List<UserVO> userList = userService.getUserList();
 		log.info("pList...."+pList);
 		log.info("pBList...."+pBList);
 		log.info("fileList...."+fileList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);

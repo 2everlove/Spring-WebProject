@@ -146,7 +146,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<PBoardVO> getUserPBoardList(String user_id, Criteria cri) {
-		return productMapper.getUserPBoardList(user_id, cri.getPageNo(), cri.getAmount());
+		return productMapper.getUserPBoardList(user_id, cri.getPageNo(), cri.getAmount(), cri.getOrderby());
 	}
 
 	@Override

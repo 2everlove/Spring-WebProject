@@ -21,10 +21,29 @@
 			document.listForm.action="/product/pBoardUpdate";
 			document.listForm.pageNo.value=page;
 			document.listForm.submit();
-	}
+		}
+		
 		
 	}
 	$(document).ready(function(){
+		$('.orderby').click(function(){
+			let sortType = $(this).attr("data-type");
+			let sort =""
+			if($("input[name=orderby]").val().match('asc')==null){
+				$(this).attr("data-sort", 'asc');
+				sort = 'asc';
+				console.log(sort);
+			} else {
+				$(this).attr("data-sort", 'desc');
+				sort = 'desc';
+				console.log(sort);
+			}
+			
+			document.listForm.action="/product/pBoardUpdate";
+			document.listForm.orderby.value=(sortType+"_"+sort);
+			document.listForm.submit();
+		});
+		
 		console.log($('select[name=pboard_unit_enabled]').find('option:selected').val());
 		$('select[name=pboard_unit_enabled]').change(function() {
 		    if($(this).find('option:selected').val()==0){
@@ -44,6 +63,7 @@
 			let Formpboard_unit_price = currentRow.find('.pboard_unit_price').val();
 			updatePBoard(Formpboard_unit_no, Formpboard_unit_enabled, Formpboard_unit_condition, Formpboard_unit_stocks, Formpboard_unit_price, $(this));
 		});
+		
 		
 	});
 	function updatePBoard(Formpboard_unit_no, Formpboard_unit_enabled, Formpboard_unit_condition, Formpboard_unit_stocks, Formpboard_unit_price, btn){
@@ -87,14 +107,14 @@
 				    			<tr class="tr__head">
 				    				<th></th>
 				    				<th><input type="checkbox"></th>
-				    				<th>활성화</th>
-				    				<th>new,sale,event</th>
-				    				<th>재고</th>
-				    				<th>가격</th>
-				    				<th>게시일</th>
+				    				<th class="orderby" data-type="pboard_unit_enabled" data-sort=${pageNavi.cri.orderby }>활성화</th>
+				    				<th class="orderby" data-type="pboard_unit_condition" data-sort=${pageNavi.cri.orderby }>new,sale,event</th>
+				    				<th class="orderby" data-type="pboard_unit_stocks" data-sort=${pageNavi.cri.orderby }>재고</th>
+				    				<th class="orderby" data-type="pboard_unit_price" data-sort=${pageNavi.cri.orderby }>가격</th>
+				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일</th>
+				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일</th>
 				    				<th>수정일</th>
 				    				<th>제조사 > 카테고리 > 상품명</th>
-				    				<th>이미지 파일</th>
 				    				<th>저장</th>
 				    				<th>보기</th>
 				    			</tr>
@@ -198,7 +218,8 @@
 			<form method=get action="/admin/pBoardControl" name="listForm">
                  <!-- 상세보기 검색 유지용 -->
                  ${pageNavi.cri.type }
-                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
+                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
+                 <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
                  <!-- 상세보기 검색 유지용 끝 -->
 			</form>
     	</div>

@@ -10,10 +10,41 @@
 		select product.* from (select rownum num, p.* from products_info p) product
 	</select>
 	<select id="getAllPBoardList" resultType="web.spring.vo.PBoardVO">
-		select board.* from (select rownum num, pboard.* from (select * from product_board) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+		select board.* from (select rownum num, pboard.* from (select * from product_board 
+		<trim prefix="order by">
+			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
+			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
+			<if test="orderby=='pboard_unit_condition_asc'">pboard_unit_condition</if>
+			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
+			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
+			<if test="orderby=='pboard_unit_updateDate_asc'">pboard_unit_updateDate</if>
+			<if test="orderby=='pboard_unit_enabled_desc'">TO_NUMBER(pboard_unit_enabled) desc</if>
+			<if test="orderby=='pboard_unit_price_desc'">TO_NUMBER(pboard_unit_price) desc</if>
+			<if test="orderby=='pboard_unit_condition_desc'">pboard_unit_condition desc</if>
+			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
+			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
+			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
+		</trim>
+		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		
 	</select>
 	<select id="getUserPBoardList" resultType="web.spring.vo.PBoardVO">
-		select board.* from (select rownum num, pboard.* from (select * from product_board where user_id = #{user_id}) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+		select board.* from (select rownum num, pboard.* from (select * from product_board where user_id = #{user_id}
+		<trim prefix="order by">
+			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
+			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
+			<if test="orderby=='pboard_unit_condition_asc'">pboard_unit_condition</if>
+			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
+			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
+			<if test="orderby=='pboard_unit_updateDate_asc'">pboard_unit_updateDate</if>
+			<if test="orderby=='pboard_unit_enabled_desc'">TO_NUMBER(pboard_unit_enabled) desc</if>
+			<if test="orderby=='pboard_unit_price_desc'">TO_NUMBER(pboard_unit_price) desc</if>
+			<if test="orderby=='pboard_unit_condition_desc'">pboard_unit_condition desc</if>
+			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
+			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
+			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
+		</trim>
+		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	<select id="getTotal" resultType="int">
 		select count(*) from product_board

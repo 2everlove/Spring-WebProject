@@ -64,6 +64,13 @@ public class AdminController {
 	//상품 관리글 관리
 	@GetMapping("/admin/pBoardControl")
 	public String getPBoardList(Criteria cri, Model model) {
+		//String temp = cri.getOrderby().substring(cri.getOrderby().lastIndexOf("_")+1);
+		if(cri.getOrderby().matches("asc")) {
+			cri.setOrderby(cri.getOrderby()+"_desc");
+		} else {
+			cri.setOrderby(cri.getOrderby());
+		}
+		log.info(cri.getOrderby());
 		List<UserVO> userList = userService.getUserList();
 		List<ProductVO> productList = productService.getProductAllList();
 		List<PBoardVO> PBoardList = productService.getAllPBoardList(cri);
@@ -82,6 +89,12 @@ public class AdminController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		log.info(user);
 			if(user!=null) {
+				if(cri.getOrderby().matches("asc")) {
+					cri.setOrderby(cri.getOrderby()+"_desc");
+				} else {
+					cri.setOrderby(cri.getOrderby());
+				}
+				log.info("기업"+cri.getOrderby());
 				List<ProductVO> productList = productService.getProductAllList();
 				List<PBoardVO> PBoardList = productService.getUserPBoardList(user.getUser_id(), cri);
 				if(PBoardList!=null) {
