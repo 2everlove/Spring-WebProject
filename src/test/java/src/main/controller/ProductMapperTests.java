@@ -24,10 +24,6 @@ public class ProductMapperTests {
 	@Setter(onMethod_= @Autowired)
 	private ProductMapper productMapper;
 	
-	@Test
-	public void getProductListTest() {
-		log.info(productMapper.getProductList());
-	}
 
 	@Test
 	public void getPBoardListTest() {
