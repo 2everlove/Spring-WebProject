@@ -34,8 +34,7 @@ public class InquiryController {
 	@GetMapping("/inquiry")
 	public String getInquiryBoardList(Model model) {
 		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
-		
-		
+
 		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
 		}
@@ -72,9 +71,9 @@ public class InquiryController {
 	public String detailInquiry(String iboard_no, InquiryBoardVO vo, Model model) {
 
 		vo = service.detailInquiry(iboard_no);
-		
+
 		model.addAttribute("inquiry_detail", vo);
-		
+
 		log.info("inquiry detail...." + iboard_no);
 		return "/inquiry/inquiry_detail";
 	}
@@ -84,6 +83,15 @@ public class InquiryController {
 	 */
 	@PostMapping("/inquiry_delete")
 	public String deleteInquiry(InquiryBoardVO vo, RedirectAttributes rttr) {
+
+//		int replyCount = replyService.inquiryReplyCount(vo.getIboard_no());
+//		
+//		log.info(replyCount);
+		
+//		if (replyCount > 0) {
+//			replyService.deleteReply(vo.getIboard_no());
+//		}
+		
 		int res = service.deleteInquiry(vo.getIboard_no());
 		String resMsg = "";
 		if (res > 0) {

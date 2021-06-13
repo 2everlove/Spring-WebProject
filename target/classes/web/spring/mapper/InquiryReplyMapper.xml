@@ -14,7 +14,7 @@
 
 		INSERT INTO INQUIRY_REPLY VALUES (IREPLY_SEQUENCE.NEXTVAL,
 		#{ireply_content}, sysdate,
-		#{iboard_no})
+		#{iboard_no}, 1)
 	</insert>
 
 	<!-- 답변 불러오기 -->
@@ -32,6 +32,10 @@
 	<select id="inquiryReplyCount" resultType="int">
 		SELECT COUNT(*) FROM inquiry_reply WHERE iboard_no = #{iboard_no}
 	</select>
+	
+	<delete id="deleteReply">
+		delete inquiry_reply WHERE iboard_no = #{iboard_no}
+	</delete>
 
 
 

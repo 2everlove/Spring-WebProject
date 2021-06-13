@@ -57,12 +57,14 @@
 
 									<td>${inquiryList1.user_id }</td>
 									<td>${inquiryList1.iboard_regdate }</td>
+									
 									<td>답변대기</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 					<!-- list -->
+
 					<div class="paging_wrap">
 						<div class="paging">
 							<div>
@@ -83,7 +85,6 @@
 		<!-- contents -->
 	</section>
 	<!-- container -->
-
 
 </c:if>
 <c:if test="${empty inquiryList}">

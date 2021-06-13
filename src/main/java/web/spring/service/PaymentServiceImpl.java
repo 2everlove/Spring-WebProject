@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import web.spring.mapper.PaymentMapper;
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
-import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
 
 @Service

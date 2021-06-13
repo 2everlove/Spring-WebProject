@@ -15,13 +15,7 @@
 	});
 
 	function ajaxInsert() {
-		if (confirm("답변을 등록하시겠습니까? 등록 후 수정 및 삭제가 불가합니다.") == true){
-			
-			if ($("#ireply_content").val() == '') {
-				alert("내용을 입력해주세요");
-				return false;
-			}
-			
+
 		var replyData = {
 			iboard_no : $("#iboard_no").val(),
 			ireply_content : $("#ireply_content").val()
@@ -50,10 +44,7 @@
 				console.log("error", error);
 			}
 		});
-		}else {
-			alert("취소하였습니다.");
-			return false;
-		}
+
 	}
 	function getAjaxList() {
 
@@ -70,10 +61,10 @@
 
 				$.each(data.list, function(index, item) {
 
-					htmlContent += "<p class='cate'>" + "답변" + "</p>"
-								+ item.ireply_content; + "</div>"
+					htmlContent += "<p> 관리자 </p>" + "<p>" + item.ireply_content
+							+ "</p>";
 
-					$(".request_answer").html(htmlContent);
+					$(".chat").html(htmlContent);
 				})
 
 			},
@@ -88,14 +79,16 @@
 </script>
 
 <body>
-	<div class="comment_write_section">
-	<span class="comment_admin">관리자 영역 댓글</span>
-	<textarea id="ireply_content" name="ireply_content" rows="20" class="ireply_content"></textarea>
+	<div id="comment-write-section">
+			<p>관리자 작성 영역</p>
+			<textarea id="ireply_content" name="ireply_content"></textarea>
+			<button id="replyInsertBtn">작성</button>
 	</div>
-	<div>
-	<button id="replyInsertBtn">작성</button>
+	<div id="comment-section">
+		<p>댓글 출력 영역</p>
+		<ul class="chat">
+		</ul>
 	</div>
-		
 	<input type="hidden" value="${inquiry_detail.iboard_no }"
 		name="iboard_no" id="iboard_no">
 		

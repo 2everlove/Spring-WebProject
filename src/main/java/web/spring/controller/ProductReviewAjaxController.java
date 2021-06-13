@@ -15,24 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryReplyService;
+import web.spring.service.ProductReviewService;
 import web.spring.service.ProductService;
 import web.spring.vo.InquiryReplyVO;
+import web.spring.vo.ProductReviewVO;
 import web.spring.vo.ProductVO;
 
 @RestController
 @Log4j
-public class InquiryReplyAjaxController {
+public class ProductReviewAjaxController {
 	
 	@Setter(onMethod_= @Autowired)
-	private InquiryReplyService replyService;
+	private ProductReviewService Service;
 	
-	/**
-	 * @author 답변 삽입
-	 */
-	@PostMapping("/inquiry/insertReply")
-	public Map<String, Object> insertInquiryReply(@RequestBody InquiryReplyVO vo){
+	@PostMapping("/product/product_review")
+	public Map<String, Object> insertProductReview(@RequestBody ProductReviewVO vo){
 		
-		int res = replyService.insertReply(vo);
+		int res = Service.insertProductReview(vo);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -43,34 +42,7 @@ public class InquiryReplyAjaxController {
 		
 		return map;
 	}
-	
-	@GetMapping("/inquiry/inquiry_reply/{iboard_no}")
-	public Map<String, Object> getInquiryReply(@PathVariable("iboard_no") int iboard_no, Model model){
-		
-		
-		//리스트 조회
-		List<InquiryReplyVO> list = replyService.getInquiryReply(iboard_no);
-		
-		int replyCount = replyService.inquiryReplyCount(iboard_no);
-		
-		model.addAttribute("inquiryReply", list);
-		
-		log.info(replyService.getInquiryReply(iboard_no));
-		log.info(replyCount);
-		
-		//결과를 맵에 담아 리턴
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("replyCount", replyCount);
-		
-		return map;
-		
-	}
-	
-	
-	
-	
-	
+
 	
 	
 }

@@ -355,4 +355,26 @@ span{
 	padding-right: 20px;
 }
 
+.request_data {
+    line-height: 32px;
+}
 
+hr.ng-margin {
+    display: block;
+    height: 1px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: 0;
+    border-top: 1px solid #dedede;
+    padding: 0;
+}
+
+.request_answer {
+    position: relative;
+    margin-top: 40px;
+    padding: 20px 0 15px 100px;
+    font-size: 16px;
+    line-height: 32px;
+    color: #222;
+    border-top: 1px dashed #eaeaea;
+}

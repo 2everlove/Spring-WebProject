@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.ProductReviewMapper">
+
+
+	<!-- 리뷰 삽입 -->
+	<insert id="insertProductReview">
+		insert into product_review values ( review_sequence.nextval, #{review_content}, sysdate,
+		#{review_rate}, #{pboard_unit_no}, #{user_id})
+	</insert>
+
+
+
+</mapper>

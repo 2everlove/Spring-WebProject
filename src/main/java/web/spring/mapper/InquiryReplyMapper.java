@@ -13,8 +13,9 @@ public interface InquiryReplyMapper {
 	
 	public List<InquiryReplyVO> getInquiryReply(@Param("iboard_no") int iboard_no); //해당 게시물의 답변 불러오기
 
-	
 	public int inquiryReplyCount(int board_no); //답변 유무 확인용
+	
+	public int deleteReply(int board_no);  //cascade 메서드 대신 이걸 사용
 	
 	
 	
