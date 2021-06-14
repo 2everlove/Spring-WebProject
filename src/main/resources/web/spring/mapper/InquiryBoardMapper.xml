@@ -16,10 +16,10 @@
 		to_char(iboard_regdate,'hh24:mm:ss')
 		else
 		to_char(iboard_regdate,'yyyy-MM-dd')
-		end) iboard_regdate
-
+		end) iboard_regdate,
+		(select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount
 		from
-		inquiry_board order by iboard_no desc
+		inquiry_board board order by iboard_no desc
 	</select>
 	<!-- 문의사항 리스트 불러오기 끝 -->
 

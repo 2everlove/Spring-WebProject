@@ -34,6 +34,7 @@ public class InquiryController {
 	@GetMapping("/inquiry")
 	public String getInquiryBoardList(Model model) {
 		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
+		
 
 		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
@@ -71,7 +72,7 @@ public class InquiryController {
 	public String detailInquiry(String iboard_no, InquiryBoardVO vo, Model model) {
 
 		vo = service.detailInquiry(iboard_no);
-
+		
 		model.addAttribute("inquiry_detail", vo);
 
 		log.info("inquiry detail...." + iboard_no);

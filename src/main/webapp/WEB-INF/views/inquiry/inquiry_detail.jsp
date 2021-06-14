@@ -51,31 +51,32 @@
 							<tbody>
 								<!-- 게시글 번호 -->
 								<tr>
-									<th>카테고리</th>
+									<th style="font-weight: bold;">카테고리</th>
 									<td><input type="hidden" name="iboard_category"
 										id="iboard_category" value="${inquiry_detail.iboard_category}">${inquiry_detail.iboard_category}
 									</td>
 
 								</tr>
 								<tr>
-									<th>아이디</th>
+									<th style="font-weight: bold;">아이디</th>
 									<td><input type="hidden" name="user_id" id="user_id"
 										value="user01">user01</td>
 								</tr>
 								<tr>
-									<th>제목</th>
+									<th style="font-weight: bold;">제목</th>
 									<td colspan="3"><input type="hidden" name="iboard_title"
 										id="iboard_title" class="full"
 										value="${inquiry_detail.iboard_title }">${inquiry_detail.iboard_title }</td>
 								</tr>
-								<tr><th class="vertical_t">내용</th><td colspan="3"><div class="request_data" style="white-space:pre;"><c:out value="${inquiry_detail.iboard_content}"/></div>
+								<tr><th class="vertical_t" style="font-weight: bold;">내용</th><td colspan="3"><div class="request_data" style="white-space:pre;"><c:out value="${inquiry_detail.iboard_content}"/></div>
 								<div class="request_answer">
+								<c:if test="${replyService.getInquiryReply(iboard_no) eq null }"><span id="no_comment">아직 답변이 등록되지 않았습니다.</span></c:if>
 								</div>
 								
 								</td></tr>
 
 								<tr>
-									<th>전체 공개 여부</th>
+									<th style="font-weight: bold;">전체 공개 여부</th>
 											<td>
 											<c:if test="${inquiry_detail.iboard_public eq 1 }">비공개</c:if>
 											<c:if test="${inquiry_detail.iboard_public eq 0 }">공개</c:if>
@@ -94,6 +95,9 @@
 				</form>
 			</div>
 			<hr class="ng-margin point-another">
+			<br>
+			<br>
+			<br>
 			<%@include file="../inquiry/inquiry_reply.jsp"%>
 			
 		</div>

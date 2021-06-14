@@ -1,4 +1,7 @@
 @charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 /* Global */
 :root {
 	/* Color */ -
@@ -43,9 +46,12 @@
 	-animation-duration: 300ms;
 }
 
+
+
 *{
 	box-sizing: border-box;
 	margin: 0 auto;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .page_title {
@@ -378,3 +384,20 @@ hr.ng-margin {
     color: #222;
     border-top: 1px dashed #eaeaea;
 }
+table.view > tbody > tr > th {
+    padding: 12px 15px;
+    font-weight: 500;
+    background: #f8f8f8;
+    border-bottom: 1px solid #eaeaea;
+    border-right: 1px solid #efefef;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 26px;
+    font-size: 15px;
+}
+
+#no_comment {
+	position: relative;
+	left: -100px;
+}
+

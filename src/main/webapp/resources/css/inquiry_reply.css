@@ -115,3 +115,12 @@ textarea {
     color: #222;
     border-top: 1px dashed #eaeaea;
 }
+
+#answer{
+	border: none;
+	position: relative;
+	top: -70px;
+}
+
+
+

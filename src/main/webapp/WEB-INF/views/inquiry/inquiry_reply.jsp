@@ -7,6 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <script>
+
 	$(document).ready(function() {
 		$("#replyInsertBtn").on("click", function() {
 			ajaxInsert();
@@ -42,6 +43,7 @@
 
 				if (data.result == "success") {
 					getAjaxList();
+					
 				} else {
 					alert("입력 중 오류가 발생했습니다.");
 				}
@@ -65,13 +67,20 @@
 			success : function(data, status, xhr) {
 
 				console.log("data", data);
-
+				console.log("replycount", data.replyCount);
+				
+				if(data.replyCount > 0 ){
+					$(".comment_write_section").hide();
+					$("#replyInsertBtn").hide();
+					$(".point-another").hide();
+				}
+				
 				var htmlContent = "";
 
 				$.each(data.list, function(index, item) {
 
 					htmlContent += "<p class='cate'>" + "답변" + "</p>"
-								+ item.ireply_content; + "</div>"
+								+ "<textarea id='answer' rows='20' disabled	>" + item.ireply_content + "</textarea>";
 
 					$(".request_answer").html(htmlContent);
 				})
@@ -88,17 +97,16 @@
 </script>
 
 <body>
-	<div class="comment_write_section">
-	<span class="comment_admin">관리자 영역 댓글</span>
-	<textarea id="ireply_content" name="ireply_content" rows="20" class="ireply_content"></textarea>
-	</div>
-	<div>
-	<button id="replyInsertBtn">작성</button>
-	</div>
+		<div class="comment_write_section"><span class="comment_admin">관리자 영역 댓글</span><textarea id="ireply_content" name="ireply_content" rows="20" class="ireply_content" wrap="hard" style="white-space: pre;"></textarea></div>
+		<div>
+			<button id="replyInsertBtn">작성</button>
+		</div>
 		
 	<input type="hidden" value="${inquiry_detail.iboard_no }"
 		name="iboard_no" id="iboard_no">
 		
+
+
 
 
 

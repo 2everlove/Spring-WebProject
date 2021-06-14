@@ -54,6 +54,7 @@ public class InquiryReplyAjaxController {
 		int replyCount = replyService.inquiryReplyCount(iboard_no);
 		
 		model.addAttribute("inquiryReply", list);
+		model.addAttribute("replyCount", replyCount);
 		
 		log.info(replyService.getInquiryReply(iboard_no));
 		log.info(replyCount);

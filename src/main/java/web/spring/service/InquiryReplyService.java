@@ -13,5 +13,4 @@ public interface InquiryReplyService {
 	
 	public int inquiryReplyCount(int board_no); //답변 유무 확인용
 	
-	public int deleteReply(int board_no);  //cascade 메서드 대신 이걸 사용
 }

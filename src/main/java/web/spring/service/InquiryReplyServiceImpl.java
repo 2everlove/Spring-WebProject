@@ -31,11 +31,6 @@ public class InquiryReplyServiceImpl implements InquiryReplyService{
 	public int inquiryReplyCount(int board_no) {
 		return mapper.inquiryReplyCount(board_no);
 	}
-	//답변 삭제 cascade 메서드
-	@Override
-	public int deleteReply(int board_no) {
-		return mapper.deleteReply(board_no);
-	}
 
 
 

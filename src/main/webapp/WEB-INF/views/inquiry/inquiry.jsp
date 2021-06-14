@@ -7,11 +7,22 @@
 <%-- <%@include file="../includes/header.jsp" %> --%>
 <head>
 <link rel="stylesheet" type="text/css" href="/resources/css/inquiry.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
+
 </head>
 <script type="text/javascript">
 	if ('${resMsg}' != '') {
 		alert('${resMsg}');
 	}
+	
+/* 	window.onpageshow = function(event) {
+	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	       history.pushState(null, document.title, location.href);
+
+	    }
+
+	} */
+	
 </script>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 
@@ -35,11 +46,11 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th>카테고리</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>문의일자</th>
-								<th>답변여부</th>
+								<th style="font-weight: bold;">카테고리</th>
+								<th style="font-weight: bold;">제목</th>
+								<th style="font-weight: bold;">작성자</th>
+								<th style="font-weight: bold;">문의일자</th>
+								<th style="font-weight: bold;">답변여부</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -50,15 +61,20 @@
 
 									<td class="title"><a
 										href="/inquiry_detail?iboard_no=${inquiryList1.iboard_no }">${inquiryList1.iboard_title }</a>
-										<c:if test="${inquiryList1.iboard_public == 1}">(비공개)</c:if> <c:if
-											test="${today <= inquiryList1.iboard_regdate_new}">(New)</c:if>
+										 <c:if test="${today <= inquiryList1.iboard_regdate_new}"><i class="fas fa-plus-square" style="color:#272b2b;"></i></c:if>
+										 <c:if test="${inquiryList1.iboard_public == 1}"><i class="fas fa-lock" style="color:#272b2b;"></i></c:if>
 									</td>
 
 
 									<td>${inquiryList1.user_id }</td>
 									<td>${inquiryList1.iboard_regdate }</td>
 									
-									<td>답변대기</td>
+									<c:if test="${inquiryList1.replycount eq 0 }">
+										<td id="not_answered">답변대기</td>
+									</c:if>
+									<c:if test="${inquiryList1.replycount eq 1 }">
+										<td id="answered">답변완료</td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -78,7 +94,7 @@
 				<!-- table_data -->
 				<p class="btn_pop_page">
 					<button type="button" class="inquiry_button" onclick="location.href='/inquiry_register'">문의하기</button>
-				<p>
+				</p>
 			</div>
 			<!-- default_cell  -->
 		</div>

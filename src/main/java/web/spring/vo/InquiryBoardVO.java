@@ -17,6 +17,8 @@ public class InquiryBoardVO {
 	private String user_id;			//유저 아이디 Foreign Key
 	private int reply_count; 		//댓글 유무
 	
+	private int replycount; //매퍼용 reply 카운트
+	
 
 
 	

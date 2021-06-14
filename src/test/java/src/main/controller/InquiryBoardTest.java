@@ -54,9 +54,5 @@ public class InquiryBoardTest {
 	public void countreply() {
 		service.inquiryReplyCount(29);
 	}
-	@Test
-	public void deleteReply() {
-		service.deleteReply(43);
-	}
 	
 }
