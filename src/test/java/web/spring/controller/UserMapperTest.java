@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j;
 import web.spring.mapper.PaymentMapper;
 import web.spring.service.PaymentService;
 import web.spring.vo.OrderVO;
+import web.spring.vo.PBoardVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -21,6 +22,14 @@ public class UserMapperTest {
 	
 	@Autowired
 	PaymentService service;
+	
+	@Test
+	public void updateStocks() {
+		PBoardVO pvo = new PBoardVO();
+		pvo.setProduct_id("1");
+		pvo.setPboard_unit_stocks("99999");
+		mapper.updateStocks(pvo);
+	}
 	
 	@Test
 	public void getOrderStatus() {
@@ -51,7 +60,7 @@ public class UserMapperTest {
 	@Test
 	public void updateOrderList() {
 		OrderVO ovo = new OrderVO();
-		ovo.setOrder_id("10");
+		ovo.setOrder_id("11");
 		ovo.setOrder_status("2");
 		mapper.updateOrderList(ovo);
 	}

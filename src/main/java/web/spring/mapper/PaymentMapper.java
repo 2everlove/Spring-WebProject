@@ -13,6 +13,8 @@ public interface PaymentMapper {
 	
 	public PBoardVO getProduct(String board_unit_no);
 	
+	public int updateStocks(PBoardVO pvo);
+	
 	public int insertOrder(OrderVO ovo);
 	
 	public List<OrderVO> getOrderList(String user_id);

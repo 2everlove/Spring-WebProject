@@ -87,8 +87,8 @@ $(document).ready(function(){
 							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
-							<td class="center"><a href='/payment?product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}'>
-							<button type="button" id="deleteBtn">주문</button></a></td>
+							<td class="center"><a href='/payment?product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${param.pboard_unit_stocks}'>
+							<button type="button" id="orderBtn">주문</button></a></td>
 						</tr>
 					</c:forEach>
 					<c:if test="${list.size() == 0 }">

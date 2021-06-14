@@ -9,7 +9,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#button").click(function(){
-		alert($(this).val());
+		
 	});
 });
 </script>

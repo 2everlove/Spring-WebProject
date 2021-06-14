@@ -50,9 +50,11 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/productOrder")
-	public String paymentAction(Model model, OrderVO ovo, CartVO cvo) {
+	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo) {
 		int res = paymentService.insertOrder(ovo);
+		int res2 = paymentService.updateStocks(pvo);
 		model.addAttribute("ovo", ovo);
+		model.addAttribute("pvo", pvo);
 		return "redirect:/orderList";
 	}
 	
@@ -68,9 +70,10 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/cartAction")
-	public String cartAction(Model model, CartVO cvo) {
+	public String cartAction(Model model, CartVO cvo, PBoardVO pvo) {
 		int res = paymentService.insertCart(cvo);
 		model.addAttribute("cvo", cvo);
+		model.addAttribute("pvo", pvo);
 		return "redirect:/cartList";
 	}
 	

@@ -16,6 +16,8 @@ public interface PaymentService {
 	
 	public PBoardVO getProduct(String pboard_unit_no);
 	
+	public int updateStocks(PBoardVO pvo);
+	
 	public int insertOrder(OrderVO ovo);
 	
 	public List<OrderVO> getOrderList(String user_id);

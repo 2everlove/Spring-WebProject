@@ -45,6 +45,10 @@ $(document).ready(function(){
 					<label>총 결제 금액</label> <input class="view" name="cart_totalprice"
 						value="${pBoard.pboard_unit_price * param.order_totalcount}">
 				</div>
+				<div class="content2">
+					<label>재고수</label>
+					<input class="view" name="pboard_unit_stocks" value="${param.pboard_unit_stocks}">
+				</div>
 			</fieldset>
 			<button type="submit" class="detail__btn cart">장바구니 담기</button>
 			</form>

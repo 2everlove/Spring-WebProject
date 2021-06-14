@@ -8,19 +8,19 @@ public class UserVO {
 	private String User_name;
 	private String User_password;
 	private String User_contact;
-	private String User_enabled;	//ε μοΏ½ε μ™μ™ ε μ„ν…Άε μλ’ ε μλ»» 1
-	private String User_type;		//ε μμ„ ε μκµ΅ζ²ƒμ„“μ™ : A, η–«κΏΈν€£ζ―“οΏ½ : E, οΏ½β‘¥μ¥’θ€οΏ½ : C
+	private String User_enabled;	//? ?οΏ½ε ?™?™ ? ?„?…Ά? ??’ ? ?λ»? 1
+	private String User_type;		//? ??„ ? ?κµ΅ζ²ƒ?„“?™ : A, ?–«κΏΈν?£ζ―“οΏ? : E, οΏ½β‘¥μ¥’θ?οΏ½ : C
 	private String User_regdate;
 	private String User_gender;
 	private String User_birth;
 	private String User_address;
 	private String User_interesting;
-	private String User_enabledContent;	//οΏ½λ‡΅ιΊμ– μ¨― οΏ½κµιΊμ– μ»²ε μλ± - ε μμ‚‹η­λ¥κ¶Άι‡‰οΏ½ ε μλµ¬ε μλµ  ε μλΏ³ε μμ„ ε μ„ν£ οΏ½λ‡΅ιΊμ– μ¨―ε μλΌ£ε μλ¦­η­λ΅³μ™ οΏ½λ‡΅ιΊμ– μ¨―ε μλΌ£ε μλ¦½ ε μλµ ε μοΏ½οΏ½λª΄ε οΏ½ ε μ™μ™ε μμ‚Ά
+	private String User_enabledContent;	//οΏ½λ‡΅?Ί?– μ¨? οΏ½κµ?Ί?– μ»²ε ?λ±? - ? ??‚‹η­λ¥κ¶??‡‰οΏ? ? ?λµ¬ε ?λµ? ? ?λΏ³ε ??„ ? ?„?£ οΏ½λ‡΅?Ί?– μ¨?? ?λΌ£ε ?λ¦?η­λ΅³?™ οΏ½λ‡΅?Ί?– μ¨?? ?λΌ£ε ?λ¦? ? ?λµ ε ?οΏ½οΏ½λª΄ε οΏ? ? ?™?™? ??‚Ά
 	private String file_pictureId;
 	
-	// ε μμ½ε μμ§—ε¥β‰ªλ®„οΏ½μ ƒε μλµ¥ε μν“  ε μν΅ε μλ’„ε μλ¦½ ε μ„ν…•ζ¶μ‰μ™
+	// ? ??½? ?μ§—ε¥?‰ªλ®„οΏ½? ƒ? ?λµ¥ε ??“  ? ??΅? ??’„? ?λ¦? ? ?„?…•?¶?‰?™
 	String sessionkey;
-	// ε μμ½ε μμ§—ε¥β‰ªλ®„οΏ½μ ƒε μλµ¥ε μλ²¥ ε μοΏ½ε μλ’η–«κΏΈν€—θ€οΏ½
+	// ? ??½? ?μ§—ε¥?‰ªλ®„οΏ½? ƒ? ?λµ¥ε ?λ²? ? ?οΏ½ε ??’?–«κΏΈν?—θ?οΏ½
 	Date sessionlimit;
 	public boolean hasRole(String role_id) {
 		if(User_type!=null) {
