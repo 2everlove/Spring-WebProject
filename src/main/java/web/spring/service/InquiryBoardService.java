@@ -17,6 +17,10 @@ public interface InquiryBoardService {
 	
 	public int deleteInquiry(int iboard_no); //문의사항 삭제
 	
+	//페이지 처리용
+	
+	
+	
 	
 	
 

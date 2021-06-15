@@ -2,6 +2,7 @@ package src.main.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -17,7 +18,9 @@ import web.spring.mapper.InquiryBoardMapper;
 import web.spring.mapper.InquiryReplyMapper;
 import web.spring.service.InquiryBoardService;
 import web.spring.service.InquiryReplyService;
+import web.spring.vo.Criteria;
 import web.spring.vo.FileVO;
+import web.spring.vo.InquiryBoardVO;
 import web.spring.vo.InquiryReplyVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +30,7 @@ public class InquiryBoardTest {
 	@Setter(onMethod_= @Autowired)
 	private InquiryReplyService service;
 	private InquiryBoardService service1;
+	private InquiryBoardMapper mapper;
 	
 	@Test
 	public void getInquiryReply() {
@@ -54,5 +58,6 @@ public class InquiryBoardTest {
 	public void countreply() {
 		service.inquiryReplyCount(29);
 	}
+	
 	
 }

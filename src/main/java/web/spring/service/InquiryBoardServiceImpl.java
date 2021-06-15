@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.spring.mapper.InquiryBoardMapper;
+import web.spring.vo.Criteria;
 import web.spring.vo.InquiryBoardVO;
 
 @Service
