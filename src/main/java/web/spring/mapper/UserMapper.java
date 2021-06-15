@@ -29,5 +29,5 @@ public interface UserMapper {
 	
 	public UserVO checkPwd(UserVO user);
 	
-	public UserVO updateUser(UserVO user);
+	public int updateUser(UserVO user);
 }

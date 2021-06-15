@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public UserVO updateUser(UserVO user) {
+	public int updateUser(UserVO user) {
 		return userMapper.updateUser(user);
 	}
 

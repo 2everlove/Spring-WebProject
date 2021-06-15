@@ -3,8 +3,6 @@ package web.spring.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import web.spring.vo.InquiryReplyVO;
 
 public interface InquiryReplyService {
