@@ -87,10 +87,12 @@
 						</table>
 					</div>
 					<p class="btn_pop_page">
+					<c:if test="${sessionScope.user.user_id eq inquiry_detail.user_id || sessionScope.user.user_type eq 0}">
 						<button type="button" class="inquiry_button"
 							onclick="inquiryDelete()">삭제</button>
+					</c:if>
 						<button type="button" class="cancel"
-							onclick="location.href='/inquiry'">취소</button>
+							onclick="location.href='/inquiry'">목록으로</button>
 					</p>
 				</form>
 			</div>

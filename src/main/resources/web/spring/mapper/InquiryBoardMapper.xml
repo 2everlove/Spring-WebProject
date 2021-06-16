@@ -20,8 +20,7 @@
 		(select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount
 		from
 		inquiry_board board order by iboard_no desc
-	</select> 
-
+	</select>  
 
 	<!-- 문의사항 리스트 불러오기 끝 -->
 

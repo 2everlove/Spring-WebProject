@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:useBean id="now" class="java.util.Date" />
 
-<%-- <%@include file="../includes/header.jsp" %> --%>
+<%@include file="../includes/header.jsp" %>
 <head>
 <link rel="stylesheet" type="text/css" href="/resources/css/inquiry.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
@@ -149,4 +149,4 @@
 
 
 
-<%-- <%@include file="../includes/footer.jsp" %> --%>
+<%@include file="../includes/footer.jsp" %>
