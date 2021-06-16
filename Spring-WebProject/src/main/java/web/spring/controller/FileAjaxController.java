@@ -70,6 +70,7 @@ public class FileAjaxController {
 		int res=0;
 		
 		if(null == file_pictureId || 0 == file_pictureId) {
+			
 			file_pictureId = Long.parseLong(fileService.getFileSeq());
 		}
 		

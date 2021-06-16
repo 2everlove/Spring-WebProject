@@ -30,12 +30,12 @@ function registerSubmit(){
                             	<p><label>nboard_content</label>
                             		<textarea name=nboard_content>${vo.nboard_content }</textarea></p>
                             	<p><label>user_id</label>
-                            		<input name="user_id" value="${vo.user_id }">
+                            		<input name="user_id" value="${sessionScope.user.user_id }" readonly>
                             	<p><label>category</label>
                             		<select name="nboard_category" >
-                            			<option value="E">이벤트</option>
-                            			<option value="N">공지</option>
-                           				<option value="O">기타</option>
+                            			<option value="1">이벤트</option>
+                            			<option value="0">공지</option>
+                           				<option value="2">기타</option>
 									</select></p>
                             	<p><label>file_pictureId</label>
                             	<input name="file_pictureId" value="${vo.file_pictureId }"></p>

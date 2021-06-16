@@ -12,6 +12,7 @@ import web.spring.service.NBoardService;
 import web.spring.vo.Criteria;
 import web.spring.vo.NBoardVO;
 import web.spring.vo.PageNavi;
+import web.spring.vo.UserVO;
 
 @Log4j
 @Controller
@@ -36,20 +37,21 @@ public class NBoardController {
 	}//nboardList
 	
 	@GetMapping("/nboard/delete")
-	public String delete(Criteria cri, NBoardVO vo, RedirectAttributes rttr) {
-		
-		int res = service.delete(vo.getNboard_no());
+	public String delete(Criteria cri, NBoardVO vo, UserVO user,RedirectAttributes rttr) {
 		String resMsg = "";
+		if(user.getUser_type()=="0" || user.getUser_id()==vo.getUser_id()) {
+			int res = service.delete(vo.getNboard_no());
 		// 삭제 성공 -> 리스트
-		if(res>0) {
-			resMsg = vo.getNboard_no()+"번 게시글이 삭제 되었습니다.";
-			rttr.addFlashAttribute("resMsg", resMsg);
-			rttr.addAttribute("pageNo",cri.getPageNo());
-			rttr.addAttribute("type",cri.getType());
-			rttr.addAttribute("keyword",cri.getKeyword());
+			if(res>0) {
+				resMsg = vo.getNboard_no()+"번 게시글이 삭제 되었습니다.";
+				rttr.addFlashAttribute("resMsg", resMsg);
+				rttr.addAttribute("pageNo",cri.getPageNo());
+				rttr.addAttribute("type",cri.getType());
+				rttr.addAttribute("keyword",cri.getKeyword());
+				
+				return "redirect:/nboard/nboardList";
 			
-			return "redirect:/nboard/nboardList";
-		} else {
+			} else {
 		// 삭제 실패 -> 상세화면
 			resMsg = "게시글 삭제 처리에 실패 했습니다.";
 			rttr.addFlashAttribute("resMsg", resMsg);
@@ -59,10 +61,14 @@ public class NBoardController {
 			rttr.addAttribute("keyword",cri.getKeyword());
 			
 			return "redirect:/nboard/nboardGet";
+			}
+		}else {
+			resMsg="삭제에 실패하였습니다. id/pw를 확인해주세요.";
+			return "redirect:/member/login";
 		}
 	}//delete
 	
-	@PostMapping("/nboard/update")
+	@PostMapping("/nboard/nboardUpdate")
 	public String editExe(Criteria cri, NBoardVO vo, RedirectAttributes rttr) {
 		int res = service.update(vo);
 		service.nboardLock(vo);
@@ -80,10 +86,10 @@ public class NBoardController {
 		rttr.addAttribute("type",cri.getType());
 		rttr.addAttribute("keyword",cri.getKeyword());
 		rttr.addFlashAttribute("resMsg",resMsg);
-		return "redirect:/nboard/nboardGet";
+		return "redirect:/nboard/nboardList";
 	}//update
 	
-	@GetMapping("/nboard/update")
+	@GetMapping("/nboard/nboardUpdate")
 	public String edit(Criteria cri, NBoardVO vo,Model model) {
 		log.info("============"+vo.getNboard_no());
 		// 상세정보 조회

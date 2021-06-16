@@ -2,10 +2,13 @@ package web.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.mail.Session;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,18 +44,18 @@ public class UserController {
 	public UserService service;
 	@Autowired
 	public MailService mailService;
+	@Autowired
+	public FileService fileService;
 	
+	//맴버 상세보기
 	@GetMapping({ "/getUser" })
-	public String getUser() {
+	public String getUser(HttpServletRequest req,Model model) {
+		HttpSession session= req.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		FileVO fileVO = fileService.getFileALL(user.getFile_pictureId());
+		log.info(fileVO);
+		model.addAttribute("fileVO",fileVO);
 		return "/member/getUser";
-	}
-
-	@GetMapping({ "/member" })
-	public String getUserBoardList(Model model) {
-		List<UserVO> userList = service.getUserList();
-		if (userList != null)
-			model.addAttribute("userList", userList);
-		return "/member/member";
 	}
 
 	@GetMapping({ "/userUpdate" })
@@ -88,20 +91,12 @@ public class UserController {
 		return "/member/login";
 	}
 
-	@PostMapping({ "/registerMember" })
-	public String registerMember(UserVO user, RedirectAttributes rttr,MultipartFile[] uploadFile, int attachNo) {
-		for(MultipartFile multipartFile : uploadFile) {
-			File saveFile = new File(multipartFile.getOriginalFilename());
-			try {
-				// 화면으로 부터 넘어온 파일을 서버에 저장
-				multipartFile.transferTo(saveFile);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	@PostMapping( "/registerMember")
+	public String registerMember(UserVO user, RedirectAttributes rttr) {
+		if(user.getFile_pictureId()=="") {
+			//pictureId가 없을 경우 pictureId를 70으로 처리
+			user.setFile_pictureId("70");
 		}
-		service.getFileSeq();
 		service.insertUser(user);
 		rttr.addFlashAttribute("resMsg", user.getUser_id() + "님 환영합니다.");
 		return "/member/login";
@@ -134,12 +129,12 @@ public class UserController {
 		UserVO user = service.login(vo);
 		if (user == null) {
 			model.addAttribute("msg", "로그인에 실패했습니다. ID/PW를 확인해주세요.");
-			return "/member/login";
+		}else {
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+			model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
 		}
-		HttpSession session = req.getSession();
-		session.setAttribute("user", user);
-		model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
-		return "/member/login";
+		return "/main";
 	}
 
 	@PostMapping({ "/searchId" })

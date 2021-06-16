@@ -4,9 +4,18 @@
 <link rel="stylesheet" href="/resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
 <script type="text/javascript">
+
 	$(document).ready(function(){
+		
+		
 		$("#searchId").hide();
 		$("#searchPwd").hide();
+		//메시지 처리
+		if('${msg}'!=''){
+			console.log('${msg}');
+			//alert('${msg}');
+			$("#errorMsgArea").html('${msg}');
+		}
 		$("#btnSearchId").on("click",function(){
 			console.log("btnSearchId","click");
 			let idVo={
@@ -55,6 +64,7 @@
 				}
 			});
 		});
+		
 	});
 	//아이디 찾기 클릭 시 화면에 아이디 찾기 영역을 보여줍니다.
 	function viewSearchId(){
@@ -84,8 +94,9 @@
     	<div id="user_upper"></div>
 		<form class="login-form" role="form" action="/loginAction" method="post">
             <p id="errorMsgArea"></p>
+            	<h2>회원수정</h2>
                 <fieldset id="login">
-                	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></div>
+                	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><c:if test="${!empty sessionScope.user}"><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></c:if></div>
                     <div class="login-group">
                     	<label>아이디</label>
                         <input class="login-box" placeholder="id" name="User_id" value="testuser" autofocus>
@@ -106,7 +117,7 @@
 				          <a href="#" onclick="viewSearchPwd()" class="viewLoginFont">Pwd찾기</a></div>
               		  <br>
                     </div>
-              		 <button type="submit" class="login-button" onClick="login">Login</button>
+              		 <button type="submit" class="login-button" id="loginBtn" onClick="login">Login</button>
               		 
            		</fieldset>
      					<!-- 아이디 찾기 -->
@@ -139,6 +150,7 @@
                            <div class="login-group">
                            		<label>이메일</label>
                                <input class="login-box" placeholder="email" id="searchPwd_email" type="text">
+                               
                            </div>
                            <!-- Change this to a button or input when using this as a form -->
                            <br>

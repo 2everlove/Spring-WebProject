@@ -32,7 +32,11 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/nboard/**" />	
+			<mapping path="/nboard/nboardRegister" />	
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/nboard/nboardUpdate" />	
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 		<interceptor>

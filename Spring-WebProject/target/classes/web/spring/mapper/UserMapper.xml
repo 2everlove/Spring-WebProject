@@ -52,10 +52,21 @@
 		select * from user_info where User_id = #{User_id,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
 	</select>
 	<update id="updateUser">
-		update user_info set User_email=#{User_email,jdbcType=VARCHAR}, User_password=#{User_password}, User_contact=#{User_contact}, User_enabled=#{User_enabled}, User_type=#{User_type}, User_gender=#{User_gender,jdbcType=VARCHAR},User_birth=#{User_birth,jdbcType=VARCHAR},User_address=#{User_address,jdbcType=VARCHAR},User_interesting=#{User_interesting,jdbcType=VARCHAR},User_enabledContent=#{User_enabledContent,jdbcType=VARCHAR},file_pictureId=#{file_pictureId}
-		where User_id= #{User_id}
-	</update>
-	<update id="updatePwd">
-		update user_info set User_password = #{User_password,jdbcType=VARCHAR} where User_id = #{User_id,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
+		update user_info 
+		<set>
+			<if test="user_email!=null">user_email=#{user_email},</if>
+			<if test="user_name!=null">user_name=#{user_name},</if>
+			<if test="user_password!=null">user_password=#{user_password},</if>
+			<if test="user_contact!=null">user_contact=#{user_contact},</if>
+			<if test="user_enabled!=null">user_enabled=#{user_enabled},</if>
+			<if test="user_type!=null">user_type=#{user_type},</if>
+			<if test="user_gender!=null">user_gender=#{user_gender},</if>
+			<if test="user_birth!=null">user_birth=to_date(#{user_birth},'YYYY-MM-DD hh24:mi:ss'),</if>
+			<if test="user_address!=null">user_address=#{user_address},</if>
+			<if test="user_interesting!=null">user_interesting=#{user_interesting},</if>
+			<if test="user_enabledContent!=null">user_enabledContent=#{user_enabledContent},</if>
+			<if test="file_pictureId!=null">file_pictureId=#{file_pictureId}</if>
+		</set>
+		where user_id= #{user_id}
 	</update>
 </mapper>
