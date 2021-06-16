@@ -81,6 +81,7 @@
 
 					htmlContent += "<p class='cate'>" + "답변" + "</p>"
 								+ "<textarea id='answer' rows='20' disabled	>" + item.ireply_content + "</textarea>";
+								
 
 					$(".request_answer").html(htmlContent);
 				})
@@ -97,14 +98,25 @@
 </script>
 
 <body>
+	<c:if test="${sessionScope.user.user_type eq 0}">
+		<hr class="ng-margin point-another">
+			<br>
+			<br>
+			<br>
 		<div class="comment_write_section"><span class="comment_admin">관리자 영역 댓글</span><textarea id="ireply_content" name="ireply_content" rows="20" class="ireply_content" wrap="hard" style="white-space: pre;"></textarea></div>
 		<div>
 			<button id="replyInsertBtn">작성</button>
 		</div>
+	</c:if>
 		
 	<input type="hidden" value="${inquiry_detail.iboard_no }"
 		name="iboard_no" id="iboard_no">
+	<input type="hidden" value="${sessionScope.user.user_id}"
+		name="iboard_no" id="iboard_no">
+	<input type="hidden" value="${sessionScope.user.user_type}"
+		name="iboard_no" id="iboard_no">
 		
+	
 
 
 

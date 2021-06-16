@@ -93,7 +93,7 @@
 								<tr>
 									<th>아이디</th>
 									<td><input type="hidden" name="user_id" id="user_id"
-										value="user01">user01</td>
+										value="${sessionScope.user.user_id}">${sessionScope.user.user_id}</td>
 								</tr>
 								<tr>
 									<th>제목</th>

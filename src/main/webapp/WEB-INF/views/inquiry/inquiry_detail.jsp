@@ -60,7 +60,7 @@
 								<tr>
 									<th style="font-weight: bold;">아이디</th>
 									<td><input type="hidden" name="user_id" id="user_id"
-										value="user01">user01</td>
+										value="${inquiry_detail.user_id }">${inquiry_detail.user_id }</td>
 								</tr>
 								<tr>
 									<th style="font-weight: bold;">제목</th>
@@ -94,10 +94,7 @@
 					</p>
 				</form>
 			</div>
-			<hr class="ng-margin point-another">
-			<br>
-			<br>
-			<br>
+			
 			<%@include file="../inquiry/inquiry_reply.jsp"%>
 			
 		</div>
