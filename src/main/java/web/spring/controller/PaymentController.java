@@ -1,6 +1,8 @@
 package web.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import web.spring.service.PaymentService;
@@ -39,14 +42,17 @@ public class PaymentController {
 		PBoardVO pBoard = pBoardVO;
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		userVO = paymentService.get(user.getUser_id());
-		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
-		model.addAttribute("uvo", userVO);
-		model.addAttribute("pBoard", pBoard);
-		model.addAttribute("productVO", productVO);
-		model.addAttribute("cvo", cvo);
-		System.out.println(cvo.getCart_totalcount());
-		return "/order/payment";
+		if(user != null) {
+			userVO = paymentService.get(user.getUser_id());
+			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
+			model.addAttribute("uvo", userVO);
+			model.addAttribute("pBoard", pBoard);
+			model.addAttribute("productVO", productVO);
+			model.addAttribute("cvo", cvo);
+			System.out.println(cvo.getCart_totalcount());
+			return "/order/payment";
+		}
+		return "/member/login";
 	}
 	
 	@PostMapping("/productOrder")
@@ -59,14 +65,18 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/cart")
-	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO) {
+	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq) {
 		PBoardVO pBoard = pBoardVO;
-		userVO = userService.getUser(userVO.getUser_id());
-		ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
-		model.addAttribute("uvo", userVO);
-		model.addAttribute("pBoard", pBoard);
-		model.addAttribute("productVO", productVO);
-		return "/order/cart";
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user != null) {
+			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
+			model.addAttribute("uvo", userVO);
+			model.addAttribute("pBoard", pBoard);
+			model.addAttribute("productVO", productVO);
+			return "/order/cart";
+		}
+		return "/member/login";
 	}
 	
 	@PostMapping("/cartAction")
@@ -82,17 +92,23 @@ public class PaymentController {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		System.out.println("=================user"+user);
-		List<CartVO> list = paymentService.getCartList(user.getUser_id());
-		model.addAttribute("list", list);
-		return "/order/cartList";
+		if(user != null) {
+			List<CartVO> list = paymentService.getCartList(user.getUser_id());
+			model.addAttribute("list", list);
+			return "/order/cartList";
+		}
+		return "/member/login";
 	}
 	
 	@GetMapping("/deleteCart")
 	public String deleteCart(Model model, CartVO cvo, HttpServletRequest rq) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		int res = paymentService.deleteCart(cvo.getCart_id());
-		model.addAttribute("cvo", cvo);
+		if(cvo.getCart_id() != null) {
+			int res = paymentService.deleteCart(cvo.getCart_id());
+			model.addAttribute("cvo", cvo);
+			return "/orderList";
+		}
 		return "redirect:/cartList";
 	}
 	
@@ -114,36 +130,52 @@ public class PaymentController {
 	public String orderList(Model model, HttpServletRequest rq, OrderVO ovo) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		List<OrderVO> list = paymentService.getOrderList(user.getUser_id());
-		model.addAttribute("list", list);
-		return "/order/orderList";
+		if(user != null) {
+			List<OrderVO> list = paymentService.getOrderList(user.getUser_id());
+			model.addAttribute("list", list);
+			return "/order/orderList";
+		}
+		return "/member/login";
 	}
 	
 	@GetMapping("/orderStatus")
 	public String orderStatus(Model model, HttpServletRequest rq, OrderVO ovo) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		session.setAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
-		model.addAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
-		System.out.println("==================="+ovo.getOrder_id());
-		return "/order/orderStatus";
+		if(user != null) {
+			session.setAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
+			model.addAttribute("ovo", paymentService.getOrderStatus(ovo.getOrder_id()));
+			System.out.println("==================="+ovo.getOrder_id());
+			return "/order/orderStatus";
+		}
+		return "/member/login";
 	}
 	
 	@GetMapping("/orderAllList")
 	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		List<OrderVO> list = paymentService.getOrderAllList(ovo);
-		model.addAttribute("list", list);
-		return "/order/orderAllList";
+		if(user != null) {
+			List<OrderVO> list = paymentService.getOrderAllList(ovo);
+			model.addAttribute("list", list);
+			return "/order/orderAllList";
+		}
+		return "/member/login";
 	}
 	
-	@GetMapping("/updateOrderList")
-	public String updateOrderList(Model model, OrderVO ovo, @RequestParam("order_status") String order_status,
-															@RequestParam("order_id") String order_id) {
-		int res = paymentService.updateOrderList(ovo);
-		System.out.println("======================주문상태:"+ovo.getOrder_status());
+	@PostMapping("/updateOrderList")
+	@ResponseBody
+	public Map<String, Object> updateOrderList(Model model, OrderVO ovo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(ovo != null) {
+			System.out.println(ovo);
+			int res = paymentService.updateOrderList(ovo);
+			if(res > 0)
+				map.put("result","success");
+		} else {
+			map.put("result", "fail");
+		}
 		model.addAttribute("ovo", ovo);
-		return "redirect:/orderAllList";
+		return map;
 	}
 }

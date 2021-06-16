@@ -52,6 +52,7 @@
 				</div>
 			</fieldset>
 			<button type="submit" id="button" class="detail__btn payment">결제</button>
+			<button type="button" id="button" class="detail__btn payment" onclick="location.href='main'">취소</button>
 		</form>
 	</div>
 </section>

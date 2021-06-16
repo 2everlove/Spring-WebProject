@@ -43,7 +43,7 @@
 	</insert>
 	
 	<select id="getCartList" resultType="web.spring.vo.CartVO">
-		select * from cart_board where user_id = #{user_id} order by cart_id desc
+		select * from cart_board where user_id = #{user_id} order by TO_NUMBER(cart_id) desc
 	</select>
 	
 	<delete id="deleteCart">
