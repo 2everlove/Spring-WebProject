@@ -14,6 +14,10 @@
 		select pboard_unit_price from product_board where board_unit_no = #{board_unit_no}
 	</select>
 	
+	<update id="updateStocks">
+		update product_board set pboard_unit_stocks = #{pboard_unit_stocks} where product_id = #{product_id}
+	</update>
+	
 	<insert id="insertOrder">
 		<selectKey resultType="String" order="BEFORE" keyProperty="order_id"> select order_sequence.nextval from dual </selectKey>
 		insert into order_board (order_id, order_address, order_name, order_status, product_id, user_id, order_totalprice, order_totalcount)
@@ -22,6 +26,10 @@
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
 		select * from order_board where user_id = #{user_id} order by order_id
+	</select>
+	
+	<select id="getOrderAllList" resultType="web.spring.vo.OrderVO">
+		select * from order_board order by order_id
 	</select>
 	
 	<select id="getOrderStatus" resultType="web.spring.vo.OrderVO">
@@ -35,10 +43,15 @@
 	</insert>
 	
 	<select id="getCartList" resultType="web.spring.vo.CartVO">
-		select * from cart_board where user_id = #{user_id} order by cart_id desc
+		select * from cart_board where user_id = #{user_id} order by TO_NUMBER(cart_id) desc
 	</select>
 	
 	<delete id="deleteCart">
 		delete from cart_board where cart_id = #{cart_id}
 	</delete>
+	
+	<update id="updateOrderList">
+		update order_board set order_status=#{order_status} where order_id=#{order_id}
+	</update>
+	
 </mapper>

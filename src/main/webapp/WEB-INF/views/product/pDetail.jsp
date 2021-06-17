@@ -10,17 +10,29 @@
 		$(".up-button").click(function() {
 			let tempcount = $("input[name=order_totalcount]").val();
 			let totalcount = Number(tempcount) + 1;
+			var stock = '${pBoard.pboard_unit_stocks}';
+			var price = '${pBoard.pboard_unit_price}';
+			let totalprice = Number(totalcount) * price;
+			let stocks = stock - Number(totalcount);
 			$("input[name=order_totalcount]").val(totalcount);
+			$("input[name=order_totalprice]").val(totalprice);
+			$("input[name=pboard_unit_stocks]").val(stocks);
 		});
 		$(".down-button").click(function() {
 			let tempcount = $("input[name=order_totalcount]").val();
 			let totalcount = 0;
+			var price = '${pBoard.pboard_unit_price}';
+			var stock = '${pBoard.pboard_unit_stocks}';
 			if (Number(tempcount) <= 1) {
 				totalcount = 1;
 			} else {
 				totalcount = Number(tempcount) - 1;
 			}
+			let totalprice = Number(totalcount) * price;
+			let stocks = stock - Number(totalcount);
 			$("input[name=order_totalcount]").val(totalcount);
+			$("input[name=order_totalprice]").val(totalprice);
+			$("input[name=pboard_unit_stocks]").val(stocks);
 		});
 
 	});
@@ -66,6 +78,7 @@
 							가격 <span>${price}</span>
 						<p>
 							재고 <span> ${stocks}</span>
+							<input type="text" value="${stocks}" name="pboard_unit_stocks">
 						<p>
 							<span class="detail__count"><input type="text"
 								name="order_totalcount" class="detail__count-input" value="1">

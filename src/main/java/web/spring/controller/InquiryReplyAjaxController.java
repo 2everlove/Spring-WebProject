@@ -30,7 +30,7 @@ public class InquiryReplyAjaxController {
 	 * @author 답변 삽입
 	 */
 	@PostMapping("/inquiry/insertReply")
-	public Map<String, Object> getInquiryReply(@RequestBody InquiryReplyVO vo){
+	public Map<String, Object> insertInquiryReply(@RequestBody InquiryReplyVO vo){
 		
 		int res = replyService.insertReply(vo);
 		
@@ -54,6 +54,7 @@ public class InquiryReplyAjaxController {
 		int replyCount = replyService.inquiryReplyCount(iboard_no);
 		
 		model.addAttribute("inquiryReply", list);
+		model.addAttribute("replyCount", replyCount);
 		
 		log.info(replyService.getInquiryReply(iboard_no));
 		log.info(replyCount);

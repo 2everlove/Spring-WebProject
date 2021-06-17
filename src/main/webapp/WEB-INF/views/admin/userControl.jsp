@@ -47,6 +47,11 @@
 			data : formData,
 			success : function(datas){
 				console.log(datas.result);
+				if(datas.result=="success"){
+					alert(formData.get('user_id')+"("+formData.get('user_email')+")님의 정보가 수정되었습니다.")
+				} else {
+					alert("실패");
+				}
 			},
 			error : function(errorThrown){
 				console.log(errorThrown);

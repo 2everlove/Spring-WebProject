@@ -16,8 +16,6 @@
 	<div class="content">
 		<h2>결제/주문</h2>
 		<form role="form" action="/productOrder" method="post" class="payment_form">
-		<fmt:formatNumber type="number" maxFractionDigits="3"
-							value="${param.pboard_unit_price * param.order_totalcount}" var="totalPrice"></fmt:formatNumber>
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
@@ -46,11 +44,15 @@
 				</div>
 				<div class="content2">
 					<label>총 결제 금액</label>
-					<input class="view" name="order_totalprice" value="${totalPrice}">
+					<input class="view" name="order_totalprice" value="${param.order_totalprice}">
+				</div>
+				<div class="content2">
+					<label>재고수</label>
+					<input class="view" name="pboard_unit_stocks" value="${param.pboard_unit_stocks}">
 				</div>
 			</fieldset>
 			<button type="submit" id="button" class="detail__btn payment">결제</button>
-			<button type="button" class="detail__btn cart" onclick="location.href='cart'">장바구니</button>
+			<button type="button" id="button" class="detail__btn payment" onclick="location.href='main'">취소</button>
 		</form>
 	</div>
 </section>

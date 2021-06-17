@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 /* Global */
 :root {
 	/* Color */ -
@@ -46,11 +48,12 @@
 * {
 	box-sizing: border-box;
 	margin: 0 auto;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .page_title {
-	font-size: 32px;
-	font-weight: 500;
+	font-size: 40px;
+	font-weight: 700;
 	text-align: center;
 	padding: 65px 0px;
 	letter-spacing: -1.5px;
@@ -74,15 +77,8 @@
 	position: relative;
 	border-top: 1px solid #222;
 }
-ul ul,
-ol ul,
-ul ol,
-ol ol {
-  margin-bottom: 0;
-  list-style: none;
-}
+
 table.list {
-	text-decoration: none;
 	width: 100%;
 	table-layout: fixed;
 	border-bottom: 1px solid #eaeaea;
@@ -135,7 +131,7 @@ tr {
 }
 
 a {
-	color: black;
+	color: #444444;
 }
 
 a:link, a:visited {
@@ -183,10 +179,40 @@ a:link, a:visited {
 	transition: color .4s, border .4s, background .4s ease;
 	
 }
-::before{
-	list-style: none;
-}
-::marker{
+
+/* ::marker{
 	display:none;
-	list-style: none;
+	text-decoration: none;
+} */
+
+html {
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+    font-weight: 300;
+    text-align: left;
+    color: #222;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: -0.3px;
+    overflow-y: scroll;
 }
+
+th {
+    font-weight: 500;
+}
+
+#answered{
+    color: #877DFF !important;
+    font-weight: 500;
+
+}
+
+#not_answered{
+    color: #716866 !important;
+    font-weight: 500;
+
+}
+
+ul{
+	text-decoration: none;
+}
+

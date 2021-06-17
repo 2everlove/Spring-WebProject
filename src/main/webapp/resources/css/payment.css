@@ -13,7 +13,7 @@ fieldset {
 }
 
 .content {
-	padding: 150px;
+	padding: 200px 210px;
 	text-align: center;
 }
 
@@ -33,7 +33,12 @@ h2 {
 }
 
 .status{
-	padding: 200px 500px;
+	width: 1500px;
+	height: 300px;
+	text-align: center;
+}
+
+p{
 	font-size: 1.3em;
 }
 
@@ -42,9 +47,14 @@ h2 {
 	cursor: pointer;
 	border: none;
 	outline: none;
-	padding: 50px 500px;
+	padding: 50px;
 }
 
 .view {
 	font-size: 0.9em;
+}
+
+.detail{
+	float: left;
+	padding: 100px;
 }

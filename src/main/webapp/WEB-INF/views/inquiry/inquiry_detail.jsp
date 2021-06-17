@@ -16,7 +16,7 @@
 		if (confirm("정말 삭제하시겠습니까?") == true) {
 			document.getElementById('inquiry_delete').submit();
 		} else {
-			alert("취소하였습니다.")
+			alert("취소하였습니다.");
 			return false;
 
 		}
@@ -28,6 +28,7 @@
 
 <html>
 <body>
+
 	<section id="container">
 		<h2 class="page_title">1 : 1 문의하기</h2>
 		<!-- contents -->
@@ -37,6 +38,8 @@
 			<div class="default_cell">
 				<form action="/inquiry_delete" method="post" name="inquiry_delete"
 					id="inquiry_delete">
+					<input type="hidden" name="iboard_no" id="iboard_no"
+						value="${inquiry_detail.iboard_no }">
 					<div class="table_data">
 						<table class="view">
 							<colgroup>
@@ -46,52 +49,63 @@
 								<col style="width: auto">
 							</colgroup>
 							<tbody>
+								<!-- 게시글 번호 -->
 								<tr>
-									<th>카테고리</th>
+									<th style="font-weight: bold;">카테고리</th>
 									<td><input type="hidden" name="iboard_category"
 										id="iboard_category" value="${inquiry_detail.iboard_category}">${inquiry_detail.iboard_category}
 									</td>
+
 								</tr>
 								<tr>
-									<th>아이디</th>
+									<th style="font-weight: bold;">아이디</th>
 									<td><input type="hidden" name="user_id" id="user_id"
-										value="user01">user01</td>
+										value="${inquiry_detail.user_id }">${inquiry_detail.user_id }</td>
 								</tr>
 								<tr>
-									<th>제목</th>
+									<th style="font-weight: bold;">제목</th>
 									<td colspan="3"><input type="hidden" name="iboard_title"
 										id="iboard_title" class="full"
 										value="${inquiry_detail.iboard_title }">${inquiry_detail.iboard_title }</td>
 								</tr>
-								<tr>
-									<th class="vertical_t">내용
-									</th>
-									<td colspan="3"><textarea id="iboard_content"
-											name="iboard_content" style="height: 210px">${inquiry_detail.iboard_content}</textarea></td>
-								</tr>
+								<tr><th class="vertical_t" style="font-weight: bold;">내용</th><td colspan="3"><div class="request_data" style="white-space:pre;"><c:out value="${inquiry_detail.iboard_content}"/></div>
+								<div class="request_answer">
+								<c:if test="${replyService.getInquiryReply(iboard_no) eq null }"><span id="no_comment">아직 답변이 등록되지 않았습니다.</span></c:if>
+								</div>
+								
+								</td></tr>
 
 								<tr>
-									<th>전체 공개 여부</th>
-									<td><span><input type="radio" name="iboard_public"
-											id="iboard_public" value="0" checked>전체공개 </span><span><input
-											type="radio" name="iboard_public" value="1">비공개</span></td>
+									<th style="font-weight: bold;">전체 공개 여부</th>
+											<td>
+											<c:if test="${inquiry_detail.iboard_public eq 1 }">비공개</c:if>
+											<c:if test="${inquiry_detail.iboard_public eq 0 }">공개</c:if>
+											</td>
+
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<p class="btn_pop_page">
-						<button type="button" class="inquiry_button" onclick="inquiryDelete()">삭제</button>
+					<c:if test="${sessionScope.user.user_id eq inquiry_detail.user_id || sessionScope.user.user_type eq 0}">
+						<button type="button" class="inquiry_button"
+							onclick="inquiryDelete()">삭제</button>
+					</c:if>
 						<button type="button" class="cancel"
-							onclick="location.href='/inquiry'">취소</button>
+							onclick="location.href='/inquiry'">목록으로</button>
 					</p>
 				</form>
 			</div>
+			
+			<%@include file="../inquiry/inquiry_reply.jsp"%>
+			
 		</div>
 		<!-- //contents -->
+		
 	</section>
 </body>
 </html>
 
-<%@include file="../inquiry/inquiry_reply.jsp"%>
+
 
 <%-- <%@include file="../includes/footer.jsp" %> --%>

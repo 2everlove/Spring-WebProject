@@ -15,6 +15,9 @@ public class InquiryBoardVO {
 	private String iboard_category;	//게시글 카테고리
 	private int iboard_public;		//게시글 공개여부 0 이면 공개, 1이면 비공개
 	private String user_id;			//유저 아이디 Foreign Key
+	private int reply_count; 		//댓글 유무
+	
+	private int replycount; //매퍼용 reply 카운트
 	
 
 

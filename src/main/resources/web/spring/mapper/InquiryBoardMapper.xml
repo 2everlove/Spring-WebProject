@@ -5,7 +5,7 @@
 
 
 	<!-- 문의사항 리스트 불러오기 -->
-	<select id="getInquiryBoardList"
+ 	<select id="getInquiryBoardList"
 		resultType="web.spring.vo.InquiryBoardVO">
 		select iboard_no, iboard_title, iboard_category,
 		iboard_public, iboard_regdate_new, user_id,
@@ -16,11 +16,12 @@
 		to_char(iboard_regdate,'hh24:mm:ss')
 		else
 		to_char(iboard_regdate,'yyyy-MM-dd')
-		end) iboard_regdate
-
+		end) iboard_regdate,
+		(select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount
 		from
-		inquiry_board order by iboard_no desc
-	</select>
+		inquiry_board board order by iboard_no desc
+	</select>  
+
 	<!-- 문의사항 리스트 불러오기 끝 -->
 
 	<!-- 문의사항 등록 -->

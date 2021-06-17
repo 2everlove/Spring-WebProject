@@ -35,6 +35,7 @@
            <a href="#" onclick="viewLogin()">로그인화면</a>&nbsp;&nbsp;
            <a href="#" onclick="viewSearchId()">ID찾기</a> &nbsp;&nbsp;
            <a href="#" onclick="viewSearchPwd()">Pwd찾기</a></p>
+           <a href="/userUpdate">회원정보수정</a></p>
        </form>
    	</section>
 	<a href="/logout"><button>로그아웃</button></a>

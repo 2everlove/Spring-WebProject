@@ -26,7 +26,7 @@ public class InquiryReplyServiceImpl implements InquiryReplyService{
 	public List<InquiryReplyVO> getInquiryReply(int iboard_no) {
 		return mapper.getInquiryReply(iboard_no);
 	}
-
+	//답변 수 카운트
 	@Override
 	public int inquiryReplyCount(int board_no) {
 		return mapper.inquiryReplyCount(board_no);

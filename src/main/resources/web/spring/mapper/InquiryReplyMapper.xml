@@ -32,6 +32,10 @@
 	<select id="inquiryReplyCount" resultType="int">
 		SELECT COUNT(*) FROM inquiry_reply WHERE iboard_no = #{iboard_no}
 	</select>
+	
+	<delete id="deleteReply">
+		delete inquiry_reply WHERE iboard_no = #{iboard_no}
+	</delete>
 
 
 
