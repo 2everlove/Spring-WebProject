@@ -85,7 +85,7 @@ public class MailService {
 			// 보내는 날짜 지정
 			msg.setSentDate(new Date());
 			// 발송자 설정 (발송자의 메일, 발송자명)
-			msg.setFrom(new InternetAddress("springweb11@gmail.com", "(주)한국시스템"));
+			msg.setFrom(new InternetAddress("springweb11@gmail.com", "(주)WIDELE"));
              // 수신자 설정 
 			// Message.RecipientType.TO : 받는 사람 
 			InternetAddress to = new InternetAddress(email);
