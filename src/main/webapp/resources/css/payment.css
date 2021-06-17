@@ -1,0 +1,60 @@
+.order {
+	text-align: center;
+}
+
+fieldset {
+	text-align: left;
+	width: 70%;
+	margin: 30px auto;
+}
+
+.content2 {
+	padding: 10px;
+}
+
+.content {
+	padding: 200px 210px;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+.center {
+	text-align: center;
+}
+
+.orderList {
+	text-align: center;
+	padding-bottom: 30px;
+	padding-left: 150px;
+}
+
+.status{
+	width: 1500px;
+	height: 300px;
+	text-align: center;
+}
+
+p{
+	font-size: 1.3em;
+}
+
+.button {
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	padding: 50px;
+}
+
+.view {
+	font-size: 0.9em;
+}
+
+.detail{
+	float: left;
+	padding: 100px;
+}

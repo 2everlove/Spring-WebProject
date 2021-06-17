@@ -5,13 +5,43 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import web.spring.vo.CodeVO;
+import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 public interface ProductMapper {
-	public List<ProductVO> getProductList(); // 상품 전체 조회
 	
-	public List<PBoardVO> getPBoardList(); // 상세페이지 전체 조회
+	public List<ProductVO> getProductAllList(); // 상품 전체 조회
+	
+	public List<ProductVO> getProductList(Criteria cri); // 상품 전체 조회
+	
+	public List<PBoardVO> getAllPBoardList(Criteria cri); // 상세페이지 전체 조회(전체)
+	
+	public List<PBoardVO> getUserPBoardList(@Param("user_id") String user_id, @Param("pageNo") int pageNo, @Param("amount") int amount, @Param("orderby") String orderby); // 상세페이지 전체 조회(전체)
+	
+	public int getTotal(Criteria cri);//페이지 총 수
+	
+	public int getProductTotal(Criteria cri);//페이지 총 수
+	
+	public int getPboardUserTotal(@Param("user_id") String user_id, @Param("pageNo") int pageNo, @Param("amount") int amount);//페이지 총 수
+	
+	//admin
+	public int updatepBoard(PBoardVO pBoardVO);
+	
+	public int updateProduct(ProductVO productVO);
+	
+	public String getProductSeq();
+	
+	//admin 코드 검색용
+	public CodeVO getCode(@Param("code_type") String code_type, @Param("code_value") String code_value);
+	
+	public int insertCode(@Param("code_type") String code_type, @Param("code_value") String code_value);
+
+	//
+	
+	public List<PBoardVO> getPBoardList(); // 상세페이지 전체 조회(enabled 0만)
 	
 	public List<ProductVO> getTypeList(String product_category); //type 검색 해당목록 1~5출력
 	

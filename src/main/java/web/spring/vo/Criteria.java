@@ -8,7 +8,9 @@ public class Criteria {
 	int amount;
 	String type;
 	String keyword;
+	String orderby;
 	public Criteria() {
+		this.orderby=this.orderby+"_asc";
 		this.pageNo=1;
 		this.amount=10;
 	}

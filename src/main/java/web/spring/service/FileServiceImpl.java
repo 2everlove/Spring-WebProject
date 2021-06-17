@@ -78,4 +78,9 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getMainListFile();
 	}
 
+	@Override
+	public List<FileVO> getListFileAdmin(Map<String, Object> product_Map) {
+		return fileMapper.getListFileAdmin(product_Map);
+	}
+
 }

@@ -20,6 +20,7 @@ public class PBoardVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date pboard_unit_updateDate;
 	
+	private String pboard_unit_enabled;
 	private String each_rank;
 	private String product_id;
 	private String user_id;

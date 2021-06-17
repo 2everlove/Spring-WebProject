@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import web.spring.vo.Criteria;
 import web.spring.vo.UserVO;
 
 @Service
@@ -12,6 +13,10 @@ public interface UserService {
 	public UserVO getUser(String user_id); 
 	
 	public List<UserVO> getUserList(); 
+	
+	public List<UserVO> getAllUserList(Criteria cri);
+	
+	public int getUserTotal(Criteria cri);
 	
 	public UserVO login(UserVO user);
 	
@@ -27,5 +32,5 @@ public interface UserService {
 	
 	public UserVO checkPwd(UserVO user);
 	
-	public UserVO updateUser(UserVO user);
+	public int updateUser(UserVO user);
 }

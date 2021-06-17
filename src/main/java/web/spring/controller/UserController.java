@@ -67,26 +67,27 @@ public class UserController {
 		session.invalidate();
 		
 		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
-		loginCookie.setMaxAge(0);
-		loginCookie.setPath("/");
-		
-		res.addCookie(loginCookie);
+		if(loginCookie != null) {
+			loginCookie.setMaxAge(0);
+			loginCookie.setPath("/");
+			res.addCookie(loginCookie);
+		}
 		
 		return "/member/login";
 	}
 	
 	@PostMapping("/loginAction")
-	public String loginAction(UserVO vo, Model model, HttpServletRequest req) {
+	public String loginAction(UserVO vo, Model model, HttpServletRequest req,RedirectAttributes rttr) {
 		UserVO user = userService.login(vo);
 		if (user == null) {
-			model.addAttribute("msg","로그인 실패했습니다.ID/PW를 확인 하세요.");
-			return "/login";
+			rttr.addAttribute("msg","로그인 실패했습니다.ID/PW를 확인 하세요.");
+			return "redirect:/login";
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", user);
-			model.addAttribute("msg",user.getUser_id()+"님 환영합니다.");
+			rttr.addAttribute("msg",user.getUser_id()+"님 환영합니다.");
 			//model.addAttribute("user", user);
-			return "/member/loginAction";
+			return "redirect:/main";
 		}//else
 		
 	}//loginAction

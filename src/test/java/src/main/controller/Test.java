@@ -63,6 +63,4 @@ public class Test {
 		log.info(tm.getTime());
 	}
 	
-	
-	
 }

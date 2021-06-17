@@ -1,0 +1,50 @@
+.order {
+	text-align: center;
+}
+
+fieldset {
+	text-align: left;
+	width: 70%;
+	margin: 30px auto;
+}
+
+.content2 {
+	padding: 10px;
+}
+
+.content {
+	padding: 150px;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+.center {
+	text-align: center;
+}
+
+.orderList {
+	text-align: center;
+	padding-bottom: 30px;
+	padding-left: 150px;
+}
+
+.status{
+	padding: 200px 500px;
+	font-size: 1.3em;
+}
+
+.button {
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	padding: 50px 500px;
+}
+
+.view {
+	font-size: 0.9em;
+}

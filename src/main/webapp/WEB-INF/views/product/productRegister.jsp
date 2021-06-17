@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/main.css">
 <script type="text/javascript">
 	document.title='상품등록 : widele';
 	$(document).ready(function(){
@@ -16,18 +17,20 @@
 			if($(this).val()!=""){
 				checkProductName($(this).attr("name"), $(this).val(), parentElement);
 			}
-		});
+		});//
 		
 		$('input[name=product_name]').change(function(){
+			$('input[name=manufacturer]').val("");
+			$('input[name=category]').val("");
 			let parentmanu = $('input[name=manufacturer]').closest("div");
 			let parentcate = $('input[name=category]').closest("div");
 			getProductManuCate();
-		});
+		});//
 		
 		
 		$("#file_pictureId").change(function(){
 			$('#file_pictureIdClone').val($("#file_pictureId").val());
-		});
+		});//
 			
 		$(".search__select").focusout(function(){
 			console.log("fo");
@@ -38,7 +41,7 @@
 			if($('input[name=manufacturer]').attr('data') && $('input[name=category]').attr('data') && $('input[name=product_name]').val()==""){
 				getProductId(parentElement);
 			}
-		});
+		});//
 		
 		$(".search__select").click(function(){
 				let searchValue = $(this).val();
@@ -52,11 +55,50 @@
 						getManuCate(searchDataValue);
 					}
 				}
-		});
+		});//
 		
 		$('#file_pictureId').on("change", function(){
 			viewFile($('#file_pictureId').val());
+		});//
+		
+		
+		$('#pRegisterBtn').click(function(){
+			if($('input[name=product_id]').val()==""){
+				$('input[name=product_name]').select();
+				return false;
+			}
+			if($('input[name=category]').val() ==""){
+				$('input[name=category]').select();
+				return false;
+			}
+			if($('input[name=manufacturer]').val()==""){
+				$('input[name=manufacturer]').select();
+				return false;
+			}
+			if($('input[name=pboard_unit_price]').val()==""){
+				$('input[name=pboard_unit_price]').select();
+				return false;
+			}
+			if($('input[name=pboard_unit_stocks]').val()==""){
+				$('input[name=pboard_unit_stocks]').select();
+				return false;
+			}
+			if($('input[name=product_name]').val()==""){
+				$('input[name=product_name]').select();
+				return false;
+			}
+			if($('input[name=file_pictureId]').val()==""){
+				$('input[name=uploadFile]').select();
+				return false;
+			}
+			if($('input[name=file_pictureIdClone]').val()==""){
+				$('input[name=uploadFile]').select();
+				return false;
+			}
+			$("form[name=pBoardForm]").submit(); 
 		});
+
+		
 		
 		//파일 업로드
 		$("#uploadBtn").on("click", function(){
@@ -93,7 +135,7 @@
 			});
 		});
 		
-	});
+	});//
 	
 	//파일view
 	function viewFile(file_pictureId){
@@ -116,36 +158,55 @@
 					let fName = data.file_name;
 					//만약 이미지면 이미지 보여줌
 					if(data.file_type=='Y'){
-						result += "<li>"
+						result += "<li><div class='img_wrapper' style='position: relative;'>"
 									+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100%; height: 100%; object-fit: cover;'><br>"
-									+"<a href=/fileDisplay?file_name="+file_savePath+" download="+data.file_name+">"
-									+data.file_name+"</a>"
-									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer'>❌</span></li>";
+									+data.file_name
+									+"<span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); data-type='image' style='cursor: pointer; position: absolute; right: 20px; top: 15px; font-size:20px;'>❌</span>"
+									+"<p class='arrow_box'>close</p></div></li>";
 					} else {
 						//이미지가 아니면 파일이름을 출력
 						result += "<li>"
 									+"<a href=/fileDisplay?file_name="+file_savePath+" download='"+fName +"'><br>"
 									+data.file_name+"</a>"
-									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); style='cursor: pointer'>❌</span></li>";
+									+"  <span onclick=attachFileDelete('"+data.file_uuid+"','"+data.file_pictureId+"'); style='cursor: pointer; position: absolute; left: 80%; top: 10%;'>❌</span></li>";
 					}
 					
 				});
 				if(datas.length == 0){
-					alert(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색해주세요.');
-					$('#file_pictureId').val("");
-					$('#file_pictureId').select();
+					if(confirm(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색을 원하시면 확인, \n'+file_pictureId+'번에 데이터를 저장하시려면 취소를 눌러주세요')){
+						$('#file_pictureId').val("");
+						$('#fileUpload').val("");
+						$('#file_pictureId').select();
+					} else {
+						$('#fileUpload').val("");
+						$('#fileUpload').click();
+					}
 				}
 				$('#fileList').html(result);
 				if($(location).attr('pathname').match('/board/get')){
 					$('span[data-type=image]').remove();
 				}
-				
 			},
 			error : function(){
 				
 			}
 		});
-	}
+	}//
+	
+	//file 삭제
+	function attachFileDelete(file_uuid, file_pictureId){
+		$.ajax({
+			url:'/fileDelete/'+file_uuid+'/'+file_pictureId,
+			method:'get',
+			success: function(datas){
+				console.log(datas);
+				viewFile(file_pictureId);
+			},
+			error : function(errorThrown){
+				console.log(errorThrown);
+			}
+		})
+	}//
 	
 	//code 확인
 	function checkProductName(code_type,code_value, parentElement){
@@ -180,7 +241,7 @@
 			}
 			
 		});
-	}
+	}//
 	
 	//code에서 따온 제조사, 카테고리로 상품검색
 	function getProductId(){
@@ -215,7 +276,7 @@
 			}
 			
 		});
-	}
+	}//
 	
 	//상품으로 제조사, 카테고리 검색
 	function getProductManuCate(){
@@ -252,7 +313,7 @@
 			}
 			
 		});
-	}
+	}//
 	
 	//상품id 로 제조사, 카테고리 입력
 	function getManuCate(searchDataValue){
@@ -286,7 +347,9 @@
 			}
 			
 		});
-	}
+	}//
+	
+
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
@@ -295,6 +358,7 @@
         	<div class="section__productsList">
 	        	<div class="search__wrapper-input">
 	        		<div class="search__wrapper">
+	        		<button type="button" id="pRegisterBtn">등록</button>
 			    		<div class="search__input">
 			    			<label>카테고리 <input type="text" name="category" class="code_type" onKeypress="javascript:if(event.keyCode==13){}"></label>
 			    			<select class="search__select" name="">
@@ -312,10 +376,10 @@
 			    		</div>
 			    		<form method="post" action="insertProductBoard" name="pBoardForm">
 			        		<div class="search__input">
-				    			<label>파일 <input type="text" name="file_pictureId" id="file_pictureIdClone"></label>
+				    			<label><input type="hidden" name="file_pictureId" id="file_pictureIdClone"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>상품 아이디<input type="text" name="product_id"></label>
+				    			<label><input type="hidden" name="product_id"></label>
 				    		</div>
 				    		<div class="search__input">
 				    			<label>new<input type="radio" name="pboard_unit_condition" value="0" checked;></label>
@@ -329,13 +393,13 @@
 				    			<label>재고 <input type="number" name="pboard_unit_stocks"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>작성자 <input type="text" name="user_id" value="1"></label>
+				    			<label>작성자 <input type="text" name="user_id" value="${sessionScope.user.user_id}"></label>
 				    		</div>
-				    		<button type="submit">등록</button>
+				    		
 			    		</form>
 						<form name="uploadForm" action="/uploadFile" method="post" enctype="multipart/form-data">
-							<input type="text" class="form__file" name="file_usingType" id="file_usingType" value="3">
-							<input type="text" class="form__file" name="file_pictureId" id="file_pictureId">
+							<input type="hidden" class="form__file" name="file_usingType" id="file_usingType" value="3">
+							<input type="hidden" class="form__file" name="file_pictureId" id="file_pictureId">
 							<input type="file" name="uploadFile" id="fileUpload" multiple="multiple" accept="image/*">
 							<br>
 							<br>
@@ -343,7 +407,7 @@
 						</form>
 							<br>
 							<br>
-			    		<div contentEditable="true" id="upload__view" style="border: 1px solid black; border-radius: 3px; min-height: 50px; width: 700px;">
+			    		<div id="upload__view" style="border: 1px solid black; border-radius: 3px; min-height: 50px; width: 700px;">
 							<ul id="fileList">
 								
 							</ul>
@@ -356,3 +420,39 @@
    	</section>
 
 <%@include file="../includes/footer.jsp" %>
+<style>
+.arrow_box {
+  display: none;
+  position: absolute;
+  width: 50px;
+  padding: 8px;
+  text-align: center;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;  
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+.arrow_box:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 10px;
+  pointer-events: none;
+  content: " ";
+}
+
+span:hover + p.arrow_box {
+  display: block;
+  top:50px;
+  right:8px;
+}
+</style>

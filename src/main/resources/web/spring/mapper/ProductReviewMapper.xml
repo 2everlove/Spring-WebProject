@@ -6,7 +6,7 @@
 
 <!-- 리뷰 불러오기 -->
 	<select id="getProductReviewList" resultType="web.spring.vo.ProductReviewVO">
-		select * from PRODUCT_REVIEW 
+		select * from PRODUCT_REVIEW
 	</select>
 <!-- 리뷰 불러오기 끝-->
 

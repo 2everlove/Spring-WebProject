@@ -36,6 +36,7 @@
 	var script = document.createElement("script");
 	script.src = (url+country+lang+callback);
 	document.head.appendChild(script);
+
 	function initMap() {
 	  // The location of Uluru
 	  const lat1= 37.4851619;
@@ -78,9 +79,12 @@
 <script id="googleMap">
 </script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	const pathName = window.location.pathname;
+
 	//console.log(pathName);
+
 	if(!pathName.match("main")){
 		$(".navbar__menu__item").click(function(){
 			let data = $(this).attr("data-link");
@@ -100,6 +104,7 @@ $(document).ready(function(){
 		});
 	}
 });
+
 </script>
 </head>
 <body>

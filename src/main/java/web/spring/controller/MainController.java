@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.FileVO;
+import web.spring.vo.NBoardVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
@@ -57,6 +61,14 @@ public class MainController {
 	public String getMyPage() {
 		log.info("mypage.....");
 		return "/myPage/myPage";
+	}
+	
+	@GetMapping("/popup")
+	public String getPopup(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		NBoardVO vo = (NBoardVO)session.getAttribute("noticeFlag");
+		model.addAttribute("vo", vo);
+		return "/includes/popup";
 	}
 	
 	/*
@@ -103,9 +115,11 @@ public class MainController {
 		List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
 		List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
 		List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
+		List<UserVO> userList = userService.getUserList();
 		log.info("pList...."+pList);
 		log.info("pBList...."+pBList);
 		log.info("fileList...."+fileList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);

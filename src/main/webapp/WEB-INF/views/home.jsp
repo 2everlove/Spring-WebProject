@@ -10,7 +10,5 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-
-테스트
 </body>
 </html>

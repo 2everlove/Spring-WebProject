@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import web.spring.mapper.UserMapper;
+import web.spring.vo.Criteria;
 import web.spring.vo.UserVO;
 
 @Service
@@ -69,8 +70,18 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public UserVO updateUser(UserVO user) {
+	public int updateUser(UserVO user) {
 		return userMapper.updateUser(user);
+	}
+
+	@Override
+	public List<UserVO> getAllUserList(Criteria cri) {
+		return userMapper.getAllUserList(cri);
+	}
+
+	@Override
+	public int getUserTotal(Criteria cri) {
+		return userMapper.getUserTotal(cri);
 	}
 
 }
