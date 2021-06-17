@@ -30,7 +30,7 @@ public interface UserService {
 	
 	public UserVO checkId(UserVO user);
 	
-	public UserVO checkPwd(UserVO user); //pwd update
+	public UserVO checkPwd(UserVO user); ////비밀번호 변경 후 메일 보내기
 	
 	public int updateUser(UserVO user);
 

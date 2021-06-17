@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 		return userMapper.checkId(user);
 	}
 
+	//비밀번호 변경 후 메일 보내기
 	@Override
 	public UserVO checkPwd(UserVO user) {
 		UserVO dbUser = userMapper.checkPwd(user.getUser_id(), user.getUser_email());
