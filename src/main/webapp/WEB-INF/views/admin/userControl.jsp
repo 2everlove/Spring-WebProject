@@ -33,8 +33,37 @@
 			formData.append('file_pictureId',formFile_pictureId);
 			updateUser(formData, tr);
 		});
+		
+		$(".pwdChaBtn").click(function(){
+			let formData = new FormData();
+			let tr = $(this).closest("tbody");
+			let formUser_id = tr.find(".user_id").val();
+			let formUser_email = tr.find(".user_email").val();
+			let formUser_contact = tr.find(".user_contact").val();
+			let formUser_enabled = tr.find(".user_enabled").val();
+			let formUser_type = tr.find(".user_type").val();
+			let formUser_gender = tr.find(".user_gender").val();
+			let formUser_birth = tr.find(".user_birth").val();
+			let formUser_address = tr.find(".user_address").val();
+			let formUser_interesting = tr.find(".user_interesting").val();
+			let formUser_enabledContent = tr.find(".user_enabledContent").val();
+			let formFile_pictureId = tr.find(".file_pictureId").val();
+			formData.append('user_id', formUser_id);
+			formData.append('user_email', formUser_email);
+			formData.append('user_contact', formUser_contact);
+			formData.append('user_enabled',formUser_enabled);
+			formData.append('user_type',formUser_type);
+			formData.append('user_gender',formUser_gender);
+			formData.append('user_birth',formUser_birth);
+			formData.append('user_address',formUser_address);
+			formData.append('user_interesting',formUser_interesting);
+			formData.append('user_enabledContent',formUser_enabledContent);
+			formData.append('file_pictureId',formFile_pictureId);
+			userPwdSend(formData, tr);
+		});
 	});
 	
+	//유저 정보 업뎃
 	function updateUser(formData, tr){
 		let url = '/admin/userUpdate';
 		console.log(formData);
@@ -49,6 +78,31 @@
 				console.log(datas.result);
 				if(datas.result=="success"){
 					alert(formData.get('user_id')+"("+formData.get('user_email')+")님의 정보가 수정되었습니다.")
+				} else {
+					alert("실패");
+				}
+			},
+			error : function(errorThrown){
+				console.log(errorThrown);
+			}
+		});
+	}
+	
+	//pwd 변경 후 메일
+	function userPwdSend(formData, tr){
+		let url = '/admin/sendEmail';
+		console.log(formData);
+		$.ajax({
+			url : url,
+			method : 'POST',
+			dataType : 'json',
+			processData : false,
+			contentType : false,
+			data : formData,
+			success : function(datas){
+				console.log(datas.result);
+				if(datas.result!="fail"){
+					alert(formData.get('user_id')+"("+formData.get('user_email')+")님의 메일로 변경된 비밀번호를 발송했습니다.")
 				} else {
 					alert("실패");
 				}

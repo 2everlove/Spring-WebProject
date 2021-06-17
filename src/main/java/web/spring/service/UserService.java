@@ -30,7 +30,8 @@ public interface UserService {
 	
 	public UserVO checkId(UserVO user);
 	
-	public UserVO checkPwd(UserVO user);
+	public UserVO checkPwd(UserVO user); //pwd update
 	
 	public int updateUser(UserVO user);
+
 }

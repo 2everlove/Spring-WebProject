@@ -24,6 +24,21 @@
 			)
 		)
 	</select>
+	
+	<!-- id,email로 user정보 가져오기 -->
+	<select id="checkPwd" resultType="web.spring.vo.UserVO">
+		select * from user_info where user_id = #{user_id} and user_email = #{user_email}
+	</select>
+	
+	<!-- uuid로 생성된 pwd 업데이트 -->
+	<update id="pwdUdate">
+		update user_info 
+		<set>
+			<if test="user_password!=null">user_password = #{user_password}</if>
+		</set>
+		where user_id= #{user_id} and user_email= #{user_email}
+	</update>
+	
 		<!-- 로그인 -->
 	<select id="login" resultType="web.spring.vo.UserVO">
 		select * from user_info where User_id=#{User_id}
@@ -47,9 +62,7 @@
 	<select id="checkId" resultType="web.spring.vo.UserVO">
 		select * from user_info where User_name = #{User_name} and User_email = #{User_email}
 	</select>
-	<select id="checkPwd" resultType="web.spring.vo.UserVO">
-		select * from user_info where User_id = #{User_id} and User_email = #{User_email}
-	</select>
+	
 	<update id="updateUser">
 		update user_info 
 		<set>

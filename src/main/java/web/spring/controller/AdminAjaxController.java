@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.Setter;
@@ -41,10 +40,10 @@ public class AdminAjaxController {
 	//productBoard update
 	@PostMapping("/pBoardUpdate")
 	public Map<String, Object> updateBoardList(PBoardVO pBoardVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		log.info(pBoardVO);
 		int res = productService.updatepBoard(pBoardVO);
 		PBoardVO board = productService.getProduct(pBoardVO.getPboard_unit_no());
-		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", board);
 		return map;
 	}
@@ -101,6 +100,20 @@ public class AdminAjaxController {
 			map.put("result", "fail");
 		}
 		model.addAttribute("ovo", ovo);
+		return map;
+	}
+	
+	@PostMapping("/sendEmail")
+	public Map<String, Object> userPwdSend(Model model, UserVO user){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", "fail");
+		if(user!=null) {
+			UserVO dbUser = userService.checkPwd(user);
+			if(dbUser!=null) {
+				log.info("dbUser"+dbUser);
+				map.put("result", dbUser);
+			}
+		}
 		return map;
 	}
 
