@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 function updateOrderList(formData, btn){
 	$.ajax({
-		url : '/updateOrderList',
+		url : '/admin/updateOrderList',
 		method : 'POST',
 		dataType : 'json',
 		processData : false,

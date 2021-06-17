@@ -81,7 +81,7 @@ public class ProductController {
 	public String insertPBoard(PBoardVO pBoardVO) {
 		log.info(pBoardVO);
 		productService.inserPBoard(pBoardVO);
-		return "redirect:/myPage/myPage";
+		return "redirect:/myPage";
 	}
 	
 	//상품 등록 페이지
