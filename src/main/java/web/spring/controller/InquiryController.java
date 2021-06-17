@@ -1,17 +1,23 @@
 package web.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryBoardService;
+import web.spring.service.InquiryReplyService;
 import web.spring.vo.InquiryBoardVO;
+import web.spring.vo.InquiryReplyVO;
 
 @Controller
 @Log4j
@@ -19,70 +25,84 @@ public class InquiryController {
 
 	@Autowired
 	InquiryBoardService service;
+	InquiryReplyService replyService;
 
 	/**
-	 * @author 臾몄쓽�궗�빆 由ъ뒪�듃 遺덈윭�삤湲�
+	 * @author 문의사항 리스트 불러오기
 	 *
 	 */
 	@GetMapping("/inquiry")
 	public String getInquiryBoardList(Model model) {
 		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
-		if(inquiryList!=null) {
+		
+
+		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
 		}
-		System.out.println("inquiry.....");
+		log.info("inquiry.....");
 		return "/inquiry/inquiry";
 	}
 
 	/**
-	 * @author 臾몄쓽�궗�빆 �벑濡� 留ㅽ븨
+	 * @author 문의사항 등록 매핑
 	 */
 
 	@GetMapping("/inquiry_register")
 	public String inquiryRegister() {
-		System.out.println("inquiry_register.....");
+		log.info("inquiry_register.....");
 		return "/inquiry/inquiry_register";
 	}
 
 	/**
-	 * @author 臾몄쓽�궗�빆 �벑濡� �봽濡쒖꽭�뒪 留ㅽ븨
+	 * @author 문의사항 등록 프로세스 매핑
 	 */
 	@PostMapping("/inquiryRegister")
 	public String inquiryRegisterInsert(InquiryBoardVO vo, RedirectAttributes rttr) {
-		System.out.println(vo);
+		log.info(vo);
 		service.insertInquiry(vo);
-		String resMsg = "寃뚯떆湲��씠 �벑濡앸릺�뿀�뒿�땲�떎.";
+		String resMsg = "게시글이 등록되었습니다.";
 		rttr.addFlashAttribute("resMsg", resMsg);
-		return "redirect:/inquiry/inquiry";
+		return "redirect:/inquiry";
 	}
 
 	/**
-	 * @author 臾몄쓽�궗�빆 �긽�꽭蹂닿린 留ㅽ븨
+	 * @author 문의사항 상세보기 매핑
 	 */
 	@GetMapping("/inquiry_detail")
 	public String detailInquiry(String iboard_no, InquiryBoardVO vo, Model model) {
 
 		vo = service.detailInquiry(iboard_no);
+		
 		model.addAttribute("inquiry_detail", vo);
-		System.out.println("inquiry detail...." + iboard_no);
+
+		log.info("inquiry detail...." + iboard_no);
 		return "/inquiry/inquiry_detail";
 	}
 
 	/**
-	 * @author 臾몄쓽�궗�빆 �궘�젣
+	 * @author 문의사항 삭제
 	 */
 	@PostMapping("/inquiry_delete")
 	public String deleteInquiry(InquiryBoardVO vo, RedirectAttributes rttr) {
+
+//		int replyCount = replyService.inquiryReplyCount(vo.getIboard_no());
+//		
+//		log.info(replyCount);
+		
+//		if (replyCount > 0) {
+//			replyService.deleteReply(vo.getIboard_no());
+//		}
+		
 		int res = service.deleteInquiry(vo.getIboard_no());
 		String resMsg = "";
 		if (res > 0) {
-			resMsg = "寃뚯떆湲��씠 �궘�젣�릺�뿀�뒿�땲�떎.";
+			resMsg = "게시글이 삭제되었습니다.";
 			rttr.addFlashAttribute("resMsg", resMsg);
 			return "redirect:/inquiry";
 		} else {
-			resMsg = "�삤瑜섍� 諛쒖깮�뻽�뒿�땲�떎.";
+			resMsg = "오류가 발생했습니다.";
 			rttr.addFlashAttribute("resMsg", resMsg);
-			return "redirect:/inquiry/inquiry_detail";
+			return "redirect:/inquiry";
 		}
 
 	}

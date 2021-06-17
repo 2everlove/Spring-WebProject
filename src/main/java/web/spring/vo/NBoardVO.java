@@ -2,71 +2,18 @@ package web.spring.vo;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class NBoardVO {
 
-	int nboard_no;			//ê³µì?ê¸? ë²ˆí˜¸
-	String nboard_title;		//ê³µì?ê¸? ? œëª?
-	String nboard_content;	//ê³µì?ê¸? ?‚´?š©
-	Date nboard_regDate;		//ê³µì?ê¸? ?“±ë¡ì¼
-	Date nboard_updateDate; 	//ê³µì?ê¸? ?ˆ˜? •?¼
-	String nboard_category;	//ê³µì?ê¸? ë¶„ë¥˜ 'E' : ?´ë²¤íŠ¸ 'N' : ê³µì? 'O'  : ê¸°í?
-	String nboard_public;	//? ê¸´ê? ì²˜ë¦¬ 'Y' : ? ê¹? 'N' : ê³µê°œ
-	String user_id;			//?œ ?? ?•„?´?””
-	String file_pictureId;	//?¸?„¤?¼ ?•„?´?””
-	public int getNboard_no() {
-		return nboard_no;
-	}
-	public void setNboard_no(int nboard_no) {
-		this.nboard_no = nboard_no;
-	}
-	public String getNboard_title() {
-		return nboard_title;
-	}
-	public void setNboard_title(String nboard_title) {
-		this.nboard_title = nboard_title;
-	}
-	public String getNboard_content() {
-		return nboard_content;
-	}
-	public void setNboard_content(String nboard_content) {
-		this.nboard_content = nboard_content;
-	}
-	public Date getNboard_regDate() {
-		return nboard_regDate;
-	}
-	public void setNboard_regDate(Date nboard_regDate) {
-		this.nboard_regDate = nboard_regDate;
-	}
-	public Date getNboard_updateDate() {
-		return nboard_updateDate;
-	}
-	public void setNboard_updateDate(Date nboard_updateDate) {
-		this.nboard_updateDate = nboard_updateDate;
-	}
-	public String getNboard_category() {
-		return nboard_category;
-	}
-	public void setNboard_category(String nboard_category) {
-		this.nboard_category = nboard_category;
-	}
-	public String getNboard_public() {
-		return nboard_public;
-	}
-	public void setNboard_public(String nboard_public) {
-		this.nboard_public = nboard_public;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	public String getFile_pictureId() {
-		return file_pictureId;
-	}
-	public void setFile_pictureId(String file_pictureId) {
-		this.file_pictureId = file_pictureId;
-	}
-	
-	
+	int nboard_no;			//ê³µì§€ê¸€ ë²ˆí˜¸
+	String nboard_title;		//ê³µì§€ê¸€ ì œëª©
+	String nboard_content;	//ê³µì§€ê¸€ ë‚´ìš©
+	Date nboard_regDate;		//ê³µì§€ê¸€ ë“±ë¡ì¼
+	Date nboard_updateDate; 	//ê³µì§€ê¸€ ìˆ˜ì •ì¼
+	String nboard_category;	//ê³µì§€ê¸€ ë¶„ë¥˜ 'E' : ì´ë²¤íŠ¸ 'N' : ê³µì§€ 'O'  : ê¸°íƒ€
+	String nboard_public;	//ì ê¸´ê¸€ ì²˜ë¦¬ 'Y' : ì ê¹€ 'N' : ê³µê°œ
+	String user_id;			//ìœ ì € ì•„ì´ë””
+	String file_pictureId;	//ì¸ë„¤ì¼ ì•„ì´ë””
 }

@@ -17,31 +17,34 @@ import web.spring.service.UserService;
 import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 @Controller
 @Log4j
 public class ProductController {
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private ProductService productService;
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private UserService userService;
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
 	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
-		System.out.println("type.....");
+		log.info("type.....");
 		productService.getTypeList(product_category);
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
 		List<FileVO> fileList = fileService.getTypeListFile(product_category);
-		System.out.println("pList...."+pList);
-		System.out.println("pBList...."+pBList);
-		System.out.println("fileList...."+fileList);
+		List<UserVO> userList = userService.getUserList();
+		log.info("pList...."+pList);
+		log.info("pBList...."+pBList);
+		log.info("fileList...."+fileList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);
@@ -52,7 +55,7 @@ public class ProductController {
 	//product detail page
 	@GetMapping("/pDetail/{no}")
 	public String getDetail(@PathVariable("no") String no, Model model) {
-		System.out.println("pDetail.....");
+		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
@@ -73,18 +76,18 @@ public class ProductController {
 		}
 	}
 	
-	//�긽�뭹 �벑濡� 泥섎━ 援ы쁽
+	//상품 등록 처리 구현
 	@PostMapping("/product/insertProductBoard")
 	public String insertPBoard(PBoardVO pBoardVO) {
-		System.out.println(pBoardVO);
+		log.info(pBoardVO);
 		productService.inserPBoard(pBoardVO);
-		return "redirect:../myPage/myPage";
+		return "redirect:/myPage";
 	}
 	
-	//�긽�뭹 �벑濡� �럹�씠吏�
+	//상품 등록 페이지
 	@GetMapping("/product/productRegister")
 	public void getRegister() {
-		System.out.println("productRegister........");
+		log.info("productRegister........");
 	}
 	
 }

@@ -30,7 +30,7 @@ public class Test {
 	@org.junit.Test
 	public void ojdbcTest() {
 		try(Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "webmanager", "1234");){
-			System.out.println(con);
+			log.info(con);
 			con.close();
 		} catch (Exception e) {
 			e.getMessage();
@@ -44,7 +44,7 @@ public class Test {
 	@org.junit.Test
 	public void hikariCpTest() {
 		try(Connection con = dataSource.getConnection();){
-			System.out.println(con);
+			log.info(con);
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,14 +53,14 @@ public class Test {
 	
 	@org.junit.Test
 	public void mapperTest() {
-		System.out.println(tm.getTime2());
+		log.info(tm.getTime2());
 	}
 	
 	@org.junit.Test
 	public void connDB() {
 		SqlSession sqlSession = factory.openSession();
-		System.out.println(sqlSession.getConnection());
-		System.out.println(tm.getTime());
+		log.info(sqlSession.getConnection());
+		log.info(tm.getTime());
 	}
 	
 }

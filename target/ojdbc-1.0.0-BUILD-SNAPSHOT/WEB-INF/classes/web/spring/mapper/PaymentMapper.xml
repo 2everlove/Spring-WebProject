@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="web.spring.mapper.PaymentMapper">
+
+	<select id="get" resultType="web.spring.vo.UserVO">
+		select User_name, User_address from user_info where User_id = #{User_id}
+	</select>
+	
+	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
+		select pboard_unit_price from product_board where board_unit_no = #{board_unit_no}
+	</select>
+	
+	<insert id="insertOrder">
+		<selectKey resultType="String" order="BEFORE" keyProperty="order_id"> select order_sequence.nextval from dual </selectKey>
+		insert into order_board (order_id, order_address, order_name, order_status, product_id, user_id, order_totalprice, order_totalcount)
+		values (#{order_id}, #{order_address}, #{order_name}, '1', #{product_id}, #{user_id}, #{order_totalprice}, #{order_totalcount})
+	</insert>
+
+	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
+		select * from order_board where user_id = #{user_id} order by order_id
+	</select>
+	
+	<select id="getOrderStatus" resultType="web.spring.vo.OrderVO">
+		select order_status from order_board where order_id = #{order_id}
+	</select>
+	
+	<insert id="insertCart">
+		<selectKey resultType="String" order="BEFORE" keyProperty="cart_id"> select cart_sequence.nextval from dual </selectKey>
+		insert into cart_board (cart_id, user_address, user_name, user_id, product_id, product_name, cart_totalprice, cart_totalcount)
+		values (#{cart_id}, #{user_address}, #{user_name}, #{user_id}, #{product_id}, #{product_name}, #{cart_totalprice}, #{cart_totalcount})
+	</insert>
+	
+	<select id="getCartList" resultType="web.spring.vo.CartVO">
+		select * from cart_board where user_id = #{user_id} order by cart_id desc
+	</select>
+	
+	<delete id="deleteCart">
+		delete from cart_board where cart_id = #{cart_id}
+	</delete>
+</mapper>

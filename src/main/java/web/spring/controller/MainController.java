@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.FileVO;
+import web.spring.vo.NBoardVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
@@ -25,13 +29,13 @@ import web.spring.vo.UserVO;
 @Log4j
 public class MainController {
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private ProductService productService;
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private UserService userService;
 	
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
 	//main
@@ -49,20 +53,28 @@ public class MainController {
 			model.addAttribute("fileList", fileList);
 		if(userList!=null)
 			model.addAttribute("userList", userList);
-		System.out.println("main...........");
+		log.info("main...........");
 	}
 	
 	//mypage
 	@GetMapping("/myPage")
 	public String getMyPage() {
-		System.out.println("mypage.....");
+		log.info("mypage.....");
 		return "/myPage/myPage";
+	}
+	
+	@GetMapping("/popup")
+	public String getPopup(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		NBoardVO vo = (NBoardVO)session.getAttribute("noticeFlag");
+		model.addAttribute("vo", vo);
+		return "/includes/popup";
 	}
 	
 	/*
 	 * @GetMapping("/search") public String getSearch(Model model, String
-	 * product_search) { String tmp = product_search; //��臾몄옄 寃��깋 �궡�슜 �꽆寃⑥＜湲�
-	 * product_search = product_search.toLowerCase().trim(); //�냼臾몄옄濡� 蹂��솚& �븵�뮘 怨듬갚 �젣嫄�
+	 * product_search) { String tmp = product_search; //대문자 검색 내용 넘겨주기
+	 * product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
 	 * if(!product_search.equals("")) { List<ProductVO> pList =
 	 * productService.getSearchProductList(product_search); List<PBoardVO> pBList =
 	 * productService.getSearchBoardList(product_search); List<FileVO> fileList =
@@ -76,8 +88,8 @@ public class MainController {
 	//search
 	@GetMapping("/search")
 	public String getSearchNew(Model model, String product_search) {
-		String tmp = product_search; //��臾몄옄 寃��깋 �궡�슜 �꽆寃⑥＜湲�
-		product_search = product_search.toLowerCase().trim(); //�냼臾몄옄濡� 蹂��솚& �븵�뮘 怨듬갚 �젣嫄�
+		String tmp = product_search; //대문자 검색 내용 넘겨주기
+		product_search = product_search.toLowerCase().trim(); //소문자로 변환& 앞뒤 공백 제거
 		String[] search_array = product_search.split(" ");
 		ArrayList<String> search_list = new ArrayList<String>();
 		for(String keyWord : search_array) {
@@ -98,14 +110,16 @@ public class MainController {
 	//new,sale,event
 	@GetMapping("/cond/{pboard_unit_condition}")
 	public String getType(@PathVariable("pboard_unit_condition") String pboard_unit_condition, Model model) {
-		System.out.println("type.....");
+		log.info("type.....");
 		productService.getTypeList(pboard_unit_condition);
 		List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
 		List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
 		List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
-		System.out.println("pList...."+pList);
-		System.out.println("pBList...."+pBList);
-		System.out.println("fileList...."+fileList);
+		List<UserVO> userList = userService.getUserList();
+		log.info("pList...."+pList);
+		log.info("pBList...."+pBList);
+		log.info("fileList...."+fileList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);

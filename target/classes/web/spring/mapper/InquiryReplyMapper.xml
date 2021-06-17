@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.spring.mapper.InquiryReplyMapper">
+
+
+	<!-- 답변 등록하기 -->
+	<insert id="insertReply">
+
+		<selectKey keyProperty="ireply_no" resultType="int"
+			order="BEFORE">
+			select IREPLY_SEQUENCE.nextval from dual
+		</selectKey>
+
+		INSERT INTO INQUIRY_REPLY VALUES (IREPLY_SEQUENCE.NEXTVAL,
+		#{ireply_content}, sysdate,
+		#{iboard_no})
+	</insert>
+
+	<!-- 답변 불러오기 -->
+	<select id="getInquiryReply"
+		resultType="web.spring.vo.InquiryReplyVO">
+
+		select ireply_content, ireply_regdate
+
+		from inquiry_reply
+		where iboard_no = #{iboard_no}
+
+	</select>
+	
+	<!-- 답변 유무 파악 -->
+	<select id="inquiryReplyCount" resultType="int">
+		SELECT COUNT(*) FROM inquiry_reply WHERE iboard_no = #{iboard_no}
+	</select>
+	
+	<delete id="deleteReply">
+		delete inquiry_reply WHERE iboard_no = #{iboard_no}
+	</delete>
+
+
+
+</mapper>

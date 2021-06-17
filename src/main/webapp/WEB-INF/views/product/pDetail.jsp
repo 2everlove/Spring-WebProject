@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
+<link rel="stylesheet" href="/resources/css/main.css">
 <script type="text/javascript" defer="defer">
 	document.title = '${sellerVO.user_name} : widele';
 	$(document).ready(function() {
@@ -76,7 +77,7 @@
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span>${stocks}</span>
+							재고 <span> ${stocks}</span>
 							<input type="text" value="${stocks}" name="pboard_unit_stocks">
 						<p>
 							<span class="detail__count"><input type="text"
@@ -90,8 +91,6 @@
 									</button>
 								</span>
 							</span>
-						<p>
-							총금액 <span><input type="text" value="${price}" name="order_totalprice" readonly></span>
 						<p>
 							등록일 <span>${regdate}</span>
 						<p>

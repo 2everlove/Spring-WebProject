@@ -28,7 +28,7 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
-	/*�뿬湲곕떎 userupdate�꽔�옄
+	/*여기다 userupdate넣자
 	 * @PostMapping("/")
 	 */
 	@GetMapping("/login")
@@ -43,15 +43,15 @@ public class UserController {
 	
 	@PostMapping("/registerMember")
 	public String registerMember(UserVO user,RedirectAttributes rttr) {
-		System.out.println(userService.insertUser(user));
-		rttr.addFlashAttribute("resMsg",user.getUser_id()+"�떂 �솚�쁺�빀�땲�떎.");
+		log.info(userService.insertUser(user));
+		rttr.addFlashAttribute("resMsg",user.getUser_id()+"님 환영합니다.");
 		return "/member/login";
 	}
 	
 	@GetMapping("/checkIdRepeat/{User_id}")
 	@ResponseBody
 	public String checkIdRepeat(@PathVariable("User_id") String User_id) {
-		//�븘�씠�뵒 以묐났 泥댄겕
+		//아이디 중복 체크
 		UserVO user = userService.checkIdReapet(User_id);
 		if(user != null) {
 			return user.getUser_id();
@@ -67,26 +67,27 @@ public class UserController {
 		session.invalidate();
 		
 		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
-		loginCookie.setMaxAge(0);
-		loginCookie.setPath("/");
-		
-		res.addCookie(loginCookie);
+		if(loginCookie != null) {
+			loginCookie.setMaxAge(0);
+			loginCookie.setPath("/");
+			res.addCookie(loginCookie);
+		}
 		
 		return "/member/login";
 	}
 	
 	@PostMapping("/loginAction")
-	public String loginAction(UserVO vo, Model model, HttpServletRequest req) {
+	public String loginAction(UserVO vo, Model model, HttpServletRequest req,RedirectAttributes rttr) {
 		UserVO user = userService.login(vo);
 		if (user == null) {
-			model.addAttribute("msg","로그인 실패했습니다.ID/PW를 확인 하세요.");
-			return "/login";
+			rttr.addAttribute("msg","로그인 실패했습니다.ID/PW를 확인 하세요.");
+			return "redirect:/login";
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", user);
-			model.addAttribute("msg",user.getUser_id()+"님 환영합니다.");
+			rttr.addAttribute("msg",user.getUser_id()+"님 환영합니다.");
 			//model.addAttribute("user", user);
-			return "/member/loginAction";
+			return "redirect:/main";
 		}//else
 		
 	}//loginAction

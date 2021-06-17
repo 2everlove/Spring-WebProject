@@ -6,13 +6,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.Setter;
 import web.spring.mapper.FileMapper;
 import web.spring.vo.FileVO;
 
 @Service
 public class FileServiceImpl implements FileService{
 
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private FileMapper fileMapper;
 
 	@Override
@@ -65,16 +66,21 @@ public class FileServiceImpl implements FileService{
 		return fileMapper.getCondListFile(pboard_unit_condition);
 	}
 	
-	//寃��깋
+	//검색
 	@Override
 	public List<FileVO> getSearchListFile(Map<String, Object> search_Map) {
 		return fileMapper.getSearchListFile(search_Map);
 	}
 	
-	//硫붿씤
+	//메인
 	@Override
 	public List<FileVO> getMainListFile() {
 		return fileMapper.getMainListFile();
+	}
+
+	@Override
+	public List<FileVO> getListFileAdmin(Map<String, Object> product_Map) {
+		return fileMapper.getListFileAdmin(product_Map);
 	}
 
 }

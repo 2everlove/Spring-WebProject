@@ -19,12 +19,12 @@ import web.spring.vo.FileVO;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class FileMapperTests {
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	private FileMapper fileMapper;
 	
 	@Test
 	public void getSeqTest() {
-		System.out.println(fileMapper.getFileSeq());
+		log.info(fileMapper.getFileSeq());
 	}
 	
 	@Test 
@@ -36,21 +36,21 @@ public class FileMapperTests {
 		fileVO.setFile_uploadPath("file_uploadPath");
 		fileVO.setFile_usingType("3");
 		fileVO.setFile_uuid("file_uuid");
-		System.out.println(fileMapper.fileInsert(fileVO));
+		log.info(fileMapper.fileInsert(fileVO));
 	}
 	
 	@Test
 	public void deleteFile() {
-		System.out.println(fileMapper.fileDelete("24", "file_uuid"));
+		log.info(fileMapper.fileDelete("24", "file_uuid"));
 	}
 	
 	@Test
 	public void product_category() {
-		System.out.println(fileMapper.getTypeListFile("tablet"));
+		log.info(fileMapper.getTypeListFile("tablet"));
 	}
 	@Test
 	public void getMainListFile() {
-		System.out.println(fileMapper.getMainListFile());
+		log.info(fileMapper.getMainListFile());
 	}
 	@Test
 	public void getSearchListFile() {
@@ -64,7 +64,7 @@ public class FileMapperTests {
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search_Map", arr);
-		System.out.println(fileMapper.getSearchListFile(map));
+		log.info(fileMapper.getSearchListFile(map));
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.Setter;
 import web.spring.mapper.NBoardMapper;
 import web.spring.vo.Criteria;
 import web.spring.vo.NBoardVO;
@@ -12,7 +13,7 @@ import web.spring.vo.NBoardVO;
 @Service
 public class NBoardServiceImpl implements NBoardService {
 
-	@Autowired
+	@Setter(onMethod_= @Autowired)
 	NBoardMapper mapper;
 	
 	@Override

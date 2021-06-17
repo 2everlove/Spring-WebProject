@@ -2,14 +2,97 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.spring.mapper.ProductMapper">
+	<!-- 상품관리 -->
 	<select id="getProductList" resultType="web.spring.vo.ProductVO">
-		select * from products_info
+		select product.* from (select rownum num, p.* from products_info p) product where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+	</select>
+	<select id="getProductAllList" resultType="web.spring.vo.ProductVO">
+		select product.* from (select rownum num, p.* from products_info p) product
+	</select>
+	<select id="getAllPBoardList" resultType="web.spring.vo.PBoardVO">
+		select board.* from (select rownum num, pboard.* from (select * from product_board 
+		<trim prefix="order by">
+			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
+			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
+			<if test="orderby=='pboard_unit_condition_asc'">pboard_unit_condition</if>
+			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
+			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
+			<if test="orderby=='pboard_unit_updateDate_asc'">pboard_unit_updateDate</if>
+			<if test="orderby=='pboard_unit_enabled_desc'">TO_NUMBER(pboard_unit_enabled) desc</if>
+			<if test="orderby=='pboard_unit_price_desc'">TO_NUMBER(pboard_unit_price) desc</if>
+			<if test="orderby=='pboard_unit_condition_desc'">pboard_unit_condition desc</if>
+			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
+			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
+			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
+		</trim>
+		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		
+	</select>
+	<select id="getUserPBoardList" resultType="web.spring.vo.PBoardVO">
+		select board.* from (select rownum num, pboard.* from (select * from product_board where user_id = #{user_id}
+		<trim prefix="order by">
+			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
+			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
+			<if test="orderby=='pboard_unit_condition_asc'">pboard_unit_condition</if>
+			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
+			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
+			<if test="orderby=='pboard_unit_updateDate_asc'">pboard_unit_updateDate</if>
+			<if test="orderby=='pboard_unit_enabled_desc'">TO_NUMBER(pboard_unit_enabled) desc</if>
+			<if test="orderby=='pboard_unit_price_desc'">TO_NUMBER(pboard_unit_price) desc</if>
+			<if test="orderby=='pboard_unit_condition_desc'">pboard_unit_condition desc</if>
+			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
+			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
+			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
+		</trim>
+		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+	</select>
+	<select id="getTotal" resultType="int">
+		select count(*) from product_board
+	</select>
+	<select id="getProductTotal" resultType="int">
+		select count(*) from products_info
+	</select>
+	<select id="getPboardUserTotal" resultType="int">
+		select count(*) from product_board where user_id = #{user_id}
+	</select>
+	<select id="getCode" resultType="web.spring.vo.CodeVO">
+		select * from code_info where code_type = #{code_type} and code_value = #{code_value}
 	</select>
 	
+	<insert id="insertCode">
+		insert into code_info(code_no, code_type, code_value) values(code_sequence.nextval, #{code_type}, #{code_value})
+	</insert>
+	
+	<update id="updatepBoard">
+		update product_board
+		<set>
+			<if test="pboard_unit_updateDate==null">pboard_unit_updateDate=sysdate,</if>
+			<if test="pboard_unit_price!=null">pboard_unit_price=#{pboard_unit_price},</if>
+			<if test="pboard_unit_stocks!=null">pboard_unit_stocks=#{pboard_unit_stocks},</if>
+			<if test="pboard_unit_condition">pboard_unit_condition=#{pboard_unit_condition},</if>
+			<if test="pboard_unit_enabled!=null">pboard_unit_enabled=#{pboard_unit_enabled},</if>
+		</set>
+		where pboard_unit_no = #{pboard_unit_no} 
+	</update>
+	<update id="updateProduct">
+		update products_info
+		<set>
+			<if test="product_regdate==null">product_regdate=sysdate,</if>
+			<if test="product_manufacturer!=null">product_manufacturer=#{product_manufacturer},</if>
+			<if test="product_category!=null">product_category=#{product_category},</if>
+			<if test="product_name!=null">product_name=#{product_name},</if>
+			<if test="product_description!=null">product_description=#{product_description, jdbcType=VARCHAR},</if>
+			<if test="product_color!=null">product_color=#{product_color},</if>
+			<if test="file_pictureId!=null">file_pictureId=#{file_pictureId},</if>
+		</set>
+		where product_id = #{product_id} 
+	</update>
+	
+	<!-- 카테고리 불러오기 -->
 	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where product_id in(
+    			select * from product_board where pboard_unit_enabled = '0' and product_id in(
         			select product_id from products_info where product_category=#{product_category}) 
         		) board
         	) pboard where each_rank between 1 and 5
@@ -18,14 +101,14 @@
 	<select id="getCondBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where product_id in(
+    			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info where pboard_unit_condition=#{pboard_unit_condition}) 
         		) board
-        	) pboard where each_rank between 1 and 5
+        	) pboard where each_rank between 1 and 5 
 	</select>
 	
 	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
-		select rownum num, board.* from (select pboard.* from product_board pboard order by TO_NUMBER(pboard_unit_price) asc) board
+		select rownum num, board.* from (select pboard.* from product_board pboard where pboard_unit_enabled = '0' order by TO_NUMBER(pboard_unit_price) asc) board
 	</select>
 	
 	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
@@ -37,15 +120,15 @@
 	</select>
 	
 	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
-		select * from product_board where pboard_unit_no=#{pboard_unit_no}
+		select board.* from (select rownum num, pboard.* from product_board pboard)board where pboard_unit_no=#{pboard_unit_no}
 	</select>
 	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_id=#{product_id}
+		select product.* from (select rownum num, p.* from products_info p)product where product_id=#{product_id}
 	</select>
 	
 	<insert id="productInfoInsert">
 		insert into products_info(product_id, file_pictureId, product_manufacturer, product_name, product_category, product_color, product_description) 
-		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color}, #{product_description})
+		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color, jdbcType=VARCHAR}, #{product_description, jdbcType=VARCHAR})
 	</insert>
 	
 	<delete id="productInfoDelete">
@@ -79,15 +162,15 @@
 	</select>
 	
 	<insert id="inserPBoard">
-		insert into product_board(pboard_unit_no, pboard_unit_price, pboard_unit_condition, pboard_unit_stocks, product_id, user_id, file_pictureId)
-   		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId})
+		insert into product_board(pboard_unit_no, pboard_unit_price, pboard_unit_condition, pboard_unit_stocks, product_id, user_id, file_pictureId, pboard_unit_enabled)
+   		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId}, '0')
 	</insert>
 	
 	<!-- search -->
 	<select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where product_id in(
+    			select * from product_board where pboard_unit_enabled = '0' and product_id in(
         			select product_id from products_info 
 		where product_id in (
 			select product_id from products_info 
@@ -139,16 +222,20 @@
 	<!-- main -->
 	
 	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
-		select pboard.* from (select board.*, row_number() over(partition by product_id order by dbms_random.random) each_rank from product_board board) pboard where each_rank='1'
+		select pboard.* from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank from product_board board where pboard_unit_enabled = '0') pboard where each_rank='1'
 	</select>
 	
 	<select id="getMainProductList" resultType="web.spring.vo.ProductVO">
 		select * from products_info 
 			where product_id in (
 				select pboard.product_id from (
-					select board.*, row_number() over(partition by product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
-						from product_board board) 
+					select board.*, row_number() over(partition by pboard_unit_condition, product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
+						from product_board board where pboard_unit_enabled = '0') 
 					pboard where each_rank='1')
+	</select>
+	
+	<select id="getProductSeq" resultType="String">
+		select products_sequence.nextval from dual
 	</select>
 	
 </mapper>
