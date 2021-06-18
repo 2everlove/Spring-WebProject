@@ -4,11 +4,28 @@
 <mapper namespace="web.spring.mapper.ProductReviewMapper">
 
 
-<!-- 리뷰 불러오기 -->
-	<select id="getProductReviewList" resultType="web.spring.vo.ProductReviewVO">
-		select * from PRODUCT_REVIEW
+	<!-- 리뷰 불러오기 -->
+	<select id="getProductReviewList"
+		resultType="web.spring.vo.ProductReviewVO">
+		select * from PRODUCT_REVIEW where pboard_unit_no =
+		#{pboard_unit_no}
 	</select>
-<!-- 리뷰 불러오기 끝-->
+	<!-- 리뷰 불러오기 끝 -->
+
+	<!-- 리뷰 삽입 -->
+
+	<insert id="insertProductReviewList">
+
+		<selectKey keyProperty="review_num" resultType="int"
+			order="BEFORE">
+			select review_sequence.nextval from dual
+		</selectKey>
+
+		INSERT INTO PRODUCT_REVIEW VALUES (review_sequence.NEXTVAL,
+		#{review_content}, sysdate, #{review_rate}, #{pboard_unit_no},
+		#{user_id})
+	</insert>
+	<!-- 리뷰 삽입 끝 -->
 
 
 

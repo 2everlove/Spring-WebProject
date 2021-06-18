@@ -18,7 +18,7 @@
 		to_char(iboard_regdate,'yyyy-MM-dd')
 		end) iboard_regdate,
 		(select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount
-		from
+		fromx	
 		inquiry_board board order by iboard_no desc
 	</select>  
 

@@ -77,10 +77,10 @@
 					<table class="list">
 						<colgroup>
 							<col style="width: 200px">
-							<col style="width: auto">
+							<col style="width: 400px">
 							<col style="width: 250px">
 							<col style="width: 150px">
-							<col style="width: 100px">
+							<col style="width: auto">
 						</colgroup>
 						<thead>
 							<tr>

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.FileService;
+import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.CodeVO;
+import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
@@ -31,13 +34,16 @@ public class AdminAjaxController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	@Autowired
+	private PaymentService paymentService;
+	
 	//productBoard update
 	@PostMapping("/pBoardUpdate")
 	public Map<String, Object> updateBoardList(PBoardVO pBoardVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		log.info(pBoardVO);
 		int res = productService.updatepBoard(pBoardVO);
 		PBoardVO board = productService.getProduct(pBoardVO.getPboard_unit_no());
-		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", board);
 		return map;
 	}
@@ -77,6 +83,37 @@ public class AdminAjaxController {
 				map.put("result","success");
 		} else {
 			map.put("result", "fail");
+		}
+		return map;
+	}
+	
+	//order upadte
+	@PostMapping("/updateOrderList")
+	public Map<String, Object> updateOrderList(Model model, OrderVO ovo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(ovo != null) {
+			System.out.println(ovo);
+			int res = paymentService.updateOrderList(ovo);
+			if(res > 0)
+				map.put("result","success");
+		} else {
+			map.put("result", "fail");
+		}
+		model.addAttribute("ovo", ovo);
+		return map;
+	}
+	
+	//changed pwd , send
+	@PostMapping("/sendEmail")
+	public Map<String, Object> userPwdSend(Model model, UserVO user){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", "fail");
+		if(user!=null) {
+			UserVO dbUser = userService.checkPwd(user);
+			if(dbUser!=null) {
+				log.info("dbUser"+dbUser);
+				map.put("result", dbUser);
+			}
 		}
 		return map;
 	}

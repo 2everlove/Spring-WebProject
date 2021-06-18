@@ -17,10 +17,16 @@ public class ProductReviewServiceImpl implements ProductReviewService{
 	ProductReviewMapper mapper;
 
 	@Override
-	public List<ProductReviewVO> getProductReviewList() {
-		return mapper.getProductReviewList();
+	public List<ProductReviewVO> getProductReviewList(int pboard_unit_no) {
+		return mapper.getProductReviewList(pboard_unit_no);
 	}
 
+	@Override
+	public int insertProductReviewList(ProductReviewVO vo) {
+		return mapper.insertProductReviewList(vo);
+	}
+
+	
 
 
 

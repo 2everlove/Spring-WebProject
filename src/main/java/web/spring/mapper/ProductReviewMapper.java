@@ -10,7 +10,9 @@ public interface ProductReviewMapper {
 	
 	
 	//해당 제품에 대한 리뷰 불러오기
-	public List<ProductReviewVO> getProductReviewList();
+	public List<ProductReviewVO> getProductReviewList(int pboard_unit_no);
+	
+	public int insertProductReviewList(ProductReviewVO vo); //답변 넣기
 	
 	//@Param("pboard_unit_no") int pboard_unit_no
 

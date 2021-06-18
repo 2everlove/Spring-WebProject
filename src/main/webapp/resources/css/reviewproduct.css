@@ -179,7 +179,7 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
 }
 
 
-.text {
+#text {
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
@@ -187,7 +187,6 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
     z-index: 1;
     float: left;
     width: 100%;
-    height: 50px;
     margin: 0;
     border: none;
     color: #333;
@@ -198,7 +197,6 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
     resize: none;
     box-sizing: border-box;
     font-size: 14px;
-    height: 100%;
     transition: outline-color 0.1s ease-out 0.1s;
 
 }
@@ -272,4 +270,6 @@ textarea:focus {
 .button-position{
 	float: right;
 }
+
+
 

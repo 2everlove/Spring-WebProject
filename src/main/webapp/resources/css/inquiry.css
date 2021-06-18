@@ -82,6 +82,7 @@ table.list {
 	width: 100%;
 	table-layout: fixed;
 	border-bottom: 1px solid #eaeaea;
+	list-style: none;
 }
 
 table.list>thead>tr>th {
