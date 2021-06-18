@@ -2,6 +2,7 @@ package web.spring.vo;
 
 public class CartVO {
 
+	String num;
 	String cart_id;
 	String user_id;
 	String user_name;

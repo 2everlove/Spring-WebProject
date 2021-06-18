@@ -56,8 +56,7 @@
 							name="pboard_unit_no"> <input type="hidden"
 							value="${pBoard.file_pictureId}" name="file_pictureId"> <input
 							type="hidden" value="${pBoard.pboard_unit_price}"
-							name="pboard_unit_price"> <input type="hidden"
-							value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks">
+							name="pboard_unit_price">
 						<input type="hidden" value="${pBoard.product_id}"
 							name="product_id"> <input type="hidden"
 							value="${pBoard.user_id}" name="user_id">
@@ -77,8 +76,8 @@
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span> ${stocks}</span>
-							<input type="text" value="${stocks}" name="pboard_unit_stocks">
+							재고 <span><input type="text" value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks"></span>
+							
 						<p>
 							<span class="detail__count"><input type="text"
 								name="order_totalcount" class="detail__count-input" value="1">
@@ -91,6 +90,8 @@
 									</button>
 								</span>
 							</span>
+						<p>
+							총금액 <span><input type="text" value="${price}" name="order_totalprice" readonly></span>
 						<p>
 							등록일 <span>${regdate}</span>
 						<p>

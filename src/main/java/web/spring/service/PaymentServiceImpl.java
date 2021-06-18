@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import web.spring.mapper.PaymentMapper;
 import web.spring.vo.CartVO;
+import web.spring.vo.Criteria;
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.UserVO;
@@ -38,8 +39,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<CartVO> getCartList(String user_id) {
-		return mapper.getCartList(user_id);
+	public List<CartVO> getCartList(String user_id, Criteria cri) {
+		return mapper.getCartList(user_id, cri.getPageNo(), cri.getAmount());
 	}
 
 	@Override
@@ -48,8 +49,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<OrderVO> getOrderList(String user_id) {
-		return mapper.getOrderList(user_id);
+	public List<OrderVO> getOrderList(String user_id, Criteria cri) {
+		return mapper.getOrderList(user_id, cri.getPageNo(), cri.getAmount());
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<OrderVO> getOrderAllList(OrderVO ovo) {
-		return mapper.getOrderAllList(ovo);
+	public List<OrderVO> getOrderAllList(Criteria cri) {
+		return mapper.getOrderAllList(cri);
 	}
 
 	@Override
@@ -69,7 +70,21 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public int updateStocks(PBoardVO pvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.updateStocks(pvo);
+	}
+
+	@Override
+	public int getOrderListTotal(String user_id, Criteria cri) {
+		return mapper.getOrderListTotal(user_id, cri.getPageNo(), cri.getAmount());
+	}
+
+	@Override
+	public int getOrderAllListTotal(Criteria cri) {
+		return mapper.getOrderAllListTotal(cri);
+	}
+
+	@Override
+	public int getCartListTotal(String user_id, Criteria cri) {
+		return mapper.getCartListTotal(user_id, cri.getPageNo(), cri.getAmount());
 	}
 }

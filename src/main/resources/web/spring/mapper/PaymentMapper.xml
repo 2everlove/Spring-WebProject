@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
-		select pboard_unit_price from product_board where board_unit_no = #{board_unit_no}
+		select pboard_unit_stocks from product_board where pboard_unit_no = #{pboard_unit_no}
 	</select>
 	
 	<update id="updateStocks">
@@ -25,11 +25,19 @@
 	</insert>
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
-		select * from order_board where user_id = #{user_id} order by order_id
+		select order_board.* from (select row_number() over(order by order_board.order_id desc) num, order_board.* from order_board where user_id = #{user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+	</select>
+	
+	<select id="getOrderListTotal" resultType="int">
+		select count(*) from order_board where user_id = #{user_id}
 	</select>
 	
 	<select id="getOrderAllList" resultType="web.spring.vo.OrderVO">
-		select * from order_board order by order_id
+		select order_board.* from (select row_number() over(order by order_board.order_id desc) num, order_board.* from order_board) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+	</select>
+	
+	<select id="getOrderAllListTotal" resultType="int">
+		select count(*) from order_board
 	</select>
 	
 	<select id="getOrderStatus" resultType="web.spring.vo.OrderVO">
@@ -43,7 +51,11 @@
 	</insert>
 	
 	<select id="getCartList" resultType="web.spring.vo.CartVO">
-		select * from cart_board where user_id = #{user_id} order by TO_NUMBER(cart_id) desc
+		select cart_board.* from (select row_number() over(order by cart_board.cart_id desc) num, cart_board.* from cart_board where user_id = #{user_id}) cart_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+	</select>
+	
+	<select id="getCartListTotal" resultType="int">
+		select count(*) from cart_board where user_id = #{user_id}
 	</select>
 	
 	<delete id="deleteCart">

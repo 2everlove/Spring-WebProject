@@ -20,8 +20,10 @@ import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.CartVO;
+import web.spring.vo.Criteria;
 import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
+import web.spring.vo.PageNavi;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
 
@@ -59,6 +61,8 @@ public class PaymentController {
 	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo) {
 		int res = paymentService.insertOrder(ovo);
 		int res2 = paymentService.updateStocks(pvo);
+		System.out.println("pvo===========" + pvo);
+		System.out.println("res2===============" + res2);
 		model.addAttribute("ovo", ovo);
 		model.addAttribute("pvo", pvo);
 		return "redirect:/orderList";
@@ -70,6 +74,7 @@ public class PaymentController {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		if(user != null) {
+			userVO = paymentService.get(user.getUser_id());
 			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
 			model.addAttribute("uvo", userVO);
 			model.addAttribute("pBoard", pBoard);
@@ -80,21 +85,24 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/cartAction")
-	public String cartAction(Model model, CartVO cvo, PBoardVO pvo) {
+	public String cartAction(Model model, CartVO cvo, PBoardVO pBoard) {
 		int res = paymentService.insertCart(cvo);
 		model.addAttribute("cvo", cvo);
-		model.addAttribute("pvo", pvo);
+		model.addAttribute("pBoard", pBoard);
 		return "redirect:/cartList";
 	}
 	
 	@GetMapping("/cartList")
-	public String insertCart(Model model, HttpServletRequest rq) {
+	public String insertCart(Model model, HttpServletRequest rq, PBoardVO pBoard, Criteria cri) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		System.out.println("=================user"+user);
 		if(user != null) {
-			List<CartVO> list = paymentService.getCartList(user.getUser_id());
+			List<CartVO> list = paymentService.getCartList(user.getUser_id(), cri);
 			model.addAttribute("list", list);
+			model.addAttribute("pBoard", pBoard);
+			model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getCartListTotal(user.getUser_id(), cri)));
+			System.out.println("pBoard================" + pBoard);
 			return "/order/cartList";
 		}
 		return "/member/login";
@@ -127,12 +135,13 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/orderList")
-	public String orderList(Model model, HttpServletRequest rq, OrderVO ovo) {
+	public String orderList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		if(user != null) {
-			List<OrderVO> list = paymentService.getOrderList(user.getUser_id());
+			List<OrderVO> list = paymentService.getOrderList(user.getUser_id(), cri);
 			model.addAttribute("list", list);
+			model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderListTotal(user.getUser_id(), cri)));
 			return "/order/orderList";
 		}
 		return "/member/login";

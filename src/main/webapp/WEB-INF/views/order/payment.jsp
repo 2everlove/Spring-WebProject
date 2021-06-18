@@ -48,7 +48,7 @@
 				</div>
 				<div class="content2">
 					<label>재고수</label>
-					<input class="view" name="pboard_unit_stocks" value="${param.pboard_unit_stocks}">
+					<input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}">
 				</div>
 			</fieldset>
 			<button type="submit" id="button" class="detail__btn payment">결제</button>
