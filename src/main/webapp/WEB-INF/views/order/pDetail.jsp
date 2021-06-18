@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
-<link rel="stylesheet" href="/resources/css/main.css">
 <script type="text/javascript" defer="defer">
 	document.title = '${sellerVO.user_name} : widele';
 	$(document).ready(function() {
@@ -54,10 +53,10 @@
 					<div>
 						<input type="hidden" value="${pBoard.pboard_unit_no}"
 							name="pboard_unit_no"> <input type="hidden"
-							value="${pBoard.file_pictureId}" name="file_pictureId">
-						<input type="hidden" value="${pBoard.pboard_unit_price}"
-							name="pboard_unit_price">
-						<input type="hidden" value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks">
+							value="${pBoard.file_pictureId}" name="file_pictureId"> <input
+							type="hidden" value="${pBoard.pboard_unit_price}"
+							name="pboard_unit_price"> <input type="hidden"
+							value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks">
 						<input type="hidden" value="${pBoard.product_id}"
 							name="product_id"> <input type="hidden"
 							value="${pBoard.user_id}" name="user_id">
@@ -77,7 +76,7 @@
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span> ${stocks}</span>
+							재고 <span>${stocks}</span>
 							<input type="text" value="${stocks}" name="pboard_unit_stocks">
 						<p>
 							<span class="detail__count"><input type="text"

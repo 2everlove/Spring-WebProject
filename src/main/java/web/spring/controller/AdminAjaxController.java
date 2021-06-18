@@ -103,6 +103,7 @@ public class AdminAjaxController {
 		return map;
 	}
 	
+	//changed pwd , send
 	@PostMapping("/sendEmail")
 	public Map<String, Object> userPwdSend(Model model, UserVO user){
 		Map<String, Object> map = new HashMap<String, Object>();
