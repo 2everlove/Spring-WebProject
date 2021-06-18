@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import web.spring.mapper.UserMapper;
-import web.spring.vo.Criteria;
 import web.spring.vo.UserVO;
 
 @Service
@@ -29,7 +28,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserVO login(UserVO user) {
-		return  userMapper.login(user);
+		 UserVO tmpVo = userMapper.getUser(user.getUser_id());
+		 System.out.println(tmpVo);
+		 System.out.println(user);
+
+		 if(tmpVo!=null) {
+			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			 System.out.println(encoder.matches(user.getUser_password(), tmpVo.getUser_password()));
+			 if (encoder.matches(user.getUser_password(), tmpVo.getUser_password())) {
+				 return this.userMapper.login(user); 
+			 }
+			 
+		 }
+		 	return null;
 	}
 
 
@@ -59,29 +70,44 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO checkId(UserVO user) {
-		return userMapper.checkId(user);
+	public String searchId(UserVO user) {
+		return userMapper.searchId(user);
 	}
 
 	@Override
-	public UserVO checkPwd(UserVO user) {
-		return userMapper.checkPwd(user);
+	public UserVO searchPwd(UserVO user) {
+		return userMapper.searchPwd(user);
 	}
 
 
 	@Override
-	public int updateUser(UserVO user) {
-		return userMapper.updateUser(user);
-	}
+	 public boolean updateUser(UserVO user) {
+	    UserVO tmpVo = getUser(user.getUser_id());
+	    System.out.println("tmpVo"+tmpVo);
+	    System.out.println("user"+user);
+	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	    if (encoder.matches(user.getTmp_password(), tmpVo.getUser_password())) {
+	    	String encode = encoder.encode(user.getUser_password());
+	    	user.setUser_password(encode);
+	    	userMapper.updateUser(user);
+	    	return true;
+	    } 
+	    return false;
+	  }
+
+	public String getUser_type(String User_id) {
+	    return userMapper.getUser_type(User_id);
+	  }
+	
+	 public int updatePwd(UserVO user) {
+		    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		    String encodePwd = encoder.encode(user.getUser_password());
+		    user.setUser_password(encodePwd);
+		    return userMapper.updatePwd(user);
+		  }
 
 	@Override
-	public List<UserVO> getAllUserList(Criteria cri) {
-		return userMapper.getAllUserList(cri);
+	public String getFileSeq() {
+		return userMapper.getFileSeq();
 	}
-
-	@Override
-	public int getUserTotal(Criteria cri) {
-		return userMapper.getUserTotal(cri);
-	}
-
 }

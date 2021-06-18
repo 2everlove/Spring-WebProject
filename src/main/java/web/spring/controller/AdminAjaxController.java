@@ -4,20 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.FileService;
-import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.CodeVO;
-import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
@@ -34,9 +30,6 @@ public class AdminAjaxController {
 	
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
-	
-	@Autowired
-	private PaymentService paymentService;
 	
 	//productBoard update
 	@PostMapping("/pBoardUpdate")
@@ -79,28 +72,12 @@ public class AdminAjaxController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userVO != null) {
 			System.out.println(userVO);
-			int res = userService.updateUser(userVO);
-			if(res > 0)
+			boolean res = userService.updateUser(userVO);
+			if(res ==true)
 				map.put("result","success");
 		} else {
 			map.put("result", "fail");
 		}
-		return map;
-	}
-	
-	//order upadte
-	@PostMapping("/updateOrderList")
-	public Map<String, Object> updateOrderList(Model model, OrderVO ovo) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if(ovo != null) {
-			System.out.println(ovo);
-			int res = paymentService.updateOrderList(ovo);
-			if(res > 0)
-				map.put("result","success");
-		} else {
-			map.put("result", "fail");
-		}
-		model.addAttribute("ovo", ovo);
 		return map;
 	}
 

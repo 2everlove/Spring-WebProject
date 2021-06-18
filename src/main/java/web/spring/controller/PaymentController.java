@@ -151,6 +151,31 @@ public class PaymentController {
 		return "/member/login";
 	}
 	
+	@GetMapping("/orderAllList")
+	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user != null) {
+			List<OrderVO> list = paymentService.getOrderAllList(ovo);
+			model.addAttribute("list", list);
+			return "/order/orderAllList";
+		}
+		return "/member/login";
+	}
 	
-	
+	@PostMapping("/updateOrderList")
+	@ResponseBody
+	public Map<String, Object> updateOrderList(Model model, OrderVO ovo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(ovo != null) {
+			System.out.println(ovo);
+			int res = paymentService.updateOrderList(ovo);
+			if(res > 0)
+				map.put("result","success");
+		} else {
+			map.put("result", "fail");
+		}
+		model.addAttribute("ovo", ovo);
+		return map;
+	}
 }

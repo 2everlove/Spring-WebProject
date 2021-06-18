@@ -16,26 +16,23 @@ function detailBtn(url){
 	document.detailForm.submit();
 }
 </script>
-
 	 <section class="section__content">
 	
 	  <div id="nboard-wrapper">
-            <!-- /.row -->
+	  	<h2 class="page_title">공지사항</h2>
             <div id="nboard_upper"></div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            상세글보기
-                        </div>
-                        <!-- /.panel-heading -->
+            <div class="contents">
+                <div class="default_cell">
+                    <div class="">
                         <div class="panel-body">
                         	<!-- 잠긴글처리 -->
+                        	
+                        	<%-- <c:if test="${sessionScope.user.user_id== }"></c:if> --%>
                         	<c:choose>
-                        		<c:when test="${vo.nboard_public=='Y'}">
+                        		<c:when test="${vo.nboard_public=='0' && sessionScope.user.user_type!='0'}">
 		                            <div class="form-group">
 		                                <label>제목</label>
-		                                <input readonly class="form-control" value="잠긴글입니다.">
+		                                <input readonly class="form-control" value="비공개글입니다.">
 		                            </div>
 		                            <div class="form-group">
 		                                <label>분류</label>
@@ -43,7 +40,7 @@ function detailBtn(url){
 		                            </div>
 		                            <div class="form-group">
 		                                <label>내용</label>
-		                                <textarea readonly class="form-control" rows="3">잠긴글입니다.</textarea>
+		                                <textarea readonly class="form-control" rows="3">비공개글입니다.</textarea>
 		                            </div>
 		                            <div class="form-group">
 		                                <label>작성자</label>
@@ -77,8 +74,10 @@ function detailBtn(url){
 		                            </div>
 	                            </c:otherwise>
                             </c:choose>
-                            <button type="button" onClick="detailBtn('/nboard/update')" class="btn btn-default">수정</button>
-							<button class="btn btn-default" onClick="detailBtn('/nboard/delete')">삭제</button>
+                            <button type="button" onClick="detailBtn('/nboard/nboardUpdate')" class="btn btn-default">수정</button>
+							<c:if test="${sessionScope.user.user_id==vo.user_id ||sessionScope.user.user_type=='0'}">
+								<button class="btn btn-default" onClick="detailBtn('/nboard/delete')">삭제</button>
+							</c:if>
 							<button class="btn btn-default" onClick="detailBtn('/nboard/nboardList')">목록</button>
 	
 						<form method="get" name="detailForm">

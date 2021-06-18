@@ -39,7 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
 		System.out.println("interceptor===================user : "+user);
-		System.out.println("useCookie======================"+request.getParameter("useCookie"));
+		System.out.println("useCookie======================"+request.getAttribute("useCookie"));
 		
 		//로그인 성공했다면 자동로그인 쿠키 생성 getAttribute아님 파라메터값을 가지고옴
 		if(user!=null&&request.getParameter("useCookie")!=null) {

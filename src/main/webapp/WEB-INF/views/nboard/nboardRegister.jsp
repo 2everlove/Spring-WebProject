@@ -11,7 +11,7 @@ function registerSubmit(){
 	$("select[nboard_category]").val();
 }
 </script>
-
+	
 	 <section class="section__content">
 	<form action="/nboard/nboardRegister" name="registerForm" method="post">
 	  <div id="nboard-wrapper">
@@ -30,17 +30,17 @@ function registerSubmit(){
                             	<p><label>nboard_content</label>
                             		<textarea name=nboard_content>${vo.nboard_content }</textarea></p>
                             	<p><label>user_id</label>
-                            		<input name="user_id" value="${vo.user_id }">
+                            		<input name="user_id" value="${sessionScope.user.user_id }" readonly>
                             	<p><label>category</label>
                             		<select name="nboard_category" >
-                            			<option value="E">이벤트</option>
-                            			<option value="N">공지</option>
-                           				<option value="O">기타</option>
+                            			<option value="1">이벤트</option>
+                            			<option value="0">공지</option>
+                           				<option value="2">기타</option>
 									</select></p>
                             	<p><label>file_pictureId</label>
                             	<input name="file_pictureId" value="${vo.file_pictureId }"></p>
                             	<input type="button" onClick="registerSubmit()" value="등록"> 
-                            
+                            	<input type="hidden" name ="nboard_public" value="1" >
 						</div>	<!-- panel-body -->
 					</div>	<!-- panel panel-default -->
 				</div><!-- col-lg-12 -->

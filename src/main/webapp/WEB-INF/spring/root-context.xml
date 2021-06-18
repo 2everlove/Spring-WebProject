@@ -39,5 +39,6 @@
 	<mybatis-spring:scan base-package="web.spring.mapper"/>
 	
 	<context:component-scan base-package="web.spring.service"/>	
-
+	<util:properties id="prop" location="classpath:config.properties"></util:properties>
+	
 </beans>

@@ -17,69 +17,34 @@ import web.spring.service.UserService;
 import web.spring.vo.UserVO;
 
 
-public class AuthInterceptor extends HandlerInterceptorAdapter{
-	
-	@Autowired
-	UserService userService;
-	
-	/**
-	 * This implementation always returns {@code true}.
-	 */
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		HttpSession session = request.getSession();
-		UserVO user = (UserVO)session.getAttribute("user");
-		
-		// 만약 유저객체가 널이라면 = 로그인 하지 않은 사용자가 접근 했다면
-		// 자동로그인 처리
-		if(user == null) {
-			// 자동로그인이 가능 한 사용자인지 판단
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-			if(loginCookie != null) {
-				user = userService.loginSessionkey(loginCookie.getValue());
-				// 로그인 처리 : 세션에 유저 객체를 생성 합니다.
-				session.setAttribute("user", user);				
-			}
-			
-		}
-		
-		// 로그인 OK
-		if( user != null) {
-			// ROLE_USER 권한 체크
-			if(Integer.parseInt(user.getUser_type())==0) {
-				return true;	
-			} else if(Integer.parseInt(user.getUser_type())==1) {
-				return true;
-			} else if(Integer.parseInt(user.getUser_type())==2) {
-				return true;
-			} else {
-				System.out.println(request.getRequestURI());
-				System.out.println(request.getQueryString());
-				
-				String tmpUri = request.getRequestURI();
-				String queryString = request.getQueryString();
-				if(!StringUtils.isEmpty(queryString)) {
-					tmpUri += "?"+queryString; 
-				} 
-				session.setAttribute("tmpUrl", tmpUri);
-				
-				response.sendRedirect("/login");
-				return false;
-			}
-			
-		} else {
-			response.sendRedirect("/login");
-			return false;
-		}
-		
+public class AuthInterceptor extends HandlerInterceptorAdapter {
+	  @Autowired
+	  UserService userService;
+	  
+	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	    HttpSession session = request.getSession();
+	    UserVO user = (UserVO)session.getAttribute("user");
+	    if (user == null) {
+	      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+	      if (loginCookie != null) {
+	        user = this.userService.loginSessionkey(loginCookie.getValue());
+	        session.setAttribute("user", user);
+	      } 
+	    } 
+	    if (user != null) {
+	      if (Integer.parseUnsignedInt(user.getUser_type()) <= 0)
+	        return true; 
+	      String tmpUri = request.getRequestURI();
+	      String queryString = request.getQueryString();
+	      if (!StringUtils.isEmpty(queryString))
+	        tmpUri = String.valueOf(tmpUri) + "?" + queryString; 
+	      session.setAttribute("tmpUrl", tmpUri);
+	      response.sendRedirect("/login");
+	      return false;
+	    } 
+	    response.sendRedirect("/login");
+	    return false;
+	  }
+	  
+	  public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {}
 	}
-
-	/**
-	 * This implementation is empty.
-	 */
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			@Nullable ModelAndView modelAndView) throws Exception {
-	}
-}

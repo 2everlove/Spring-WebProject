@@ -38,8 +38,6 @@ public class registerInterceptor extends HandlerInterceptorAdapter{
 		//세션에 user객체 생성시점:/loginAction
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
-		System.out.println("interceptor===================user : "+user);
-		System.out.println("useCookie======================"+request.getAttribute("useCookie"));
 		
 		//StringUtils.isEmpty(request.getAttribute("useCookie"));
 		

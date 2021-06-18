@@ -29,19 +29,24 @@ function detail(nboard_no){
 	 <section class="section__content">
 	
 	  <div id="nboard-wrapper">
-            <!-- /.row -->
+	  <h2 class="page_title">공지 게시판</h2>
             <div id="nboard_upper"></div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+            <div id="contents">
+                <div class="default_cell">
+                        <div class="">
                            <button type="button" class="btn btn-default" onclick="location.href='/nboard/nboardRegister'">등록</button>
                         </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" >
-                                <thead>
-                                    <tr class="odd gradeX">
+                    <div class="table_data">
+                            <table class="list">
+                                <colgroup width="80vw">
+                                	<col style="width: 10vw;">
+									<col style="width: 15vw;">
+									<col style="width: 15vw;">
+									<col style="width: 10vw;">
+									<col style="width: auto;">
+								</colgroup>
+								<thead>
+                                    <tr>
                                         <th>번호</th>
                                         <th>제목</th>
                                         <th>내용</th>
@@ -52,17 +57,17 @@ function detail(nboard_no){
                                 <tbody>
 		                            <c:forEach var="vo" items="${list}">
 		                            	<c:choose>
-		                            	<c:when test="${vo.nboard_public=='Y'}">
-		                                	<tr class="odd gradeX">
-		                             			<td>${vo.nboard_no }</td>
-		                                        <td onClick=detail(${vo.nboard_no})><a href="#">잠긴글</a></td>
-		                                        <td>잠긴글</td>
+		                            	<c:when test="${vo.nboard_public=='0'}">
+		                                	<tr>
+		                             			<td>${vo.nboard_no}</td>
+		                                        <td onClick=detail(${vo.nboard_no})><a href="#">비공개글</a></td>
+		                                        <td>비공개글</td>
 		                                        <td>${vo.user_id }</td>
 		                                        <td class="center">${vo.nboard_regDate }</td>
 		                                    </tr>
 		                                 </c:when>
 		                                 <c:otherwise>
-		                                	<tr class="odd gradeX">
+		                                	<tr>
 		                             			<td>${vo.nboard_no }</td>
 		                                        <td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }</a></td>
 		                                        <td>${vo.nboard_content}</td>
@@ -81,13 +86,13 @@ function detail(nboard_no){
                                 </c:if>
                                 </tbody>
                             </table>
-						</div>	<!-- panel-body -->
-					</div>	<!-- panel panel-default -->
+						</div>	
+					</div>	
 					
 					<!-- 페이징 소스 -->
 					<div id="pagination-box">
-						<nav>
-							<ul class="pagination">
+						<nav style="display: table-cell;vertical-align: middle;">
+							<ul class="pagination centered">
 								<c:if test="${pageNavi.prev}">
 									<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
 								</c:if>
@@ -127,9 +132,8 @@ function detail(nboard_no){
 							</div>
 							</form>
 							<!-- 검색 끝 -->
-				</div><!-- col-lg-12 -->
-			</div>	<!-- row -->
+				</div>
+			</div>
 			<!-- Heading -->
-		</div>	<!-- nboard-wrapper -->
 	</section>
 <jsp:include page="../includes/footer.jsp"/>
