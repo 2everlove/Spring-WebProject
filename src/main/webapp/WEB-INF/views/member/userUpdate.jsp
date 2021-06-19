@@ -31,7 +31,7 @@
 			}
 			$("input[name=User_id]").prop("dataValue",false);	//User_id의 dataValue 값에 false 반환
 			$.ajax({
-				url : 'memberUpdate'
+				url : '/memberUpdate',
 				method : 'get',
 				dataType : 'json',
 				success : function(data){

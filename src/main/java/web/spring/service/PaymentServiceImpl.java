@@ -69,7 +69,6 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public int updateStocks(PBoardVO pvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.updateStocks(pvo);
 	}
 }

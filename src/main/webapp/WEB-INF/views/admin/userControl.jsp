@@ -115,6 +115,16 @@
 </script>
 <script type="text/javascript">
 	document.title='마이페이지 : widele';
+	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+	        }
+	    }).open();
+	</script>
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
@@ -147,6 +157,7 @@
 			    				
 			    			</tr>
 			    			<c:forEach var="user" items="${userList}">
+			    				
 			    				<tbody>
 				    				<tr data-num="1">
 				    					<td rowspan="2" style="width: 30px;">${user.num}</td>
@@ -162,11 +173,18 @@
 					    			</tr>
 					    			<tr data-num="2" style="border-bottom: 3px solid black;">
 					    				<td><input type="text" name="user_gender" class="user_gender" value="${user.user_gender}"></td>
-					    				<td><input type="text" name="user_birth" class="user_birth" value="${user.user_birth}"></td>
+					    				<td><input type="date" name="user_birth" class="user_birth" value="${user.user_birth}"></td>
 					    				<td><input type="text" name="user_address" class="user_address" value="${user.user_address}"></td>
 					    				<td><input type="text" name="user_interesting" class="user_interesting" value="${user.user_interesting}"></td>
 					    				<td><input type="text" name="user_enabledContent" class="user_enabledContent" value="${user.user_enabledContent}"></td>
-					    				<td><img alt="" src=""><input type="text" name="file_pictureId" class="file_pictureId" value="${user.file_pictureId}"></td>
+					    				<c:forEach var="file" items="${fileList}">
+				    						<c:if test="${user.file_pictureId eq file.file_pictureId}">
+				    							<c:url value="/fileDisplay" var="urlThum">
+										    		<c:param name="file_name" value="${file.file_savePath}"></c:param>
+										    	</c:url>
+							    				<td><img src="${urlThum}" style="width: 80px; height: 50px;"><input type="hidden" name="file_pictureId" class="file_pictureId" value="${user.file_pictureId}"></td>
+				    						</c:if>
+					    				</c:forEach>
 				    				</tr>
 			    				</tbody>
 			    			</c:forEach>

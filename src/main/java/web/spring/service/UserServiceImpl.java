@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
 	@Setter(onMethod_= {@Autowired})
 	MailService ms;
 	
-	
-
 	@Override
 	public UserVO getUser(String user_id) {
 		return userMapper.getUser(user_id);
@@ -96,6 +94,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int getUserTotal(Criteria cri) {
 		return userMapper.getUserTotal(cri);
+	}
+
+	@Override
+	public List<UserVO> getAllUser() {
+		return userMapper.getAllUser();
 	}
 
 

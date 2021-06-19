@@ -17,6 +17,9 @@ public interface UserMapper {
 	
 	public List<UserVO> getUserList(); 
 	
+	//admin 전체 유저 목록
+	public List<UserVO> getAllUser(); 
+	
 	public List<UserVO> getAllUserList(Criteria cri);
 	
 	public int getUserTotal(Criteria cri);

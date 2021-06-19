@@ -6,8 +6,28 @@
 		select * from user_info where user_id = #{user_id}
 	</select>
 	
+	<!-- admin 전체 목록 불러오기 -->
+	<select id="getAllUser" resultType="web.spring.vo.UserVO">
+		select * from user_info
+	</select>
+	
 	<select id="getAllUserList" resultType="web.spring.vo.UserVO">
-		select us.* from (select rownum num, u.* from user_info u) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+		select us.* from (select rownum num, 
+			u.user_id, 
+			u.user_email,
+			u.user_name, 
+			u.user_password, 
+			u.user_contact, 
+			u.user_enabled, 
+			u.user_type, 
+			u.user_regdate, 
+			u.user_gender,
+			to_char(u.user_birth, 'YYYY-MM-DD') as user_birth,
+			u.user_address,
+			u.user_interesting,
+			file_pictureId
+		
+			from user_info u) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	
 	<select id="getUserTotal" resultType="int">
