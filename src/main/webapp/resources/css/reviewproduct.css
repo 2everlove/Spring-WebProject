@@ -98,13 +98,21 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
 }
 
 .u_cbox .u_cbox_name .u_cbox_nick_area {
-	display: inline-block;
+	display: inline;
 	overflow: hidden;
 	float: left;
 	max-width: 50%;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+
+
+
+.trash{
+	display: inline;
+	padding-left: 5px;
+}
+
 
 .u_cbox_date {
 	float: left;
@@ -123,12 +131,24 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
 	letter-spacing: -.3px;
 }
 
+.list{
+	text-indent: 0px !important;
+}
+
 .u_cbox_comment .u_cbox_text_wrap {
 	overflow: hidden;
 	font-size: 13px;
 	line-height: 18px;
 	word-break: break-all;
 	word-wrap: break-word;
+}
+
+.u_cbox_contents{
+	margin-top: 10px;
+	position: relative;
+	overflow-wrap: break-word;
+	
+	
 }
 
 .c_cbox_rating {
@@ -154,7 +174,7 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
     overflow: hidden;
     top: 11px;
     bottom: 0;
-    left: 12px;
+    left: 20px;
     height: 23px;
     font-size: 15px;
     color: #000;
@@ -222,6 +242,7 @@ textarea:focus {
     line-height: normal;
     left: 15px;
     top: 14px;
+    float: left;
     
 }
 
@@ -258,7 +279,7 @@ textarea:focus {
     bottom: 8px;
     height: 30px;
     width: 44px;
-    background: #4978f4;
+    background: #a29bfe;
     border-radius: 3px;
     border: none;
     color: #fff;
@@ -269,7 +290,54 @@ textarea:focus {
 
 .button-position{
 	float: right;
+	position: relative;
+	right: 12px;
+	top: 8px;
+	
 }
 
+div .list{
+	text-decoration: none;
+	list-style: none;
+}
+
+.jq-stars{
+	position: relative;
+	float: right;
+	top: 9px;
+	right: 17px;
+}
+
+#output_userid{
+	position: relative;
+	float: left;
+	top: 9px;
+	left: 13px;
+}
+
+.comment_section_login{
+	width: 50%;
+	height: 300px;
+	border: 1px solid #d0d0d0;
+    border-radius: 4px;
+	margin: 0 auto;
+	margin-top: 50px;
+	display: table;
+}
+
+.login_text{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.login_needed{
+	color: #a29bfe;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+}
 
 

@@ -124,7 +124,41 @@
 					</table>
 					<!-- list -->
 				<span style="display: none">${sessionScope.user.user_id}</span> <!-- 유저 아이디 히든처리 -->
-					<div class="paging_wrap">
+				 <nav aria-label="...">
+							  
+							  <ul class="pagination">
+							  
+							  <!-- prev 표시 -->
+							  <c:if test="${pageNavi.prev }">
+							    <li class="page-item" onClick="javascript:page(${pageNavi.startPage-1});">
+							      <a class="page-link" href="#" tabindex="-1">Previous</a>
+							    </li>
+							  </c:if>
+							  <c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
+							  
+							  	<c:choose>
+							  		<c:when test="${page eq pageNavi.cri.pageNo }">
+									  	<li class="page-item active" onClick="page(${page})">
+									      <a class="page-link" href="#" >${page } <span class="sr-only">(current)</span></a>
+									    </li>
+								    </c:when>
+								  	<c:otherwise>
+								    	<li class="page-item" onClick="page(${page})"><a class="page-link" href="#">${page }</a></li>
+								    </c:otherwise>
+							  	</c:choose>
+							  
+							  </c:forEach>
+							  <!-- next 표시 -->
+							  <c:if test="${pageNavi.next }">
+							    <li class="page-item" onClick="page(${pageNavi.endPage + 1})">
+							      <a class="page-link" href="#">Next</a>
+							    </li>
+							  </c:if>
+							  </ul>
+							  
+							</nav>
+						    <!-- 페이지끝 -->
+<!-- 					<div class="paging_wrap">
 						<div class="paging">
 							<div>
 								<ol class="pagination">
@@ -133,7 +167,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- table_data -->
 				<p class="btn_pop_page">
 					 <button type="button" class="inquiry_button">문의하기</button> 

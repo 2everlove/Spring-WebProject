@@ -26,6 +26,11 @@ public class ProductReviewServiceImpl implements ProductReviewService{
 		return mapper.insertProductReviewList(vo);
 	}
 
+	@Override
+	public int deleteProductReviewList(int review_num) {
+		return mapper.deleteProductReviewList(review_num);
+	}
+
 	
 
 

@@ -103,7 +103,7 @@
 			<br>
 			<br>
 			<br>
-		<div class="comment_write_section"><span class="comment_admin">관리자 영역 댓글</span><textarea id="ireply_content" name="ireply_content" rows="20" class="ireply_content" wrap="hard" style="white-space: pre;"></textarea></div>
+		<div class="comment_write_section"><span class="comment_admin">관리자 영역 댓글</span><textarea id="ireply_content" name="ireply_content" rows="20" class="ireply_content" wrap="hard"></textarea></div>
 		<div>
 			<button id="replyInsertBtn">작성</button>
 		</div>

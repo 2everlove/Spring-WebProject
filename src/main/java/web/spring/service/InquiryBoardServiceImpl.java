@@ -39,6 +39,11 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 		return mapper.deleteInquiry(iboard_no);
 	}
 
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
+	}
+
 	
 	
 	

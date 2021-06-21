@@ -16,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryBoardService;
 import web.spring.service.InquiryReplyService;
+import web.spring.vo.Criteria;
 import web.spring.vo.InquiryBoardVO;
 import web.spring.vo.InquiryReplyVO;
+import web.spring.vo.PageNavi;
 
 @Controller
 @Log4j
@@ -32,12 +34,13 @@ public class InquiryController {
 	 *
 	 */
 	@GetMapping("/inquiry")
-	public String getInquiryBoardList(Model model) {
+	public String getInquiryBoardList(Criteria cri, Model model) {
 		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
 		
 
 		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
+			model.addAttribute("pageNavi", new PageNavi(cri, service.getTotal(cri)));
 		}
 		log.info("inquiry.....");
 		return "/inquiry/inquiry";
