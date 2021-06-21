@@ -83,16 +83,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	 public boolean updateUser(UserVO user) {
 	    UserVO tmpVo = getUser(user.getUser_id());
-	    System.out.println("tmpVo"+tmpVo);
-	    System.out.println("user"+user);
+	    System.out.println("tmpVo:"+tmpVo);
+	    System.out.println("user:"+user);
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	    if (encoder.matches(user.getTmp_password(), tmpVo.getUser_password())) {
+	    if (encoder.matches(user.getTmp_password(), tmpVo.getUser_password())==true) {
 	    	String encode = encoder.encode(user.getUser_password());
 	    	user.setUser_password(encode);
 	    	userMapper.updateUser(user);
 	    	return true;
-	    } 
-	    return false;
+	    } else {
+	    	return false;
+	    }
 	  }
 
 	public String getUser_type(String User_id) {

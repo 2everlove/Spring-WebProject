@@ -5,6 +5,9 @@
 <%@include file="../includes/header.jsp" %>
 
 <script type="text/javascript">
+if('${resMsg}' != ''){
+	alert('${resMsg}');	
+}
 $(document).ready(function(){
 	
 }); 

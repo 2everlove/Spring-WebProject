@@ -80,16 +80,15 @@ public class UserController {
 	}
 
 	@PostMapping("/userUpdate")
-	public String updateMember(UserVO user, Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String updateMember(UserVO user, HttpServletRequest req, HttpServletResponse res, RedirectAttributes rttr) {
 		boolean update = service.updateUser(user);
-		String resMsg="회원 수정에 성공하였습니다.";
+		String resMsg="회원정보가 수정되었습니다.";
 		if (update == true) { // userService에서 기존 비밀번호와 복호화된 db의 비밀번호가 일치하면 db값을 수정하고 true를 넘겨받음.
 			// 세션과 쿠키를 다시 처리하는
 			HttpSession session = req.getSession();
 			service.login(user); // 다시 로그인
 			session.setAttribute("user", user); // 다시 session처리
 			Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
-
 			if (loginCookie != null) {
 				loginCookie.setMaxAge(60*60*24*7);	//갱신할지 그대로 둘지 상담
 				loginCookie.setPath("/");
@@ -98,8 +97,7 @@ public class UserController {
 		} else {
 			resMsg="회원수정 오류입니다.";
 		}
-		model.addAttribute("updateResult",update);
-		model.addAttribute("updateResultMsg", resMsg);
+		rttr.addFlashAttribute("resMsg",resMsg);
 		return "redirect:/getUser" ;
 	}
 

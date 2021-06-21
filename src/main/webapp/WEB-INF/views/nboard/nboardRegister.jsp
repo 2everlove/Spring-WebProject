@@ -8,8 +8,23 @@
 <script type="text/javascript">
 function registerSubmit(){
 	document.registerForm.submit();
-	$("select[nboard_category]").val();
 }
+$(document).ready(
+		function() {
+			$('#nboard_content').on(
+					'keyup',
+					function() {
+						$('#nboard_content_wordcount').html(
+								"(" + $(this).val().length + " / 500자)");
+
+						if ($(this).val().length > 500) {
+							$(this).val($(this).val().substring(0, 500));
+							$('#nboard_content_wordcount').html(
+									"(500 / 500자)");
+							alert("글자수가 초과했습니다.");
+						}
+					});
+		});
 </script>
 	
 	 <section class="section__content">
@@ -17,37 +32,60 @@ function registerSubmit(){
 	  <div id="nboard-wrapper">
             <!-- /.row -->
             <div id="nboard_upper"></div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            
-                            	<p><label>nboard_title</label>
-                            		<input name="nboard_title" value="${vo.nboard_title}"></p>
-                            	<p><label>nboard_content</label>
-                            		<textarea name=nboard_content>${vo.nboard_content }</textarea></p>
-                            	<p><label>user_id</label>
-                            		<input name="user_id" value="${sessionScope.user.user_id }" readonly>
-                            	<p><label>category</label>
-                            		<select name="nboard_category" >
-                            			<option value="1">이벤트</option>
-                            			<option value="0">공지</option>
-                           				<option value="2">기타</option>
-									</select></p>
-                            	<p><label>file_pictureId</label>
-                            	<input name="file_pictureId" value="${vo.file_pictureId }"></p>
+            <div id="nboard-wrapper">
+                <h2 class="page_title">공지사항/신규등록</h2>
+                    <div class="contents">
+                        <div class="default_cell">
+                       <div class="table_data">
+                            <table class="view">
+                            <colgroup>
+								<col style="width: 25vw;">
+								<col style="width: auto;">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th class="nboardGet_th">카테고리</th>
+									<td><select name="nboard_category">
+											<option value="1">이벤트</option>
+											<option value="0">공지</option>
+											<option value="2">기타</option>
+									</select></td>
+								</tr>
+								<tr>
+									<th class="nboardGet_th">제목</th>
+									<td><input name="nboard_title" value="${vo.nboard_title}" style="width:40vw;"></td>
+								</tr>
+								<tr>
+									<th class="nboardGet_th">작성자</th>
+									<td><input type="hidden" name="file_pictureId"
+										value="${sessionScope.user.file_pictureId }"> 
+										<input name="user_id" value="${sessionScope.user.user_id }" readonly></td>
+								</tr>
+								<tr style="min-height: 40vw;">
+									<th class="vertical_t">내용
+										<p id="nboard_content_wordcount">(0 / 500자)</p>
+									</th>
+									<td colspan="3"><textarea id="nboard_content"
+											name="nboard_content" wrap="hard"
+											style="width: 65vw; height: 30vh;">${vo.nboard_content}</textarea></td>
+								</tr>
+								<tr>
+									<th class="vertical_t">공개/비공개</th>
+									<td>
+									<select name="nboard_public">
+											<option value='1'>공개</option>
+											<option value='0'>잠긴글</option>
+									</select>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
                             	<input type="button" onClick="registerSubmit()" value="등록"> 
-                            	<input type="hidden" name ="nboard_public" value="1" >
-						</div>	<!-- panel-body -->
-					</div>	<!-- panel panel-default -->
-				</div><!-- col-lg-12 -->
-			</div>	<!-- row -->
-			<!-- Heading -->
-			
-		
+						</div>	
+					</div>	
+				</div>
+			</div>	
 			
 		</div>	<!-- nboard-wrapper -->
 		</form>

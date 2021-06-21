@@ -34,16 +34,16 @@ function detail(nboard_no){
             <div id="contents">
                 <div class="default_cell">
                         <div class="">
-                           <button type="button" class="btn btn-default" onclick="location.href='/nboard/nboardRegister'">등록</button>
+                           <button type="button" class="registerBtn" onclick="location.href='/nboard/nboardRegister'">등록</button>
                         </div>
                     <div class="table_data">
                             <table class="list">
-                                <colgroup width="80vw">
-                                	<col style="width: 10vw;">
-									<col style="width: 15vw;">
-									<col style="width: 15vw;">
-									<col style="width: 10vw;">
-									<col style="width: auto;">
+                                <colgroup >
+                                	<col style="width: 10%;">
+									<col style="width: 20%;">
+									<col style="width: 30%;">
+									<col style="width: 10%;">
+									<col style="width: auto;"> 
 								</colgroup>
 								<thead>
                                     <tr>
@@ -117,7 +117,6 @@ function detail(nboard_no){
 					<!-- 검색 -->
 							<form method=get action=/nboard/nboardList name=listForm>
 	                            <!-- 상세보기 검색 유지용 -->
-	                            ${pageNavi.cri.type }
 	                            <input type=hidden name=nboard_no>
 	                            <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
 	                            <!-- 상세보기 검색 유지용 끝 -->
@@ -128,7 +127,7 @@ function detail(nboard_no){
 	                                <option value=user_id <c:if test="${pageNavi.cri.type == 'user_id'}">selected</c:if>>작성자</option>
 	                            </select>
 	                            <input class="form-control" name=keyword value=${pageNavi.cri.keyword } >
-	                            <button type="submit" onClick="page(1)" class="btn btn-default">검색</button>
+	                            <button type="submit" onClick="page(1)">검색</button>
 							</div>
 							</form>
 							<!-- 검색 끝 -->

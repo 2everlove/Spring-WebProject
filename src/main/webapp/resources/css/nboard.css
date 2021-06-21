@@ -7,7 +7,7 @@
 }
 #nboard_upper{
 	width:100%;
-	height: 20%;
+	height: 10%;
 }
 
 
@@ -37,22 +37,29 @@
 	min-height: 400px;
 	margin: 0 auto;
 }
-
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 .table_data {
 	position: relative;
 	border-top: 1px solid #222;
 }
-
+table.view {
+    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 table.list {
 	list-style:none;
 	width: 100%;
 	table-layout: fixed;
 	border-bottom: 1px solid #eaeaea;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 table.list>thead>tr>th {
 	padding: 15px 10px;
-	font-weight: 500;
+	font-weight: bold;
 	background: #f8f8f8;
 	border-bottom: 1px solid #eaeaea;
 	vertical-align: middle;
@@ -70,15 +77,35 @@ table.list>tbody>tr>td {
 	line-height: 26px;
 	font-size: 15px;
 }
+/* nboardGet */
+table.view > tbody > tr > th {
+    padding: 12px 15px;
+    font-weight: bold;
+    background: #f8f8f8;
+    border-bottom: 1px solid #eaeaea;
+    border-right: 1px solid #efefef;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 26px;
+    font-size: 15px;
+}
+
+table.view > tbody > tr > td {
+    padding: 12px 15px;
+    font-weight: 400;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 26px;
+    font-size: 15px;
+}
+
 
 table.list>tbody>tr>td.title {
 	text-align: left;
 }
 
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 
 colgroup {
 	display: table-column-group;
@@ -94,6 +121,10 @@ tr {
 	display: table-row;
 	vertical-align: inherit;
 	border-color: inherit;
+}
+td {
+    display: table-cell;
+    vertical-align: inherit;
 }
 
 a {
@@ -120,6 +151,27 @@ a:link, a:visited {
 	text-align: center;
 }
 
+.registerBtn {
+	background: #DED0F2;
+	display: inline-block;
+	min-width: 40px;
+	height: 30px;
+	padding: 0 10px;
+	font-size: 15px;
+	line-height: 30px;
+	text-align: center;
+	box-sizing: border-box;
+	transition: color .4s, border .4s, background .4s ease;
+	border-radius: 3px;
+	border: 0.5px #c0c0c0;
+	color: white;
+}
+.registerBtn:hover{
+	background: #D1C2F2;
+	cursor: pointer;
+	transition: color .4s, border .4s, background .4s ease;
+	
+}
 .notice_button {
 	background: #a29bfe;
 	display: inline-block;
@@ -138,9 +190,56 @@ a:link, a:visited {
 	border: 0.5px #c0c0c0;
 	color: white;
 }
-
+.notice_button_green{
+	background: teal;
+	display: inline-block;
+	min-width: 120px;
+	height: 50px;
+	padding: 0 25px;
+	font-size: 18px;
+	line-height: 50px;
+	text-align: center;
+	box-sizing: border-box;
+	transition: color .4s, border .4s, background .4s ease;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	min-width: 100px;
+	border: 0.5px #c0c0c0;
+	color: white;
+}
+.notice_button_gray{
+	background: #aaaaaa;
+	display: inline-block;
+	min-width: 120px;
+	height: 50px;
+	padding: 0 25px;
+	font-size: 18px;
+	line-height: 50px;
+	text-align: center;
+	box-sizing: border-box;
+	transition: color .4s, border .4s, background .4s ease;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	min-width: 100px;
+	border: 0.5px #c0c0c0;
+	color: white;
+}
 .notice_button:hover{
 	background: #877dff;
+	cursor: pointer;
+	transition: color .4s, border .4s, background .4s ease;
+	
+}
+.notice_button_green:hover{
+	background: #006666;
+	cursor: pointer;
+	transition: color .4s, border .4s, background .4s ease;
+	
+}
+.notice_button_gray:hover{
+	background: #cccccc;
 	cursor: pointer;
 	transition: color .4s, border .4s, background .4s ease;
 	

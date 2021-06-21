@@ -57,6 +57,12 @@
     box-sizing: border-box;
     text-align: center;
 }
+.login-button:hover{
+	background:#006666;
+	cursor: pointer;
+	transition: color .4s, border .4s, background .4s ease;
+	
+}
 .login-group{
 	min-height: 40px;
     line-height: 40px;

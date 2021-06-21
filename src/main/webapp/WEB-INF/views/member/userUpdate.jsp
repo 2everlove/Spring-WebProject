@@ -15,8 +15,6 @@ $(document).ready(function(){
 	viewFile(file_pictureId);
 		
 		
-		
-		
 	 $("#userUpdateBtn").on("click", function(e){
 		e.preventDefault();
 		console.log("${updateResultMsg}");
@@ -45,15 +43,13 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		
-		if(!
-			$("#User_password").val() === $("#pwdCheck").val()
-				){
-			 		alert("새로운 비밀번호가 일치하지 않습니다.");
-			 		return false;
+		if(pwdCheck!=User_password){
+	 		alert("새로운 비밀번호가 일치하지 않습니다.");
+	 		return false;
 		}
 		
 		$("#userUpdateForm").submit();
+		alert(resMsg);
 	});//userUpdateBtn
 	
 	 $("#uploadBtn").on("click",function(){
@@ -76,7 +72,6 @@ $(document).ready(function(){
 					let file_pictureId = "";
 					console.log("result.file_pictureId"+result.file_pictureId);
 					viewFile(result.file_pictureId);
-					
 					
 				}
 			})

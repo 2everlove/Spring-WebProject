@@ -65,7 +65,7 @@
 			select nboard_sequence.nextval from dual
 		</selectKey>
 		insert into notice_board (nboard_no, nboard_title, nboard_content,  nboard_category, nboard_public, user_id, file_pictureId)
-		values (nboard_sequence.nextval, #{nboard_title}, #{nboard_content},  #{nboard_category}, #{nboard_public}, #{user_id}, #{file_pictureId})
+		values (#{nboard_no}, #{nboard_title}, #{nboard_content},  #{nboard_category}, #{nboard_public}, #{user_id}, #{file_pictureId})
 	</insert>
 	
 </mapper>

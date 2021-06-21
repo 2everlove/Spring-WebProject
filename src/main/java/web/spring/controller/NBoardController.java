@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
+import web.spring.service.FileService;
 import web.spring.service.NBoardService;
+import web.spring.service.UserService;
 import web.spring.vo.Criteria;
+import web.spring.vo.FileVO;
 import web.spring.vo.NBoardVO;
 import web.spring.vo.PageNavi;
 import web.spring.vo.UserVO;
@@ -19,8 +22,11 @@ import web.spring.vo.UserVO;
 public class NBoardController {
 
 	@Autowired
-	NBoardService service;
-	
+	public NBoardService service;
+	@Autowired
+	public FileService fileService;
+	@Autowired
+	public UserService userService;
 	
 	@GetMapping("/nboard/nboardGet")
 	public String get(Criteria cri, NBoardVO vo, Model model) {
