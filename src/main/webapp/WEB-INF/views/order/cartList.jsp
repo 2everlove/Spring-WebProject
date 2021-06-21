@@ -101,7 +101,7 @@ $(document).ready(function(){
 					</c:forEach>
 					<c:if test="${list.size() == 0 }">
 						<tr>
-							<td colspan='7' align="center">게시글이 존재하지 않습니다.</td>
+							<td colspan='9' align="center">게시글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 
