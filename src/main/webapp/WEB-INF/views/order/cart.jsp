@@ -48,7 +48,7 @@ $(document).ready(function(){
 				</div>
 				<div class="content2">
 					<label>재고수</label>
-					<input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}">
+					<input class="view" name="pboard_unit_stocks" value="${cookie.pboard_unit_stocks.value}">
 				</div>
 			</fieldset>
 			<button type="submit" class="detail__btn cart">장바구니 담기</button>

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
 <!DOCTYPE html>
 <html>
 <head>

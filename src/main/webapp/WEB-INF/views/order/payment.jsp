@@ -19,7 +19,6 @@
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input class="view" type="text" name="pboard_unit_no" value="${cookie.pboard_unit_no.value}">
 					<input class="view" type="text" name="cart_id" value="${cvo.cart_id}">
 					<input class="view" type="hidden" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>

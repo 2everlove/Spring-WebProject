@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +94,7 @@ $(document).ready(function(){
 							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
-							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${pBoard.pboard_unit_stocks}'>
+							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cookie.pboard_unit_stocks.value}'>
 								<button type="button" id="orderBtn">주문</button></a>
 							</td>
 						</tr>

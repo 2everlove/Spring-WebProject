@@ -46,7 +46,7 @@ public class PaymentController {
 	
 	@GetMapping("/payment")
 	public String getPayment(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq,
-			@CookieValue(value="pboard_unit_no", required=false) Cookie cookie) {
+			@CookieValue(value="pboard_unit_stocks", required=false) Cookie cookie) {
 		PBoardVO pBoard = pBoardVO;
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
@@ -58,7 +58,7 @@ public class PaymentController {
 			model.addAttribute("productVO", productVO);
 			model.addAttribute("cvo", cvo);
 			if(cookie != null)
-				pBoard.setPboard_unit_no(cookie.getValue());
+				pBoard.setPboard_unit_stocks(cookie.getValue());
 			log.info("cvo"+cvo.getCart_id());
 			return "/order/payment";
 		}
@@ -66,30 +66,33 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/productOrder")
-	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo) {
+	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo,
+			@CookieValue(value="pboard_unit_no", required=false) Cookie cookie) {
 		int res = paymentService.insertOrder(ovo);
 		int res2 = paymentService.deleteCart(cvo.getCart_id());
-		pvo = paymentService.getProduct(pvo.getPboard_unit_no());
 		int res3 = paymentService.updateStocks(pvo);
 		System.out.println("pvo===========" + pvo);
 		System.out.println("res2===============" + res2);
 		model.addAttribute("ovo", ovo);
 		model.addAttribute("pvo", pvo);
+		if(cookie != null)
+			pvo.setPboard_unit_no(cookie.getValue());
 		return "redirect:/orderList";
 	}
 	
 	@GetMapping("/cart")
-	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq, HttpServletResponse response) {
+	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq,
+			HttpServletResponse response) {
 		PBoardVO pBoard = pBoardVO;
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		Cookie cookie = new Cookie("pboard_unit_no", pBoardVO.getPboard_unit_no());
+		Cookie cookie = new Cookie("pboard_unit_stocks", pBoardVO.getPboard_unit_stocks());
 		if(user != null) {
 			userVO = paymentService.get(user.getUser_id());
 			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
 			if(cookie != null) {
 				cookie.setMaxAge(0);
-				pBoardVO.setPboard_unit_no(null);
+				pBoardVO.setPboard_unit_stocks(null);
 			}
 			model.addAttribute("uvo", userVO);
 			model.addAttribute("pBoard", pBoard);
@@ -113,7 +116,7 @@ public class PaymentController {
 	
 	@GetMapping("/cartList")
 	public String insertCart(Model model, HttpServletRequest rq, PBoardVO pBoard, CartVO cvo, Criteria cri,
-			@CookieValue(value="pboard_unit_no", required=false) Cookie cookie) {
+			@CookieValue(value="pboard_unit_stocks", required=false) Cookie cookie) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		System.out.println("=================user"+user);
@@ -124,7 +127,7 @@ public class PaymentController {
 			model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getCartListTotal(user.getUser_id(), cri)));
 			System.out.println("pBoard================" + pBoard);
 			if(cookie != null)
-				pBoard.setPboard_unit_no(cookie.getValue());
+				pBoard.setPboard_unit_stocks(cookie.getValue());
 			model.addAttribute("cookie", cookie);
 			return "/order/cartList";
 		}
