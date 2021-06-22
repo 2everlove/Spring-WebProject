@@ -14,7 +14,7 @@ public interface PaymentMapper {
 	
 	public UserVO get(String User_id);
 	
-	public PBoardVO getProduct(String board_unit_no);
+	public PBoardVO getProduct(String pboard_unit_no);
 	
 	public int updateStocks(PBoardVO pvo);
 	

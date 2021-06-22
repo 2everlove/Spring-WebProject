@@ -10,10 +10,6 @@
 		select User_name, User_address from user_info where User_id = #{User_id}
 	</select>
 	
-	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
-		select pboard_unit_stocks from product_board where pboard_unit_no = #{pboard_unit_no}
-	</select>
-	
 	<update id="updateStocks">
 		update product_board set pboard_unit_stocks = #{pboard_unit_stocks} where product_id = #{product_id}
 	</update>
@@ -25,7 +21,7 @@
 	</insert>
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
-		select order_board.* from (select row_number() over(order by order_board.order_id desc) num, order_board.* from order_board where user_id = #{user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		select order_board.* from (select rownum num, order_board.* from order_board where user_id = #{user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
 	<select id="getOrderListTotal" resultType="int">
@@ -33,7 +29,7 @@
 	</select>
 	
 	<select id="getOrderAllList" resultType="web.spring.vo.OrderVO">
-		select order_board.* from (select row_number() over(order by order_board.order_id desc) num, order_board.* from order_board) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		select order_board.* from (select rownum num, order_board.* from order_board) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
 	<select id="getOrderAllListTotal" resultType="int">
@@ -51,7 +47,7 @@
 	</insert>
 	
 	<select id="getCartList" resultType="web.spring.vo.CartVO">
-		select cart_board.* from (select row_number() over(order by cart_board.cart_id desc) num, cart_board.* from cart_board where user_id = #{user_id}) cart_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		select cart_board.* from (select rownum num, cart_board.* from cart_board where user_id = #{user_id}) cart_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
 	<select id="getCartListTotal" resultType="int">
@@ -66,4 +62,7 @@
 		update order_board set order_status=#{order_status} where order_id=#{order_id}
 	</update>
 	
+	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
+		select pboard_unit_stocks from product_board where pboard_unit_no=#{pboard_unit_no}
+	</select>
 </mapper>

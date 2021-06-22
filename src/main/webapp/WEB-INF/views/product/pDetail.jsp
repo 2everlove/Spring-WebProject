@@ -76,7 +76,7 @@
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span><input type="text" value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks"></span>
+							재고 <span><input type="text" value="${stocks}" name="pboard_unit_stocks"></span>
 							
 						<p>
 							<span class="detail__count"><input type="text"

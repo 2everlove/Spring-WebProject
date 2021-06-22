@@ -24,11 +24,6 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public PBoardVO getProduct(String pboard_unit_no) {
-		return mapper.getProduct(pboard_unit_no);
-	}
-
-	@Override
 	public int insertOrder(OrderVO ovo) {
 		return mapper.insertOrder(ovo);
 	}
@@ -86,5 +81,10 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public int getCartListTotal(String user_id, Criteria cri) {
 		return mapper.getCartListTotal(user_id, cri.getPageNo(), cri.getAmount());
+	}
+
+	@Override
+	public PBoardVO getProduct(String pboard_unit_no) {
+		return mapper.getProduct(pboard_unit_no);
 	}
 }

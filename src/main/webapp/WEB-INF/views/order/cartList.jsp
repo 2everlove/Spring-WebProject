@@ -80,7 +80,6 @@ $(document).ready(function(){
 						<th>개수</th>
 						<th></th>
 						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -93,18 +92,17 @@ $(document).ready(function(){
 							<td class="center">${cvo.product_name}</td>
 							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
-							<td class="center"><input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}"></td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
-							<td class="center"><a href='/payment?product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${pBoard.pboard_unit_stocks}'>
-							<button type="button" id="orderBtn">주문</button></a></td>
+							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${pBoard.pboard_unit_stocks}'>
+								<button type="button" id="orderBtn">주문</button></a>
+							</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${list.size() == 0 }">
 						<tr>
-							<td colspan='9' align="center">게시글이 존재하지 않습니다.</td>
+							<td colspan='8' align="center">게시글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
-
 				</tbody>
 			</table>
 			<div class="button">

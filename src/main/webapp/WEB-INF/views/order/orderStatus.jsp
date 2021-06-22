@@ -137,7 +137,7 @@
 			</div>
 		</div>
 		</c:if>
-</div>
+	</div>
 </section>
 </html>
 <%@include file="../includes/footer.jsp"%>

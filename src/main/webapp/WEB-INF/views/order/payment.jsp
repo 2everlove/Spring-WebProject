@@ -19,7 +19,9 @@
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input class="view" name="user_id" value="${sessionScope.user.user_id}">
+					<input class="view" type="text" name="pboard_unit_no" value="${cookie.pboard_unit_no.value}">
+					<input class="view" type="text" name="cart_id" value="${cvo.cart_id}">
+					<input class="view" type="hidden" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>
 					<input class="view" name="order_name" value="${uvo.user_name}">
 				</div>
@@ -48,7 +50,7 @@
 				</div>
 				<div class="content2">
 					<label>재고수</label>
-					<input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}">
+					<input class="view" name="pboard_unit_stocks" value="${param.pboard_unit_stocks}">
 				</div>
 			</fieldset>
 			<button type="submit" id="button" class="detail__btn payment">결제</button>

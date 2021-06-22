@@ -14,6 +14,7 @@ import lombok.extern.log4j.Log4j;
 import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
+import web.spring.vo.CartVO;
 import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
@@ -54,7 +55,7 @@ public class ProductController {
 	
 	//product detail page
 	@GetMapping("/pDetail/{no}")
-	public String getDetail(@PathVariable("no") String no, Model model) {
+	public String getDetail(@PathVariable("no") String no, Model model, CartVO cvo) {
 		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
@@ -67,6 +68,7 @@ public class ProductController {
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
 				model.addAttribute("fileThumList", fileThumList);
 				model.addAttribute("fileDescList", fileDescList);
+				model.addAttribute("stocks", cvo.getStocks());
 				return "/product/pDetail";
 			} else {
 				return "/error";
