@@ -28,8 +28,8 @@
 <!-- prefix-free -->
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>
-<script>
-	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&"
+<script defer>
+	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&";
 	let country = "region="+window.navigator.language.substring(3,5);
 	let lang = "&language="+window.navigator.language.substring(0,2);
 	let callback = "&callback=initMap&libraries=places,&v=weekly";
@@ -56,7 +56,7 @@
 		    "</div>" +
 		    '<h1 id="firstHeading" class="firstHeading">WorldJobFriend</h1>' +
 		    '<div id="bodyContent">' +
-		    "<p><b>ワールドジョブフレンド</b>, Springを利用したプロジェクト " +
+		    "<p><b>ワールドジョブフレンド</b>, Springを利用したプロジェクト </p>" +
 		    '<p><span style="color:blue;"><b>プロジェクト名</b> : Widele</span>, <b><a href="https://google.co.kr/maps/@'+lat1+','+lng1+','+zoom1+'z" target="_blank">' +
 		    "Our Location&lt;Link&gt;</a></b></p> " +
 		    "</div>" +

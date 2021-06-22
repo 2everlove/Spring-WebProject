@@ -78,6 +78,7 @@ public class AdminAjaxController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userVO != null) {
 			System.out.println(userVO);
+			userVO.setUser_address(userVO.getUser_address().trim());
 			int res = userService.updateUser(userVO);
 			if(res > 0)
 				map.put("result","success");
