@@ -7,10 +7,13 @@
 	<!-- 리뷰 불러오기 -->
 	<select id="getProductReviewList"
 		resultType="web.spring.vo.ProductReviewVO">
-		select * from PRODUCT_REVIEW where pboard_unit_no =
-		#{pboard_unit_no}
+		select review_num, review_content, review_regdate,
+		review_rate, pboard_unit_no, user_id
+		from PRODUCT_REVIEW product where pboard_unit_no = #{pboard_unit_no}
 	</select>
 	<!-- 리뷰 불러오기 끝 -->
+
+
 
 	<!-- 리뷰 삽입 -->
 
@@ -32,6 +35,14 @@
 		delete PRODUCT_REVIEW where review_num=#{review_num}
 	</delete>
 	<!-- 리뷰 삭제 끝 -->
+	
+		<!-- 리뷰 삭제 -->
+	<select id="countProductReply" resultType="int">
+		select count(*) from PRODUCT_REVIEW WHERE pboard_unit_no = #{pboard_unit_no}
+	</select>
+	<!-- 리뷰 삭제 끝 -->
+	
+	
 
 
 

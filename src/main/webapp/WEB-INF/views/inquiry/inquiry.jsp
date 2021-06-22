@@ -14,6 +14,15 @@
 	if ('${resMsg}' != '') {
 		alert('${resMsg}');
 	}
+	
+	function page(page){
+		document.listForm.action="/inquiry";
+		console.log("페이지",page);
+		document.listForm.pageNo.value=page;
+		document.listForm.submit();
+		
+	}
+	
 /* 	window.onpageshow = function(event) {
 	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
 	       history.pushState(null, document.title, location.href);
@@ -126,37 +135,40 @@
 				<span style="display: none">${sessionScope.user.user_id}</span> <!-- 유저 아이디 히든처리 -->
 				 <nav aria-label="...">
 							  
-							  <ul class="pagination">
-							  
-							  <!-- prev 표시 -->
-							  <c:if test="${pageNavi.prev }">
-							    <li class="page-item" onClick="javascript:page(${pageNavi.startPage-1});">
-							      <a class="page-link" href="#" tabindex="-1">Previous</a>
-							    </li>
-							  </c:if>
-							  <c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
-							  
-							  	<c:choose>
-							  		<c:when test="${page eq pageNavi.cri.pageNo }">
-									  	<li class="page-item active" onClick="page(${page})">
-									      <a class="page-link" href="#" >${page } <span class="sr-only">(current)</span></a>
-									    </li>
-								    </c:when>
-								  	<c:otherwise>
-								    	<li class="page-item" onClick="page(${page})"><a class="page-link" href="#">${page }</a></li>
-								    </c:otherwise>
-							  	</c:choose>
-							  
-							  </c:forEach>
-							  <!-- next 표시 -->
-							  <c:if test="${pageNavi.next }">
-							    <li class="page-item" onClick="page(${pageNavi.endPage + 1})">
-							      <a class="page-link" href="#">Next</a>
-							    </li>
-							  </c:if>
-							  </ul>
-							  
-							</nav>
+							  	<!-- 페이징 소스 -->
+					<div id="pagination-box">
+						<nav style="display: table-cell; vertical-align: middle; ">
+							<ul class="pagination centered" style="height:15px;">
+								<c:if test="${pageNavi.prev}">
+									<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
+								</c:if>
+								<c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
+									<c:choose>
+										<c:when test="${page eq pageNavi.cri.pageNo }">
+											<li onClick="page(${page })"><a href="#" style="background-color: #A19AFD;">${page }</a></li> <!-- 현재페이지 -->
+										</c:when>
+										<c:otherwise>
+											<li onClick="page(${page })"><a href="#">${page }</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${pageNavi.next}">
+									<li onClick="page(${pageNavi.endPage+1});"><a href="#">&gt;</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
+					<!-- 페이징 끝 -->
+					
+					<!-- 검색 -->
+							<form method=get action=/nboard/nboardList name=listForm>
+	                            <!-- 상세보기 검색 유지용 -->
+	                            ${pageNavi.cri.type }
+	                            <input type=hidden name=nboard_no>
+	                            <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
+	                            <!-- 상세보기 검색 유지용 끝 -->
+							</form>
+							<!-- 검색 끝 -->
 						    <!-- 페이지끝 -->
 <!-- 					<div class="paging_wrap">
 						<div class="paging">

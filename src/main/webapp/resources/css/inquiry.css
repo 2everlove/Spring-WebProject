@@ -217,3 +217,55 @@ ul{
 	text-decoration: none;
 }
 
+
+/* 페이지 네이션 */
+
+/* nboard-paging */
+#pagination-box{
+	/* position:relative; */
+	display:table;
+	width:100%;
+	height:8%;
+	background-color:#D3CCFC;
+}
+.pagination {
+  /* left: 50%;
+  top: 80%; */
+  /* position:absolute;
+  top:31%;
+  left:29.5%; */
+  margin: auto 0;
+  padding: 6px;
+  background-color: #a29bfe;
+  border-radius: 40px;
+  box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.5);
+}
+.pagination li {
+  display: inline-block;
+  list-style: none;
+}
+.pagination li a {
+  display: block;
+  width: 30px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #fff;
+  text-align: center;
+  text-decoration: none;
+  color: #252525;
+  border-radius: 4px;
+  margin: 5px;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+.pagination li a:hover, .pagination li a.active {
+  color: #fff;
+  background-color: #6c5ce7;
+}
+.pagination li:first-child a {
+  border-radius: 30px 0 0 30px;
+}
+.pagination li:last-child a {
+  border-radius: 0 30px 30px 0;
+}
+.centered { display: table; margin-left: auto; margin-right: auto; }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.log4j.Log4j;
@@ -31,10 +32,14 @@ public class ProductReviewAjaxController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		log.info("pboard_unit_no" + pboard_unit_no);
 		List<ProductReviewVO> productReviewList = service.getProductReviewList(Integer.parseInt(pboard_unit_no));
+		int replycount = service.countProductReply(Integer.parseInt(pboard_unit_no));
 
 		if (productReviewList != null) {
 			map.put("list", productReviewList);
+			map.put("replycount", replycount);
 		}
+		
+		
 
 		log.info(productReviewList);
 		return map;

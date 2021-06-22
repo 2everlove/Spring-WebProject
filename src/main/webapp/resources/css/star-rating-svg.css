@@ -14,7 +14,7 @@
   width: 100px;
   height: 100px;
   display: inline-block;
-  cursor: pointer;
+  cursor: default;
 }
 
 .jq-star-svg {

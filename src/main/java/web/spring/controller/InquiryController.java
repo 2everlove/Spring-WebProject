@@ -35,7 +35,7 @@ public class InquiryController {
 	 */
 	@GetMapping("/inquiry")
 	public String getInquiryBoardList(Criteria cri, Model model) {
-		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
+		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList(cri);
 		
 
 		if (inquiryList != null) {

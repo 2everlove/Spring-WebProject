@@ -10,7 +10,7 @@ import web.spring.vo.InquiryBoardVO;
 @Service
 public interface InquiryBoardService {
 	
-	public List<InquiryBoardVO> getInquiryBoardList(); // 문의사항 리스트 불러오기
+	public List<InquiryBoardVO> getInquiryBoardList(Criteria cri); // 문의사항 리스트 불러오기
 	
 	public int insertInquiry(InquiryBoardVO vo); // 문의사항 등록 
 	

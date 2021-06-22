@@ -111,6 +111,7 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th,
 .trash{
 	display: inline;
 	padding-left: 5px;
+	cursor: pointer;
 }
 
 
@@ -339,5 +340,11 @@ div .list{
     border: none;
     color: #fff;
 }
+
+.pointer{
+	cursor: default !important;
+}
+
+
 
 

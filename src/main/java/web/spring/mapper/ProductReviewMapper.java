@@ -15,6 +15,9 @@ public interface ProductReviewMapper {
 	
 	public int deleteProductReviewList(int review_num);	//리뷰 삭제
 	
+	public int countProductReply(int pboard_unit_no);
+	
+	
 
 	
 	

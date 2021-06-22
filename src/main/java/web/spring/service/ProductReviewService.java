@@ -13,6 +13,9 @@ public interface ProductReviewService {
 	public int insertProductReviewList(ProductReviewVO vo); //답변 넣기
 	
 	public int deleteProductReviewList(int review_num);	//리뷰 삭제
+	
+	public int countProductReply(int pboard_unit_no);
+	
 
 
 }

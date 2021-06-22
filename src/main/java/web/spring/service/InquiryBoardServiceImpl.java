@@ -17,8 +17,8 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	
 	//문의사항 리스트
 	@Override
-	public List<InquiryBoardVO> getInquiryBoardList() {
-		return mapper.getInquiryBoardList();
+	public List<InquiryBoardVO> getInquiryBoardList(Criteria cri) {
+		return mapper.getInquiryBoardList(cri);
 	}
 
 	//문의사항 등록

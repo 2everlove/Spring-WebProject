@@ -31,6 +31,12 @@ public class ProductReviewServiceImpl implements ProductReviewService{
 		return mapper.deleteProductReviewList(review_num);
 	}
 
+	@Override
+	public int countProductReply(int pboard_unit_no) {
+		return mapper.countProductReply(pboard_unit_no);
+	}
+
+
 	
 
 
