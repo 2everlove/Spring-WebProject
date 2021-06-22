@@ -1,5 +1,8 @@
 package web.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +39,21 @@ public class NBoardController {
 	}//get
 	
 	@GetMapping("/nboard/nboardList")
-	public String getList(Criteria cri,Model model) {
-		model.addAttribute("list",service.getList(cri));
-		model.addAttribute("pageNavi",new PageNavi(cri,service.getTotal(cri)));
+	public String getList(Criteria cri,Model model,HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user==null) {
+			return "/member/login";
+		}
+		//유저가 어드민이 아닐경우 공개된 nboard만 보여주도록 하는 조건문
+		if (user.getUser_type().equals("0")){
+			model.addAttribute("list",service.getList(cri));
+			model.addAttribute("pageNavi",new PageNavi(cri,service.getTotal(cri)));
+		}else{
+			model.addAttribute("list",service.getOpendList(cri));
+			model.addAttribute("pageNavi",new PageNavi(cri,service.getOpendTotal(cri)));
+		}
+		model.addAttribute("user", user);
 		return "/nboard/nboardList";
 	}//nboardList
 	

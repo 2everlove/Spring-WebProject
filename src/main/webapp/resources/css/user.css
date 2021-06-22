@@ -120,7 +120,8 @@
     box-sizing: border-box;
     color: var(--color-pink);
 }
-.interenting-label{
+.interesting-label{
+	font-size:18px;
 	color:#000000;
 }
 .userUpdateForm{

@@ -111,10 +111,11 @@
 						</tbody>
 					</table>
 					<p class="btn_pop_page">
+						<c:if test="${user.user_type=='0'}">
 						<button type="button" onClick="detailBtn('/nboard/nboardUpdate')"
-							class="notice_button">수정</button>
+							class="notice_button">수정</button></c:if>
 						<c:if
-							test="${sessionScope.user.user_id==vo.user_id ||sessionScope.user.user_type=='0'}">
+							test="${user.user_type=='0'}">
 							<button class="notice_button_green"
 								onClick="detailBtn('/nboard/delete')">삭제</button>
 						</c:if>

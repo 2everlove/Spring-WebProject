@@ -32,12 +32,8 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/nboard/**" />	
-			<beans:ref bean="authInterceptor" />
-		</interceptor>
-		<interceptor>
 			<mapping path="/myPage/**" />	
-			<beans:ref bean="authInterceptor" />
+			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 		<interceptor>
 			<mapping path="/loginAction" />

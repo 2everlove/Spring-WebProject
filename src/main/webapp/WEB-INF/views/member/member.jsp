@@ -211,22 +211,22 @@
                 	<input type="date" name="User_birth">
                 </div>
                 <div class="register-group div9">
-                	<label>ADDRESS</label><br>
-                	<input type="text" name="User_address">
-                	<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
-                	<input type="hidden" class="file_name" name="file_name" id="file_name">
+                	
                 </div>
                 <div class="register-group div10">
                 	<label>관심분야</label>
                 	<br>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="컴퓨터">컴퓨터</label>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="노트북">노트북</label>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="가전제품">가전제품</label>
-               		<label class="interenting-label"><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
-	               	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="컴퓨터">컴퓨터</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="노트북">노트북</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="가전제품">가전제품</label>
+               		<label class="interesting-label"><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
                 </div>
-                <div class="register-group div11"><button type="button" class="login-button" id="registerBtn" >회원가입</button></div>
-                <div class="register-group div12"></div>
+                <div class="register-group div11"><p style="text-align:center;color: var(--color-pink);line-height: 20px;font-size: 20px;">ADDRESS</p><br>
+                	<textarea name="User_address" style="margin-left:5%;width:80%; height:10vh;"></textarea>
+                	<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
+                	<input type="hidden" class="file_name" name="file_name" id="file_name"></div>
+                <div class="register-group div12"><button type="button" class="login-button" id="registerBtn" >회원가입</button></div>
             </fieldset>
        		</form>
          </div>
