@@ -7,6 +7,9 @@
 <script type="text/javascript" defer="defer">
 	document.title = '${sellerVO.user_name} : widele';
 	$(document).ready(function() {
+		if ($("input[name=order_totalcount]").val() == 1) {
+			$("input[name=pboard_unit_stocks]").val('${pBoard.pboard_unit_stocks}'-1);
+		}
 		$(".up-button").click(function() {
 			let tempcount = $("input[name=order_totalcount]").val();
 			let totalcount = Number(tempcount) + 1;

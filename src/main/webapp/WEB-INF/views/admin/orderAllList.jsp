@@ -79,7 +79,7 @@ function updateOrderList(formData, btn){
 					<c:forEach var="ovo" items="${list}">
 						<tr>
 							<td>${ovo.order_id}</td>
-							<td ><span class="torder_status">${ovo.order_status}</span>
+							<td><span class="torder_status">${ovo.order_status}</span>
  							<select class="order_status" name="selectStatus">
 								<option value="0"<c:if test="${ovo.order_status == 0}">selected</c:if>>주문 취소</option>
 								<option value="1"<c:if test="${ovo.order_status == 1}">selected</c:if>>주문 완료</option>

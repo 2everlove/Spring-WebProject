@@ -19,7 +19,7 @@
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input class="view" type="text" name="cart_id" value="${cvo.cart_id}">
+					<input class="view" type="hidden" name="cart_id" value="${cvo.cart_id}">
 					<input class="view" type="hidden" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>
 					<input class="view" name="order_name" value="${uvo.user_name}">
