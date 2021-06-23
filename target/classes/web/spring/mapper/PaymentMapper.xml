@@ -16,8 +16,8 @@
 	
 	<insert id="insertOrder">
 		<selectKey resultType="String" order="BEFORE" keyProperty="order_id"> select order_sequence.nextval from dual </selectKey>
-		insert into order_board (order_id, order_address, order_name, order_status, product_id, user_id, order_totalprice, order_totalcount)
-		values (#{order_id}, #{order_address}, #{order_name}, '1', #{product_id}, #{user_id}, #{order_totalprice}, #{order_totalcount})
+		insert into order_board (order_id, order_address, order_name, order_status, product_id, user_id, order_totalprice, order_totalcount, pboard_unit_no)
+		values (#{order_id}, #{order_address}, #{order_name}, '1', #{product_id}, #{user_id}, #{order_totalprice}, #{order_totalcount}, #{pboard_unit_no})
 	</insert>
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
