@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j;
 import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
-import web.spring.vo.CartVO;
 import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;

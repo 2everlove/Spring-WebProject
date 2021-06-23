@@ -6,8 +6,51 @@
 		select * from user_info where user_id = #{user_id}
 	</select>
 	
+	<select id="checkId" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_name = #{User_name} and User_email = #{User_email}
+	</select>
+	
+	<!-- admin 전체 목록 불러오기 -->
+	<select id="getAllUser" resultType="web.spring.vo.UserVO">
+		select * from user_info
+	</select>
+	
+	<update id="updateUserByAdmin">
+		update user_info 
+		<set>
+			<if test="user_email!=null">user_email=#{user_email},</if>
+			<if test="user_name!=null">user_name=#{user_name},</if>
+			<if test="user_password!=null">user_password=#{user_password},</if>
+			<if test="user_contact!=null">user_contact=#{user_contact},</if>
+			<if test="user_enabled!=null">user_enabled=#{user_enabled},</if>
+			<if test="user_type!=null">user_type=#{user_type},</if>
+			<if test="user_gender!=null">user_gender=#{user_gender},</if>
+			<if test="user_birth!=null">user_birth=to_date(#{user_birth},'YYYY-MM-DD hh24:mi:ss'),</if>
+			<if test="user_address!=null">user_address=#{user_address},</if>
+			<if test="user_interesting!=null">user_interesting=#{user_interesting},</if>
+			<if test="user_enabledContent!=null">user_enabledContent=#{user_enabledContent},</if>
+			<if test="file_pictureId!=null">file_pictureId=#{file_pictureId}</if>
+		</set>
+		where user_id= #{user_id}
+	</update>
+	
 	<select id="getAllUserList" resultType="web.spring.vo.UserVO">
-		select us.* from (select rownum num, u.* from user_info u) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+		select us.* from (select rownum num, 
+			u.user_id, 
+			u.user_email,
+			u.user_name, 
+			u.user_password, 
+			u.user_contact, 
+			u.user_enabled, 
+			u.user_type, 
+			u.user_regdate, 
+			u.user_gender,
+			to_char(u.user_birth, 'YYYY-MM-DD') as user_birth,
+			u.user_address,
+			u.user_interesting,
+			file_pictureId
+		
+			from user_info u) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	
 	<select id="getUserTotal" resultType="int">
@@ -24,9 +67,29 @@
 			)
 		)
 	</select>
+	
+	<!-- id,email로 user정보 가져오기 -->
+	<select id="checkPwd" resultType="web.spring.vo.UserVO">
+		select * from user_info where user_id = #{user_id} and user_email = #{user_email}
+	</select>
+	
+	<!-- uuid로 생성된 pwd 업데이트 -->
+	<update id="pwdUdate">
+		update user_info 
+		<set>
+			<if test="user_password!=null">user_password = #{user_password}</if>
+		</set>
+		where user_id= #{user_id} and user_email= #{user_email}
+	</update>
+	
+<select id="getUser_type" resultType="String">
+		select User_type from user_info where User_id=#{User_id} 
+	</select>
 		<!-- 로그인 -->
 	<select id="login" resultType="web.spring.vo.UserVO">
-		select * from user_info where User_id=#{User_id}
+		select USER_ID,FILE_PICTUREID,USER_EMAIL,USER_NAME,USER_PASSWORD,USER_CONTACT,USER_ENABLED,USER_TYPE,to_char(User_regdate,'yyyy-mm-dd') User_regdate,USER_GENDER,to_char(USER_BIRTH,'yyyy-mm-dd') User_birth
+		,USER_ADDRESS,USER_INTERESTING,USER_ENABLEDCONTENT,SESSIONKEY,SESSIONLIMIT 
+		from user_info where User_id = #{User_id}
 	</select>
 	
 	<update id="updateSessionkey">
@@ -37,18 +100,22 @@
 		select * from user_info
 		where sessionkey = #{sessionkey} and sessionlimit > sysdate
 	</select>
+	
+	<select id="getFileSeq" resultType="int">
+	  	select file_sequence.nextval from dual
+	</select>
 	<insert id="insertUser" >
 		insert into user_info (User_id, User_email,User_name, User_password, User_contact, User_enabled, User_type, User_regdate, User_gender,User_birth,User_address,User_interesting,file_pictureId) 
-		values (#{User_id},#{User_email},#{User_name},#{User_password},#{User_contact},1,#{User_type},sysdate, #{User_gender, jdbcType=VARCHAR},#{User_birth, jdbcType=VARCHAR},#{User_address, jdbcType=VARCHAR},#{User_interesting, jdbcType=VARCHAR},#{file_pictureId})
+		values (#{User_id},#{User_email},#{User_name},#{User_password},#{User_contact},1,#{User_type},sysdate, #{User_gender,jdbcType = VARCHAR},#{User_birth,jdbcType = VARCHAR},#{User_address,jdbcType = VARCHAR},#{User_interesting,jdbcType = VARCHAR},#{file_pictureId})
 	</insert>
 	<select id="checkIdReapet" resultType="web.spring.vo.UserVO">
 		select * from user_info where User_id = #{User_id}
 	</select>
-	<select id="checkId" resultType="web.spring.vo.UserVO">
-		select * from user_info where User_name = #{User_name} and User_email = #{User_email}
+	<select id="searchId" resultType="String">
+		select * from user_info where User_name = #{User_name,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
 	</select>
-	<select id="checkPwd" resultType="web.spring.vo.UserVO">
-		select * from user_info where User_id = #{User_id} and User_email = #{User_email}
+	<select id="searchPwd" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_id = #{User_id,jdbcType=VARCHAR} and User_email = #{User_email,jdbcType=VARCHAR}
 	</select>
 	<update id="updateUser">
 		update user_info 
@@ -68,4 +135,14 @@
 		</set>
 		where user_id= #{user_id}
 	</update>
+	<update id="updatePwd">
+	update user_info
+	<set>
+		<if test="user_password!=null">user_password=#{user_password}</if>
+	</set>
+	where user_id= #{User_id} and user_email=#{User_email}
+	</update>
+	<select id="searchUserByEmail" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_email=#{User_email}
+	</select>
 </mapper>

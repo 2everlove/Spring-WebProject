@@ -23,4 +23,8 @@ public interface NBoardService {
 	public int getTotal(Criteria cri);
 	
 	public int nboardLock(NBoardVO vo);
+
+	public List <NBoardVO> getOpendList(Criteria cri);
+	
+	public int getOpendTotal(Criteria cri);
 }

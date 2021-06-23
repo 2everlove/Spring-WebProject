@@ -17,8 +17,8 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	
 	//문의사항 리스트
 	@Override
-	public List<InquiryBoardVO> getInquiryBoardList() {
-		return mapper.getInquiryBoardList();
+	public List<InquiryBoardVO> getInquiryBoardList(Criteria cri) {
+		return mapper.getInquiryBoardList(cri);
 	}
 
 	//문의사항 등록
@@ -37,6 +37,11 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	@Override
 	public int deleteInquiry(int iboard_no) {
 		return mapper.deleteInquiry(iboard_no);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
 	}
 
 	

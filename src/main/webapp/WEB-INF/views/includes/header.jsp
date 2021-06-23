@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Portfolio for Web Project">
 <meta name="autors" content="Baku(Azerbaijan-Baku), skqlgpdls, 2everlove(mika), pescatorio"> 
+<meta name = "google-signin-client_id" content = "528792888517-7i28jjcjf91j33gj5rtjfbn4fh7h671s.apps.googleusercontent.com">
 <title>쇼핑의 모든 것</title>
 <!-- css link -->
 <!-- jQuery -->
@@ -16,6 +17,11 @@
 <link rel="stylesheet" href="/resources/css/colorPick.dark.theme.css">
 <link rel="stylesheet" href="/resources/css/colorPick.css">
 <link rel="stylesheet" href="/resources/css/include.css">
+<!--CDN 링크 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/resources/css/star-rating-svg.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/resources/js/jquery.star-rating-svg.js"></script>
 <script src="/resources/js/colorPick.js"></script>
 <script src="/resources/js/colorPick.min.js"></script>
 <!-- icon api -->
@@ -28,8 +34,8 @@
 <!-- prefix-free -->
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>
-<script>
-	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&"
+<script defer>
+	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&";
 	let country = "region="+window.navigator.language.substring(3,5);
 	let lang = "&language="+window.navigator.language.substring(0,2);
 	let callback = "&callback=initMap&libraries=places,&v=weekly";
@@ -56,7 +62,7 @@
 		    "</div>" +
 		    '<h1 id="firstHeading" class="firstHeading">WorldJobFriend</h1>' +
 		    '<div id="bodyContent">' +
-		    "<p><b>ワールドジョブフレンド</b>, Springを利用したプロジェクト " +
+		    "<p><b>ワールドジョブフレンド</b>, Springを利用したプロジェクト </p>" +
 		    '<p><span style="color:blue;"><b>プロジェクト名</b> : Widele</span>, <b><a href="https://google.co.kr/maps/@'+lat1+','+lng1+','+zoom1+'z" target="_blank">' +
 		    "Our Location&lt;Link&gt;</a></b></p> " +
 		    "</div>" +
@@ -75,36 +81,47 @@
 		    infowindow.close();
 		  });
 	}
+	window.onload = function() {
+		console.log("star");
+		for (let i = 0; i < 10; i++) {
+			$(".starGet_" + i).starRating({
+				readOnly : true,
+				starSize : 25,
+				initialRating : $(".rated_star" + i).val()
+			});
+		}
+	};
 </script>
 <script id="googleMap">
 </script>
 <script type="text/javascript">
 
-$(document).ready(function(){
-	const pathName = window.location.pathname;
-
-	//console.log(pathName);
-
-	if(!pathName.match("main")){
-		$(".navbar__menu__item").click(function(){
-			let data = $(this).attr("data-link");
-			let href = "/cond/";
-			if(data.match("new")){
-				location.href = href+"0";
-			}
-			if(data.match("sale")){
-				location.href = href+"1";
-			}
-			if(data.match("event")){
-				location.href = href+"2";
-			}
-			if(data.match("recommend")){
-				location.href = href+"3";
-			}
-		});
-	}
-});
-
+	$(document).ready(function(){
+		const pathName = window.location.pathname;
+	
+		//console.log(pathName);
+	
+		if(!pathName.match("main")){
+			$(".navbar__menu__item").click(function(){
+				let data = $(this).attr("data-link");
+				let href = "/cond/";
+				if(data.match("new")){
+					location.href = href+"0";
+				}
+				if(data.match("sale")){
+					location.href = href+"1";
+				}
+				if(data.match("event")){
+					location.href = href+"2";
+				}
+				if(data.match("recommend")){
+					location.href = href+"3";
+				}
+			});
+		}
+	});
+	
+	
 </script>
 </head>
 <body>

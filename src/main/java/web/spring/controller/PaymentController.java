@@ -66,11 +66,12 @@ public class PaymentController {
 	
 	@PostMapping("/productOrder")
 	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo) {
+		System.out.println("ovo===========" + ovo);
+		System.out.println("pvo===========" + pvo);
 		int res = paymentService.insertOrder(ovo);
 		int res2 = paymentService.deleteCart(cvo.getCart_id());
-		int res3 = paymentService.updateStocks(pvo);
-		System.out.println("pvo===========" + pvo);
 		System.out.println("res2===============" + res2);
+		int res3 = paymentService.updateStocks(pvo);
 		model.addAttribute("ovo", ovo);
 		model.addAttribute("pvo", pvo);
 		return "redirect:/orderList";

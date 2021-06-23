@@ -79,6 +79,7 @@
 
 				attachFile(formData, $(this));
 				updateFileId(Formfile_pictureId,Formproduct_id, $(this).closest('tr'));
+				$(this).closest('td').find('input[type=file]').val("");
 				$(this).closest('td').find('input[type=file]').hide();
 				$(this).closest('td').find('.updatePicBtn').show();
 				$(this).closest('td').find('.updateFileBtn').hide();
@@ -147,6 +148,8 @@
 					//만약 이미지면 이미지 보여줌
 				btn.closest('tr').find('img').attr('src', "/fileDisplay?file_name="+file_savePath);
 				btn.closest('tr').find('.fileUpload').val("");
+				btn.closest('tr').find('.file_uuid').val(data.file_uuid);
+				
 				});
 			},
 			error : function(errorThrown){
@@ -172,7 +175,7 @@
 		return rtn;
 	}//
 	
-	
+	//상품 업데이트
 	function updateProduct(formData, btn){
 		let url = '/admin/productUpdate';
 		console.log(formData);
@@ -198,6 +201,8 @@
 			}
 		});
 	}//
+	
+	//파일 업데이트
 	function updateFileId(Formfile_pictureId, Formproduct_id, btn){
 		let url = '/admin/productUpdate';
 		let formData = new FormData();
@@ -270,7 +275,7 @@
 			    						<input type="file" name="uploadFile" class="fileUpload" accept="image/*" style="display: block;">
 			    						<input type="hidden" class="file_usingType" name="file_usingType" class="file_usingType" value="3">
 										<input type="hidden" class="file_pictureId" name="file_pictureId" class="file_pictureId" value="${fileThum.file_pictureId}">
-										<input type="hidden" class="file_uuid" name="file_uuid" class="file_uuid" value="${fileThum.file_uuid}">
+										<input type="hidden" class="file_uuid" name="file_uuid" value="${fileThum.file_uuid}">
 										<button class="updateFileBtn" type="button">업로드</button>
 									</form>
 		    						</td>

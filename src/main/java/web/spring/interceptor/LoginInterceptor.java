@@ -60,11 +60,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			
 			response.addCookie(loginCookie);
 			
-			String tmpUri = (String)session.getAttribute("tmpUri");
 			
-			if(!StringUtils.isEmpty(tmpUri)) {
-				response.sendRedirect(tmpUri);
-			}
+		}
+		String tmpUri ="";
+		if(user!=null) {
+			tmpUri = (String)session.getAttribute("tmpUri");
+		} else {
+			tmpUri ="/login";
+		}
+		
+		
+		if(!StringUtils.isEmpty(tmpUri)) {
+			System.out.println("tmpUri");
+			response.sendRedirect(tmpUri);
 		}
 	}
 }

@@ -165,7 +165,8 @@
 							    				<td>${updateDate}</td>
 								  				<c:forEach var="product" items="${productList}">
 								    				<c:if test="${product.product_id == pBoard.product_id}">
-								    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+								    					<td>
+								    					${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
 							    					</c:if>
 									   			</c:forEach>
 					    					

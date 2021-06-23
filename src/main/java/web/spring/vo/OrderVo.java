@@ -17,7 +17,5 @@ public class OrderVO {
 	String pboard_unit_no;
 	String order_totalcount;
 	String order_totalprice;
-
-	
 	
 }
