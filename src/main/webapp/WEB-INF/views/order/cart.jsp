@@ -18,7 +18,7 @@ $(document).ready(function(){
 			<h2>주문/결제 사항</h2>
 			<form role="form" action="/cartAction" method="post" class="payment_form" id="cartForm">
 			<fieldset>
-				<input class="view" name="pboard_unit_no" type="hidden" value="${pBoard.pboard_unit_no}">
+				<input class="view" name="pboard_unit_no" type="text" value="${pBoard.pboard_unit_no}">
 				<label>받는 사람 정보</label>
 				<div class="content2">
 					<input name="user_id" type="hidden" value="${sessionScope.user.user_id}">
@@ -48,7 +48,7 @@ $(document).ready(function(){
 				</div>
 				<div class="content2">
 					<label>재고수</label>
-					<input class="view" name="pboard_unit_stocks" value="${cookie.pboard_unit_stocks.value}">
+					<input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}">
 				</div>
 			</fieldset>
 			<button type="submit" class="detail__btn cart">장바구니 담기</button>

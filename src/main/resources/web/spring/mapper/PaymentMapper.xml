@@ -42,8 +42,8 @@
 	
 	<insert id="insertCart">
 		<selectKey resultType="String" order="BEFORE" keyProperty="cart_id"> select cart_sequence.nextval from dual </selectKey>
-		insert into cart_board (cart_id, user_address, user_name, user_id, product_id, product_name, cart_totalprice, cart_totalcount)
-		values (#{cart_id}, #{user_address}, #{user_name}, #{user_id}, #{product_id}, #{product_name}, #{cart_totalprice}, #{cart_totalcount})
+		insert into cart_board (cart_id, user_address, user_name, user_id, product_id, product_name, cart_totalprice, pboard_unit_no, cart_totalcount, pboard_unit_stocks)
+		values (#{cart_id}, #{user_address}, #{user_name}, #{user_id}, #{product_id}, #{product_name}, #{cart_totalprice}, #{pboard_unit_no}, #{cart_totalcount}, #{pboard_unit_stocks})
 	</insert>
 	
 	<select id="getCartList" resultType="web.spring.vo.CartVO">

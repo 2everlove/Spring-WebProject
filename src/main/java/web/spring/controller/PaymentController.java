@@ -45,29 +45,27 @@ public class PaymentController {
 	UserService userService;
 	
 	@GetMapping("/payment")
-	public String getPayment(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq,
-			@CookieValue(value="pboard_unit_stocks", required=false) Cookie cookie) {
+	public String getPayment(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq) {
 		PBoardVO pBoard = pBoardVO;
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		if(user != null) {
 			userVO = paymentService.get(user.getUser_id());
 			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
+			pBoardVO = paymentService.getProduct(cvo.getPboard_unit_no());
+			System.out.println(cvo.getPboard_unit_no());
+			log.info("cvo"+cvo.getPboard_unit_no());
 			model.addAttribute("uvo", userVO);
 			model.addAttribute("pBoard", pBoard);
 			model.addAttribute("productVO", productVO);
 			model.addAttribute("cvo", cvo);
-			if(cookie != null)
-				pBoard.setPboard_unit_stocks(cookie.getValue());
-			log.info("cvo"+cvo.getCart_id());
 			return "/order/payment";
 		}
 		return "/member/login";
 	}
 	
 	@PostMapping("/productOrder")
-	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo,
-			@CookieValue(value="pboard_unit_no", required=false) Cookie cookie) {
+	public String paymentAction(Model model, OrderVO ovo, CartVO cvo, PBoardVO pvo) {
 		int res = paymentService.insertOrder(ovo);
 		int res2 = paymentService.deleteCart(cvo.getCart_id());
 		int res3 = paymentService.updateStocks(pvo);
@@ -75,34 +73,24 @@ public class PaymentController {
 		System.out.println("res2===============" + res2);
 		model.addAttribute("ovo", ovo);
 		model.addAttribute("pvo", pvo);
-		if(cookie != null)
-			pvo.setPboard_unit_no(cookie.getValue());
 		return "redirect:/orderList";
 	}
 	
 	@GetMapping("/cart")
-	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq,
-			HttpServletResponse response) {
+	public String cart(Model model, UserVO userVO, CartVO cvo, PBoardVO pBoardVO, HttpServletRequest rq) {
 		PBoardVO pBoard = pBoardVO;
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		Cookie cookie = new Cookie("pboard_unit_stocks", pBoardVO.getPboard_unit_stocks());
 		if(user != null) {
 			userVO = paymentService.get(user.getUser_id());
 			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
-			if(cookie != null) {
-				cookie.setMaxAge(0);
-				pBoardVO.setPboard_unit_stocks(null);
-			}
 			model.addAttribute("uvo", userVO);
 			model.addAttribute("pBoard", pBoard);
 			model.addAttribute("productVO", productVO);
 			return "/order/cart";
 		} else {
-			cookie.setMaxAge(60*60*24*30);
+			return "/member/login";
 		}
-		response.addCookie(cookie);
-		return "/member/login";
 	}
 	
 	@PostMapping("/cartAction")
@@ -115,8 +103,7 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/cartList")
-	public String insertCart(Model model, HttpServletRequest rq, PBoardVO pBoard, CartVO cvo, Criteria cri,
-			@CookieValue(value="pboard_unit_stocks", required=false) Cookie cookie) {
+	public String insertCart(Model model, HttpServletRequest rq, PBoardVO pBoard, CartVO cvo, Criteria cri) {
 		HttpSession session = rq.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		System.out.println("=================user"+user);
@@ -124,11 +111,9 @@ public class PaymentController {
 			List<CartVO> list = paymentService.getCartList(user.getUser_id(), cri);
 			model.addAttribute("list", list);
 			model.addAttribute("pBoard", pBoard);
+			model.addAttribute("cvo", cvo);
 			model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getCartListTotal(user.getUser_id(), cri)));
 			System.out.println("pBoard================" + pBoard);
-			if(cookie != null)
-				pBoard.setPboard_unit_stocks(cookie.getValue());
-			model.addAttribute("cookie", cookie);
 			return "/order/cartList";
 		}
 		return "/member/login";
@@ -141,7 +126,7 @@ public class PaymentController {
 		if(cvo.getCart_id() != null) {
 			int res = paymentService.deleteCart(cvo.getCart_id());
 			model.addAttribute("cvo", cvo);
-			return "/orderList";
+			return "redirect:/cartList";
 		}
 		return "redirect:/cartList";
 	}

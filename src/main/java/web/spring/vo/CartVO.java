@@ -3,7 +3,6 @@ package web.spring.vo;
 public class CartVO {
 
 	String num;
-	String stocks;
 	String cart_id;
 	String user_id;
 	String user_name;
@@ -13,6 +12,7 @@ public class CartVO {
 	String cart_totalprice;
 	String cart_totalcount;
 	String user_address;
+	String pboard_unit_stocks;
 	public String getCart_id() {
 		return cart_id;
 	}
@@ -67,10 +67,10 @@ public class CartVO {
 	public void setUser_address(String user_address) {
 		this.user_address = user_address;
 	}
-	public String getStocks() {
-		return stocks;
+	public String getPboard_unit_stocks() {
+		return pboard_unit_stocks;
 	}
-	public void setStocks(String stocks) {
-		this.stocks = stocks;
+	public void setPboard_unit_stocks(String pboard_unit_stocks) {
+		this.pboard_unit_stocks = pboard_unit_stocks;
 	}
 }

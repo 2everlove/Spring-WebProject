@@ -55,7 +55,7 @@ public class ProductController {
 	
 	//product detail page
 	@GetMapping("/pDetail/{no}")
-	public String getDetail(@PathVariable("no") String no, Model model, CartVO cvo) {
+	public String getDetail(@PathVariable("no") String no, Model model) {
 		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		if(pBoard !=null) {
@@ -68,7 +68,6 @@ public class ProductController {
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
 				model.addAttribute("fileThumList", fileThumList);
 				model.addAttribute("fileDescList", fileDescList);
-				model.addAttribute("stocks", cvo.getStocks());
 				return "/product/pDetail";
 			} else {
 				return "/error";
