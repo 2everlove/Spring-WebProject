@@ -43,17 +43,18 @@ public class AdminController {
 	private PaymentService paymentService;
 	
 	//주문관리
-	@GetMapping("/admin/orderAllList")
-	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo) {
-		HttpSession session = rq.getSession();
-		UserVO user = (UserVO)session.getAttribute("user");
-		if(user != null) {
-			List<OrderVO> list = paymentService.getOrderAllList(ovo);
-			model.addAttribute("list", list);
-			return "/admin/orderAllList";
+		@GetMapping("/admin/orderAllList")
+		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
+			HttpSession session = rq.getSession();
+			UserVO user = (UserVO)session.getAttribute("user");
+			if(user != null) {
+				List<OrderVO> list = paymentService.getOrderAllList(cri);
+				model.addAttribute("list", list);
+				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
+				return "/admin/orderAllList";
+			}
+			return "/member/login";
 		}
-		return "/member/login";
-	}
 	
 	
 	//상품관리

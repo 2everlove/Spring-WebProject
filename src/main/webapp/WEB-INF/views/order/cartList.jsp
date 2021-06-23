@@ -3,10 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
 <!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript">
+function page(page){
+	document.listForm.action="/cartList";
+	document.listForm.pageNo.value=page;
+	document.listForm.submit();
+	
+}
 $(document).ready(function(){
 	$("#allCheck").click(function(){
         var chk = $("#allCheck").prop("checked");
@@ -74,6 +81,8 @@ $(document).ready(function(){
 						<th>개수</th>
 						<th></th>
 						<th></th>
+						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -86,22 +95,55 @@ $(document).ready(function(){
 							<td class="center">${cvo.product_name}</td>
 							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
+							<td class="center"><input type="text" name="pBoard_unit_stocks" value="${cvo.pboard_unit_stocks}"></td>
+							<td class="center"><input type="text" name="pBoard_unit_no" value="${cvo.pboard_unit_no}"></td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
-							<td class="center"><a href='/payment?product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${param.pboard_unit_stocks}'>
-							<button type="button" id="orderBtn">주문</button></a></td>
+							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cvo.pboard_unit_stocks}&pboard_unit_no=${cvo.pboard_unit_no}'>
+								<button type="button" id="orderBtn">주문</button></a>
+							</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${list.size() == 0 }">
 						<tr>
-							<td colspan='7' align="center">게시글이 존재하지 않습니다.</td>
+							<td colspan='8' align="center">게시글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
-
 				</tbody>
 			</table>
 			<div class="button">
 				<button type="button" id="checkDelete">삭제</button>
 			</div>
+			<!-- 페이징 처리 -->
+			<div id="pagination-box">
+					<nav>
+						<ul class="pagination" style="text-align: center; margin: 0 auto;">
+							<c:if test="${pageNavi.prev}">
+								<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
+							</c:if>
+							<c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
+								<c:choose>
+									<c:when test="${page eq pageNavi.cri.pageNo }">
+										<li onClick="page(${page })"><a href="#">${page }<span class="active"></span></a></li> <!-- 현재페이지 -->
+									</c:when>
+									<c:otherwise>
+										<li onClick="page(${page })"><a href="#">${page }</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${pageNavi.next}">
+								<li onClick="page(${pageNavi.endPage+1});"><a href="#">&gt;</a></li>
+							</c:if>
+						</ul>
+					</nav>
+			</div>
+			<!-- 페이징 끝 -->
+			<form method=get action="/cartList" name="listForm">
+                 <!-- 상세보기 검색 유지용 -->
+                 ${pageNavi.cri.type }
+                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
+                 <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
+                 <!-- 상세보기 검색 유지용 끝 -->
+			</form>
 	</div>
 </section>
 </html>

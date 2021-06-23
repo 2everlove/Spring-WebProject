@@ -15,6 +15,8 @@ public interface UserMapper {
 	
 	public int pwdUdate(@Param("user_password") String pwd, @Param("user_id") String id, @Param("user_email") String email);//pwd 업데이트
 	
+	public UserVO checkId(UserVO user);
+	
 	public List<UserVO> getUserList(); 
 	
 	//admin 전체 유저 목록
@@ -24,17 +26,31 @@ public interface UserMapper {
 	
 	public int getUserTotal(Criteria cri);
 	
+	public int updateUserByAdmin(UserVO user);
+	
+	//-----------------------------
+	
+	public String getUser_type(String User_id);
+	
 	public UserVO login(UserVO user);
-	
+
 	public int updateSessionkey(UserVO user);
-	
-	public UserVO loginSessionkey (String sessionkey);
-	
+
+	public UserVO loginSessionkey(String sessionkey);
+
 	public int insertUser(UserVO user);
-	
-	public UserVO checkIdReapet (String User_id);
-	
-	public UserVO checkId(UserVO user);
-	
-	public int updateUser(UserVO user);
+
+	public UserVO checkIdReapet(String User_id);
+
+	public String searchId(UserVO user);
+
+	public UserVO searchPwd(UserVO user);
+
+	public boolean updateUser(UserVO user);
+
+	public int updatePwd(UserVO user);
+
+	public String getFileSeq();
+
+	public UserVO searchUserByEmail(String User_email);
 }

@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class PBoardVO {
 	private String num;
+	private String avg;
 	private String pboard_unit_no;
 	private String pboard_unit_price;
 	private String pboard_unit_condition;

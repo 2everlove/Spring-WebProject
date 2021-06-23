@@ -8,8 +8,8 @@
 	$(document).ready(function(){
 		
 		if("${sessionScope.noticeFlag.nboard_title}" != ""){
-			var popupX = (window.screen.width / 2) - (200 / 2);
-			var popupY= (window.screen.height / 2) - (300 / 2);
+			var popupX = (window.screen.width / 2)-(200 / 2);
+			var popupY= (window.screen.height / 2)-(300 / 2);
 			window.open('/popup', '', 'status=no, height=500, width=700, left='+ popupX + ', top='+ popupY);
 		}
 	});
@@ -30,7 +30,7 @@
 			   		</div>
 			   		
 			    	<div class="product__wrapper">
-					<c:forEach var="pBoard" items="${pBoardList}">
+					<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
 								<c:if test="${pBoard.pboard_unit_condition == 0}">
@@ -50,6 +50,11 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
+											        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+													<div class='c_cbox_rating' style="display: none;">
+													${pBoard.avg}
+													</div>
+													<div class='jq-stars starGet_${status.index}'></div> 
 											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
@@ -73,7 +78,7 @@
 				   		</div>
 			   		</div>
 			    	<div class="product__wrapper">
-	    			<c:forEach var="pBoard" items="${pBoardList}">
+	    			<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
 								<c:if test="${pBoard.pboard_unit_condition == 1}">
@@ -93,6 +98,11 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
+											         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+													<div class='c_cbox_rating' style="display: none;">
+													${pBoard.avg}
+													</div>
+													<div class='jq-stars starGet_${status.index}'></div>
 											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
@@ -115,7 +125,7 @@
 				   		</div>
 			   		</div>
 			    	<div class="product__wrapper">
-		    		<c:forEach var="pBoard" items="${pBoardList}">
+		    		<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
 								<c:if test="${pBoard.pboard_unit_condition == 2}">
@@ -135,6 +145,11 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
+											         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+													<div class='c_cbox_rating' style="display: none;">
+													${pBoard.avg}
+													</div>
+													<div class='jq-stars starGet_${status.index}'></div>
 											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>
@@ -157,7 +172,7 @@
 			   		</div>
 		   		</div>
 		    	<div class="product__wrapper">
-		    		<c:forEach var="pBoard" items="${pBoardList}">
+		    		<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
 						<c:forEach var="product" items="${productList}">
 							<c:forEach var="user" items="${userList}">
 								<c:if test="${pBoard.pboard_unit_condition == 3}">
@@ -177,6 +192,11 @@
 											        <h3 class="new__description">${product.product_description}</h3>
 											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
 											        <h2 class="new__price"><span>${price}</span>원</h2>
+											         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+													<div class='c_cbox_rating' style="display: none;">
+													${pBoard.avg}
+													</div>
+													<div class='jq-stars starGet_${status.index}'></div>
 											        <button class="new__shops">${user.user_name}</button>
 									    		</a>
 									        </div>

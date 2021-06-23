@@ -79,8 +79,8 @@ public class AdminAjaxController {
 		if(userVO != null) {
 			System.out.println(userVO);
 			userVO.setUser_address(userVO.getUser_address().trim());
-			int res = userService.updateUser(userVO);
-			if(res > 0)
+			int res = userService.updateUserByAdmin(userVO);
+			if(res>0)
 				map.put("result","success");
 		} else {
 			map.put("result", "fail");

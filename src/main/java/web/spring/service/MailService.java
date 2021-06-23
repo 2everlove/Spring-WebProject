@@ -108,6 +108,48 @@ public class MailService {
 		}
 	}
 	
+	public boolean sendPwd(String pwd, String email) {
+		// TODO Auto-generated method stub
+		String mail_id = prop.getProperty("mail.id");
+		String mail_pw = prop.getProperty("mail.pw");
+		
+		// 구글 계정 인증용 ID/PW 세팅
+		Authenticator auth = new MailAuth(mail_id, mail_pw);
+		// 세션 및 메세지 생성 (프로퍼티, 인증)
+		Session session = Session.getDefaultInstance(prop, auth);
+		MimeMessage msg = new MimeMessage(session);
+
+		try {
+			// 보내는 날짜 지정
+			msg.setSentDate(new Date());
+			// 발송자 설정 (발송자의 메일, 발송자명)
+			msg.setFrom(new InternetAddress("dreamingskywhale@gmail.com", "모비딕"));
+             // 수신자 설정 
+			// Message.RecipientType.TO : 받는 사람 
+			InternetAddress to = new InternetAddress(email);
+			msg.setRecipient(Message.RecipientType.TO, to);
+			
+            // 메일 제목
+			msg.setSubject("비밀번호 재설정 안내", "UTF-8");
+			// 메일 내용
+			msg.setText("회원님의 비밀번호는 "+pwd+"입니다.", "UTF-8");
+			/* msg.setText("mailtest", "UTF-8"); */
+			
+            // 메일 발송
+			Transport.send(msg);
+			return true;
+		} catch (AddressException ae) {// 주소를 입력하지 않았을 경우
+			System.out.println("AddressException : " + ae.getMessage());
+			return false;
+		} catch (MessagingException me) {// 메세지에 이상이 있을 경우
+			System.out.println("MessagingException : " + me.getMessage());
+			return false;
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("UnsupportedEncodingException : " + e.getMessage());
+			return false;
+		}
+	}
+	
 }
 
 

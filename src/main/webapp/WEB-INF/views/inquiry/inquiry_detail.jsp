@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@include file="../includes/header.jsp" %> --%>
+ <%@include file="../includes/header.jsp" %>>
 <head>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/inquiry_detail.css">
@@ -43,9 +43,9 @@
 					<div class="table_data">
 						<table class="view">
 							<colgroup>
-								<col style="width: 200px">
 								<col style="width: auto">
-								<col style="width: 200px">
+								<col style="width: auto">
+								<col style="width: auto">
 								<col style="width: auto">
 							</colgroup>
 							<tbody>
@@ -108,4 +108,4 @@
 
 
 
-<%-- <%@include file="../includes/footer.jsp" %> --%>
+<%@include file="../includes/footer.jsp" %>
