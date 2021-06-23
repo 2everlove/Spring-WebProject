@@ -132,7 +132,7 @@
 	
 	<!-- 메인 네비 카테고리 클릭 시 검색 -->
 	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_category=#{product_category}
+		select distinct p_i.* from (select * from products_info where product_category=#{product_category}) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
 	</select>
 	
 	<!-- 메인 네비 new,event... 클릭 시 검색 -->
