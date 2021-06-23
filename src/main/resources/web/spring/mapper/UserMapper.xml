@@ -76,4 +76,7 @@
 	</set>
 	where user_id= #{User_id} and user_email=#{User_email}
 	</update>
+	<select id="searchUserByEmail" resultType="web.spring.vo.UserVO">
+		select * from user_info where User_email=#{User_email}
+	</select>
 </mapper>

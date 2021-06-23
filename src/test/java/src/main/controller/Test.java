@@ -15,11 +15,16 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.mapper.Mapper;
+import web.spring.mapper.UserMapper;
+import web.spring.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class Test {
+	
+	@Autowired
+	UserService userService;
 	
 	@Autowired
 	SqlSessionFactory factory;
@@ -61,6 +66,11 @@ public class Test {
 		SqlSession sqlSession = factory.openSession();
 		log.info(sqlSession.getConnection());
 		log.info(tm.getTime());
+	}
+	
+	@org.junit.Test
+	public void searchUserByEmail() {
+		userService.searchUserByEmail("dreamingskywhale@gmail.com");
 	}
 	
 }

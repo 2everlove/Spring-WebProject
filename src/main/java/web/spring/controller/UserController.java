@@ -1,19 +1,16 @@
 package web.spring.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.mail.Session;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,9 +19,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -117,14 +114,7 @@ public class UserController {
 		return "/member/login";
 	}
 
-	@GetMapping({ "/checkIdRepeat/{User_id}" })
-	@ResponseBody
-	public String checkIdRepeat(@PathVariable("User_id") String User_id) {
-		UserVO user = service.checkIdReapet(User_id);
-		if (user != null)
-			return user.getUser_id();
-		return "reduplication";
-	}
+	
 
 	@GetMapping({ "/logout" })
 	public String logout(HttpServletRequest req, HttpServletResponse res) {
@@ -152,6 +142,17 @@ public class UserController {
 		}
 		return "/main";
 	}
+	
+//	ajax
+	@GetMapping({ "/checkIdRepeat/{User_id}" })
+	@ResponseBody
+	public String checkIdRepeat(@PathVariable("User_id") String User_id) {
+		UserVO user = service.checkIdReapet(User_id);
+		if (user != null)
+			return user.getUser_id();
+		return "reduplication";
+	}
+	
 
 	@PostMapping({ "/searchId" })
 	@ResponseBody
@@ -187,4 +188,36 @@ public class UserController {
 		}
 		return res;
 	}
+	
+	/*
+	 * @ResponseBody
+	 * 
+	 * @GetMapping(value="/googleLogin/{User_email:.+}", produces = {
+	 * MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
+	 * public Map<String,Object> googleLogin(@PathVariable("User_email") String
+	 * User_email){ System.out.println(User_email);
+	 * 
+	 * Map<String,Object> res = new HashMap<>(); UserVO user =
+	 * service.searchUserByEmail(User_email); System.err.println(user); if(user ==
+	 * null) { res.put("user", "fail"); } else { res.put("user", user); }
+	 * System.out.println("map"+res.get("user")); return res; }
+	 */
+
+	@ResponseBody
+	@GetMapping("/googleLogin/{email}")
+	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email){
+		System.out.println(User_email);
+		
+		Map<String,Object> res = new HashMap<>();
+		UserVO user = service.searchUserByEmail(User_email);
+		System.err.println(user);
+		if(user == null) {
+			res.put("user", "fail");
+		} else {
+			res.put("user", user);
+		}
+		System.out.println("map"+res.get("user"));
+		return res;
+	}
+	
 }

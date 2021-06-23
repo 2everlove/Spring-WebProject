@@ -111,4 +111,9 @@ public class UserServiceImpl implements UserService {
 	public String getFileSeq() {
 		return userMapper.getFileSeq();
 	}
+
+	@Override
+	public UserVO searchUserByEmail(String User_email) {
+		return userMapper.searchUserByEmail(User_email);
+	}
 }

@@ -3,11 +3,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="/resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- 구글 로그인 api관련 javascript -->
+<script>
+function onSignIn(googleUser) {
+	  let profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  
+		$("input[name=User_email]").prop("dataValue",false);	//User_email의 dataValue 값에 false 반환
+		/* $.get("/googleLogin/" + profile.getEmail()+".com",) */
+		checkEmailbyGoogle(profile.getEmail());
+	}//onSignIn
+	 
+</script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		
-		
 		$("#searchId").hide();
 		$("#searchPwd").hide();
 		//메시지 처리
@@ -60,13 +74,43 @@
 					console.log("searchPwd.res",res);
 					$("#errorMsgArea").html(res.msg);
 				},
-				error:function(){
+				error:function(){ 
 					console.log("btnSearchPwd","ajax error");
 				}//error
 			});//ajax
 		});//btnSearchPwd
 		
 	});
+	
+	function checkEmailbyGoogle(email){
+		console.log("email",email);
+		$.ajax({
+			url : '/googleLogin/'+email ,// encodeURIComponent(email)+".com",
+			method : 'GET' ,
+			dataType: 'text' ,
+			contentType: 'application/json;charset=UTF-8',
+			 success : function(data){
+				if(data!="fail"){
+					// 회원가입 페이지로 이동
+					alert("존재하지 않는 Email입니다. 회원가입 페이지로 넘어갑니다.");
+					$("input[name= User_id]").val(profile.getId());
+					$("input[name= User_email]").val(profile.getEmail());
+					$("input[name= User_name]").val(profile.getName());
+				} else{
+					$("input[name= User_id]").val(profile.getId());
+					$("input[name= User_email]").val(profile.getEmail());
+					$("input[name= User_name]").val(profile.getName());
+					$("input[name=User_email]").prop("dataValue",true);
+					$("#loginBtn").trigger("click");
+					console.log(data.user);
+				}//else
+			},
+			error:function(err,status){
+				console.log("error : "+err);
+			}//error
+		});//ajax
+	}
+	
 	//아이디 찾기 클릭 시 화면에 아이디 찾기 영역을 보여줍니다.
 	function viewSearchId(){
 		console.log("viewSearchId","실행");
@@ -100,7 +144,7 @@
                 	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><c:if test="${!empty sessionScope.user}"><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></c:if></div>
                     <div class="login-group">
                     	<label>아이디</label>
-                        <input class="login-box" placeholder="id" name="User_id" value="testuser" autofocus>
+                        <input class="login-box" placeholder="id" name="User_id" value="testuser01" autofocus>
                     </div>
                    
                     <div class="login-group">
@@ -118,7 +162,8 @@
 				          <a href="#" onclick="viewSearchPwd()" class="viewLoginFont">Pwd찾기</a></div>
               		  <br>
                     </div>
-              		 <button type="submit" class="login-button" id="loginBtn" onClick="login">Login</button>
+              		<button type="submit" class="login-button" id="loginBtn" onClick="login">Login</button>
+              		<div class="g-signin2" data-onsuccess="onSignIn"></div>
               		 
            		</fieldset>
      					<!-- 아이디 찾기 -->

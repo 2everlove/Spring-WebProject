@@ -168,9 +168,14 @@
                		<div class="register-group div1">
                 	<p id="errorMsgArea"></p>
                 	<label>ID</label><br>
+                	<c:if test="${user=null}">
                     <input type="text" placeholder="id" name="User_id" 
                     pattern="[0-9A-Za-z]{6,20}"
-                    autofocus required>
+                    autofocus required></c:if>
+                	<c:if test="${user!=null}">
+                    <input type="text" value="" name="User_id" 
+                    pattern="[0-9A-Za-z]{6,20}"
+                    autofocus required></c:if>
                     <button type="button" class="form-control" id="checkIdRepeat" style="margin: 0px 10px;">중복 확인</button>
                 </div>
                 <div class="register-group div2">

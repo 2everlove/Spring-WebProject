@@ -33,4 +33,7 @@ public interface UserService {
 	  public int updatePwd(UserVO user);
 	  
 	  public String getFileSeq();
+
+	  public UserVO searchUserByEmail(String User_email);
+	  
 }

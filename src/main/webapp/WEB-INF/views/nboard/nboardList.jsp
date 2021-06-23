@@ -6,6 +6,7 @@
 
 <!-- nboard css -->
 <link rel="stylesheet" href="../../../resources/css/nboard.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <jsp:include page="../includes/header.jsp" />
 <script type="text/javascript">
 if('${resMsg}' != ''){
@@ -84,7 +85,7 @@ function detail(nboard_no){
 											<c:if test="${vo.nboard_category=='1' }"><label>이벤트</label></c:if>
 											<c:if test="${vo.nboard_category=='2' }"><label>기타</label></c:if></td>
 											<td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }
-											</a><p style="font-weight:bold;">(잠긴글)</p></td>
+											</a><p style="font-weight:bold;"><i class="fas fa-lock" style="color:#272b2b;"></i></p></td>
 											<td>${vo.nboard_content}</td>
 											<td>${vo.user_id }</td>
 											<td class="center">${vo.nboard_regDate }</td>
@@ -114,9 +115,7 @@ function detail(nboard_no){
 							end="${pageNavi.endPage }" var="page">
 							<c:choose>
 								<c:when test="${page eq pageNavi.cri.pageNo }">
-									<li onClick="page(${page })"><a href="#">${page }<span
-											class="active"></span></a></li>
-									<!-- 현재페이지 -->
+									<li onClick="page(${page })"><a href="#" style="background-color: #A19AFD;">${page }</a></li> <!-- 현재페이지 -->
 								</c:when>
 								<c:otherwise>
 									<li onClick="page(${page })"><a href="#">${page }</a></li>
