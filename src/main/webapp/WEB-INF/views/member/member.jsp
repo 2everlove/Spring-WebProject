@@ -173,7 +173,7 @@
                     pattern="[0-9A-Za-z]{6,20}"
                     autofocus required></c:if>
                 	<c:if test="${user!=null}">
-                    <input type="text" value="" name="User_id" 
+                    <input type="text" value="${user.user_id }" name="User_id" 
                     pattern="[0-9A-Za-z]{6,20}"
                     autofocus required></c:if>
                     <button type="button" class="form-control" id="checkIdRepeat" style="margin: 0px 10px;">중복 확인</button>
@@ -186,7 +186,9 @@
                 </div>
                 <div class="register-group div3">
                 	<label>이름</label><br>
-                    <input class="form-control" placeholder="name" name="User_name" required>
+                	<c:if test="${user!=null}">
+                    <input class="form-control" value="${user.user_name}" name="User_name" required></c:if>
+                    <c:if test="${user==null}"><input class="form-control" placeholder="name" name="User_name" required></c:if>
                 </div>
                 <div class="register-group div4">
                 	<label>EMAIL</label><br>

@@ -116,4 +116,9 @@ public class UserServiceImpl implements UserService {
 	public UserVO searchUserByEmail(String User_email) {
 		return userMapper.searchUserByEmail(User_email);
 	}
+
+	@Override
+	public UserVO googleLogin(UserVO user) {
+		return userMapper.login(user);
+	}
 }

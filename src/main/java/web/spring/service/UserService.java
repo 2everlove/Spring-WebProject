@@ -36,4 +36,5 @@ public interface UserService {
 
 	  public UserVO searchUserByEmail(String User_email);
 	  
+	  public UserVO googleLogin(UserVO user);
 }

@@ -47,6 +47,10 @@ public class UserController {
 	public String member(){
 		return ("/member/member");
 	}
+	@GetMapping("/googleMember")
+	public String googleMember(UserVO vo){
+		return ("/member/member");
+	}
 	
 	//맴버 상세보기
 	@GetMapping( "/getUser" )
@@ -204,16 +208,19 @@ public class UserController {
 	 */
 
 	@ResponseBody
-	@GetMapping("/googleLogin/{email}")
-	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email){
+	@GetMapping("/googleLogin")
+	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email, HttpServletRequest req,Model model){
 		System.out.println(User_email);
-		
 		Map<String,Object> res = new HashMap<>();
 		UserVO user = service.searchUserByEmail(User_email);
 		System.err.println(user);
 		if(user == null) {
 			res.put("user", "fail");
 		} else {
+			System.out.println("googleLogin:"+user);
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+			model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
 			res.put("user", user);
 		}
 		System.out.println("map"+res.get("user"));

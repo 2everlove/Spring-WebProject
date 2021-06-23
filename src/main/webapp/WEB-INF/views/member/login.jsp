@@ -4,24 +4,11 @@
 <link rel="stylesheet" href="/resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<!-- 구글 로그인 api관련 javascript -->
-<script>
-function onSignIn(googleUser) {
-	  let profile = googleUser.getBasicProfile();
-	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	  
-		$("input[name=User_email]").prop("dataValue",false);	//User_email의 dataValue 값에 false 반환
-		/* $.get("/googleLogin/" + profile.getEmail()+".com",) */
-		checkEmailbyGoogle(profile.getEmail());
-	}//onSignIn
-	 
-</script>
+
+
 <script type="text/javascript">
 
-	$(document).ready(function(){
+	$(document).ready(function(e){
 		$("#searchId").hide();
 		$("#searchPwd").hide();
 		//메시지 처리
@@ -85,24 +72,33 @@ function onSignIn(googleUser) {
 	function checkEmailbyGoogle(email){
 		console.log("email",email);
 		$.ajax({
-			url : '/googleLogin/'+email ,// encodeURIComponent(email)+".com",
+			url : '/googleLogin?email='+email ,// encodeURIComponent(email)+".com",
 			method : 'GET' ,
-			dataType: 'text' ,
+			dataType: 'json' ,
 			contentType: 'application/json;charset=UTF-8',
-			 success : function(data){
-				if(data!="fail"){
+			success : function(data){
+				if(data.user=="fail"){
 					// 회원가입 페이지로 이동
 					alert("존재하지 않는 Email입니다. 회원가입 페이지로 넘어갑니다.");
-					$("input[name= User_id]").val(profile.getId());
-					$("input[name= User_email]").val(profile.getEmail());
-					$("input[name= User_name]").val(profile.getName());
+					let data={
+							user_email : $("#searchPwd_id").val(),
+							user_email : $("#searchPwd_email").val()
+						};
+					$.ajax({
+						url: '/googleMember',
+						method: 'post',
+						dataType: 'json',
+						data: JSON.stringify(data),
+						success: function(res){
+							console.log("searchPwd.res",res);
+							$("#errorMsgArea").html(res.msg);
+						},
+						error:function(){ 
+							console.log("btnSearchPwd","ajax error");
+						}//error
+					});//ajax
 				} else{
-					$("input[name= User_id]").val(profile.getId());
-					$("input[name= User_email]").val(profile.getEmail());
-					$("input[name= User_name]").val(profile.getName());
 					$("input[name=User_email]").prop("dataValue",true);
-					$("#loginBtn").trigger("click");
-					console.log(data.user);
 				}//else
 			},
 			error:function(err,status){
@@ -135,6 +131,35 @@ function onSignIn(googleUser) {
 
 
 </script>
+<!-- 구글 로그인 api관련 javascript -->
+<script>
+//!!!!!!변경하지 마세요!!!!!!
+//클릭시 google의 유저정보를 받아서 로그인하는 코드입니다. 
+//변경하면 로그인 창에서 자동을 로그인 클릭 없이 자동으로 로그인됩니다.
+let clicked=false;//Global Variable
+function ClickLogin()
+{
+    clicked=true;
+}
+function onSignIn(googleUser) {
+	if (clicked) {
+		  let profile = googleUser.getBasicProfile();
+		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		  console.log('Name: ' + profile.getName());
+		  console.log('Image URL: ' + profile.getImageUrl());
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+			checkEmailbyGoogle(profile.getEmail());
+			/* location.reload(); */
+		}//onSignIn
+	};
+function signOut(){
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function(){
+			console.log('User signed out.');
+		});
+	};
+
+</script>
     <section class="section__content">
     	<div id="user_upper"></div>
 		<form class="login-form" role="form" action="/loginAction" method="post">
@@ -163,8 +188,7 @@ function onSignIn(googleUser) {
               		  <br>
                     </div>
               		<button type="submit" class="login-button" id="loginBtn" onClick="login">Login</button>
-              		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-              		 
+              		<div class="g-signin2" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
            		</fieldset>
      					<!-- 아이디 찾기 -->
                         <fieldset id="searchId">
