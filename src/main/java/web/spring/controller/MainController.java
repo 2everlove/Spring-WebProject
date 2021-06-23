@@ -100,10 +100,12 @@ public class MainController {
 		List<ProductVO> pList = productService.getSearchProductList(search_Map);
 		List<PBoardVO> pBList = productService.getSearchBoardList(search_Map);
 		List<FileVO> fileList = fileService.getSearchListFile(search_Map);
+		List<UserVO> userList = userService.getUserList();
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("search", tmp);
+		model.addAttribute("userList", userList);
 		return "/product/typeList";
 	}
 	

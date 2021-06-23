@@ -228,7 +228,7 @@
 	</select>
 	
 	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-		select * from products_info 
+		select p_i.*  from (select * from products_info 
 		where product_id in (
 			select product_id from products_info 
 			where 
@@ -247,7 +247,7 @@
 			<foreach collection="search_Map" item="item" separator="or" index="0">
 				Lower(product_name) like '%'||#{item}||'%'
 			</foreach>
-		)
+		)) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
 	</select>
 	
 	
