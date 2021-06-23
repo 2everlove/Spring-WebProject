@@ -69,8 +69,10 @@
 		
 	});
 	
-	function checkEmailbyGoogle(email){
+	
+	function checkEmailbyGoogle(email,id){
 		console.log("email",email);
+		var request = new XMLHttpRequest();
 		$.ajax({
 			url : '/googleLogin?email='+email ,// encodeURIComponent(email)+".com",
 			method : 'GET' ,
@@ -79,24 +81,10 @@
 			success : function(data){
 				if(data.user=="fail"){
 					// 회원가입 페이지로 이동
-					alert("존재하지 않는 Email입니다. 회원가입 페이지로 넘어갑니다.");
-					let data={
-							user_email : $("#searchPwd_id").val(),
-							user_email : $("#searchPwd_email").val()
-						};
-					$.ajax({
-						url: '/googleMember',
-						method: 'post',
-						dataType: 'json',
-						data: JSON.stringify(data),
-						success: function(res){
-							console.log("searchPwd.res",res);
-							$("#errorMsgArea").html(res.msg);
-						},
-						error:function(){ 
-							console.log("btnSearchPwd","ajax error");
-						}//error
-					});//ajax
+					$("#User_id").val(id);
+					$("#User_email").val(email);
+					document.listForm.action="/member";
+					document.listForm.submit();
 				} else{
 					$("input[name=User_email]").prop("dataValue",true);
 				}//else
@@ -106,6 +94,8 @@
 			}//error
 		});//ajax
 	}
+	
+
 	
 	//아이디 찾기 클릭 시 화면에 아이디 찾기 영역을 보여줍니다.
 	function viewSearchId(){
@@ -148,7 +138,7 @@ function onSignIn(googleUser) {
 		  console.log('Name: ' + profile.getName());
 		  console.log('Image URL: ' + profile.getImageUrl());
 		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-			checkEmailbyGoogle(profile.getEmail());
+		checkEmailbyGoogle(profile.getEmail(),profile.getId());
 			/* location.reload(); */
 		}//onSignIn
 	};
@@ -160,7 +150,12 @@ function signOut(){
 	};
 
 </script>
+
     <section class="section__content">
+    <form method=get action="/admin/productControl" name="listForm">
+		<input type="hidden" name ="User_email" id="User_email">
+		<input type="hidden" name ="User_id" id="User_id">
+	</form>
     	<div id="user_upper"></div>
 		<form class="login-form" role="form" action="/loginAction" method="post">
             <p id="errorMsgArea"></p>
