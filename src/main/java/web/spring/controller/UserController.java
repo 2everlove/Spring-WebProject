@@ -109,7 +109,6 @@ public class UserController {
 		HttpSession session = req.getSession();
 		String msg = (String)session.getAttribute("msg");
 		model.addAttribute("msg", msg);
-		session.removeAttribute("msg");
 		return "/member/login";
 	}
 

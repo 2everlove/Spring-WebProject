@@ -33,7 +33,7 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/nboard/**" />	
+			<mapping path="/cartList" />	
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 		<interceptor>
