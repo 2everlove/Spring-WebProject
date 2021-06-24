@@ -1,5 +1,6 @@
 package web.spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.ProductService;
+import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
 @RestController
@@ -85,6 +87,38 @@ public class ProductAjaxController {
 			}
 		} else {
 			map.put("result", "error");
+		}
+		return map;
+	}
+	
+	//history
+	@GetMapping("/getProductByHistory/{history}")
+	public Map<String, Object> AjaxGetHistoryPb(@PathVariable("history")String history) {
+		log.info(history);
+		String hist = history;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("histotyList", "error");
+		
+		Map<String, Object> history_Map = new HashMap<String, Object>();
+		String historyArr[] = hist.split("[.]");
+		ArrayList<String> history_list = new ArrayList<String>();
+		if(historyArr!=null) {
+			for(int i=0; i<historyArr.length; i++) {
+				history_list.add(historyArr[i]);
+				System.out.println(historyArr[i]);
+			}
+		}
+		history_Map.put("history_Map", history_list);
+		log.info("history_list"+history_list);
+		if(history_list.size()!=0) {
+			List<PBoardVO> pBoardList = productService.getHistoryProduct(history_Map);
+			if(pBoardList != null) {
+				if(pBoardList.size()>0) {
+					map.put("histotyList", pBoardList);
+				}
+			} else {
+				map.put("histotyList", "error");
+			}
 		}
 		return map;
 	}

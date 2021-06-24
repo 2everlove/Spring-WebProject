@@ -25,10 +25,28 @@ function onSignIn(googleUser) {
 		$("#searchId").hide();
 		$("#searchPwd").hide();
 		//메시지 처리
-		if('${msg}'!=''){
-			console.log('${msg}');
+		let msg = "${msg}";
+		if(msg!=''){
+			console.log(msg);
 			//alert('${msg}');
-			$("#errorMsgArea").html('${msg}');
+			if(msg==0){
+				msg = "블럭";
+				$("#errorMsgArea").html(msg);
+				alert("관리자에 의해 "+msg+" 된 계정입니다.");
+			}
+			if(msg==-1){
+				msg = "실패";
+				$("#errorMsgArea").html(msg);
+				alert("입력하신 아이디와 비밀번호가 틀립니다.")
+			}
+			if(msg==2){
+				msg = "탈퇴";
+				$("#errorMsgArea").html(msg);
+				alert(msg+"된 계정입니다.");
+			}
+			
+			
+			
 		}
 		$("#btnSearchId").on("click",function(){
 			console.log("btnSearchId","click");

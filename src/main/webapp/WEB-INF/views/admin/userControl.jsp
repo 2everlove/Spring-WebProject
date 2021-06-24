@@ -10,7 +10,12 @@
 <script src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'></script>
 <script type="text/javascript" >
 	$(document).ready(function(){
-		
+		function page(page){
+			document.listForm.action="/admin/userControl";
+			document.listForm.pageNo.value=page;
+			document.listForm.submit();
+			
+		}
 		//지도 api
 		$('.user_address_search').click(function(){
 			let tr = $(this).closest("tbody");
@@ -337,7 +342,20 @@
 		    	</div>
 	    	</div>
     	</div>
-
+		<form method=get action="/admin/userControl" name="listForm">
+                 <!-- 상세보기 검색 유지용 -->
+                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
+                 <!-- 상세보기 검색 유지용 끝 -->
+                 <div class="form-inline">
+					<select class="form-control" name=type>
+						<option value="user_id" <c:if test="${pageNavi.cri.type == 'user_id'}">selected</c:if>>ID</option>
+						<option value="user_email" <c:if test="${pageNavi.cri.type == 'user_eamil'}">selected</c:if>>E-mail</option>
+											</select> 
+					<input class="form-control" name=keyword
+						value=${pageNavi.cri.keyword }>
+					<button type="submit" onClick="page(1)">검색</button>
+				</div>
+			</form>
     	    		    	<!-- 페이징 소스 -->
 			<div id="pagination-box">
 				<nav aria-label="Page navigation example" style="background-color: white;">
@@ -361,12 +379,7 @@
 					</ul>
 				</nav>
 			</div>
-			<form method=get action="/admin/productControl" name="listForm">
-                 <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
-                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
-                 <!-- 상세보기 검색 유지용 끝 -->
-			</form>
+			
    	</section>
 
 <%@include file="../includes/footer.jsp" %>

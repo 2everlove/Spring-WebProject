@@ -241,7 +241,6 @@
 			    		<thead>
 			    			<tr class="tr__head">
 			    				<th style="width: 30px;"></th>
-			    				<th><input type="checkbox"></th>
 			    				<th>제조사</th>
 			    				<th>카테고리</th>
 			    				<th>제품명</th>
@@ -255,7 +254,6 @@
 			    			<c:forEach var="product" items="${productList}">
 			    			<tr class="tr__desc">
 			    				<td style="width: 30px;">${product.num}</td>
-			    				<td><input type="checkbox" name="product_id" class="product_id" value="${product.product_id}"></td>
 			    				<td><input type="text" name="product_manufacturer" class="product_manufacturer" value="${product.product_manufacturer}"></td>
 			    				<td><input type="text" name="product_category" class="product_category" value="${product.product_category}"></td>
 			    				<td><input type="text" name="product_name" class="product_name" value="${product.product_name}"></td>
@@ -289,6 +287,7 @@
 			    	</div>
 		    	</div>
 		   	</div>
+		   	<button type="button" id="productRegisterShow">상품 추가</button>
 		   	<div class="pregister__popup" style="margin-bottom: 20px;">
 				<div class="pregister__wrapper">
 					<form action="/productRegister" name="productRegisterForm" id="fileRegis">
@@ -371,6 +370,9 @@
         let formData = new FormData($('#fileRegis')[0]);
 		updateProduct(formData, $(this));
 		Location.reload();
+		setTimeout(function(){
+			location.reload();
+			},3000);
 	});
 
 </script>

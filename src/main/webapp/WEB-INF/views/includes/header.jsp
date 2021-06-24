@@ -81,22 +81,58 @@
 		    infowindow.close();
 		  });
 	}
-	window.onload = function() {
-		console.log("star");
-		for (let i = 0; i < 10; i++) {
-			$(".starGet_" + i).starRating({
-				readOnly : true,
-				starSize : 25,
-				initialRating : $(".rated_star" + i).val()
-			});
-		}
-	};
 </script>
 <script id="googleMap">
 </script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+		let history = "${sessionScope.history_product_no}";
+		
+		window.onload = function(){
+			$.ajax({
+				url : "/getProductByHistory/"+history,
+				method : 'get',
+				dataType : 'json',
+				success : function(datas){
+					let htmlContent = "";
+					$.each(datas.histotyList, function(index, hdata) {
+						
+						$.ajax({
+							url:'/fileUploadAjax/'+hdata.masterImg,
+							method : 'get',
+							dataType : 'json',
+							success : function(datas){
+								let result ="";
+								$.each(datas, function(i, data){
+									console.log(data);
+									//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+									
+									let file_savePath = encodeURIComponent(data.file_savePath);
+									console.log(data.file_s_savePath);
+									
+									htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
+										+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100px; height: 100px; object-fit: cover;'>"
+										+"</a>";
+									$(".navbar__menu__item-history").html(htmlContent);
+								
+								});
+							},
+							error : function(errorThrown){
+								console.log(errorThrown);
+							}
+						});
+					
+					});
+					
+				},
+				error : function(errorThrown){
+					console.log(errorThrown);
+				}
+			});
+		};
+		
 		const pathName = window.location.pathname;
 	
 		//console.log(pathName);
@@ -159,7 +195,7 @@
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
 			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
-			                <button class="navbar__menu__item-history">History</button>
+			                <div class="navbar__menu__item-history">History</div>
 		            	</c:when>
 		            	<c:otherwise>
 			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
@@ -169,7 +205,7 @@
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
 			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
-			                <button class="navbar__menu__item-history">History</button>
+			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
 		            	</c:otherwise>
 		            </c:choose>
 		            </div>

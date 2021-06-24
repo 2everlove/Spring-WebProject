@@ -81,8 +81,6 @@ $(document).ready(function(){
 						<th>개수</th>
 						<th></th>
 						<th></th>
-						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -95,12 +93,12 @@ $(document).ready(function(){
 							<td class="center">${cvo.product_name}</td>
 							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
-							<td class="center"><input type="text" name="pBoard_unit_stocks" value="${cvo.pboard_unit_stocks}"></td>
-							<td class="center"><input type="text" name="pBoard_unit_no" value="${cvo.pboard_unit_no}"></td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
 							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cvo.pboard_unit_stocks}&pboard_unit_no=${cvo.pboard_unit_no}'>
 								<button type="button" id="orderBtn">주문</button></a>
 							</td>
+							<input type="hidden" name="pBoard_unit_stocks" value="${cvo.pboard_unit_stocks}">
+							<input type="hidden" name="pBoard_unit_no" value="${cvo.pboard_unit_no}">
 						</tr>
 					</c:forEach>
 					<c:if test="${list.size() == 0 }">

@@ -51,6 +51,18 @@
 		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	
+	<!-- history -->
+	<select id="getHistoryProduct" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
+		select p.file_pictureId masterImg, b.* from (select * 
+		from product_board 
+		<where>
+			<foreach collection="history_Map" item="item" separator="or">
+				pboard_unit_no = #{item}
+			</foreach>
+		</where>
+		) b full outer join products_info p on b.product_id = p.product_id where b.pboard_unit_no is not null
+	</select>
+	
 	<!-- paging amount for product_board -->
 	<select id="getTotal" resultType="int">
 		select count(*) from product_board

@@ -26,4 +26,5 @@ public class PBoardVO {
 	private String product_id;
 	private String user_id;
 	private String file_pictureId;
+	private String masterImg; //마스터 상품 이미지
 }

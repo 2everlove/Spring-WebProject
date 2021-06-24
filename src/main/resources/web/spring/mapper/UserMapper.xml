@@ -50,7 +50,15 @@
 			u.user_interesting,
 			file_pictureId
 		
-			from user_info u) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+			from user_info u 
+			<where>
+				<if test="type=='user_id' and keyword != null">
+					u.user_id like '%'  || #{keyword}  ||  '%'
+				</if>
+				<if test="type=='user_email' and keyword != null">
+					u.user_email like '%'  || #{keyword}  ||  '%'
+				</if>
+			</where>) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	
 	<select id="getUserTotal" resultType="int">
