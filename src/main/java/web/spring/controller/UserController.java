@@ -108,6 +108,7 @@ public class UserController {
 	public String login(Model model ,HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String msg = (String)session.getAttribute("msg");
+		session.removeAttribute("msg");
 		model.addAttribute("msg", msg);
 		return "/member/login";
 	}

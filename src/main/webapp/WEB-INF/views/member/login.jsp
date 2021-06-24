@@ -9,14 +9,27 @@
 <script type="text/javascript">
 
 	$(document).ready(function(e){
-		$("#searchId").hide();
-		$("#searchPwd").hide();
-		//메시지 처리
-		if('${msg}'!=''){
-			console.log('${msg}');
+		let msg = "${msg}";
+		if(msg!=''){
+			console.log(msg);
 			//alert('${msg}');
-			$("#errorMsgArea").html('${msg}');
+			if(msg==0){
+				msg = "블럭";
+				$("#errorMsgArea").html(msg);
+				alert("관리자에 의해 "+msg+" 된 계정입니다.");
+			}
+			if(msg==-1){
+				msg = "실패";
+				$("#errorMsgArea").html(msg);
+				alert("입력하신 아이디와 비밀번호가 틀립니다.")
+			}
+			if(msg==2){
+				msg = "탈퇴";
+				$("#errorMsgArea").html(msg);
+				alert(msg+"된 계정입니다.");
+			}
 		}
+			
 		$("#btnSearchId").on("click",function(){
 			console.log("btnSearchId","click");
 			let idVo={
@@ -186,7 +199,7 @@ function signOut(){
               		<div class="g-signin2" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
            		</fieldset>
      					<!-- 아이디 찾기 -->
-                        <fieldset id="searchId">
+                        <fieldset id="searchId" style="display: none;">
                         	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><c:if test="${!empty sessionScope.user}"><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></c:if></div>
                            <div class="login-group">
                            		<label>이름</label>
@@ -206,7 +219,7 @@ function signOut(){
                        </fieldset>
                        
                        <!-- 비밀번호찾기 -->
-                        <fieldset id="searchPwd">
+                        <fieldset id="searchPwd" style="display: none;">
                            	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><c:if test="${!empty sessionScope.user}"><div style="float:right; "><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></div></c:if>
                            <div class="login-group">
                            		<label>아이디</label>
