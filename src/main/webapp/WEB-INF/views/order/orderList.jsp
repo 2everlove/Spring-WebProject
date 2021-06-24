@@ -30,18 +30,20 @@ function page(page){
 					<th>상품 아이디</th>
 					<th>가격</th>
 					<th>개수</th>
+					<th>배송 현황</th>
 				</tr>
 			</thead>
 			<tbody>
 
 				<c:forEach var="ovo" items="${list}">
 					<tr>
-						<td class="center"><a href='/orderStatus?order_id=${ovo.order_id}'>${ovo.order_id}</a></td>
+						<td class="center">${ovo.order_id}</a></td>
 						<td class="center">${ovo.order_name}</td>
 						<td class="center">${ovo.order_address}</td>
 						<td class="center">${ovo.product_id}</td>
 						<td class="center">${ovo.order_totalprice}</td>
 						<td class="center">${ovo.order_totalcount}</td>
+						<td><a href='/orderStatus?order_id=${ovo.order_id}'><button type="button">배송 현황</button></a></td>
 					</tr>
 				</c:forEach>
 				<c:if test="${list.size() == 0 }">
