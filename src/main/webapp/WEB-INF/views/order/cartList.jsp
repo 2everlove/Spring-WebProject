@@ -91,7 +91,7 @@ $(document).ready(function(){
 
 					<c:forEach var="cvo" items="${list}">
 						<tr>
-							<td class="center"><input type="checkbox" value="${cvo.cart_id}" class="checkbox">${cvo.cart_id}</td>
+							<td class="center"><input type="checkbox" value="${cvo.cart_id}" class="checkbox"></td>
 							<td class="center" id="order_name">${cvo.user_name}</td>
 							<td class="center" id="order_address">${cvo.user_address}</td>
 							<td class="center">${cvo.product_name}</td>
