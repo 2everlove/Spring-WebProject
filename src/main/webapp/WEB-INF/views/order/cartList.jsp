@@ -41,7 +41,8 @@ $(document).ready(function(){
 		if(valueArr.length == 0){
 			alert("하나 이상 선택해주세요.");
 		} else{
-			if(confirm("정말 삭제하시겠습니까?") == true){
+			var chk = confirm("정말 삭제하시겠습니까?");
+			if(chk == true){
 				$.ajax({
 					url: url,
 					type: 'POST',
