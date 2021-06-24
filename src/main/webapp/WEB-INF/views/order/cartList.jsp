@@ -40,22 +40,26 @@ $(document).ready(function(){
 		}
 		if(valueArr.length == 0){
 			alert("하나 이상 선택해주세요.");
-		} else {
+		} else{
 			var chk = confirm("정말 삭제하시겠습니까?");
-			$.ajax({
-				url: url,
-				type: 'POST',
-				traditional: true,
-				data: {valueArr : valueArr},
-				success: function(val){
-					if(val = 1){
-						alert("삭제 성공");
-						location.replace("cartList");
-					} else {
-						alert("삭제 실패");
+			if(chk == true){
+				$.ajax({
+					url: url,
+					type: 'POST',
+					traditional: true,
+					data: {valueArr : valueArr},
+					success: function(val){
+						if(chk = 1){
+							alert("삭제 성공");
+							location.replace("cartList");
+						} else {
+							alert("삭제 실패");
+						}
 					}
-				}
-			});
+				});
+			} else {
+				return;
+			}
 		}
 	});
 });

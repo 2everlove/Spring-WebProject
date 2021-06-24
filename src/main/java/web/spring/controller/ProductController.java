@@ -67,7 +67,7 @@ public class ProductController {
 		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
 		
-		if(linkedList.size()<4) {
+		if(linkedList.size()<6) {
 			linkedList = linkedList.stream()
 			        .distinct()
 			        .collect(Collectors.toCollection(LinkedList::new));

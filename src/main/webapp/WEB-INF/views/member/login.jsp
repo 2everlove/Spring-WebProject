@@ -22,8 +22,6 @@ function onSignIn(googleUser) {
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		$("#searchId").hide();
-		$("#searchPwd").hide();
 		//메시지 처리
 		let msg = "${msg}";
 		if(msg!=''){
@@ -185,7 +183,7 @@ function onSignIn(googleUser) {
               		 
            		</fieldset>
      					<!-- 아이디 찾기 -->
-                        <fieldset id="searchId">
+                        <fieldset id="searchId" style="display: none;">
                         	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><c:if test="${!empty sessionScope.user}"><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></c:if></div>
                            <div class="login-group">
                            		<label>이름</label>
@@ -205,7 +203,7 @@ function onSignIn(googleUser) {
                        </fieldset>
                        
                        <!-- 비밀번호찾기 -->
-                        <fieldset id="searchPwd">
+                        <fieldset id="searchPwd" style="display: none;">
                            	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><c:if test="${!empty sessionScope.user}"><div style="float:right; "><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></div></c:if>
                            <div class="login-group">
                            		<label>아이디</label>

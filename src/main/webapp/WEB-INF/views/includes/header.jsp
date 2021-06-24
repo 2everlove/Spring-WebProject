@@ -87,12 +87,17 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		
+		myStorage = window.localStorage;
+
 		let history = "${sessionScope.history_product_no}";
-		
+		if(history!=""){
+			localStorage.setItem('his', history);
+		}
+		let his = localStorage.getItem('his');
+
 		window.onload = function(){
 			$.ajax({
-				url : "/getProductByHistory/"+history,
+				url : "/getProductByHistory/"+his,
 				method : 'get',
 				dataType : 'json',
 				success : function(datas){
@@ -194,8 +199,7 @@
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
-			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
-			                <div class="navbar__menu__item-history">History</div>
+			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
 		            	</c:when>
 		            	<c:otherwise>
 			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
@@ -204,7 +208,6 @@
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
-			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
 			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
 		            	</c:otherwise>
 		            </c:choose>
