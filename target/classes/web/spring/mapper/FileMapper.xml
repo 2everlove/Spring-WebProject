@@ -23,8 +23,9 @@
         	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
         	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
 		from common_file
+		where
 		<foreach collection="product_Map" item="item" separator="or">
-			where file_pictureId = #{item}
+			file_pictureId = #{item}
 		</foreach>
 	</select>
 	
