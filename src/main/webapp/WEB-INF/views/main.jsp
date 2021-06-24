@@ -14,17 +14,7 @@
 		}
 	});
 </script>
-<script type="text/javascript" defer="defer">
-window.onload = function() {
-	console.log("star");
-	for (let i = 0; i < 30; i++) {
-		$(".starGet_" + i).starRating({
-			readOnly : true,
-			starSize : 25,
-			initialRating : $(".rated_star" + i).val()
-		});
-	}
-};
+<script type="text/javascript">
 </script>
     <section class="section__content">
     

@@ -46,8 +46,10 @@ public class UserController {
 	
 	//회원등록 페이지
 	@GetMapping("/member")
-	public String member(){
-		return ("/member/member");
+	public String member(UserVO user, Model model){
+		log.info(user);
+		model.addAttribute("user",user);
+		return "/member/member";
 	}
 	
 	//맴버 상세보기
@@ -107,7 +109,7 @@ public class UserController {
 		HttpSession session = req.getSession();
 		String msg = (String)session.getAttribute("msg");
 		model.addAttribute("msg", msg);
-		session.invalidate();
+		session.removeAttribute("msg");
 		return "/member/login";
 	}
 
@@ -142,8 +144,7 @@ public class UserController {
 		UserVO user = userService.login(vo);
 		HttpSession session = req.getSession();
 		String tmpUri= (String)session.getAttribute("tmpUri");
-		System.out.println("loginAction");
-		String msg = "";
+		System.out.println("loginAction"+tmpUri);
 		if (user == null) {
 			session.setAttribute("msg", "-1");
 		}else {
@@ -227,16 +228,19 @@ public class UserController {
 	 */
 
 	@ResponseBody
-	@GetMapping("/googleLogin/{email}")
-	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email){
+	@GetMapping("/googleLogin")
+	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email, HttpServletRequest req,Model model){
 		System.out.println(User_email);
-		
 		Map<String,Object> res = new HashMap<>();
 		UserVO user = userService.searchUserByEmail(User_email);
 		System.err.println(user);
 		if(user == null) {
 			res.put("user", "fail");
 		} else {
+			System.out.println("googleLogin:"+user);
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+			model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
 			res.put("user", user);
 		}
 		System.out.println("map"+res.get("user"));

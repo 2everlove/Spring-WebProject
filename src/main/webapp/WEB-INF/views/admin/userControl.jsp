@@ -272,8 +272,8 @@
 						    				<c:if test="${user.user_enabled==2}">
 						    					<select class="user_enabled" name="user_enabled" style="color: red;">
 						    						<option value="0" style="color: black;">블럭</option>
-						    						<option value="1" selected style="color: green;">활성</option>
-						    						<option value="2" style="color: red;">탈퇴</option>
+						    						<option value="1" style="color: green;">활성</option>
+						    						<option value="2" selected style="color: red;">탈퇴</option>
 				    							</select>
 				    						</c:if>
 					    				</td>

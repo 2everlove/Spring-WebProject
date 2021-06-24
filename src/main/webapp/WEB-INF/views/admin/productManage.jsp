@@ -34,6 +34,18 @@
 		$('#thum').hide();
 		$('.updateBtn').click(function(){
 			let currentRow = $(this).closest('tr');
+			if(currentRow.find('.product_manufacturer').val()==""){
+				currentRow.find('.product_manufacturer').select();
+				return false;
+			}
+			if(currentRow.find('.product_category').val()==""){
+				currentRow.find('.product_category').select();
+				return false;
+			}
+			if(currentRow.find('.product_color').val()==""){
+				currentRow.find('.product_color').select();
+				return false;
+			}
 			let Formproduct_manufacturer = currentRow.find('.product_manufacturer').val();
 			let Formproduct_category = currentRow.find('.product_category').val();
 			let Formproduct_name = currentRow.find('.product_name').val();
@@ -194,7 +206,12 @@
 				currentRow.find('.product_name').val(datas.result.product_name);
 				currentRow.find('.product_description').val(datas.result.product_description);
 				currentRow.find('.pboard_unit_price').val(datas.result.pboard_unit_price);
-				alert(datas.result.num+"번 글이 수정되었습니다.");
+				if(formData.get("product_id")!=null){
+					alert(datas.result.num+"번 글이 수정되었습니다.");
+				} else {
+					alert("글이 등록되었습니다.");
+				}
+				
 			},
 			error : function(errorThrown){
 				console.log(errorThrown);
@@ -253,12 +270,23 @@
 			    			</tr>
 			    			<c:forEach var="product" items="${productList}">
 			    			<tr class="tr__desc">
-			    				<td style="width: 30px;">${product.num}</td>
+			    				<td style="width: 30px;">${product.num}<input type="hidden" name="product_id" class="product_id" value="${product.product_id}"></td>
+			    				
 			    				<td><input type="text" name="product_manufacturer" class="product_manufacturer" value="${product.product_manufacturer}"></td>
-			    				<td><input type="text" name="product_category" class="product_category" value="${product.product_category}"></td>
+			    				<td>
+			    					<select name="product_category" class="product_category">
+			    						<option value="tablet" <c:if test="${product.product_category == 'tablet'}">selected</c:if>>태블릿</option>
+			    						<option value="desktop" <c:if test="${product.product_category == 'desktop'}">selected</c:if>>컴퓨터</option>
+			    						<option value="notebook" <c:if test="${product.product_category == 'notebook'}">selected</c:if>>노트북</option>
+			    						<option value="life" <c:if test="${product.product_category == 'life'}">selected</c:if>>생활가전</option>
+			    						<option value="video" <c:if test="${product.product_category == 'video'}">selected</c:if>>영상가전</option>
+			    						<option value="sound" <c:if test="${product.product_category == 'sound'}">selected</c:if>>음향가전</option>
+			    						<option value="software" <c:if test="${product.product_category == 'software'}">selected</c:if>>소프트웨어</option>
+			    					</select>
+			    				</td>
 			    				<td><input type="text" name="product_name" class="product_name" value="${product.product_name}"></td>
 			    				<td><input type="text" name="product_description" class="product_description" value="${product.product_description}"></td>
-			    				<td><input type="text" name="product_color" class="product_color" value="${product.product_color}"></td>
+			    				<td><input type="text" name="product_color" class="product_color" value="${product.product_color}" style="width: 70px;"></td>
 			    				<td><button class="updateBtn" type="button">저장</button></td>
 			    				<fmt:formatDate value="${product.product_regdate}" pattern="yy-MM-dd" var="regDate"/>
 			    				<td>${regDate}</td>
@@ -287,7 +315,6 @@
 			    	</div>
 		    	</div>
 		   	</div>
-		   	<button type="button" id="productRegisterShow">상품 추가</button>
 		   	<div class="pregister__popup" style="margin-bottom: 20px;">
 				<div class="pregister__wrapper">
 					<form action="/productRegister" name="productRegisterForm" id="fileRegis">
@@ -305,7 +332,17 @@
 				    			</tr>
 				    			<tr>
 				    				<td><input type="text" name="product_manufacturer"></td>
-				    				<td><input type="text" name="product_category"></td>
+				    				<td>
+				    					<select name="product_category">
+				    						<option value="tablet">태블릿</option>
+				    						<option value="desktop">컴퓨터</option>
+				    						<option value="notebook">노트북</option>
+				    						<option value="life">생활가전</option>
+				    						<option value="video">영상가전</option>
+				    						<option value="sound">음향가전</option>
+				    						<option value="software">소프트웨어</option>
+				    					</select>
+				    				</td>
 				    				<td><input type="text" name="product_name"></td>
 				    				<td><input type="text" name="product_description"></td>
 				    				<td><div class="colorPickSelector"></div><input type="hidden" name="product_color"></td>
@@ -367,12 +404,22 @@
         attachFile(formData, $(this));
     });
 	$('#registerBtn').click(function(){
+		let tr = $(this).closest('tr');
+		if(tr.find("input[name='product_manufacturer']").val()==""){
+			tr.find('input[name="product_manufacturer"]').select();
+			return false;
+		}
+		if(tr.find("input[name='product_name']").val()==""){
+			tr.find('input[name="product_name"]').select();
+			return false;
+		}
+		if(tr.find("input[name='uploadFile']").val()==""){
+			tr.find('input[name="uploadFile"]').click();
+			return false;
+		}
         let formData = new FormData($('#fileRegis')[0]);
 		updateProduct(formData, $(this));
-		Location.reload();
-		setTimeout(function(){
-			location.reload();
-			},3000);
+		history.go(0);
 	});
 
 </script>

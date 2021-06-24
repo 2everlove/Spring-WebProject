@@ -56,11 +56,16 @@
 		select p.file_pictureId masterImg, b.* from (select * 
 		from product_board 
 		<where>
-			<foreach collection="history_Map" item="item" separator="or">
+			<foreach collection="history_Map" index="0" item="item" separator="or">
 				pboard_unit_no = #{item}
 			</foreach>
 		</where>
 		) b full outer join products_info p on b.product_id = p.product_id where b.pboard_unit_no is not null
+		order by
+		DECODE(pboard_unit_no,
+		<foreach collection="history_sort" index="index" close=")" item="item" separator=",">
+			 #{item}, ${index}
+		</foreach>
 	</select>
 	
 	<!-- paging amount for product_board -->
@@ -187,7 +192,7 @@
 	<select id="searchManuCate" resultType="web.spring.vo.ProductVO">
 		select * 
 		from products_info 
-		where product_manufacturer=#{product_manufacturer} and product_category = #{product_category}
+		where LOWER(product_manufacturer)=#{product_manufacturer} and LOWER(product_category) = #{product_category}
 	</select>
 	
 	<!-- productRegister시 상품 이름으로 검색 시 제조사, 카테고리 검색 -->

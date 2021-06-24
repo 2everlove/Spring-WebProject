@@ -68,17 +68,24 @@ public class ProductController {
 		PBoardVO pBoard = productService.getProduct(no);
 		
 		if(linkedList.size()<6) {
+			linkedList.addFirst(no);
 			linkedList = linkedList.stream()
 			        .distinct()
 			        .collect(Collectors.toCollection(LinkedList::new));
-			linkedList.addFirst(no);
 		} else {
 			linkedList = linkedList.stream()
 			        .distinct()
 			        .collect(Collectors.toCollection(LinkedList::new));
-			if(linkedList.size()<4) {
-				linkedList.removeLast();
+			if(linkedList.size()==6) {
 				linkedList.addFirst(no);
+			}
+			if(linkedList.size()>6) {
+				linkedList = linkedList.stream()
+				        .distinct()
+				        .collect(Collectors.toCollection(LinkedList::new));
+				if(linkedList.size()>6) {
+					linkedList.removeLast();
+				}
 			}
 		}
 		

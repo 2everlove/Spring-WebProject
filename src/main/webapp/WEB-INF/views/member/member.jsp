@@ -168,14 +168,16 @@
                		<div class="register-group div1">
                 	<p id="errorMsgArea"></p>
                 	<label>ID</label><br>
-                	<c:if test="${user=null}">
-                    <input type="text" placeholder="id" name="User_id" 
-                    pattern="[0-9A-Za-z]{6,20}"
-                    autofocus required></c:if>
-                	<c:if test="${user!=null}">
-                    <input type="text" value="" name="User_id" 
-                    pattern="[0-9A-Za-z]{6,20}"
-                    autofocus required></c:if>
+                	<c:choose>
+                		<c:when test="${!empty user }">
+                			<input type="text" value="${user.user_id}" name="User_id"  pattern="[0-9A-Za-z]{6,20}"autofocus required>
+                		</c:when>
+                		<c:otherwise>
+                			<input type="text" name="User_id"  pattern="[0-9A-Za-z]{6,20}"autofocus required>
+                		</c:otherwise>
+                	</c:choose>
+                	            
+                	
                     <button type="button" class="form-control" id="checkIdRepeat" style="margin: 0px 10px;">중복 확인</button>
                 </div>
                 <div class="register-group div2">
@@ -186,11 +188,13 @@
                 </div>
                 <div class="register-group div3">
                 	<label>이름</label><br>
-                    <input class="form-control" placeholder="name" name="User_name" required>
+                	<c:if test="${user!=null}">
+                    <input class="form-control" value="${user.user_name}" name="User_name" required></c:if>
+                    <c:if test="${user==null}"><input class="form-control" placeholder="name" name="User_name" required></c:if>
                 </div>
                 <div class="register-group div4">
                 	<label>EMAIL</label><br>
-                    <input class="form-control" placeholder="email" name="User_email" type="email" required>
+                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${user.user_email}" required>
                 </div>
                 <div class="register-group div5">
                 	<label>CONTACT</label><br>

@@ -25,6 +25,7 @@
 			    	</c:if>
 			    	<c:if test="${sessionScope.user.user_type==0}">
 				    	<a href="/admin/pBoardControl"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
+				    	<a href="/orderAllList"><button class="navbar__menu__item"><i class="fas fa-shopping-bag"></i> 주문 관리</button></a>
 			    	</c:if>
 		    	</c:if>
 	    	</div>
@@ -34,7 +35,7 @@
 			    	<a href="/admin/productControl"><button class="navbar__menu__item"><i class="fas fa-chalkboard"></i> 상품 관리</button></a>
 			    	<a href="/admin/pBoardControl"><button class="navbar__menu__item"><i class="far fa-newspaper"></i> 상품 게시글 관리</button></a>
 			    	<a href="/admin/productRegister"><button class="navbar__menu__item"><i class="fas fa-chalkboard-teacher"></i> 회원 관리</button></a>
-			    	<a href="/orderAllList"><button class="navbar__menu__item"><i class="fas fa-shopping-bag"></i> 주문 관리</button></a>
+			    	
 		    	</div>
     		</c:if>
     	</div>

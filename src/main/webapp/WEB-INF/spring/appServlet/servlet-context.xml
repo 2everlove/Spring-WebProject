@@ -37,6 +37,10 @@
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 		<interceptor>
+			<mapping path="/product/productRegister" />	
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
 			<mapping path="/myPage/**" />	
 			<beans:ref bean="authInterceptor" />
 		</interceptor>

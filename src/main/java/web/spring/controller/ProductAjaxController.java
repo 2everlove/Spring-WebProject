@@ -2,6 +2,7 @@ package web.spring.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class ProductAjaxController {
 	public Map<String, Object> AjaxCheckProductInfo(@PathVariable("product_manufacturer")String product_manufacturer, @PathVariable("product_category")String product_category) {
 		log.info(product_manufacturer+"\n"+product_category);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<ProductVO> list = productService.searchManuCate(product_manufacturer, product_category);
+		List<ProductVO> list = productService.searchManuCate(product_manufacturer.toLowerCase(), product_category.toLowerCase());
 		if(list != null) {
 			if(list.size()>0) {
 				map.put("result", list);
@@ -47,6 +48,7 @@ public class ProductAjaxController {
 		log.info("AjaxgetProductInfo"+product_name);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<ProductVO> list = productService.searchProductManuCate(product_name);
+		log.info(list);
 		if(list != null) {
 			if(list.size()>0) {
 				map.put("result", list);
@@ -78,7 +80,7 @@ public class ProductAjaxController {
 	public Map<String, Object> AjaxInsetCodeInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
 		log.info(code_type+"\n"+code_value);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> list = productService.searchProductCategory(code_type, code_value);
+		List<String> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
 		if(list != null) {
 			if(list.size()>0) {
 				map.put("result", list);
@@ -99,7 +101,7 @@ public class ProductAjaxController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("histotyList", "error");
 		
-		Map<String, Object> history_Map = new HashMap<String, Object>();
+		Map<String, Object> history_Map = new LinkedHashMap<String, Object>();
 		String historyArr[] = hist.split("[.]");
 		ArrayList<String> history_list = new ArrayList<String>();
 		if(historyArr!=null) {
@@ -109,9 +111,11 @@ public class ProductAjaxController {
 			}
 		}
 		history_Map.put("history_Map", history_list);
+		history_Map.put("history_sort", history_list);
 		log.info("history_list"+history_list);
 		if(history_list.size()!=0) {
 			List<PBoardVO> pBoardList = productService.getHistoryProduct(history_Map);
+			log.info(pBoardList);
 			if(pBoardList != null) {
 				if(pBoardList.size()>0) {
 					map.put("histotyList", pBoardList);
