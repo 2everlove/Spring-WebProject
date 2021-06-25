@@ -95,9 +95,7 @@
 				    	
 				    		<thead>
 				    			<tr class="tr__head">
-				    			
 				    				<th></th>
-				    				<th><input type="checkbox"></th>
 				    				<th class="orderby" data-type="pboard_unit_enabled" data-sort=${pageNavi.cri.orderby }>활성화</th>
 				    				<th class="orderby" data-type="pboard_unit_condition" data-sort=${pageNavi.cri.orderby }>new,sale,event</th>
 				    				<th class="orderby" data-type="pboard_unit_stocks" data-sort=${pageNavi.cri.orderby }>재고</th>
@@ -114,8 +112,7 @@
 				    				
 				    			<c:forEach var="pBoard" items="${PBoardList}">
 					    			<tr class="tr__desc">
-					    				<td>${pBoard.num }</td>
-					    				<td><input type="checkbox" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
+					    				<td>${pBoard.num }<input type="hidden" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
 					    				<td>
 				    						<c:if test="${pBoard.pboard_unit_enabled eq 0}">
 						    					<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: green;">
@@ -174,6 +171,24 @@
 	        		</form>
 		    	</div>
 	    	</div>
+	    	<form method=get action="/admin/pBoardControl" name="listForm">
+                 <!-- 상세보기 검색 유지용 -->
+                 ${pageNavi.cri.type }
+                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
+                 <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
+                 <input type=hidden name=type value=${pageNavi.cri.type }> 
+                 <!-- 상세보기 검색 유지용 끝 -->
+                 <div class="form-inline">
+					<select class="form-control" name=type>
+						<option value="product_manufacturer" <c:if test="${pageNavi.cri.type == 'product_manufacturer'}">selected</c:if>>제조사</option>
+						<option value="product_category" <c:if test="${pageNavi.cri.type == 'product_category'}">selected</c:if>>카테고리</option>
+						<option value="product_name" <c:if test="${pageNavi.cri.type == 'product_name'}">selected</c:if>>상품명</option>
+											</select> 
+					<input class="form-control" name=keyword
+						value=${pageNavi.cri.keyword }>
+					<button type="submit" onClick="page(1)">검색</button>
+				</div>
+			</form>
 	    	<!-- 페이징 소스 -->
 			<div id="pagination-box">
 				<nav aria-label="Page navigation example" style="background-color: white;">
@@ -198,13 +213,7 @@
 				</nav>
 			</div>
 			<!-- 페이징 끝 -->
-			<form method=get action="/admin/pBoardControl" name="listForm">
-                 <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
-                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
-                 <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
-                 <!-- 상세보기 검색 유지용 끝 -->
-			</form>
+			
     	</div>
    	</section>
 
