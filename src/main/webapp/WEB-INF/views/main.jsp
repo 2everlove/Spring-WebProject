@@ -4,6 +4,56 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="./includes/header.jsp" %>
 <link rel="stylesheet" href="/resources/css/main.css">
+<style>
+	.slider { 
+		width: 980px; 
+		text-align: center; 
+		border-radius: 10px; overflow: hidden; 
+	} 
+	.slides { 
+		display: flex; 
+		overflow-x: auto; 
+		/* overflow: hidden; */ 
+		scroll-snap-type: x mandatory; 
+		scroll-behavior: smooth; 
+		-webkit-overflow-scrolling: touch; 
+	} 
+	.slides::-webkit-scrollbar { width: 10px; height: 10px; } 
+	.slides::-webkit-scrollbar-thumb { 
+		background: black; 
+		border-radius: 10px; } 
+	.slides::-webkit-scrollbar-track { 
+		background-color: grey;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;} 
+	.slides > div { 
+		scroll-snap-align: start; 
+		flex-shrink: 0; 
+		width: 180px; 
+		height: 300px; 
+		overflow: hidden; 
+		transform-origin: center center; 
+		transform: scale(1); 
+		transition: transform 0.5s;
+		position: relative; 
+		display: flex; 
+		justify-content: center; 
+		align-items: center; 
+	}
+	.slides > a { 
+		display: inline-flex; 
+		width: 1.5rem; 
+		height: 1.5rem; 
+		text-decoration: none; 
+		align-items: center; 
+		justify-content: center; 
+		border-radius: 50%; 
+		margin: 0 0 0.5rem 0; 
+		position: relative; 
+	  } 
+	.slides > a:active { top: 1px; } 
+	.slides > a:focus { background: #000; }
+</style>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -12,7 +62,14 @@
 			var popupY= (window.screen.height / 2)-(300 / 2);
 			window.open('/popup', '', 'status=no, height=500, width=700, left='+ popupX + ', top='+ popupY);
 		}
+		moveScrollLeft = function() {
+			  var _scrollX = $('.slides').scrollLeft();
+			  $('.slides').scrollLeft(_scrollX + 100);
+		};
 	});
+	
+	
+	
 </script>
 <script type="text/javascript">
 </script>
@@ -32,43 +89,52 @@
 			   		</div>
 			   		
 			    	<div class="product__wrapper">
-					<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
-						<c:forEach var="product" items="${productList}">
-							<c:forEach var="user" items="${userList}">
-								<c:if test="${pBoard.pboard_unit_condition == 0}">
-					    			<c:if test="${pBoard.product_id == product.product_id}">
-						    			<c:if test="${user.user_id ==  pBoard.user_id}">
-									    	<div class="new__product">
-								    			<a href="/pDetail/${pBoard.pboard_unit_no}">
-											    	<c:forEach var="file" items="${fileList}">
-											    		<c:url value="/fileDisplay" var="url">
-												    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
-												    	</c:url>
-												    	<c:if test="${file.file_pictureId == product.file_pictureId }">
-													        <img src="${url}" class="thumnail__products">
-												    	</c:if>
-											    	</c:forEach>
-											        <h1 class="new__title">${product.product_name}</h1>
-											        <h3 class="new__description">${product.product_description}</h3>
-											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-											        <h2 class="new__price"><span>${price}</span>원</h2>
-											        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
-													<div class='c_cbox_rating' style="display: none;">
-													${pBoard.avg}
-													</div>
-													<div class='jq-stars starGet_${status.index}'></div> 
-											        <button class="new__shops">${user.user_name}</button>
-									    		</a>
-									        </div>
-								        </c:if>
-					    			</c:if>
-								</c:if>
-							</c:forEach>
-						</c:forEach>
-					</c:forEach>
+				    	<div class="slider"> 
+				    		<div class="slides">
+				    		<!-- <button><span style="font-size: 80px;"><i class="fas fa-chevron-left"></i></span></button> -->
+								<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
+									<c:forEach var="product" items="${productList}">
+										<c:forEach var="user" items="${userList}">
+											<c:if test="${pBoard.pboard_unit_condition == 0}">
+								    			<c:if test="${pBoard.product_id == product.product_id}">
+									    			<c:if test="${user.user_id ==  pBoard.user_id}">
+										    			<div id="slide-${pBoard.num }">
+													    	<div class="new__product" data-no="${pBoard.num}">
+												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
+															    	<c:forEach var="file" items="${fileList}">
+															    		<c:url value="/fileDisplay" var="url">
+																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
+																    	</c:url>
+																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																	        <img src="${url}" class="thumnail__products">
+																    	</c:if>
+															    	</c:forEach>
+															        <h1 class="new__title">${product.product_name}</h1>
+															        <h3 class="new__description">${product.product_description}</h3>
+															        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+															        <h2 class="new__price"><span>${price}</span>원</h2>
+															        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+																	<div class='c_cbox_rating' style="display: none;">
+																	${pBoard.avg}
+																	</div>
+																	<div class='jq-stars starGet_${status.index}'></div> 
+															        <button class="new__shops">${user.user_name}</button>
+													    		</a>
+													        </div>
+												        </div>
+											        </c:if>
+								    			</c:if>
+											</c:if>
+										</c:forEach>
+									</c:forEach>
+								</c:forEach>
+	<!-- 		    		<button><span style="font-size: 80px;"><i class="fas fa-chevron-right"></i></span></button>
+	 -->					</div>
+				    	</div>
 			    	</div>
 		    	</div>
-  					
+		    	
+		    	
 				<!-- Sale -->
 		   	    <div class="section__productsList" id="sale">
 			   	    <div class="section__typoWrapper">
@@ -80,40 +146,46 @@
 				   		</div>
 			   		</div>
 			    	<div class="product__wrapper">
-	    			<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
-						<c:forEach var="product" items="${productList}">
-							<c:forEach var="user" items="${userList}">
-								<c:if test="${pBoard.pboard_unit_condition == 1}">
-					    			<c:if test="${pBoard.product_id == product.product_id}">
-						    			<c:if test="${user.user_id ==  pBoard.user_id}">
-									    	<div class="sale__product">
-								    			<a href="/pDetail/${pBoard.pboard_unit_no}">
-											    	<c:forEach var="file" items="${fileList}">
-											    		<c:url value="/fileDisplay" var="url">
-												    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
-												    	</c:url>
-												    	<c:if test="${file.file_pictureId == product.file_pictureId }">
-													        <img src="${url}" class="thumnail__products">
-												    	</c:if>
-											    	</c:forEach>
-											        <h1 class="new__title">${product.product_name}</h1>
-											        <h3 class="new__description">${product.product_description}</h3>
-											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-											        <h2 class="new__price"><span>${price}</span>원</h2>
-											         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
-													<div class='c_cbox_rating' style="display: none;">
-													${pBoard.avg}
-													</div>
-													<div class='jq-stars starGet_${status.index}'></div>
-											        <button class="new__shops">${user.user_name}</button>
-									    		</a>
-									        </div>
-								        </c:if>
-					    			</c:if>
-								</c:if>
-							</c:forEach>
-						</c:forEach>
-					</c:forEach>
+			    		<div class="slider"> 
+				    		<div class="slides">
+				    			<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
+									<c:forEach var="product" items="${productList}">
+										<c:forEach var="user" items="${userList}">
+											<c:if test="${pBoard.pboard_unit_condition == 1}">
+								    			<c:if test="${pBoard.product_id == product.product_id}">
+									    			<c:if test="${user.user_id ==  pBoard.user_id}">
+										    			<div id="slide-${pBoard.num }">
+													    	<div class="sale__product">
+												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
+															    	<c:forEach var="file" items="${fileList}">
+															    		<c:url value="/fileDisplay" var="url">
+																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
+																    	</c:url>
+																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																	        <img src="${url}" class="thumnail__products">
+																    	</c:if>
+															    	</c:forEach>
+															        <h1 class="new__title">${product.product_name}</h1>
+															        <h3 class="new__description">${product.product_description}</h3>
+															        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+															        <h2 class="new__price"><span>${price}</span>원</h2>
+															         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+																	<div class='c_cbox_rating' style="display: none;">
+																	${pBoard.avg}
+																	</div>
+																	<div class='jq-stars starGet_${status.index}'></div>
+															        <button class="new__shops">${user.user_name}</button>
+													    		</a>
+													        </div>
+												        </div>
+											        </c:if>
+								    			</c:if>
+											</c:if>
+										</c:forEach>
+									</c:forEach>
+								</c:forEach>
+							</div>
+						</div>
 			    	</div>
 		    	</div>
 				<!-- Event -->
@@ -127,40 +199,46 @@
 				   		</div>
 			   		</div>
 			    	<div class="product__wrapper">
-		    		<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
-						<c:forEach var="product" items="${productList}">
-							<c:forEach var="user" items="${userList}">
-								<c:if test="${pBoard.pboard_unit_condition == 2}">
-					    			<c:if test="${pBoard.product_id == product.product_id}">
-						    			<c:if test="${user.user_id ==  pBoard.user_id}">
-									    	<div class="event__product">
-								    			<a href="/pDetail/${pBoard.pboard_unit_no}">
-											    	<c:forEach var="file" items="${fileList}">
-											    		<c:url value="/fileDisplay" var="url">
-												    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
-												    	</c:url>
-												    	<c:if test="${file.file_pictureId == product.file_pictureId }">
-													        <img src="${url}" class="thumnail__products">
-												    	</c:if>
-											    	</c:forEach>
-											        <h1 class="new__title">${product.product_name}</h1>
-											        <h3 class="new__description">${product.product_description}</h3>
-											        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-											        <h2 class="new__price"><span>${price}</span>원</h2>
-											         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
-													<div class='c_cbox_rating' style="display: none;">
-													${pBoard.avg}
-													</div>
-													<div class='jq-stars starGet_${status.index}'></div>
-											        <button class="new__shops">${user.user_name}</button>
-									    		</a>
-									        </div>
-								        </c:if>
-					    			</c:if>
-								</c:if>
-							</c:forEach>
-						</c:forEach>
-					</c:forEach>
+			    	<div class="slider"> 
+				    		<div class="slides">
+					    		<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
+									<c:forEach var="product" items="${productList}">
+										<c:forEach var="user" items="${userList}">
+											<c:if test="${pBoard.pboard_unit_condition == 2}">
+								    			<c:if test="${pBoard.product_id == product.product_id}">
+									    			<c:if test="${user.user_id ==  pBoard.user_id}">
+										    			<div id="slide-${pBoard.num }">
+													    	<div class="event__product">
+												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
+															    	<c:forEach var="file" items="${fileList}">
+															    		<c:url value="/fileDisplay" var="url">
+																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
+																    	</c:url>
+																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																	        <img src="${url}" class="thumnail__products">
+																    	</c:if>
+															    	</c:forEach>
+															        <h1 class="new__title">${product.product_name}</h1>
+															        <h3 class="new__description">${product.product_description}</h3>
+															        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+															        <h2 class="new__price"><span>${price}</span>원</h2>
+															         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+																	<div class='c_cbox_rating' style="display: none;">
+																	${pBoard.avg}
+																	</div>
+																	<div class='jq-stars starGet_${status.index}'></div>
+															        <button class="new__shops">${user.user_name}</button>
+													    		</a>
+													        </div>
+												        </div>
+											        </c:if>
+								    			</c:if>
+											</c:if>
+										</c:forEach>
+									</c:forEach>
+								</c:forEach>
+							</div>
+						</div>
 			    	</div>
 		    	</div>
 

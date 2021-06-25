@@ -38,9 +38,9 @@
 	let u = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&";
 	let country = "region='"+window.navigator.language.substring(3,5)+"'";
 	let lang = "&language='"+window.navigator.language.substring(0,2)+"'";
-	console.log(u);
-	console.log(country);
-	console.log(lang);
+	//console.log(u);
+	//console.log(country);
+	//console.log(lang);
 	let callback = "&callback=initMap&libraries=places";
 	var script = document.createElement("script");
 	script.src = (u+country+lang+callback);
@@ -96,52 +96,13 @@ async function initMap() {
 			localStorage.setItem('his', history);
 		}
 		let his = localStorage.getItem('his');
-
+		
+			
 		window.onload = function(){
-			if(his!=null){
-				$.ajax({
-					url : "/getProductByHistory/"+his,
-					method : 'get',
-					dataType : 'json',
-					async:false,
-					success : function(datas){
-						let htmlContent = "";
-						$.each(datas.histotyList, function(index, hdata) {
-							//console.log("data"+index+": "+hdata.pboard_unit_no);
-							$.ajax({
-								url:'/fileUploadAjax/'+hdata.masterImg,
-								method : 'get',
-								dataType : 'json',
-								async:false,
-								success : function(datas){
-									let result ="";
-									$.each(datas, function(i, data){
-										//console.log(data);
-										//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
-										
-										let file_s_savePath = encodeURIComponent(data.file_s_savePath);
-										//console.log(data.file_s_savePath);
-										
-										htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
-											+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 100px; height: 100px; object-fit: cover;'>"
-											+"</a>";
-										$(".navbar__menu__item-history").html(htmlContent);
-									
-									});
-								},
-								error : function(errorThrown){
-									console.log(errorThrown);
-								}
-							});
-						
-						});
-						
-					},
-					error : function(errorThrown){
-						console.log(errorThrown);
-					}
-				});
+			if(his!=null || his!=undifined || history!=null){
+				historyFunction(his);
 			}
+				
 			if(document.getElementsByClassName('jq-stars').length>0){
 				for (let i = 0; i < 30; i++) {
 					$(".starGet_" + i).starRating({
@@ -175,6 +136,50 @@ async function initMap() {
 			});
 		}
 	});
+	function historyFunction(his){
+		$.ajax({
+			url : "/getProductByHistory/"+his,
+			method : 'get',
+			dataType : 'json',
+			async:false,
+			success : function(datas){
+				let htmlContent = "";
+				$.each(datas.histotyList, function(index, hdata) {
+					//console.log("data"+index+": "+hdata.pboard_unit_no);
+					$.ajax({
+						url:'/fileUploadAjax/'+hdata.masterImg,
+						method : 'get',
+						dataType : 'json',
+						async:false,
+						success : function(datas){
+							let result ="";
+							$.each(datas, function(i, data){
+								//console.log(data);
+								//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+								
+								let file_s_savePath = encodeURIComponent(data.file_s_savePath);
+								//console.log(data.file_s_savePath);
+								
+								htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
+									+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 100px; height: 100px; object-fit: cover;'>"
+									+"</a>";
+								$(".navbar__menu__item-history").html(htmlContent);
+							
+							});
+						},
+						error : function(errorThrown){
+							console.log(errorThrown);
+						}
+					});
+				
+				});
+				
+			},
+			error : function(errorThrown){
+				console.log(errorThrown);
+			}
+		});
+	}
 	
 	
 </script>

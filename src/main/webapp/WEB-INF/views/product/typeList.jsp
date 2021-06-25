@@ -28,13 +28,13 @@
 		    		<div class="product__wrapper">
 				    	<div class="type__product">
 				    	<c:forEach var="files" items="${fileList }">
-				    	<c:if test="${products.file_pictureId == files.file_pictureId }">
-				    	
-				    	<c:url value="/fileDisplay" var="url">
-				    		<c:param name="file_name" value="${files.file_s_savePath}"></c:param>
-				    	</c:url>
-					        <img src="${url}" class="thumnail__products-type" >
-				    	</c:if>
+					    	<c:if test="${products.file_pictureId == files.file_pictureId }">
+					    	
+					    	<c:url value="/fileDisplay" var="url">
+					    		<c:param name="file_name" value="${files.file_s_savePath}"></c:param>
+					    	</c:url>
+						        <img src="${url}" class="thumnail__products-type" >
+					    	</c:if>
 				    	</c:forEach>
 					        <div class="type__detail">
 						        <h1 class="type__title">${products.product_name}</h1>

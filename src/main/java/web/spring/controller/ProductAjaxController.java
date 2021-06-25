@@ -110,7 +110,7 @@ public class ProductAjaxController {
 	//history
 	@GetMapping("/getProductByHistory/{history}")
 	public Map<String, Object> AjaxGetHistoryPb(@PathVariable("history")String history) {
-		log.info(history);
+		//log.info(history);
 		String hist = history;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("histotyList", "error");
@@ -121,15 +121,15 @@ public class ProductAjaxController {
 		if(historyArr!=null) {
 			for(int i=0; i<historyArr.length; i++) {
 				history_list.add(historyArr[i]);
-				System.out.println(historyArr[i]);
+				//System.out.println(historyArr[i]);
 			}
 		}
 		history_Map.put("history_Map", history_list);
 		history_Map.put("history_sort", history_list);
-		log.info("history_list"+history_list);
+		//log.info("history_list"+history_list);
 		if(history_list.size()!=0) {
 			List<PBoardVO> pBoardList = productService.getHistoryProduct(history_Map);
-			log.info(pBoardList);
+			//log.info(pBoardList);
 			if(pBoardList != null) {
 				if(pBoardList.size()>0) {
 					map.put("histotyList", pBoardList);

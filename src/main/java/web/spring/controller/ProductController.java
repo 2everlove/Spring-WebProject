@@ -2,7 +2,6 @@ package web.spring.controller;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,20 +68,14 @@ public class ProductController {
 		
 		if(linkedList.size()<6) {
 			linkedList.addFirst(no);
-			linkedList = linkedList.stream()
-			        .distinct()
-			        .collect(Collectors.toCollection(LinkedList::new));
+			linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
 		} else {
-			linkedList = linkedList.stream()
-			        .distinct()
-			        .collect(Collectors.toCollection(LinkedList::new));
+			linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
 			if(linkedList.size()==6) {
 				linkedList.addFirst(no);
 			}
 			if(linkedList.size()>6) {
-				linkedList = linkedList.stream()
-				        .distinct()
-				        .collect(Collectors.toCollection(LinkedList::new));
+				linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
 				if(linkedList.size()>6) {
 					linkedList.removeLast();
 				}
@@ -93,7 +86,7 @@ public class ProductController {
 		for(String tmp1 : linkedList) {
 			tmp+=tmp1+".";
 		}
-		System.out.println(tmp);
+		//System.out.println(tmp);
 		HttpSession session = req.getSession();
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
@@ -105,7 +98,9 @@ public class ProductController {
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
 				model.addAttribute("fileThumList", fileThumList);
 				model.addAttribute("fileDescList", fileDescList);
-				session.setAttribute("history_product_no", tmp);
+				if(linkedList.size()>0) {
+					session.setAttribute("history_product_no", tmp);
+				}
 				return "/product/pDetail";
 			} else {
 				return "/error";

@@ -250,41 +250,43 @@
            ) pboard where each_rank between 1 and 5
    </select>
    
-   <select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-      select distinct p_i.*  from (select * from products_info 
-      where product_id in (
-         select product_id from products_info 
-         where 
-         <foreach collection="search_Map" item="item" separator="or" index="0">
-            Lower(product_manufacturer) like '%'||#{item}||'%'
-         </foreach>
-      ) or product_id in (
-         select product_id from products_info 
-         where 
-         <foreach collection="search_Map" item="item" separator="or" index="0">
-            Lower(product_category) like '%'||#{item}||'%'
-         </foreach>
-      ) or product_id in (
-         select product_id from products_info 
-         where 
-         <foreach collection="search_Map" item="item" separator="or" index="0">
-            Lower(product_name) like '%'||#{item}||'%'
-         </foreach>
-      )) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null and p_b.pboard_unit_enabled = '0'
-   </select>
+	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
+	   select distinct p_i.*  from (select * from products_info 
+	   where product_id in (
+	      select product_id from products_info 
+	      where 
+	      <foreach collection="search_Map" item="item" separator="or" index="0">
+	         Lower(product_manufacturer) like '%'||#{item}||'%'
+	      </foreach>
+	   ) or product_id in (
+	      select product_id from products_info 
+	      where 
+	      <foreach collection="search_Map" item="item" separator="or" index="0">
+	         Lower(product_category) like '%'||#{item}||'%'
+	      </foreach>
+	   ) or product_id in (
+	      select product_id from products_info 
+	      where 
+	      <foreach collection="search_Map" item="item" separator="or" index="0">
+	         Lower(product_name) like '%'||#{item}||'%'
+	      </foreach>
+	   )) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null and p_b.pboard_unit_enabled = '0'
+	</select>
 	
 	
 	<!-- productBoard on main -->
 	
 	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
-		select nvl(r.review_rate,0) avg , b.* 
+		select rownum num, nvl(r.review_rate,0) avg , b.* 
 		from (select pboard.* 
-			from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank 
-				from product_board board where pboard_unit_enabled = '0') pboard 
-			where each_rank='1') b 
+				from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank 
+					from product_board board where pboard_unit_enabled = '0'
+				) pboard where each_rank='1' order by dbms_random.random
+			) b 
 		full outer join (select round(avg(nvl(a.review_rate,0)),0) review_rate, a.pboard_unit_no 
-			from product_review a group by a.pboard_unit_no) r 
-		on r.pboard_unit_no = b.pboard_unit_no
+				from product_review a group by a.pboard_unit_no
+			) r 
+		on r.pboard_unit_no = b.pboard_unit_no where b.pboard_unit_no is not null order by num desc
 	</select>
 	
 	<!-- master product on main -->

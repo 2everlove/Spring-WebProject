@@ -70,9 +70,11 @@ public class AdminController {
 		 * for(String a : product_list) { System.out.println(a); }
 		 */
 		product_Map.put("product_Map", product_list);
-		List<FileVO> fileList = fileService.getListFileAdmin(product_Map);
-		model.addAttribute("fileList", fileList);
-		log.info(fileList);
+		if(productList.size()>0) {
+			List<FileVO> fileList = fileService.getListFileAdmin(product_Map);
+			model.addAttribute("fileList", fileList);
+			log.info(fileList);
+		}
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageNavi",new PageNavi(cri, productService.getProductTotal(cri)));
 		return "/admin/productManage";
@@ -138,7 +140,7 @@ public class AdminController {
 			user_Map.put("product_Map", user_list);
 			List<FileVO> fileList = fileService.getListFileAdmin(user_Map);
 			List<UserVO> userList = userService.getAllUserList(cri);
-			if(userList!=null) {
+			if(userList.size()>0) {
 				log.info("userAd"+userList);
 				model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
 				model.addAttribute("userList", userList);
