@@ -99,26 +99,32 @@
 								    			<c:if test="${pBoard.product_id == product.product_id}">
 									    			<c:if test="${user.user_id ==  pBoard.user_id}">
 										    			<div id="slide-${pBoard.num }">
-													    	<div class="new__product" data-no="${pBoard.num}">
+													    	<div class="new__product" style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;align-content: stretch;">
 												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
 															    	<c:forEach var="file" items="${fileList}">
 															    		<c:url value="/fileDisplay" var="url">
 																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
 																    	</c:url>
 																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																    	<div style="align-items: center;">
 																	        <img src="${url}" class="thumnail__products">
+																        </div>
 																    	</c:if>
 															    	</c:forEach>
-															        <h1 class="new__title">${product.product_name}</h1>
-															        <h3 class="new__description">${product.product_description}</h3>
-															        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-															        <h2 class="new__price"><span>${price}</span>원</h2>
-															        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
-																	<div class='c_cbox_rating' style="display: none;">
-																	${pBoard.avg}
-																	</div>
-																	<div class='jq-stars starGet_${status.index}'></div> 
-															        <button class="new__shops">${user.user_name}</button>
+															    	<div style="display: flex;align-items: center;flex-direction: column;align-content: stretch;">
+																        <h1 class="new__title">${product.product_name}</h1>
+																        <h3 class="new__description">${product.product_description}</h3>
+																        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+																        <h2 class="new__price"><span>${price}</span>원</h2>
+																        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+															        </div>
+															        <div style="display: flex;align-items: center;flex-direction: column;justify-content: flex-end;align-content: stretch;">
+																		<div class='c_cbox_rating' style="display: none;">
+																		${pBoard.avg}
+																		</div>
+																		<div class='jq-stars starGet_${status.index}'></div> 
+																        <button class="new__shops">${user.user_name}</button>
+															        </div>
 													    		</a>
 													        </div>
 												        </div>
@@ -155,26 +161,32 @@
 								    			<c:if test="${pBoard.product_id == product.product_id}">
 									    			<c:if test="${user.user_id ==  pBoard.user_id}">
 										    			<div id="slide-${pBoard.num }">
-													    	<div class="sale__product">
+													    	<div class="sale__product" style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;align-content: stretch;">
 												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
 															    	<c:forEach var="file" items="${fileList}">
 															    		<c:url value="/fileDisplay" var="url">
 																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
 																    	</c:url>
 																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																    	<div style="align-items: center;">
 																	        <img src="${url}" class="thumnail__products">
+																        </div>
 																    	</c:if>
 															    	</c:forEach>
-															        <h1 class="new__title">${product.product_name}</h1>
-															        <h3 class="new__description">${product.product_description}</h3>
-															        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-															        <h2 class="new__price"><span>${price}</span>원</h2>
-															         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
-																	<div class='c_cbox_rating' style="display: none;">
-																	${pBoard.avg}
-																	</div>
-																	<div class='jq-stars starGet_${status.index}'></div>
-															        <button class="new__shops">${user.user_name}</button>
+															    	<div style="display: flex;align-items: center;flex-direction: column;align-content: stretch;">
+																        <h1 class="new__title">${product.product_name}</h1>
+																        <h3 class="new__description">${product.product_description}</h3>
+																        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+																        <h2 class="new__price"><span>${price}</span>원</h2>
+																        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+															        </div>
+															        <div style="display: flex;align-items: center;flex-direction: column;justify-content: flex-end;align-content: stretch;">
+																		<div class='c_cbox_rating' style="display: none;">
+																		${pBoard.avg}
+																		</div>
+																		<div class='jq-stars starGet_${status.index}'></div> 
+																        <button class="new__shops">${user.user_name}</button>
+															        </div>
 													    		</a>
 													        </div>
 												        </div>
@@ -208,26 +220,32 @@
 								    			<c:if test="${pBoard.product_id == product.product_id}">
 									    			<c:if test="${user.user_id ==  pBoard.user_id}">
 										    			<div id="slide-${pBoard.num }">
-													    	<div class="event__product">
+													    	<div class="event__product" style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;align-content: stretch;">
 												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
 															    	<c:forEach var="file" items="${fileList}">
 															    		<c:url value="/fileDisplay" var="url">
 																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
 																    	</c:url>
 																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																    	<div style="align-items: center;">
 																	        <img src="${url}" class="thumnail__products">
+																        </div>
 																    	</c:if>
 															    	</c:forEach>
-															        <h1 class="new__title">${product.product_name}</h1>
-															        <h3 class="new__description">${product.product_description}</h3>
-															        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-															        <h2 class="new__price"><span>${price}</span>원</h2>
-															         <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
-																	<div class='c_cbox_rating' style="display: none;">
-																	${pBoard.avg}
-																	</div>
-																	<div class='jq-stars starGet_${status.index}'></div>
-															        <button class="new__shops">${user.user_name}</button>
+															    	<div style="display: flex;align-items: center;flex-direction: column;align-content: stretch;">
+																        <h1 class="new__title">${product.product_name}</h1>
+																        <h3 class="new__description">${product.product_description}</h3>
+																        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+																        <h2 class="new__price"><span>${price}</span>원</h2>
+																        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+															        </div>
+															        <div style="display: flex;align-items: center;flex-direction: column;justify-content: flex-end;align-content: stretch;">
+																		<div class='c_cbox_rating' style="display: none;">
+																		${pBoard.avg}
+																		</div>
+																		<div class='jq-stars starGet_${status.index}'></div> 
+																        <button class="new__shops">${user.user_name}</button>
+															        </div>
 													    		</a>
 													        </div>
 												        </div>

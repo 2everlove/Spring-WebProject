@@ -80,7 +80,7 @@ section{
 
 .new__product, .sale__product, .event__product, .recommend__product{
 	display: inline-block;
-	padding: 10px 20px;
+	padding: 10px 5px;
 	width: 180px;
 	height: 300px;
 	margin-bottom: 20px;
