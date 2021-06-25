@@ -251,7 +251,7 @@
    </select>
    
    <select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-      select p_i.*  from (select * from products_info 
+      select distinct p_i.*  from (select * from products_info 
       where product_id in (
          select product_id from products_info 
          where 
@@ -283,7 +283,7 @@
 				from product_board board where pboard_unit_enabled = '0') pboard 
 			where each_rank='1') b 
 		full outer join (select round(avg(nvl(a.review_rate,0)),0) review_rate, a.pboard_unit_no 
-			from product_review a group by a.pboard_unit_no) r
+			from product_review a group by a.pboard_unit_no) r 
 		on r.pboard_unit_no = b.pboard_unit_no
 	</select>
 	
