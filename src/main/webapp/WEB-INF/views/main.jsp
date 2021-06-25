@@ -259,10 +259,95 @@
 						</div>
 			    	</div>
 		    	</div>
+		    	
+				<!-- Recommend -->
+		    	<div class="section__productsList"  id="recommend">
+		    	<div class="section__typoWrapper">
+				   			<div class="section__title">
+				    			<h1>Recommend</h1>
+				    		</div>
+				    		<div class="section__title-icon">
+					   			<h2><a href="/cond/3"><i class="fas fa-plus"></i></a></h2>
+					   		</div>
+				   		</div>
+		    	<c:choose>
+		    		<c:when test="${!empty recommendList }">
+				    	
+				    	<div class="product__wrapper">
+				    		<div class="slider"> 
+					    		<div class="slides">
+						    		<c:forEach var="pBoard" items="${pBoardList}" varStatus="status">
+									<c:forEach var="product" items="${recommendList}">
+										<c:forEach var="user" items="${userList}">
+											<c:if test="${pBoard.pboard_unit_condition == 0 || pBoard.pboard_unit_condition == 1 || pBoard.pboard_unit_condition == 2}">
+								    			<c:if test="${pBoard.product_id == product.product_id}">
+									    			<c:if test="${user.user_id ==  pBoard.user_id}">
+										    			<div id="slide-${pBoard.num }">
+													    	<div class="recommend__product" style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;align-content: stretch;">
+												    			<a href="/pDetail/${pBoard.pboard_unit_no}">
+															    	<c:forEach var="file" items="${fileList}">
+															    		<c:url value="/fileDisplay" var="url">
+																    		<c:param name="file_name" value="${file.file_s_savePath}"></c:param>
+																    	</c:url>
+																    	<c:if test="${file.file_pictureId == product.file_pictureId }">
+																    	<div style="align-items: center;">
+																	        <img src="${url}" class="thumnail__products">
+																        </div>
+																    	</c:if>
+															    	</c:forEach>
+															    	<div style="display: flex;align-items: center;flex-direction: column;align-content: stretch;">
+																        <h1 class="new__title">${product.product_name}</h1>
+																        <h3 class="new__description">${product.product_description}</h3>
+																        <fmt:formatNumber type="number" maxFractionDigits="3" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+																        <h2 class="new__price"><span>${price}</span>원</h2>
+																        <input type='hidden' class='rated_star${status.index}' value='${pBoard.avg}'>
+															        </div>
+															        <div style="display: flex;align-items: center;flex-direction: column;justify-content: flex-end;align-content: stretch;">
+																		<div class='c_cbox_rating' style="display: none;">
+																		${pBoard.avg}
+																		</div>
+																		<div class='jq-stars starGet_${status.index}'></div> 
+																        <button class="new__shops">${user.user_name}</button>
+															        </div>
+													    		</a>
+													        </div>
+												        </div>
+											        </c:if>
+								    			</c:if>
+											</c:if>
+										</c:forEach>
+									</c:forEach>
+								</c:forEach>
+								</div>
+							</div>
+				    	</div>
+		    		</c:when>
+		    		<c:otherwise>
+		    			<c:choose>
+		    				<c:when test="${!empty sessionScope.user}">
+		    					<div class="product__wrapper" id="new">
+							    	<div class="type__product">
+								        <div class="type__detail">
+						        			<h1>관심목록을 더 추가해주세요.</h1><a onclick="location.href='/userUpdate'">내정보 수정하기</a>
+								        </div>
+							        </div>
+						        </div>
+		    				</c:when>
+		    				<c:otherwise>
+			    				<div class="product__wrapper" id="new">
+							    	<div class="type__product">
+								        <div class="type__detail">
+						        			<h1> 로그인을 하시면 볼 수 있습니다.</h1><a onclick="location.href='/login'">로그인</a>
+								        </div>
+							        </div>
+						        </div>
+		    				</c:otherwise>
+		    			</c:choose>
+			    		
+		    		</c:otherwise>
+		    	</c:choose>
+    		</div>
 
-			</c:if>
-			<c:if test="${empty pboardList}">
-				
 			</c:if>
     	</div>
    	</section>

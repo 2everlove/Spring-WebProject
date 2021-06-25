@@ -1,6 +1,7 @@
 package web.spring.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +41,14 @@ public class MainController {
 	
 	//main
 	@GetMapping("/main")
-	public void getMain(Model model) {
+	public void getMain(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
 		List<PBoardVO> pBoardList = productService.getMainPBoardList();
 		List<ProductVO> productList = productService.getMainProductList();
 		List<FileVO> fileList = fileService.getMainListFile();
 		List<UserVO> userList = userService.getUserList();
+		
 		if(pBoardList != null)
 			model.addAttribute("pBoardList", pBoardList);
 		if(productList!=null)
@@ -53,6 +57,20 @@ public class MainController {
 			model.addAttribute("fileList", fileList);
 		if(userList!=null)
 			model.addAttribute("userList", userList);
+		if(user!=null) {
+			if(user.getUser_interesting()!="") {
+				Map<String, Object> interest_Map = new HashMap<String, Object>();
+				String[] interestArr = user.getUser_interesting().split("\\,");
+				ArrayList<String> interestList = new ArrayList<String>();
+				for(String keyWord : interestArr) {
+					interestList.add(keyWord);
+				}
+				interest_Map.put("interest_Map", interestList);
+				List<ProductVO> recommendList = productService.getMainRecommendList(interest_Map);
+				log.info("recommendList"+recommendList);
+				model.addAttribute("recommendList",recommendList);
+			}
+		}
 		log.info("main...........");
 	}
 	

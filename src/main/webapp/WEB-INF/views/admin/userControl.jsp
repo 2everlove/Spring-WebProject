@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="../includes/header.jsp" %>
 <link rel="stylesheet" href="/resources/css/admin-product.css">
 
@@ -10,6 +11,7 @@
 <script src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'></script>
 <script type="text/javascript" >
 	$(document).ready(function(){
+		
 		function page(page){
 			document.listForm.action="/admin/userControl";
 			document.listForm.pageNo.value=page;
@@ -63,6 +65,20 @@
 	        }).open();
 			tr.find('.user_address').select();
 		});
+
+		
+		//연락처 validation
+		$(".user_contact").change(function(){
+			let str = $(this).val();
+			console.log(str)
+			str = "" + str;
+			if(blankCheck(str)){
+				str = str.replace(/[^0-9]/g, "");
+			}else{
+				str = null;
+			}
+			$(this).val(str);
+		});
 		
 		//타입 색상
 		$('select[name=user_type]').change(function() {
@@ -88,6 +104,7 @@
 		    }
 		});
 		
+		//성별 css
 		$('select[name=user_gender]').change(function() {
 		    if($(this).find('option:selected').val()=='M'){
 		    	console.log($(this).find('option:selected').val());
@@ -95,6 +112,22 @@
 		    }else {
 				$(this).css('color','red');
 		    }
+		});
+		
+		//관심사 배열
+		$(".user_interestingCB").click(function(){
+			let send_array = Array();
+			let send_cnt = 0;
+			let chkbox = $(this).closest("td").find(".user_interestingCB");
+			for(i=0;i<chkbox.length;i++) {
+			    if (chkbox[i].checked == true){
+			        send_array[send_cnt] = chkbox[i].value;
+			        send_cnt++;
+			    }
+			}
+			const str = send_array.join();
+			console.log(str);
+			$(this).closest("td").find(".user_interesting").val(str);
 		});
 		
 		//저장 버튼
@@ -133,6 +166,7 @@
 			updateUser(formData, tr);
 		});
 		
+		
 		//비번 변경 -> 메일
 		$(".pwdChaBtn").click(function(){
 			let formData = new FormData();
@@ -161,7 +195,22 @@
 			formData.append('file_pictureId',formFile_pictureId);
 			userPwdSend(formData, tr);
 		});
+		
+		
 	});
+	
+	
+	//공백제거
+	function blankCheck(str){
+		if(str == null || str == "null"
+			   || str == undefined || str == "undefined"
+			   || str == '' || str == "" || str.length == 0
+		   ){
+			return null;
+		}else{
+			return str;
+		}
+	}
 	
 	//유저 정보 업뎃
 	function updateUser(formData, tr){
@@ -324,7 +373,46 @@
 													<input type="button" class="user_address_search" value="주소 검색"><br>
 													<div id="kmap" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 					    				</td>
-					    				<td><input type="text" name="user_interesting" class="user_interesting" value="${user.user_interesting}"></td>
+					    				<td>
+										    <div style="display: flex;flex-direction: row;align-items: flex-start;">
+						    					<label class="interesting-label">
+								               		<input class="user_interestingCB" type="checkbox" name="user_interesting" value="tablet" 
+								               			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿
+								               	</label>
+							    				<label class="interesting-label">
+							    					<input class="user_interestingCB" type="checkbox" name="user_interesting" value="desktop" 
+							    						<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'desktop'}">checked</c:if></c:forTokens>>컴퓨터
+							    				</label>
+							                	<label class="interesting-label">
+							                		<input class="user_interestingCB" type="checkbox" name="user_interesting" value="notebook" 
+							                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'notebook'}">checked</c:if></c:forTokens>>노트북
+							                	</label>
+						                	
+							                	<label class="interesting-label">
+							                		<input class="user_interestingCB" type="checkbox" name="user_interesting" value="life" 
+							                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'life'}">checked</c:if></c:forTokens>>생활가전
+							                	</label>
+						                	</div>
+					                		<div style="display: flex;flex-direction: row;align-items: flex-start;">
+							                	<label class="interesting-label">
+							                		<input class="user_interestingCB" type="checkbox" name="user_interesting" value="video" 
+							                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'video'}">checked</c:if></c:forTokens>>영상가전
+							                	</label>
+							                	
+							                	<label class="interesting-label">
+							               			<input class="user_interestingCB" type="checkbox" name="user_interesting" value="sound" 
+							               				<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'sound'}">checked</c:if></c:forTokens>>음향가전
+							               		</label>
+							                	<label class="interesting-label">
+							               			<input class="user_interestingCB" type="checkbox" name="user_interesting" value="software" 
+							               				<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'software'}">checked</c:if></c:forTokens>>소프트웨어
+							               		</label>
+						               		</div>
+								               
+											
+							    					<input type="hidden" class="user_interesting" name="user_interesting" value="${user.user_interesting}" onload="interesting(${user.user_interesting})">
+							    				
+							    				</td>
 					    				<td><input type="text" name="user_enabledContent" class="user_enabledContent" value="${user.user_enabledContent}"></td>
 					    				<c:forEach var="file" items="${fileList}">
 				    						<c:if test="${user.file_pictureId eq file.file_pictureId}">

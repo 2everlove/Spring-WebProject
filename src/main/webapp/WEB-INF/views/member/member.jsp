@@ -225,11 +225,13 @@
                 <div class="register-group div10">
                 	<label>관심분야</label>
                 	<br>
-                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="컴퓨터">컴퓨터</label>
-                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="노트북">노트북</label>
-                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="가전제품">가전제품</label>
-               		<label class="interesting-label"><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
-	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="tablet">태블릿</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="desktop">컴퓨터</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="notebook">노트북</label>
+               		<label class="interesting-label"><input type="checkbox" name="User_interesting" value="life">생활가전</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="video">영상가전</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="sound">음향가전</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="software">소프트웨어</label>
                 </div>
                 <div class="register-group div11"><p style="text-align:center;color: var(--color-pink);line-height: 20px;font-size: 20px;">ADDRESS</p><br>
                 	<textarea name="User_address" style="margin-left:5%;width:80%; height:10vh;"></textarea>

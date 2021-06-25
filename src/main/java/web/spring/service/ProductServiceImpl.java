@@ -179,6 +179,11 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.getHistoryProduct(history_Map);
 	}
 
+	@Override
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map) {
+		return productMapper.getMainRecommendList(search_Map);
+	}
+
 
 	
 }

@@ -38,7 +38,7 @@ public class FileAjaxController {
 	
 	@GetMapping("/fileUploadAjax/{file_pictureId}")
 	public List<FileVO> getList(@PathVariable("file_pictureId") Long file_pictureId){
-		log.info("getList........"+file_pictureId);
+		//log.info("getList........"+file_pictureId);
 		List<FileVO> list = fileService.getListFile(String.valueOf(file_pictureId));
 	return list;	
 	}
@@ -48,7 +48,7 @@ public class FileAjaxController {
 		log.info("fileDisplay...."+file_name);
 		HttpHeaders headers = new HttpHeaders();
 		File file = new File(ROOT_DIR+file_name);
-		log.info(file);
+		//log.info(file);
 		if(file.exists()) {
 			try {
 				headers.add("Content-Type", Files.probeContentType(file.toPath()));

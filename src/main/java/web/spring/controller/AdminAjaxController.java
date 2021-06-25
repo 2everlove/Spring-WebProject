@@ -77,6 +77,7 @@ public class AdminAjaxController {
 	public Map<String, Object> updateUserList(UserVO userVO){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userVO != null) {
+			userVO.setUser_interesting(userVO.getUser_interesting().toString());
 			System.out.println(userVO);
 			userVO.setUser_address(userVO.getUser_address().trim());
 			int res = userService.updateUserByAdmin(userVO);

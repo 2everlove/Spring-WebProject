@@ -251,7 +251,7 @@ p{
 	border: 1px solid var(--color-dark-white);
 	margin: 0 auto;
 	flex-wrap: wrap;
-	height: 10%;
+	height: 9%;
 	width: 240px;
 	text-align: center;
 	z-index: 10;
@@ -268,7 +268,7 @@ p{
 	border: 1px solid var(--color-dark-white);
 	margin: 0 auto;
 	flex-wrap: wrap;
-	height: 10%;
+	height: 9%;
 	width: 240px;
 	text-align: center;
 	z-index: 10;
@@ -278,7 +278,7 @@ p{
 	background-color: var(--color-white);
 	margin: 0 auto;
 	flex-wrap: wrap;
-	height: 10%;
+	height: 9%;
 	width: 120px;
 	text-align: center;
 	z-index: 10;
@@ -288,7 +288,7 @@ p{
 	background-color: var(--color-white);
 	margin: 0 auto;
 	flex-wrap: wrap;
-	height: 10%;
+	height: 9%;
 	width: 240px;
 	text-align: center;
 	z-index: 10;

@@ -84,4 +84,6 @@ public interface ProductMapper {
 	public List<PBoardVO> getMainPBoardList();
 	
 	public List<ProductVO> getMainProductList();
+	
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map); //recommend
 }

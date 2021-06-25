@@ -299,6 +299,25 @@
 					pboard where each_rank='1')
 	</select>
 	
+	<!-- Recommend master product on main -->
+	<select id="getMainRecommendList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
+		select master.* from (select * from products_info 
+			where product_id in (
+				select pboard.product_id from (
+					select board.*, row_number() over(partition by pboard_unit_condition, product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
+						from product_board board 
+						<where>
+							pboard_unit_enabled = '0'
+						</where>
+						) 
+					pboard where each_rank='1')) master
+					<where>
+						<foreach collection="interest_Map" item="item" separator="or">
+							product_category = #{item}
+						</foreach>
+					</where>
+	</select>
+	
 	<!-- prduct_info's sequence -->
 	<select id="getProductSeq" resultType="String">
 		select products_sequence.nextval from dual

@@ -194,12 +194,36 @@ $(document).ready(function(){
                     <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${sessionScope.user.user_contact}" required>
                 </div>
                 <div class="register-group div10">
-                	<label>User_interesting</label><br>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="컴퓨터" >컴퓨터</label>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="노트북" >노트북</label>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="가전제품" >가전제품</label>
-               		<label class="interenting-label"><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
-	               	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="태블릿" >태블릿</label>
+   					<label class="interesting-label">
+	               		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="tablet" 
+	               			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿
+	               	</label>
+    				<label class="interesting-label">
+    					<input class="user_interestingCB" type="checkbox" name="User_interesting" value="desktop" 
+    						<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'desktop'}">checked</c:if></c:forTokens>>컴퓨터
+    				</label>
+                	<label class="interesting-label">
+                		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="notebook" 
+                			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'notebook'}">checked</c:if></c:forTokens>>노트북
+                	</label>
+               	
+                	<label class="interesting-label">
+                		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="life" 
+                			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'life'}">checked</c:if></c:forTokens>>생활가전
+                	</label>
+                	<label class="interesting-label">
+                		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="video" 
+                			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'video'}">checked</c:if></c:forTokens>>영상가전
+                	</label>
+                	
+                	<label class="interesting-label">
+               			<input class="user_interestingCB" type="checkbox" name="User_interesting" value="sound" 
+               				<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'sound'}">checked</c:if></c:forTokens>>음향가전
+               		</label>
+                	<label class="interesting-label">
+               			<input class="user_interestingCB" type="checkbox" name="User_interesting" value="software" 
+               				<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'software'}">checked</c:if></c:forTokens>>소프트웨어
+               		</label>
                 </div>
                 <div class="register-group div11">
                 <label>ADDRESS</label><br>
