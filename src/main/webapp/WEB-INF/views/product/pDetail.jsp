@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/main.css">
-<script type="text/javascript" defer="defer">
+<script type="text/javascript"> //defer 넣으면 googleMap API와 충돌
 document.title = '${sellerVO.user_name} : widele';
 $(document).ready(function() {
 	let type="${pBoard.pboard_unit_enabled}";

@@ -65,9 +65,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		if(query != null) {
 			uri += "?" + query; 
 		}
-		
-		session.setAttribute("tmpUri", uri);
-		
+		String res ="";
+		if(uri != null) {
+			System.out.println("auth"+uri);
+			session.setAttribute("tmpUri", uri);
+			res = (String)session.getAttribute("tmpUri");
+		}
+		System.out.println("contain?"+res);
 		response.sendRedirect("/login");
 		return false;
 	}

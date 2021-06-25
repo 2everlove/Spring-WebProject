@@ -18,7 +18,7 @@
 	    	<div class="footer__map">
 	    		 <div id="map"></div>
 	    	</div>
-	    	<div class="footer__language">
+	    	<!-- <div class="footer__language">
 	    		<label><i class="fas fa-globe"></i>
 		    		<select aria-label="원하시는 언어를 선택하세요.">
 	                    <option value="korean">한국어</option>
@@ -26,7 +26,7 @@
 	                    <option value="japanese">Japanese</option>
 	                </select>
                 </label>
-	    	</div>
+	    	</div> -->
 	    	<div class="footer__copyright">
 		    	Copyright © <strong>Widele</strong> Co., Ltd. All Rights
 				Reserved.

@@ -51,6 +51,23 @@
 		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	
+	<!-- history -->
+	<select id="getHistoryProduct" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
+		select p.file_pictureId masterImg, b.* from (select * 
+		from product_board 
+		<where>
+			<foreach collection="history_Map" index="0" item="item" separator="or">
+				pboard_unit_no = #{item}
+			</foreach>
+		</where>
+		) b full outer join products_info p on b.product_id = p.product_id where b.pboard_unit_no is not null
+		order by
+		DECODE(pboard_unit_no,
+		<foreach collection="history_sort" index="index" close=")" item="item" separator=",">
+			 #{item}, ${index}
+		</foreach>
+	</select>
+	
 	<!-- paging amount for product_board -->
 	<select id="getTotal" resultType="int">
 		select count(*) from product_board
@@ -126,19 +143,19 @@
 	</select>
 	
 	<!-- 활성화 된 글인지 확인 후 뿌려줌  -->
-	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
-		select rownum num, board.* from (select pboard.* from product_board pboard where pboard_unit_enabled = '0' order by TO_NUMBER(pboard_unit_price) asc) board
-	</select>
+    <select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
+       select rownum num, board.* from (select pboard.* from product_board pboard where pboard_unit_enabled = '0' order by TO_NUMBER(pboard_unit_price) asc) board
+    </select>
 	
 	<!-- 메인 네비 카테고리 클릭 시 검색 -->
-	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_category=#{product_category}
-	</select>
+    <select id="getTypeList" resultType="web.spring.vo.ProductVO">
+       select distinct p_i.* from (select * from products_info where product_category=#{product_category}) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
+    </select>
 	
 	<!-- 메인 네비 new,event... 클릭 시 검색 -->
-	<select id="getCondList" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_id in (select product_id from product_board where pboard_unit_condition = #{pboard_unit_condition})
-	</select>
+    <select id="getCondList" resultType="web.spring.vo.ProductVO">
+       select * from products_info where product_id in (select product_id from product_board where pboard_unit_condition = #{pboard_unit_condition})
+    </select>
 	
 	<!-- pboard_unit_no에 따른 rownum을 가진 product_board로 반환  -->
 	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
@@ -175,7 +192,7 @@
 	<select id="searchManuCate" resultType="web.spring.vo.ProductVO">
 		select * 
 		from products_info 
-		where product_manufacturer=#{product_manufacturer} and product_category = #{product_category}
+		where LOWER(product_manufacturer)=#{product_manufacturer} and LOWER(product_category) = #{product_category}
 	</select>
 	
 	<!-- productRegister시 상품 이름으로 검색 시 제조사, 카테고리 검색 -->
@@ -228,7 +245,7 @@
 	</select>
 	
 	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-		select * from products_info 
+		select p_i.*  from (select * from products_info 
 		where product_id in (
 			select product_id from products_info 
 			where 
@@ -247,7 +264,7 @@
 			<foreach collection="search_Map" item="item" separator="or" index="0">
 				Lower(product_name) like '%'||#{item}||'%'
 			</foreach>
-		)
+		)) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
 	</select>
 	
 	
@@ -260,7 +277,7 @@
 				from product_board board where pboard_unit_enabled = '0') pboard 
 			where each_rank='1') b 
 		full outer join (select round(avg(nvl(a.review_rate,0)),0) review_rate, a.pboard_unit_no 
-			from product_review a group by a.pboard_unit_no) r 
+			from product_review a group by a.pboard_unit_no) r
 		on r.pboard_unit_no = b.pboard_unit_no
 	</select>
 	

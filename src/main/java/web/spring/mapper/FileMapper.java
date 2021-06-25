@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import web.spring.vo.FileVO;
-import web.spring.vo.PBoardVO;
 
 public interface FileMapper {
 

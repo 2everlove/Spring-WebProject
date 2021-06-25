@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.mail.Session;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,8 +46,10 @@ public class UserController {
 	
 	//회원등록 페이지
 	@GetMapping("/member")
-	public String member(){
-		return ("/member/member");
+	public String member(UserVO user, Model model){
+		log.info(user);
+		model.addAttribute("user",user);
+		return "/member/member";
 	}
 	
 	//맴버 상세보기
@@ -56,6 +57,7 @@ public class UserController {
 	public String getUser(HttpServletRequest req,Model model) {
 		HttpSession session= req.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
+		session.invalidate();
 		if(user!=null) {
 			user.setUser_birth(user.getUser_birth().toString().substring(0, 10));
 			user.setUser_regdate(user.getUser_regdate().toString().substring(0, 10));
@@ -103,7 +105,11 @@ public class UserController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model ,HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String msg = (String)session.getAttribute("msg");
+		session.removeAttribute("msg");
+		model.addAttribute("msg", msg);
 		return "/member/login";
 	}
 
@@ -133,23 +139,32 @@ public class UserController {
 		return "redirect:/main";
 	}
 
-	@PostMapping({ "/loginAction" })
+	@PostMapping("/loginAction")
 	public String loginAction(UserVO vo, Model model, HttpServletRequest req) {
 		UserVO user = userService.login(vo);
 		HttpSession session = req.getSession();
 		String tmpUri= (String)session.getAttribute("tmpUri");
-		System.out.println("loginAction");
+		System.out.println("loginAction"+tmpUri);
 		if (user == null) {
-			model.addAttribute("msg", "로그인에 실패했습니다. ID/PW를 확인해주세요.");
-			return "/member/login";
+			session.setAttribute("msg", "-1");
 		}else {
-			session.setAttribute("user", user);
-			model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
-			if(tmpUri!=null) {
-				return "/main";
+			if(user.getUser_enabled().equals("1")) {
+				session.setAttribute("user", user);
+				model.addAttribute("msg", "login");
+				log.info("login");
+				if(tmpUri!=null) {
+					return "/main";
+				}
+				return "redirect:/main";
+			} else if (user.getUser_enabled().equals("0")) {
+				log.info("blocked");
+				session.setAttribute("msg", "0");
+			} else {
+				log.info("withdrawal");
+				session.setAttribute("msg", "2");
 			}
-			return "redirect:/main";
 		}
+		return "/member/login";
 	}
 	
 //	ajax
@@ -213,16 +228,19 @@ public class UserController {
 	 */
 
 	@ResponseBody
-	@GetMapping("/googleLogin/{email}")
-	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email){
+	@GetMapping("/googleLogin")
+	public Map<String,Object> googleLogin2(@RequestParam("email") String User_email, HttpServletRequest req,Model model){
 		System.out.println(User_email);
-		
 		Map<String,Object> res = new HashMap<>();
 		UserVO user = userService.searchUserByEmail(User_email);
 		System.err.println(user);
 		if(user == null) {
 			res.put("user", "fail");
 		} else {
+			System.out.println("googleLogin:"+user);
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+			model.addAttribute("msg", user.getUser_id() + "님 환영합니다.");
 			res.put("user", user);
 		}
 		System.out.println("map"+res.get("user"));

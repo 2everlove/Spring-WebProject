@@ -77,4 +77,6 @@ public interface ProductService {
 	public CodeVO getCode(String code_type, String code_value);
 	
 	public int insertCode(String code_type, String code_value);
+
+	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map);
 }

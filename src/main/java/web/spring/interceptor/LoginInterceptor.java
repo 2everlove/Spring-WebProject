@@ -65,6 +65,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		String tmpUri ="";
 		if(user!=null) {
 			tmpUri = (String)session.getAttribute("tmpUri");
+			System.out.println("loginInter"+tmpUri);
 		} else {
 			tmpUri ="/login";
 		}

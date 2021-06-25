@@ -16,7 +16,7 @@
 	padding-top: 80px;
 }
 .table-product{
-	width: 1600px;
+	width: 1400px;
 	padding: 5px;
 	display: block;
 	margin: auto;
@@ -49,6 +49,11 @@ th,td{
 	height: 20px;
 	border: 1px solid black;
 	border-collapse: collapse;
+}
+
+.form-inline{
+	position: absolute;
+	left: 5%;
 }
 
 /* nboard-paging */

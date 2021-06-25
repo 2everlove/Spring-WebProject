@@ -44,12 +44,19 @@ public class AdminController {
 	
 	//주문관리
 		@GetMapping("/admin/orderAllList")
-		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
+		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri, UserVO uvo, PBoardVO pBoard) {
 			HttpSession session = rq.getSession();
 			UserVO user = (UserVO)session.getAttribute("user");
 			if(user != null) {
-				List<OrderVO> list = paymentService.getOrderAllList(cri);
-				model.addAttribute("list", list);
+				if(user.getUser_type().matches("1")) {
+					List<OrderVO> list = paymentService.getOrderList(user.getUser_id(), cri);
+					model.addAttribute("list", list);
+				} else {
+					List<OrderVO> list = paymentService.getOrderAllList(cri);
+					model.addAttribute("list", list);
+				}
+				model.addAttribute("uvo", uvo);
+				model.addAttribute("pBoard", pBoard);
 				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
 				return "/admin/orderAllList";
 			}

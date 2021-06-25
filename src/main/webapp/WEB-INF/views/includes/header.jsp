@@ -35,19 +35,23 @@
 <script src="/resources/js/prefix.js"></script>
 <script src="/resources/js/main.js" defer></script>
 <script defer>
-	let url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&";
-	let country = "region="+window.navigator.language.substring(3,5);
-	let lang = "&language="+window.navigator.language.substring(0,2);
-	let callback = "&callback=initMap&libraries=places,&v=weekly";
+	let u = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&";
+	let country = "region='"+window.navigator.language.substring(3,5)+"'";
+	let lang = "&language='"+window.navigator.language.substring(0,2)+"'";
+	console.log(u);
+	console.log(country);
+	console.log(lang);
+	let callback = "&callback=initMap&libraries=places";
 	var script = document.createElement("script");
-	script.src = (url+country+lang+callback);
+	script.src = (u+country+lang+callback);
 	document.head.appendChild(script);
-
-	function initMap() {
+</script>
+<script id="googleMap" defer>
+function initMap() {
 	  // The location of Uluru
-	  const lat1= 37.4851619;
-	  const lng1= 126.8987031;
-	  const zoom1= 18;
+	  const lat1= parseFloat(37.4851619);
+	  const lng1= parseFloat(126.8987031);
+	  const zoom1= parseInt(18);
 	  
 	  const widele = { lat: lat1, lng: lng1 };
 	  // The map, centered at Uluru
@@ -81,22 +85,75 @@
 		    infowindow.close();
 		  });
 	}
-	window.onload = function() {
-		console.log("star");
-		for (let i = 0; i < 10; i++) {
-			$(".starGet_" + i).starRating({
-				readOnly : true,
-				starSize : 25,
-				initialRating : $(".rated_star" + i).val()
-			});
-		}
-	};
-</script>
-<script id="googleMap">
 </script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		myStorage = window.localStorage;
+
+		let history = "${sessionScope.history_product_no}";
+		if(history!=""){
+			localStorage.setItem('his', history);
+		}
+		let his = localStorage.getItem('his');
+
+		window.onload = function(){
+			$.ajax({
+				url : "/getProductByHistory/"+his,
+				method : 'get',
+				dataType : 'json',
+				async:false,
+				success : function(datas){
+					let htmlContent = "";
+					$.each(datas.histotyList, function(index, hdata) {
+						//console.log("data"+index+": "+hdata.pboard_unit_no);
+						$.ajax({
+							url:'/fileUploadAjax/'+hdata.masterImg,
+							method : 'get',
+							dataType : 'json',
+							async:false,
+							success : function(datas){
+								let result ="";
+								$.each(datas, function(i, data){
+									//console.log(data);
+									//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+									
+									let file_savePath = encodeURIComponent(data.file_savePath);
+									//console.log(data.file_s_savePath);
+									
+									htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
+										+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_savePath+" style=' width: 100px; height: 100px; object-fit: cover;'>"
+										+"</a>";
+									$(".navbar__menu__item-history").html(htmlContent);
+								
+								});
+							},
+							error : function(errorThrown){
+								console.log(errorThrown);
+							}
+						});
+					
+					});
+					
+				},
+				error : function(errorThrown){
+					console.log(errorThrown);
+				}
+			});
+		
+			console.log("star");
+			if($(".starGet_") != null){
+				for (let i = 0; i < 30; i++) {
+					$(".starGet_" + i).starRating({
+						readOnly : true,
+						starSize : 25,
+						initialRating : $(".rated_star" + i).val()
+					});
+				}
+			}
+			
+		};
+		
 		const pathName = window.location.pathname;
 	
 		//console.log(pathName);
@@ -158,8 +215,7 @@
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
-			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
-			                <button class="navbar__menu__item-history">History</button>
+			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
 		            	</c:when>
 		            	<c:otherwise>
 			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
@@ -168,8 +224,7 @@
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
-			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
-			                <button class="navbar__menu__item-history">History</button>
+			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
 		            	</c:otherwise>
 		            </c:choose>
 		            </div>
