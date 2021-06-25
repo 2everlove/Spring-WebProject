@@ -43,17 +43,18 @@ public class AdminController {
 	private PaymentService paymentService;
 	
 	//주문관리
-	@GetMapping("/admin/orderAllList")
-	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo) {
-		HttpSession session = rq.getSession();
-		UserVO user = (UserVO)session.getAttribute("user");
-		if(user != null) {
-			List<OrderVO> list = paymentService.getOrderAllList(ovo);
-			model.addAttribute("list", list);
-			return "/admin/orderAllList";
+		@GetMapping("/admin/orderAllList")
+		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
+			HttpSession session = rq.getSession();
+			UserVO user = (UserVO)session.getAttribute("user");
+			if(user != null) {
+				List<OrderVO> list = paymentService.getOrderAllList(cri);
+				model.addAttribute("list", list);
+				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
+				return "/admin/orderAllList";
+			}
+			return "/member/login";
 		}
-		return "/member/login";
-	}
 	
 	
 	//상품관리
@@ -130,9 +131,19 @@ public class AdminController {
 		HttpSession session = req.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
 		if(user.getUser_type().equals("0")) {
+			List<UserVO> userArr = userService.getAllUser();
+			ArrayList<String> user_list = new ArrayList<String>();
+			Map<String, Object> user_Map = new HashMap<String, Object>();
+			(userArr).forEach(a->user_list.add(a.getFile_pictureId()));
+			user_Map.put("product_Map", user_list);
+			List<FileVO> fileList = fileService.getListFileAdmin(user_Map);
 			List<UserVO> userList = userService.getAllUserList(cri);
-			model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
-			model.addAttribute("userList", userList);
+			if(userList!=null) {
+				log.info("userAd"+userList);
+				model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
+				model.addAttribute("userList", userList);
+				model.addAttribute("fileList", fileList);
+			}
 			return "/admin/userControl";
 		}
 		return "/login";

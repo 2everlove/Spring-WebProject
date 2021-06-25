@@ -25,6 +25,8 @@ public interface ProductMapper {
 	
 	public int getProductTotal(Criteria cri);//페이지 총 수
 	
+	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map);
+	
 	public int getPboardUserTotal(@Param("user_id") String user_id, @Param("pageNo") int pageNo, @Param("amount") int amount);//페이지 총 수
 	
 	//admin

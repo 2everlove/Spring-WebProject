@@ -22,10 +22,9 @@ public class UserVO {
 	private String User_enabledContent;	//블록 코멘트 - 잘못한 일이 있어서 블록당하면 블록당한 이유를 저장
 	private String file_pictureId;
 	
-	// 자동로그인에 필요한 키값
-	String sessionkey;
-	// 자동로그인의 유효기간
-	Date sessionlimit;
+	private String sessionkey;// 자동로그인에 필요한 키값
+	private Date sessionlimit;// 자동로그인의 유효기간
+	private String tmp_password;
 	public boolean hasRole(String role_id) {
 		if(User_type!=null) {
 			return User_type.contains(role_id);	

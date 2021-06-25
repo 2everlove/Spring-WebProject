@@ -4,38 +4,51 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/main.css">
-<script type="text/javascript" defer="defer">
-	document.title = '${sellerVO.user_name} : widele';
-	$(document).ready(function() {
-		$(".up-button").click(function() {
-			let tempcount = $("input[name=order_totalcount]").val();
-			let totalcount = Number(tempcount) + 1;
-			var stock = '${pBoard.pboard_unit_stocks}';
-			var price = '${pBoard.pboard_unit_price}';
-			let totalprice = Number(totalcount) * price;
-			let stocks = stock - Number(totalcount);
-			$("input[name=order_totalcount]").val(totalcount);
-			$("input[name=order_totalprice]").val(totalprice);
-			$("input[name=pboard_unit_stocks]").val(stocks);
-		});
-		$(".down-button").click(function() {
-			let tempcount = $("input[name=order_totalcount]").val();
-			let totalcount = 0;
-			var price = '${pBoard.pboard_unit_price}';
-			var stock = '${pBoard.pboard_unit_stocks}';
-			if (Number(tempcount) <= 1) {
-				totalcount = 1;
-			} else {
-				totalcount = Number(tempcount) - 1;
-			}
-			let totalprice = Number(totalcount) * price;
-			let stocks = stock - Number(totalcount);
-			$("input[name=order_totalcount]").val(totalcount);
-			$("input[name=order_totalprice]").val(totalprice);
-			$("input[name=pboard_unit_stocks]").val(stocks);
-		});
-
+<script type="text/javascript"> //defer 넣으면 googleMap API와 충돌
+document.title = '${sellerVO.user_name} : widele';
+$(document).ready(function() {
+	let type="${pBoard.pboard_unit_enabled}";
+	let utype="${sessionScope.user.user_type}";
+	if(type=="1"){
+		if(utype=="0"){
+		} else {
+			alert("판매가 중지된 상품입니다.");
+			history.back();
+		}
+	}
+	if ($("input[name=order_totalcount]").val() == 1) {
+		$("input[name=pboard_unit_stocks]").val('${pBoard.pboard_unit_stocks}'-1);
+	}
+	$(".up-button").click(function() {
+		let tempcount = $("input[name=order_totalcount]").val();
+		let totalcount = Number(tempcount) + 1;
+		var stock = '${pBoard.pboard_unit_stocks}';
+		var price = '${pBoard.pboard_unit_price}';
+		let totalprice = Number(totalcount) * price;
+		let stocks = stock - Number(totalcount);
+		$("input[name=order_totalcount]").val(totalcount);
+		$("input[name=order_totalprice]").val(totalprice);
+		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
+	$(".down-button").click(function() {
+		let tempcount = $("input[name=order_totalcount]").val();
+		let totalcount = 0;
+		var price = '${pBoard.pboard_unit_price}';
+		var stock = '${pBoard.pboard_unit_stocks}';
+		if (Number(tempcount) <= 1) {
+			totalcount = 1;
+		} else {
+			totalcount = Number(tempcount) - 1;
+		}
+		let totalprice = Number(totalcount) * price;
+		let stocks = stock - Number(totalcount);
+		$("input[name=order_totalcount]").val(totalcount);
+		$("input[name=order_totalprice]").val(totalprice);
+		$("input[name=pboard_unit_stocks]").val(stocks);
+	});
+	
+
+});
 </script>
 <!-- 페이징, 목록, 가격, 정렬 -->
 <section class="section__content">
@@ -57,7 +70,6 @@
 							value="${pBoard.file_pictureId}" name="file_pictureId">
 						<input type="hidden" value="${pBoard.pboard_unit_price}"
 							name="pboard_unit_price">
-						<input type="hidden" value="${pBoard.pboard_unit_stocks}" name="pboard_unit_stocks">
 						<input type="hidden" value="${pBoard.product_id}"
 							name="product_id"> <input type="hidden"
 							value="${pBoard.user_id}" name="user_id">
@@ -77,8 +89,7 @@
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span> ${stocks}</span>
-							<input type="text" value="${stocks}" name="pboard_unit_stocks">
+							재고 <span><input type="text" value="${stocks}" name="pboard_unit_stocks"></span>
 						<p>
 							<span class="detail__count"><input type="text"
 								name="order_totalcount" class="detail__count-input" value="1">
@@ -107,7 +118,6 @@
 				<ul role="menuitem">
 					<li><a href="javascript:void(0)" role="presentation">상세정보</a></li>
 					<li><a href="javascript:void(0)" role="presentation">리뷰</a></li>
-					<li><a href="javascript:void(0)" role="presentation">Q&A</a></li>
 				</ul>
 			</div>
 			<div class="detail__description">
@@ -119,10 +129,8 @@
 						<img src="${urlDesc}" class='detail__description-img'>
 					</c:forEach>
 				</ul>
-			</div> <!-- description -->
-			<div class="product_review">
-				<%@include file="../product/reviewproduct.jsp"%>
 			</div>
+			<%@include file="reviewproduct.jsp"%>
 		</div>
 	</div>
 </section>

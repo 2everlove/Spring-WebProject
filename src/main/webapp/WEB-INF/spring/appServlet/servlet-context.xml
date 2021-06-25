@@ -29,15 +29,32 @@
 	
 	<beans:bean id="authInterceptor" class="web.spring.interceptor.AuthInterceptor"></beans:bean>
 	<beans:bean id="loginInterceptor" class="web.spring.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="PagingInterceptor" class="web.spring.interceptor.PagingInterceptor"></beans:bean>
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/nboard/**" />	
+			<mapping path="/cartList" />	
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/product/productRegister" />	
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 		<interceptor>
 			<mapping path="/myPage/**" />	
 			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/pDetail/**" />	
+			<beans:ref bean="PagingInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/cond/**" />	
+			<beans:ref bean="PagingInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/type/**" />	
+			<beans:ref bean="PagingInterceptor" />
 		</interceptor>
 		<interceptor>
 			<mapping path="/loginAction" />

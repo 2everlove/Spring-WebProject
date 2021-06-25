@@ -61,10 +61,10 @@ public class AdminAjaxController {
 			int product =  productService.productInfoInsert(productVO);
 			map.put("result", product);
 		}
-		CodeVO code1 = productService.getCode("manufacturer",productVO.getProduct_manufacturer().toLowerCase());
-		CodeVO code2 = productService.getCode("category",productVO.getProduct_category().toLowerCase());
+		CodeVO code1 = productService.getCode("manufacturer",productVO.getProduct_manufacturer());
+		CodeVO code2 = productService.getCode("category",productVO.getProduct_category());
 		if(code1 == null) {
-			productService.insertCode("manufacturer",productVO.getProduct_manufacturer().toLowerCase());
+			productService.insertCode("manufacturer",productVO.getProduct_manufacturer());
 		} 
 		if(code2 == null) {
 			productService.insertCode("category",productVO.getProduct_category().toLowerCase());
@@ -78,8 +78,9 @@ public class AdminAjaxController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userVO != null) {
 			System.out.println(userVO);
-			int res = userService.updateUser(userVO);
-			if(res > 0)
+			userVO.setUser_address(userVO.getUser_address().trim());
+			int res = userService.updateUserByAdmin(userVO);
+			if(res>0)
 				map.put("result","success");
 		} else {
 			map.put("result", "fail");

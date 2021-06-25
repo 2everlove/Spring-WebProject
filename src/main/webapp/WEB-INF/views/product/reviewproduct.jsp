@@ -6,19 +6,7 @@
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/reviewproduct.css">
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/star-rating-svg.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/resources/js/jquery.star-rating-svg.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
-<!--CDN 링크 -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
-<!--CDN 링크 -->
+
 <script>
 	
 	var user_id = "${sessionScope.user.user_id}";

@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
 	@Setter(onMethod_= {@Autowired})
 	MailService ms;
 	
-	
-
 	@Override
 	public UserVO getUser(String user_id) {
 		return userMapper.getUser(user_id);
@@ -34,8 +32,24 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public int updateUserByAdmin(UserVO user) {
+		return userMapper.updateUserByAdmin(user);
+	}
+	
+	@Override
 	public UserVO login(UserVO user) {
-		return  userMapper.login(user);
+		 UserVO tmpVo = userMapper.getUser(user.getUser_id());
+		 System.out.println("tmpVo"+tmpVo);
+		 System.out.println("user"+user);
+
+		 if(tmpVo!=null) {
+			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			 System.out.println(encoder.matches(user.getUser_password(), tmpVo.getUser_password()));
+			 if (encoder.matches(user.getUser_password(), tmpVo.getUser_password())) {
+				 return this.userMapper.login(user); 
+			 }
+		 }
+		 	return null;
 	}
 
 
@@ -83,10 +97,6 @@ public class UserServiceImpl implements UserService {
 		return dbUser;
 	}
 
-	@Override
-	public int updateUser(UserVO user) {
-		return userMapper.updateUser(user);
-	}
 
 	@Override
 	public List<UserVO> getAllUserList(Criteria cri) {
@@ -97,6 +107,62 @@ public class UserServiceImpl implements UserService {
 	public int getUserTotal(Criteria cri) {
 		return userMapper.getUserTotal(cri);
 	}
+
+	@Override
+	public List<UserVO> getAllUser() {
+		return userMapper.getAllUser();
+	}
+
+	@Override
+	public String getUser_type(String User_id) {
+		return userMapper.getUser_type(User_id);
+	}
+
+	@Override
+	public String searchId(UserVO user) {
+		return userMapper.searchId(user);
+	}
+
+	@Override
+	public UserVO searchPwd(UserVO user) {
+		return userMapper.searchPwd(user);
+	}
+
+	@Override
+	public boolean updateUser(UserVO user) {
+		UserVO tmpVo = getUser(user.getUser_id());
+	    System.out.println("tmpVo:"+tmpVo);
+	    System.out.println("user:"+user);
+	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	    if (encoder.matches(user.getTmp_password(), tmpVo.getUser_password())==true) {
+	    	String encode = encoder.encode(user.getUser_password());
+	    	user.setUser_password(encode);
+	    	userMapper.updateUser(user);
+	    	return true;
+	    } else {
+	    	return false;
+	    }
+	}
+
+	@Override
+	public int updatePwd(UserVO user) {
+		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		    String encodePwd = encoder.encode(user.getUser_password());
+		    user.setUser_password(encodePwd);
+		    return userMapper.updatePwd(user);
+	}
+
+	@Override
+	public String getFileSeq() {
+		return userMapper.getFileSeq();
+	}
+
+	@Override
+	public UserVO searchUserByEmail(String User_email) {
+		return userMapper.searchUserByEmail(User_email);
+	}
+
+	
 
 
 

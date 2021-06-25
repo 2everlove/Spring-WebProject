@@ -5,10 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.AutomapConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
@@ -38,8 +36,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			if(loginCookie != null) {
 				user = userService.loginSessionkey(loginCookie.getValue());
-				// 로그인 처리 : 세션에 유저 객체를 생성 합니다.
-				session.setAttribute("user", user);				
+				if(user != null) {
+					// 로그인 처리 : 세션에 유저 객체를 생성 합니다.
+					session.setAttribute("user", user);				
+				}
 			}
 			
 		}
@@ -53,26 +53,27 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 				return true;
 			} else if(Integer.parseInt(user.getUser_type())==2) {
 				return true;
-			} else {
-				System.out.println(request.getRequestURI());
-				System.out.println(request.getQueryString());
-				
-				String tmpUri = request.getRequestURI();
-				String queryString = request.getQueryString();
-				if(!StringUtils.isEmpty(queryString)) {
-					tmpUri += "?"+queryString; 
-				} 
-				session.setAttribute("tmpUrl", tmpUri);
-				
-				response.sendRedirect("/login");
-				return false;
 			}
-			
-		} else {
-			response.sendRedirect("/login");
 			return false;
 		}
 		
+		System.out.println("uri============"+request.getRequestURI());
+		System.out.println("query=========="+request.getQueryString());
+		String uri = request.getRequestURI(); 	// 기존 요청의 URI정보
+		String query = request.getQueryString();// 기존 요청의 파라메터
+		
+		if(query != null) {
+			uri += "?" + query; 
+		}
+		String res ="";
+		if(uri != null) {
+			System.out.println("auth"+uri);
+			session.setAttribute("tmpUri", uri);
+			res = (String)session.getAttribute("tmpUri");
+		}
+		System.out.println("contain?"+res);
+		response.sendRedirect("/login");
+		return false;
 	}
 
 	/**

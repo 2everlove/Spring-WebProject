@@ -297,7 +297,7 @@ p{
 	border: 1px solid var(--color-dark-white);
 	margin: 0 auto;
 	flex-wrap: wrap;
-	height: 30%;
+	height: 50%;
 	width: 240px;
 	text-align: center;
 	z-index: 2;

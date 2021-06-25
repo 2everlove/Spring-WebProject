@@ -10,7 +10,7 @@ navbarMenu.addEventListener('click', (event)=>{
     scrollIntoviews(link);
 });
 
-const sectionIds = ['#new', '#sale', '#event', '#recommend'];
+const sectionIds = ['#new', '#sale', '#event'];
 const sections = sectionIds.map(id => document.querySelector(id));
 let navItems = sectionIds.map(id => document.querySelector('[data-link="'+id+'"]'));
 
