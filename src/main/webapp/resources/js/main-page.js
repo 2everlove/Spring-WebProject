@@ -54,13 +54,18 @@ const observer = new IntersectionObserver(observerCallback, oberverOption);
 sections.forEach(section => observer.observe(section));
 
 window.addEventListener('scroll', () => {
+	/*console.log("cl: "+document.body.clientHeight);
+	console.log("ma: "+Math.round(window.scrollY + window.innerHeight));
+	console.log("wi: "+window.scrollY);*/
     if(window.scrollY === 0){
         selectedNavIndex = 0;
-    } else if (Math.round(window.scrollY + window.innerHeight) === document.body.clientHeight){
+    } else if (Math.round(window.scrollY + window.innerHeight) > document.body.clientHeight){
+    	selectedNavIndex = 2;
+    } else if (Math.round(window.scrollY + window.innerHeight) == document.body.clientHeight){
         selectedNavIndex = navItems.length - 1;
     }
     selectNavItem(navItems[selectedNavIndex]);
-})
+});
 
 // console.log(sections);
 // console.log(navItems);

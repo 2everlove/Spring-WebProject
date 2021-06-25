@@ -9,21 +9,57 @@
 	$(document).ready(function(){
 		$(".search__select").hide();
 		
-		$(".code_type").change(function(){
+		$("select[name=category]").change(function(){
 			let parentElement = $(this).closest("div");
-			$(parentElement).find('select').hide();
-			$(parentElement).find('option').remove();
+			//$(parentElement).find('select').hide();
+			//$(parentElement).find('option').remove();
 			$(this).prop('data');
 			if($(this).val()!=""){
-				checkProductName($(this).attr("name"), $(this).val(), parentElement);
+				checkProductName($(this).attr("name"),  $(this).find('option:selected').val(), parentElement);
+			}
+			//console.log(document.getElementById('manufacturer').selectedIndex);
+			
+		});//
+		if(document.getElementById('manufacturer').selectedIndex<0){
+			$("select[name=manufacturer]").click(function(){
+				let parentElement = $(this).closest("div");
+				//$(parentElement).find('select').hide();
+				//$(parentElement).find('option').remove();
+				$(this).prop('data');
+				if($(this).val()!=""){
+					checkProductName($(this).attr("name"),  $(this).find('option:selected').val(), parentElement);
+				}
+			});//
+		}
+		
+		if(document.getElementById('pn').selectedIndex<0){
+			$("select[name=pn]").click(function(){
+				$('input[name=product_name]').val($(this).find('option:selected').val());
+				//console.log($(this).find('option:selected').data('id'));
+			});//
+		}
+		
+		$("select[name=manufacturer]").change(function(){
+			let parentElement = $(this).closest("div");
+			//$(parentElement).find('select').hide();
+			//$(parentElement).find('option').remove();
+			$(this).prop('data');
+			if($(this).val()!=""){
+				checkProductName($(this).attr("name"),  $(this).find('option:selected').val(), parentElement);
 			}
 		});//
 		
+		$(".search__select").change(function(){
+			$('input[name=product_name]').val($(this).find('option:selected').val());
+			//console.log($(this).find('option:selected').data('id'));
+			
+		});
+		
 		$('input[name=product_name]').change(function(){
-			$('input[name=manufacturer]').val("");
-			$('input[name=category]').val("");
-			let parentmanu = $('input[name=manufacturer]').closest("div");
-			let parentcate = $('input[name=category]').closest("div");
+			$('select[name=manufacturer]').val("");
+			$('select[name=category]').val("");
+			let parentmanu = $('select[name=manufacturer]').closest("div");
+			let parentcate = $('select[name=category]').closest("div");
 			getProductManuCate();
 		});//
 		
@@ -33,29 +69,30 @@
 		});//
 			
 		$(".search__select").focusout(function(){
-			console.log("fo");
+			//console.log("focu");
 			let parentElement = $(this).closest("div");
+			console.log($(this).find('option:selected').data('id'));
+			$('input[name=product_id]').val($(this).find('option:selected').data('id'));
+			//console.log($("select[name=manufacturer]").find('option:selected').val());
+			
+				//$('select[name=manufacturer]').val($(this).find('option:selected').data('manufacturer'));
+				//$('select[name=manufacturer]').find("option").remove();
+				if($("select[name=manufacturer]").find('option:selected').val()==undefined){
+					$("select[name=manufacturer]").append("<option name='search__value' value="+$(this).find('option:selected').data('manufacturer')+" selected>"+$(this).find('option:selected').data('manufacturer')+"</option>");
+				} else {
+					$('select[name=manufacturer]').val($(this).find('option:selected').data('manufacturer')).prop("selected", true);
+				}
+				$('select[name=category]').val($(this).find('option:selected').data('category')).prop("selected", true);
+			
+			
+			//getManuCate($(this).find('option:selected').val());
 			$(parentElement).find('input').attr('data', true);
 			$(parentElement).find('select').hide();
+			
 			$(parentElement).find('option').remove();
-			if($('input[name=manufacturer]').attr('data') && $('input[name=category]').attr('data') && $('input[name=product_name]').val()==""){
-				getProductId(parentElement);
-			}
 		});//
 		
-		$(".search__select").click(function(){
-				let searchValue = $(this).val();
-				let searchDataValue = $(this).find('option:checked').attr('data-id');
-				console.log(searchDataValue);
-				let parentElement = $(this).closest("div");
-				$(parentElement).find('input').val(searchValue);
-				if(searchDataValue!=null){
-					$('input[name=product_id]').val(searchDataValue);
-					if($('input[name=manufacturer]').val() =="" || $('input[name=category]').val() ==""){
-						getManuCate(searchDataValue);
-					}
-				}
-		});//
+		
 		
 		$('#file_pictureId').on("change", function(){
 			viewFile($('#file_pictureId').val());
@@ -67,12 +104,12 @@
 				$('input[name=product_name]').select();
 				return false;
 			}
-			if($('input[name=category]').val() ==""){
-				$('input[name=category]').select();
+			if($('select[name=category]').val() ==""){
+				$('select[name=category]').select();
 				return false;
 			}
-			if($('input[name=manufacturer]').val()==""){
-				$('input[name=manufacturer]').select();
+			if($('select[name=manufacturer]').val()==""){
+				$('select[name=manufacturer]').select();
 				return false;
 			}
 			if($('input[name=pboard_unit_price]').val()==""){
@@ -108,7 +145,7 @@
 				return false;
 			}
 			let formData = new FormData(document.uploadForm);
-			console.log(formData.get("file_pictureId")+formData.get("uploadFile"));
+			//console.log(formData.get("file_pictureId")+formData.get("uploadFile"));
 			//파일업로드 컨트롤러 -> 서버에 저장
 			$.ajax({
 				url : '/fileUploadAjax',
@@ -118,8 +155,8 @@
 				contentType : false,
 				data : formData,
 				success : function(datas){
-					console.log("success");
-					console.log(datas);
+					//console.log("success");
+					//console.log(datas);
 					alert(datas.count+"개가 업로드 되었습니다.");
 					let file_pictureId = "";
 					//$('#attachNo').val(datas.attachNo);
@@ -130,7 +167,7 @@
 					viewFile(datas.file_pictureId);
 				},
 				error : function(errorThrown){
-					console.log(errorThrown);
+					//console.log(errorThrown);
 				}
 			});
 		});
@@ -154,7 +191,7 @@
 					console.log(file_s_savePath);
 					console.log(data.file_s_savePath);
 					
-					console.log("인코딩 후 : "+file_savePath);
+					//console.log("인코딩 후 : "+file_savePath);
 					let fName = data.file_name;
 					//만약 이미지면 이미지 보여줌
 					if(data.file_type=='Y'){
@@ -216,23 +253,35 @@
 			dataType:'json',
 			success: function(datas, status){
 				let result ="";
-				console.log(datas);
+				//console.log(datas);
 				if(datas.result != "error"){
 					$(parentElement).children('select').show();
 					$.each(datas.result, function(i, data){
-						result += "<option name='search__value' value="+data+">"+data+"</option>"
+						if(code_type=='manufacturer'){
+							//console.log("m"+data.product_name);
+							result += "<option name='search__value' value="+data.product_name+">"+data.product_name+"</option>"
+							$('select[name=pn]').append(result);
+						}
+						else {
+							//console.log("c"+data.product_manufacturer);
+							result += "<option name='search__value' value="+data.product_manufacturer+">"+data.product_manufacturer+"</option>"
+						}
 					});
-					$(parentElement).children('select').append(result);
+					if(code_type=='manufacturer'){
+						getProductId();
+						$('select[name=pn]').find('option').remove();
+						$('select[name=pn]').append(result);
+					} else {
+						$('select[name=manufacturer]').find('option').remove();
+						$('select[name=manufacturer]').append(result);
+						
+					}
+					
 					$('input[name=product_name]').val("");
 				} else{
 					if(confirm("조회하는 값이 없습니다. ["+code_type+"] "+code_value+"의 추가를 원하시면 문의해주세요.")){
 						window.location.href = "/inquiry";
-					} else {
-						$(parentElement).find('select').hide();
-						$(parentElement).find('option').remove();
-						$(parentElement).find('input').val("");
-						$(parentElement).find('input').select();
-					}
+					} 
 				}
 				
 			},
@@ -245,22 +294,26 @@
 	
 	//code에서 따온 제조사, 카테고리로 상품검색
 	function getProductId(){
+		//console.log("getProductId");
 		let parentElement = $('input[name=product_name]').closest("div");
 		$.ajax({
-			url:'/checkProduct/'+$('input[name=manufacturer]').val()+"/"+$('input[name=category]').val(),
+			url:'/checkProduct/'+$('select[name=manufacturer]').val()+"/"+$('select[name=category]').val(),
 			method: 'get',
 			dataType:'json',
 			success: function(datas, status){
 				let result ="";
-				console.log(datas);
+				//console.log(datas);
 				if(datas.result != "error"){
 					$(parentElement).children('select').show();
 					$.each(datas.result, function(i, data){
-						result += "<option name='search__value' value="+data.product_name+" data-id="+data.product_id+">"+data.product_name+"</option>"
+						//console.log("getProductId: "+data);
+						
+						result += "<option name='search__value' value='"+data.product_name+"' data-category='"+data.product_category+"' data-manufacturer="+data.product_manufacturer+" data-id="+data.product_id+">"+data.product_name+"</option>"
 					});
-					$(parentElement).children('select').append(result);
+					$('select[name=pn]').find('option').remove();
+					$('select[name=pn]').append(result);
 				} else{
-					if(confirm("조회하는 값이 없습니다. ["+$('input[name=manufacturer]').val()+"] "+$('input[name=category]').val()+"의 추가를 원하시면 문의해주세요.")){
+					if(confirm("조회하는 값이 없습니다. ["+$('select[name=manufacturer]').val()+"] "+$('select[name=category]').val()+"의 추가를 원하시면 문의해주세요.")){
 						window.location.href = "/inquiry";
 					} else {
 						$(parentElement).find('select').hide();
@@ -281,23 +334,24 @@
 	//상품으로 제조사, 카테고리 검색
 	function getProductManuCate(){
 		let parentElement = $('input[name=product_name]').closest("div");
-		let parentmanu = $('input[name=manufacturer]').closest("div");
-		let parentcate = $('input[name=category]').closest("div");
+		let parentmanu = $('select[name=manufacturer]').closest("div");
+		let parentcate = $('select[name=category]').closest("div");
 		$.ajax({
 			url:'/checkProduct/'+$('input[name=product_name]').val(),
 			method: 'get',
 			dataType:'json',
 			success: function(datas, status){
 				let result ="";
-				console.log(datas);
+				//console.log(datas);
 				if(datas.result != "error"){
 					$(parentElement).children('select').show();
 					$.each(datas.result, function(i, data){
-						result += "<option name='search__value' value="+data.product_name+" data-id="+data.product_id+">"+data.product_name+"</option>"
+						result += "<option name='search__value' value='"+data.product_name+"' data-category='"+data.product_category+"' data-manufacturer="+data.product_manufacturer+" data-id="+data.product_id+">"+data.product_name+"</option>"
 					});
 					$(parentElement).children('select').append(result);
+					//$('input[name=product_name]').hide();
 				} else{
-					if(confirm("조회하는 값이 없습니다. ["+$('input[name=manufacturer]').val()+"] "+$('input[name=category]').val()+"의 추가를 원하시면 문의해주세요.")){
+					if(confirm("조회하는 값이 없습니다. ["+$('select[name=manufacturer]').val()+"] "+$('select[name=category]').val()+"의 추가를 원하시면 문의해주세요.")){
 						window.location.href = "/inquiry";
 					} else {
 						$(parentElement).find('select').hide();
@@ -317,19 +371,20 @@
 	
 	//상품id 로 제조사, 카테고리 입력
 	function getManuCate(searchDataValue){
+		console.log("getManuCate");
 		let parentElement = $('input[name=product_name]').closest("div");
-		let parentmanu = $('input[name=manufacturer]').closest("div");
-		let parentcate = $('input[name=category]').closest("div");
+		let parentmanu = $('select[name=manufacturer]').closest("div");
+		let parentcate = $('select[name=category]').closest("div");
 		$.ajax({
 			url:'/searchProductId/'+searchDataValue,
 			method: 'get',
 			dataType:'json',
 			success: function(datas, status){
 				let result ="";
-				console.log(datas);
+				//console.log(datas);
 				if(datas.result != "error"){
-					$('input[name=manufacturer]').val(datas.result.product_manufacturer);
-					$('input[name=category]').val(datas.result.product_category);
+					$('select[name=manufacturer]').append("<option name='search__value' value="+datas.result.product_manufacturer+">"+datas.result.product_manufacturer+"</option>");
+					$('select[name=category]').append("<option name='search__value' value="+datas.result.product_category+">"+datas.result.product_category+"</option>");
 				} else{
 					if(confirm("조회하는 값이 없습니다. ["+$('input[name=manufacturer]').val()+"] "+$('input[name=category]').val()+"의 추가를 원하시면 문의해주세요.")){
 						window.location.href = "/inquiry";
@@ -349,6 +404,8 @@
 		});
 	}//
 	
+	
+	
 
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
@@ -360,18 +417,25 @@
 	        		<div class="search__wrapper">
 	        		<button type="button" id="pRegisterBtn">등록</button>
 			    		<div class="search__input">
-			    			<label>카테고리 <input type="text" name="category" class="code_type" onKeypress="javascript:if(event.keyCode==13){}"></label>
-			    			<select class="search__select" name="">
-			        		</select>
+			    			<label>카테고리 <!-- <input type="text" name="category" class="code_type" onKeypress="javascript:if(event.keyCode==13){}"> --></label>
+			    			<select name="category" class="code_type" onKeypress="javascript:if(event.keyCode==13){}">
+	    						<option value="tablet">태블릿</option>
+	    						<option value="desktop">컴퓨터</option>
+	    						<option value="notebook">노트북</option>
+	    						<option value="life">생활가전</option>
+	    						<option value="video">영상가전</option>
+	    						<option value="sound">음향가전</option>
+	    						<option value="software">소프트웨어</option>
+	    					</select>
 			    		</div>
 			    		<div class="search__input">
-			    			<label>제조사 <input type="text" name="manufacturer" class="code_type" onKeypress="javascript:if(event.keyCode==13){}"></label>
-			    			<select class="search__select" name="">
+			    			<label>제조사 </label>
+			    			<select name="manufacturer" id="manufacturer" class="code_type" onKeypress="javascript:if(event.keyCode==13){}">
 			        		</select>
 			    		</div>
 			    		<div class="search__input">
 			    			<label>상품 이름 <input type="text" name="product_name" class="product_name" onKeypress="javascript:if(event.keyCode==13){}"></label>
-			    			<select class="search__select" name="">
+			    			<select class="search__select" name="pn" id="pn">
 			        		</select>
 			    		</div>
 			    		<form method="post" action="insertProductBoard" name="pBoardForm">

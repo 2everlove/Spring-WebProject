@@ -61,7 +61,7 @@ public interface ProductMapper {
 	
 	public int productInfoDelete(ProductVO productVO); //상품 삭제
 	
-	public List<String> searchProductCategory(@Param("code_type")String code_type, @Param("code_value") String code_value);
+	public List<ProductVO> searchProductCategory(@Param("code_type")String code_type, @Param("code_value") String code_value);
 	
 	public int insertCodeInfo(@Param("code_type")String code_type, @Param("code_value") String code_value);
 	

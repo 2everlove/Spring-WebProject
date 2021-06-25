@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<String> searchProductCategory(String code_type, String code_value) {
+	public List<ProductVO> searchProductCategory(String code_type, String code_value) {
 		return productMapper.searchProductCategory(code_type, code_value);
 	}
 

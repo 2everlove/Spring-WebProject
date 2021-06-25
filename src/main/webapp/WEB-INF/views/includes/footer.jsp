@@ -64,9 +64,10 @@ $(document).ready(function(){
 		$('#map').animate({width:'500px',height:'300px'},300);
 		$('.footer').animate({height:'550px'});
 	}); */
- 		$('#map').on('mouseover', function(){
-		$('#map').css({width:'800px', height:'500px'});
-		$('.footer').css({height:'750px'});
+	$('.footer').css({height:'600px'});
+	$('#map').on('mouseover', function(){
+		$('#map').css({width:'550px', height:'350px'});
+		$('.footer').css({height:'600px'});
 	});
 	$('#map').on('mouseout', function(){
 		$('#map').css({width:'500px',height:'300px'});

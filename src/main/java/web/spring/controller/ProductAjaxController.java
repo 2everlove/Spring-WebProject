@@ -50,7 +50,7 @@ public class ProductAjaxController {
 		List<ProductVO> list = productService.searchProductManuCate(product_name);
 		log.info(list);
 		if(list != null) {
-			if(list.size()>0) {
+			if(list.size()>=0) {
 				map.put("result", list);
 			} else {
 				map.put("result", "error");
@@ -80,16 +80,30 @@ public class ProductAjaxController {
 	public Map<String, Object> AjaxInsetCodeInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
 		log.info(code_type+"\n"+code_value);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
-		if(list != null) {
-			if(list.size()>0) {
-				map.put("result", list);
+		if(code_type.toLowerCase().equals("manufacturer")) {
+			List<ProductVO> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
+			if(list != null) {
+				if(list.size()>0) {
+					map.put("result", list);
+				} else {
+					map.put("result", "error");
+				}
 			} else {
 				map.put("result", "error");
 			}
 		} else {
-			map.put("result", "error");
+			List<ProductVO> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
+			if(list != null) {
+				if(list.size()>0) {
+					map.put("result", list);
+				} else {
+					map.put("result", "error");
+				}
+			} else {
+				map.put("result", "error");
+			}
 		}
+		
 		return map;
 	}
 	

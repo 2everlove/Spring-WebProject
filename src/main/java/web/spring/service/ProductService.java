@@ -50,7 +50,7 @@ public interface ProductService {
 	
 	public ProductVO getProductInfo(String product_id);
 	
-	public List<String> searchProductCategory(String code_type, String code_value);
+	public List<ProductVO> searchProductCategory(String code_type, String code_value);
 	
 	public int insertCodeInfo(String code_type, String code_value);
 	

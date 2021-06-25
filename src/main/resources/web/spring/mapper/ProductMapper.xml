@@ -154,7 +154,7 @@
 	
 	<!-- 메인 네비 new,event... 클릭 시 검색 -->
 	<select id="getCondList" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_id in (select product_id from product_board where pboard_unit_condition = #{pboard_unit_condition})
+		select * from products_info where product_id in (select product_id from product_board where pboard_unit_condition = #{pboard_unit_condition} and pboard_unit_enabled = '0')
 	</select>
 	
 	<!-- pboard_unit_no에 따른 rownum을 가진 product_board로 반환  -->
@@ -179,9 +179,15 @@
 	</delete>
 	
 	<!-- productRegister 시 code_type(manufacturer, category)의 code_value를 검색 -->
-	<select id="searchProductCategory" resultType="String">
-		select distinct code_value from code_info where code_type = #{code_type} and code_value like '%'||#{code_value}||'%'
+	<select id="searchProductCategory" resultType="web.spring.vo.ProductVO">
+		select distinct product_manufacturer, product_category 
+		from products_info
+		<where>
+			<if test="code_type=='manufacturer'">LOWER(product_manufacturer)=#{code_value}</if>		
+			<if test="code_type=='category'">LOWER(product_category) = #{code_value}</if>		
+		</where>
 	</select>
+		<!-- select distinct code_value from code_info where code_type = #{code_type} and code_value like '%'||#{code_value}||'%' -->
 	
 	<!-- admin 상품 등록 시 없는 코드는 추가 -->
 	<insert id="insertCodeInfo">
@@ -216,56 +222,56 @@
 	</insert>
 	
 	<!-- search -->
-	<select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
-		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
-    			select * from product_board where pboard_unit_enabled = '0' and product_id in(
-        			select product_id from products_info 
-		where product_id in (
-			select product_id from products_info 
-			where 
-			<foreach collection="search_Map" item="item" separator="or" index="0">
-				Lower(product_manufacturer) like '%'||#{item}||'%'
-			</foreach>
-		) or product_id in (
-			select product_id from products_info 
-			where 
-			<foreach collection="search_Map" item="item" separator="or" index="0">
-				Lower(product_category) like '%'||#{item}||'%'
-			</foreach>
-		) or product_id in (
-			select product_id from products_info 
-			where 
-			<foreach collection="search_Map" item="item" separator="or" index="0">
-				Lower(product_name) like '%'||#{item}||'%'
-			</foreach>
-		)
-        		)) board
-        	) pboard where each_rank between 1 and 5
-	</select>
-	
-	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-		select p_i.*  from (select * from products_info 
-		where product_id in (
-			select product_id from products_info 
-			where 
-			<foreach collection="search_Map" item="item" separator="or" index="0">
-				Lower(product_manufacturer) like '%'||#{item}||'%'
-			</foreach>
-		) or product_id in (
-			select product_id from products_info 
-			where 
-			<foreach collection="search_Map" item="item" separator="or" index="0">
-				Lower(product_category) like '%'||#{item}||'%'
-			</foreach>
-		) or product_id in (
-			select product_id from products_info 
-			where 
-			<foreach collection="search_Map" item="item" separator="or" index="0">
-				Lower(product_name) like '%'||#{item}||'%'
-			</foreach>
-		)) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
-	</select>
+   <select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
+      select rownum num, pboard.* from (
+         select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+             select * from product_board where pboard_unit_enabled = '0' and product_id in(
+                 select product_id from products_info 
+      where product_id in (
+         select product_id from products_info 
+         where 
+         <foreach collection="search_Map" item="item" separator="or" index="0">
+            Lower(product_manufacturer) like '%'||#{item}||'%'
+         </foreach>
+      ) or product_id in (
+         select product_id from products_info 
+         where 
+         <foreach collection="search_Map" item="item" separator="or" index="0">
+            Lower(product_category) like '%'||#{item}||'%'
+         </foreach>
+      ) or product_id in (
+         select product_id from products_info 
+         where 
+         <foreach collection="search_Map" item="item" separator="or" index="0">
+            Lower(product_name) like '%'||#{item}||'%'
+         </foreach>
+      )
+              )) board
+           ) pboard where each_rank between 1 and 5
+   </select>
+   
+   <select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
+      select p_i.*  from (select * from products_info 
+      where product_id in (
+         select product_id from products_info 
+         where 
+         <foreach collection="search_Map" item="item" separator="or" index="0">
+            Lower(product_manufacturer) like '%'||#{item}||'%'
+         </foreach>
+      ) or product_id in (
+         select product_id from products_info 
+         where 
+         <foreach collection="search_Map" item="item" separator="or" index="0">
+            Lower(product_category) like '%'||#{item}||'%'
+         </foreach>
+      ) or product_id in (
+         select product_id from products_info 
+         where 
+         <foreach collection="search_Map" item="item" separator="or" index="0">
+            Lower(product_name) like '%'||#{item}||'%'
+         </foreach>
+      )) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null and p_b.pboard_unit_enabled = '0'
+   </select>
 	
 	
 	<!-- productBoard on main -->
