@@ -277,16 +277,16 @@
 	<!-- productBoard on main -->
 	
 	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
-		select rownum num, nvl(r.review_rate,0) avg , b.* 
+		select a.*, rownum num from (select nvl(r.review_rate,0) avg , b.* 
 		from (select pboard.* 
-				from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank 
-					from product_board board where pboard_unit_enabled = '0'
-				) pboard where each_rank='1' order by dbms_random.random
-			) b 
+		        from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank 
+		            from product_board board where pboard_unit_enabled = '0'
+		        ) pboard where each_rank='1' 
+		    ) b 
 		full outer join (select round(avg(nvl(a.review_rate,0)),0) review_rate, a.pboard_unit_no 
-				from product_review a group by a.pboard_unit_no
-			) r 
-		on r.pboard_unit_no = b.pboard_unit_no where b.pboard_unit_no is not null order by num desc
+		        from product_review a group by a.pboard_unit_no 
+		    ) r 
+		on r.pboard_unit_no = b.pboard_unit_no where b.pboard_unit_no is not null order by dbms_random.random) a order by num
 	</select>
 	
 	<!-- master product on main -->
