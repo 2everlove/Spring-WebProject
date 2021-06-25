@@ -14,6 +14,8 @@
 	<!-- admin 상품게시글 관리 -->
 	<select id="getAllPBoardList" resultType="web.spring.vo.PBoardVO">
 		select board.* from (select rownum num, pboard.* from (select * from product_board 
+		
+		
 		<trim prefix="order by">
 			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
 			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
@@ -138,6 +140,15 @@
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info where pboard_unit_condition=#{pboard_unit_condition}) 
+        		) board
+        	) pboard where each_rank between 1 and 5 
+	</select>
+	
+	<select id="getRecommendBoardList" resultType="web.spring.vo.PBoardVO">
+		select rownum num, pboard.* from (
+			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+    			select * from product_board where pboard_unit_enabled ='0' and product_id in(
+        			select product_id from products_info) 
         		) board
         	) pboard where each_rank between 1 and 5 
 	</select>

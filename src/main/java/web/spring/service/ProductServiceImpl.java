@@ -184,6 +184,11 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.getMainRecommendList(search_Map);
 	}
 
+	@Override
+	public List<PBoardVO> getRecommendBoardList() {
+		return productMapper.getRecommendBoardList();
+	}
+
 
 	
 }

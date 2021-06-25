@@ -433,12 +433,11 @@
 		<form method=get action="/admin/userControl" name="listForm">
                  <!-- 상세보기 검색 유지용 -->
                  <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
-                 <input type=hidden name=type value=${pageNavi.cri.type }> 
                  <!-- 상세보기 검색 유지용 끝 -->
                  <div class="form-inline">
 					<select class="form-control" name=type>
 						<option value="user_id" <c:if test="${pageNavi.cri.type == 'user_id'}">selected</c:if>>ID</option>
-						<option value="user_email" <c:if test="${pageNavi.cri.type == 'user_eamil'}">selected</c:if>>E-mail</option>
+						<option value="user_email" <c:if test="${pageNavi.cri.type == 'user_email'}">selected</c:if>>E-mail</option>
 											</select> 
 					<input class="form-control" name=keyword
 						value=${pageNavi.cri.keyword }>

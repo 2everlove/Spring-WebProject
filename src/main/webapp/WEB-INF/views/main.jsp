@@ -337,7 +337,7 @@
 			    				<div class="product__wrapper" id="new">
 							    	<div class="type__product">
 								        <div class="type__detail">
-						        			<h1> 로그인을 하시면 볼 수 있습니다.</h1><a onclick="location.href='/login'">로그인</a>
+						        			<h1>로그인 하시면 추천상품을 보여드릴게요.</h1><a onclick="location.href='/login'">로그인</a>
 								        </div>
 							        </div>
 						        </div>

@@ -53,6 +53,8 @@ public interface ProductMapper {
 	
 	public List<PBoardVO> getCondBoardList(String pboard_unit_condition); //cond 검색 해당 상세페이지 1~5출력
 	
+	public List<PBoardVO> getRecommendBoardList(); //cond(recommend) 검색 해당 상세페이지 1~5출력
+	
 	public PBoardVO getProduct(String no);//product_no로 상세페이지 조회
 	
 	public ProductVO getProductInfo(String product_id); //상세페이지 내에 있는 product_id로 상품 조회

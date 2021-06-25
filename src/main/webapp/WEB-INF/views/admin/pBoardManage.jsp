@@ -176,7 +176,6 @@
                  ${pageNavi.cri.type }
                  <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
                  <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
-                 <input type=hidden name=type value=${pageNavi.cri.type }> 
                  <!-- 상세보기 검색 유지용 끝 -->
                  <div class="form-inline">
 					<select class="form-control" name=type>
