@@ -108,14 +108,14 @@
 					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_n_desc'}"><i class="fas fa-angle-down"></i></c:when>
 					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
 				    						</c:choose>
-				    					</span>, 
+				    					</span> 
 				    					<span span class="orderby" data-type="pboard_unit_condition_s" data-sort=${pageNavi.cri.orderby }> sale 
 				    						<c:choose>
 					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_s_asc'}"><i class="fas fa-angle-up"></i></c:when>
 					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_s_desc'}"><i class="fas fa-angle-down"></i></c:when>
 					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
 				    						</c:choose>
-				    					</span>,
+				    					</span>
 				    					<span span class="orderby" data-type="pboard_unit_condition_e" data-sort=${pageNavi.cri.orderby }> event
 				    						<c:choose>
 					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_e_asc'}"><i class="fas fa-angle-up"></i></c:when>

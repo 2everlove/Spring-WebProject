@@ -57,16 +57,20 @@
 			select board.* from (select pboard.* from (select * from product_board where user_id = #{user_id}
 		<trim prefix="order by">
 			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
-			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
-			<if test="orderby=='pboard_unit_condition_asc'">pboard_unit_condition</if>
-			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
-			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
-			<if test="orderby=='pboard_unit_updateDate_asc'">pboard_unit_updateDate</if>
 			<if test="orderby=='pboard_unit_enabled_desc'">TO_NUMBER(pboard_unit_enabled) desc</if>
+			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
 			<if test="orderby=='pboard_unit_price_desc'">TO_NUMBER(pboard_unit_price) desc</if>
-			<if test="orderby=='pboard_unit_condition_desc'">pboard_unit_condition desc</if>
+			<if test="orderby=='pboard_unit_condition_n_asc'">decode(pboard_unit_condition, '0', 1, '1', 2, '2', 3)</if>
+			<if test="orderby=='pboard_unit_condition_n_desc'">decode(pboard_unit_condition,'0', 1, '2', 2, '1', 3)</if>
+			<if test="orderby=='pboard_unit_condition_s_asc'">decode(pboard_unit_condition, '1', 1, '0', 2, '2', 3)</if>
+			<if test="orderby=='pboard_unit_condition_s_desc'">decode(pboard_unit_condition,'1', 1, '2', 2, '0', 3)</if>
+			<if test="orderby=='pboard_unit_condition_e_asc'">decode(pboard_unit_condition, '2', 1, '0', 2, '2', 3)</if>
+			<if test="orderby=='pboard_unit_condition_e_desc'">decode(pboard_unit_condition,'2', 1, '2', 2, '0', 3)</if>
+			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
 			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
+			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
 			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
+			<if test="orderby=='pboard_unit_updateDate_asc'">pboard_unit_updateDate</if>
 			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
 		</trim>
 			) pboard)board 
