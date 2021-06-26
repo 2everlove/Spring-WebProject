@@ -61,6 +61,7 @@ function updateOrderList(formData, btn){
 </head>
 <section class="order">
 	<div class="content">
+	${pBoard}
 		<h2>결제 목록</h2>
 			<table width="80%">
 				<thead>
@@ -77,7 +78,7 @@ function updateOrderList(formData, btn){
 				</thead>
 				<tbody>
 					<c:forEach var="ovo" items="${list}">
-						<c:if test="${sessionScope.user.user_id == ovo.user_id }">
+						<%-- <c:if test="${sessionScope.user.user_id == ovo.pboard_user_id}"> --%>
 							<tr>
 								<td>${ovo.order_id}</td>
 								<td><span class="torder_status">${ovo.order_status}</span>
@@ -103,9 +104,10 @@ function updateOrderList(formData, btn){
 								<input type="hidden" class="product_id" value="${ovo.product_id}">
 								<input type="hidden" class="order_totalprice" value="${ovo.order_totalprice}">
 								<input type="hidden" class="order_totalcount" value="${ovo.order_totalcount}">
+								<input type="hidden" class="pboard_user_id" value="${ovo.pboard_user_id}">
 							</tr>
-							</c:if>
-						</c:forEach>
+						<%-- </c:if> --%>
+					</c:forEach>
 					<c:if test="${list.size() == 0 }">
 						<tr>
 							<td colspan='8' align="center">주문이 존재하지 않습니다.</td>

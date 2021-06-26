@@ -43,19 +43,27 @@ public class AdminController {
 	private PaymentService paymentService;
 	
 	//주문관리
-		@GetMapping("/admin/orderAllList")
-		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
-			HttpSession session = rq.getSession();
-			UserVO user = (UserVO)session.getAttribute("user");
-			if(user != null) {
+	@GetMapping("/admin/orderAllList")
+	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri, UserVO uvo, PBoardVO pBoard) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user != null) {
+			if(user.getUser_type().equals("1")) { 
+				List<OrderVO> list = paymentService.getOrderComList(user.getUser_id(), cri);
+				log.info(list);
+				model.addAttribute("list", list);
+				model.addAttribute("pageNavi", new PageNavi(cri, paymentService.getOrderComListTotal(user.getUser_id(), cri)));
+				System.out.println("pboard_user_id============" + user.getUser_id());
+			} else {
 				List<OrderVO> list = paymentService.getOrderAllList(cri);
 				model.addAttribute("list", list);
 				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
-				return "/admin/orderAllList";
 			}
-			return "/member/login";
+			
+			return "/admin/orderAllList";
 		}
-	
+		return "/member/login";
+	}
 	
 	//상품관리
 	@GetMapping("/admin/productControl")

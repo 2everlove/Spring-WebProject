@@ -44,6 +44,7 @@ function page(page){
 						<td class="center">${ovo.order_totalprice}</td>
 						<td class="center">${ovo.order_totalcount}</td>
 						<td><a href='/orderStatus?order_id=${ovo.order_id}'><button type="button">배송 현황</button></a></td>
+						<input type="hidden" class="pboard_user_id" value="${ovo.pboard_user_id}">
 					</tr>
 				</c:forEach>
 				<c:if test="${list.size() == 0 }">

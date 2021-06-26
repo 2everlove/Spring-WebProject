@@ -57,7 +57,7 @@
 									        <h2 class="type__price"><span>${commonPrice}</span>원</h2>
 									        <c:forEach var="user" items="${userList}">
 									        	<c:if test="${user.user_id == productSellers.user_id }">
-									        		<a href="/pDetail/${productSellers.pboard_unit_no}" class="type__shops">${user.user_name }</a>
+									        		<a href="/pDetail/${productSellers.pboard_unit_no}" class="type__shops">${user.user_name}(${user.user_id})</a>
 								        		</c:if>
 									        </c:forEach>
 								        </c:if>

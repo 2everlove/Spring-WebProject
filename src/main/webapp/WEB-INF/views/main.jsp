@@ -123,7 +123,7 @@
 																		${pBoard.avg}
 																		</div>
 																		<div class='jq-stars starGet_${status.index}'></div> 
-																        <button class="new__shops">${user.user_name}</button>
+																        <button class="new__shops">${user.user_name}(${user.user_id})</button>
 															        </div>
 													    		</a>
 													        </div>
@@ -185,7 +185,7 @@
 																		${pBoard.avg}
 																		</div>
 																		<div class='jq-stars starGet_${status.index}'></div> 
-																        <button class="new__shops">${user.user_name}</button>
+																        <button class="new__shops">${user.user_name}(${user.user_id})</button>
 															        </div>
 													    		</a>
 													        </div>
@@ -244,7 +244,7 @@
 																		${pBoard.avg}
 																		</div>
 																		<div class='jq-stars starGet_${status.index}'></div> 
-																        <button class="new__shops">${user.user_name}</button>
+																        <button class="new__shops">${user.user_name}(${user.user_id})</button>
 															        </div>
 													    		</a>
 													        </div>
@@ -307,7 +307,7 @@
 																			${pBoard.avg}
 																			</div>
 																			<div class='jq-stars starGet_${status.index}'></div> 
-																	        <button class="new__shops">${user.user_name}</button>
+																	        <button class="new__shops">${user.user_name}(${user.user_id})</button>
 																        </div>
 														    		</a>
 														        </div>
