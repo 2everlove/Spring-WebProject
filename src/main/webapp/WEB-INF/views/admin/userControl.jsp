@@ -162,6 +162,9 @@
 				alert("email 형식이 아닙니다.")
 			            return false;
 			}
+			/* if(formData.get("user_type")==0){ //관리자일 경우?
+				
+			} */
 			tr.find('#kmap').hide();
 			updateUser(formData, tr);
 		});

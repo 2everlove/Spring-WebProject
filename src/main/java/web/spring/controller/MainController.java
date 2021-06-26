@@ -59,20 +59,23 @@ public class MainController {
 		if(userList!=null)
 			model.addAttribute("userList", userList);
 		if(sessionUser!=null) {
-			if(sessionUser.getUser_interesting()!="") {
-				UserVO user = userService.getUser(sessionUser.getUser_id());
-				Map<String, Object> interest_Map = new HashMap<String, Object>();
-				String[] interestArr = user.getUser_interesting().split("\\,");
-				ArrayList<String> interestList = new ArrayList<String>();
-				for(String keyWord : interestArr) {
-					interestList.add(keyWord);
+			UserVO user = userService.getUser(sessionUser.getUser_id());
+			Map<String, Object> interest_Map = new HashMap<String, Object>();
+				if(user.getUser_interesting() != "") {
+				String[] interestArr = null;
+				if(user.getUser_interesting() != null) {
+					interestArr = user.getUser_interesting().split("\\,");
+					ArrayList<String> interestList = new ArrayList<String>();
+					for(String keyWord : interestArr) {
+						interestList.add(keyWord);
+					}
+					interest_Map.put("interest_Map", interestList);
+					log.info(interestArr);
+					log.info(interest_Map.get("interest_Map"));
+					List<ProductVO> recommendList = productService.getMainRecommendList(interest_Map);
+					log.info("recommendList"+recommendList);
+					model.addAttribute("recommendList",recommendList);
 				}
-				log.info(interestArr);
-				interest_Map.put("interest_Map", interestList);
-				log.info(interest_Map.get("interest_Map"));
-				List<ProductVO> recommendList = productService.getMainRecommendList(interest_Map);
-				log.info("recommendList"+recommendList);
-				model.addAttribute("recommendList",recommendList);
 			}
 		}
 		log.info("main...........");

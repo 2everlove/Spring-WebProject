@@ -34,7 +34,7 @@
 		left join product_board p 
 		on o.pboard_unit_no = p.pboard_unit_no 
 		where o.pboard_unit_no is not null 
-		and p.user_id= #{pboard_user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		and p.user_id= #{pboard_user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} order by order_board.order_id desc
 	</select>
 	
 	<select id="getOrderComListTotal" resultType="int">
