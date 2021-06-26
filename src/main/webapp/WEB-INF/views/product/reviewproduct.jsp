@@ -265,7 +265,7 @@
 </script>
 </head>
 <body>
-
+	<div id="review">
 	<input type="hidden" name="pboard_unit_no"
 		value="${pBoard.pboard_unit_no}" id="unit_no">
 
@@ -277,6 +277,7 @@
 	</div>
 	
 	<hr style="width:60%;">
+	</div>
 	</div>
 	
 	

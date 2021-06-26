@@ -116,19 +116,21 @@ $(document).ready(function() {
 			</div>
 			<div class="detail__var">
 				<ul role="menuitem">
-					<li><a href="javascript:void(0)" role="presentation">상세정보</a></li>
-					<li><a href="javascript:void(0)" role="presentation">리뷰</a></li>
+					<li><a href="#description" role="presentation">상세정보</a></li>
+					<li><a href="#review" role="presentation">리뷰</a></li>
 				</ul>
 			</div>
 			<div class="detail__description">
-				<ul id="fileList">
-					<c:forEach var="fileDesc" items="${fileDescList }">
-						<c:url value="/fileDisplay" var="urlDesc">
-							<c:param name="file_name" value="${fileDesc.file_savePath}"></c:param>
-						</c:url>
-						<img src="${urlDesc}" class='detail__description-img'>
-					</c:forEach>
-				</ul>
+				<div id="description">
+					<ul id="fileList">
+						<c:forEach var="fileDesc" items="${fileDescList }">
+							<c:url value="/fileDisplay" var="urlDesc">
+								<c:param name="file_name" value="${fileDesc.file_savePath}"></c:param>
+							</c:url>
+							<img src="${urlDesc}" class='detail__description-img'>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 			<%@include file="reviewproduct.jsp"%>
 		</div>
