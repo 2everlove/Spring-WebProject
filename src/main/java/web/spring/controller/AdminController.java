@@ -124,6 +124,7 @@ public class AdminController {
 				log.info("기업"+cri.getOrderby());
 				List<ProductVO> productList = productService.getProductAllList();
 				List<PBoardVO> PBoardList = productService.getUserPBoardList(user.getUser_id(), cri);
+				log.info("PBoardList"+PBoardList);
 				if(PBoardList!=null) {
 					model.addAttribute("PBoardList", PBoardList);
 					model.addAttribute("productList", productList);
@@ -132,7 +133,7 @@ public class AdminController {
 				}
 			} 
 		} 
-		return "/login";
+		return "member/login";
 	}//
 	
 	//유저관리

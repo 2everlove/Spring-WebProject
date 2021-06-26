@@ -12,10 +12,9 @@
 	</select>
 	
 	<!-- admin 상품게시글 관리 -->
-	<select id="getAllPBoardList" resultType="web.spring.vo.PBoardVO">
-		select board.* from (select rownum num, pboard.* from (select * from product_board 
-		
-		
+	<select id="getAllPBoardList" parameterType="web.spring.vo.Criteria" resultType="web.spring.vo.PBoardVO">
+		select pbIn.* from (select rownum num, pb.* from (
+			select board.* from (select pboard.* from (select * from product_board 
 		<trim prefix="order by">
 			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
 			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
@@ -30,12 +29,27 @@
 			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
 			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
 		</trim>
-		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+			) pboard)board 
+		) pb left join products_info pi on pb.product_id=pi.product_id 
+		<where>			
+			<if test="type=='product_manufacturer' and keyword != null">
+				pi.product_manufacturer like '%'  || #{keyword}  ||  '%'
+			</if>
+			<if test="type=='product_category' and keyword != null">
+				pi.product_category like '%'  || #{keyword}  ||  '%'
+			</if>
+			<if test="type=='product_name' and keyword != null">
+				pi.product_name like '%'  || #{keyword}  ||  '%'
+			</if>
+		</where> 
+		) pbIn where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		
 	</select>
 	
 	<!-- 기업회원 상품 게시글 관리 -->
 	<select id="getUserPBoardList" resultType="web.spring.vo.PBoardVO">
-		select board.* from (select rownum num, pboard.* from (select * from product_board where user_id = #{user_id}
+		select pbIn.* from (select rownum num, pb.* from (
+			select board.* from (select pboard.* from (select * from product_board where user_id = #{user_id}
 		<trim prefix="order by">
 			<if test="orderby=='pboard_unit_enabled'">TO_NUMBER(pboard_unit_enabled)</if>
 			<if test="orderby=='pboard_unit_price_asc'">TO_NUMBER(pboard_unit_price)</if>
@@ -50,7 +64,21 @@
 			<if test="orderby=='pboard_unit_regdate_desc'">pboard_unit_regdate desc</if>
 			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
 		</trim>
-		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+			) pboard)board 
+		) pb left join products_info pi on pb.product_id=pi.product_id
+		<where>			
+			<if test="type=='product_manufacturer' and keyword != null">
+				pi.product_manufacturer like '%'  || #{keyword}  ||  '%'
+			</if>
+			<if test="type=='product_category' and keyword != null">
+				pi.product_category like '%'  || #{keyword}  ||  '%'
+			</if>
+			<if test="type=='product_name' and keyword != null">
+				pi.product_name like '%'  || #{keyword}  ||  '%'
+			</if>
+		</where> 
+		) pbIn where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		
 	</select>
 	
 	<!-- history -->

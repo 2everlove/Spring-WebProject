@@ -102,7 +102,7 @@
 				    				<th class="orderby" data-type="pboard_unit_price" data-sort=${pageNavi.cri.orderby }>가격</th>
 				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일</th>
 				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일</th>
-				    				<th>제조사 > 카테고리 > 상품명</th>
+				    				<th>카테고리 > 제조사 > 상품명</th>
 				    				
 				    				<th>게시자</th>
 				    				<th>이미지 파일</th>
@@ -153,7 +153,7 @@
 					    				<td>${updateDate}</td>
 					  				<c:forEach var="product" items="${productList}">
 					    				<c:if test="${product.product_id == pBoard.product_id}">
-					    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+					    					<td>${product.product_category } > ${product.product_manufacturer } > ${product.product_name }</td>
 				    					</c:if>
 						   			</c:forEach>
 			    					<c:forEach var="userOb" items="${userList}">
@@ -173,14 +173,13 @@
 	    	</div>
 	    	<form method=get action="/admin/pBoardControl" name="listForm">
                  <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
                  <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
                  <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
                  <!-- 상세보기 검색 유지용 끝 -->
                  <div class="form-inline">
 					<select class="form-control" name=type>
-						<option value="product_manufacturer" <c:if test="${pageNavi.cri.type == 'product_manufacturer'}">selected</c:if>>제조사</option>
 						<option value="product_category" <c:if test="${pageNavi.cri.type == 'product_category'}">selected</c:if>>카테고리</option>
+						<option value="product_manufacturer" <c:if test="${pageNavi.cri.type == 'product_manufacturer'}">selected</c:if>>제조사</option>
 						<option value="product_name" <c:if test="${pageNavi.cri.type == 'product_name'}">selected</c:if>>상품명</option>
 											</select> 
 					<input class="form-control" name=keyword

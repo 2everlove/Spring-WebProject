@@ -12,7 +12,6 @@ import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
-import web.spring.vo.UserVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -116,7 +115,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<PBoardVO> getAllPBoardList(Criteria cri) {
-		return productMapper.getAllPBoardList(cri);
+		return productMapper.getAllPBoardList(cri, cri.getKeyword(), cri.getOrderby(), cri.getType(), cri.getPageNo(), cri.getAmount());
 	}
 
 	@Override
@@ -146,7 +145,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<PBoardVO> getUserPBoardList(String user_id, Criteria cri) {
-		return productMapper.getUserPBoardList(user_id, cri.getPageNo(), cri.getAmount(), cri.getOrderby());
+		return productMapper.getUserPBoardList(user_id, cri, cri.getKeyword(), cri.getOrderby(), cri.getType(), cri.getPageNo(), cri.getAmount());
 	}
 
 	@Override

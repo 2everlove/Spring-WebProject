@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.mapper.ProductMapper;
+import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 
@@ -61,6 +62,17 @@ public class ProductMapperTests {
 	@Test
 	public void insertCodeTest() {
 		log.info(productMapper.insertCodeInfo("category", "computer"));
+	}
+	@Test
+	public void productAdmintest() {
+		Criteria cri = new Criteria();
+		cri.setType("product_manufacturer");
+		cri.setKeyword("sa");
+		cri.setAmount(10);
+		cri.setPageNo(1);
+		cri.setOrderby("pboard_unit_enabled");
+		log.info(productMapper.getAllPBoardList(cri, cri.getKeyword(), cri.getOrderby(), cri.getType(), cri.getAmount(), cri.getPageNo()));
+		
 	}
 	
 	//main---

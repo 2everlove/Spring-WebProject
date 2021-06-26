@@ -113,7 +113,7 @@
 				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일</th>
 				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일</th>
 				    				<th>수정일</th>
-				    				<th>제조사 > 카테고리 > 상품명</th>
+				    				<th>카테고리 > 제조사 > 상품명</th>
 				    				<th>저장</th>
 				    				<th>보기</th>
 				    			</tr>
@@ -164,8 +164,7 @@
 							    				<td>${updateDate}</td>
 								  				<c:forEach var="product" items="${productList}">
 								    				<c:if test="${product.product_id == pBoard.product_id}">
-								    					<td>
-								    					${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+								    					<td>${product.product_category } > ${product.product_manufacturer } > ${product.product_name }</td>
 							    					</c:if>
 									   			</c:forEach>
 					    					
@@ -192,12 +191,10 @@
 		    	</div>
 	    	</div>
 	    	<!-- 페이징 소스 -->
-	    	<form method=get action="/admin/pBoardControl" name="listForm">
+	    	<form method=get action="/product/pBoardUpdate" name="listForm">
                  <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
                  <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
                  <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
-                 <input type=hidden name=type value=${pageNavi.cri.type }> 
                  <!-- 상세보기 검색 유지용 끝 -->
                  <div class="form-inline">
 					<select class="form-control" name=type>
