@@ -288,7 +288,7 @@
 	<!-- productBoard on main -->
 	
 	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
-		select a.*, rownum num from (select nvl(r.review_rate,0) avg , b.* 
+		select distinct a.*, rownum num from (select nvl(r.review_rate,0) avg , b.* 
 		from (select pboard.* 
 		        from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank 
 		            from product_board board where pboard_unit_enabled = '0'
@@ -312,7 +312,7 @@
 	
 	<!-- Recommend master product on main -->
 	<select id="getMainRecommendList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-		select master.* from (select * from products_info 
+		select distinct master.* from (select * from products_info 
 			where product_id in (
 				select pboard.product_id from (
 					select board.*, row_number() over(partition by pboard_unit_condition, product_id order by pboard_unit_updatedate desc, pboard_unit_regdate asc) each_rank 
@@ -327,6 +327,19 @@
 							product_category = #{item}
 						</foreach>
 					</where>
+	</select>
+	
+	<select id="getMainRecommendPBoardList" resultType="web.spring.vo.PBoardVO">
+		select distinct a.*, rownum num from (select nvl(r.review_rate,0) avg , b.* 
+		from (select pboard.* 
+		        from (select board.*, row_number() over(partition by product_id order by dbms_random.random) each_rank 
+		            from product_board board where pboard_unit_enabled = '0'
+		        ) pboard where each_rank='1' 
+		    ) b 
+		full outer join (select round(avg(nvl(a.review_rate,0)),0) review_rate, a.pboard_unit_no 
+		        from product_review a group by a.pboard_unit_no 
+		    ) r 
+		on r.pboard_unit_no = b.pboard_unit_no where b.pboard_unit_no is not null order by dbms_random.random) a order by num
 	</select>
 	
 	<!-- prduct_info's sequence -->

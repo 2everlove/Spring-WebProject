@@ -1,7 +1,6 @@
 package web.spring.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,29 +42,34 @@ public class MainController {
 	@GetMapping("/main")
 	public void getMain(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		UserVO user = (UserVO)session.getAttribute("user");
+		UserVO sessionUser = (UserVO)session.getAttribute("user");
 		List<PBoardVO> pBoardList = productService.getMainPBoardList();
+		List<PBoardVO> pBoardRecommendList = productService.getMainRecommendPBoardList();
 		List<ProductVO> productList = productService.getMainProductList();
 		List<FileVO> fileList = fileService.getMainListFile();
 		List<UserVO> userList = userService.getUserList();
 		
 		if(pBoardList != null)
 			model.addAttribute("pBoardList", pBoardList);
+			model.addAttribute("pBoardRecommendList", pBoardRecommendList);
 		if(productList!=null)
 			model.addAttribute("productList", productList);
 		if(fileList!=null)
 			model.addAttribute("fileList", fileList);
 		if(userList!=null)
 			model.addAttribute("userList", userList);
-		if(user!=null) {
-			if(user.getUser_interesting()!="") {
+		if(sessionUser!=null) {
+			if(sessionUser.getUser_interesting()!="") {
+				UserVO user = userService.getUser(sessionUser.getUser_id());
 				Map<String, Object> interest_Map = new HashMap<String, Object>();
 				String[] interestArr = user.getUser_interesting().split("\\,");
 				ArrayList<String> interestList = new ArrayList<String>();
 				for(String keyWord : interestArr) {
 					interestList.add(keyWord);
 				}
+				log.info(interestArr);
 				interest_Map.put("interest_Map", interestList);
+				log.info(interest_Map.get("interest_Map"));
 				List<ProductVO> recommendList = productService.getMainRecommendList(interest_Map);
 				log.info("recommendList"+recommendList);
 				model.addAttribute("recommendList",recommendList);
