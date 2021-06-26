@@ -48,16 +48,17 @@ public class AdminController {
 			HttpSession session = rq.getSession();
 			UserVO user = (UserVO)session.getAttribute("user");
 			if(user != null) {
-				if(user.getUser_type().matches("1")) {
-					List<OrderVO> list = paymentService.getOrderList(user.getUser_id(), cri);
+				if(user.getUser_type().equals("1")) { 
+					List<OrderVO> list = paymentService.getOrderComList(user.getUser_id(), cri);
 					model.addAttribute("list", list);
+					model.addAttribute("pageNavi", new PageNavi(cri, paymentService.getOrderComListTotal(user.getUser_id(), cri)));
+					System.out.println("pboard_user_id============" + user.getUser_id());
 				} else {
 					List<OrderVO> list = paymentService.getOrderAllList(cri);
 					model.addAttribute("list", list);
+					model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
 				}
-				model.addAttribute("uvo", uvo);
-				model.addAttribute("pBoard", pBoard);
-				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
+				
 				return "/admin/orderAllList";
 			}
 			return "/member/login";

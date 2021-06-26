@@ -87,4 +87,15 @@ public class PaymentServiceImpl implements PaymentService {
 	public PBoardVO getProduct(String pboard_unit_no) {
 		return mapper.getProduct(pboard_unit_no);
 	}
+
+	@Override
+	public List<OrderVO> getOrderComList(String pboard_user_id, Criteria cri) {
+		return mapper.getOrderComList(pboard_user_id, cri.getPageNo(), cri.getAmount());
+	}
+
+	@Override
+	public int getOrderComListTotal(String pboard_user_id, Criteria cri) {
+		return mapper.getOrderComListTotal(pboard_user_id, cri.getPageNo(), cri.getAmount());
+	}
+
 }

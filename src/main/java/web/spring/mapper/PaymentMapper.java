@@ -24,6 +24,10 @@ public interface PaymentMapper {
 	
 	public int getOrderListTotal(@Param("user_id") String user_id, @Param("pageNo") int pageNo, @Param("amount") int amount);
 	
+	public List<OrderVO> getOrderComList(@Param("pboard_user_id") String pboard_user_id, @Param("pageNo") int pageNo, @Param("amount") int amount);
+	
+	public int getOrderComListTotal(@Param("pboard_user_id") String pboard_user_id, @Param("pageNo") int pageNo, @Param("amount") int amount);
+	
 	public List<OrderVO> getOrderAllList(Criteria cri);
 	
 	public int getOrderAllListTotal(Criteria cri);

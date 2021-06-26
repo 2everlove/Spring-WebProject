@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<String> searchProductCategory(String code_type, String code_value) {
+	public List<ProductVO> searchProductCategory(String code_type, String code_value) {
 		return productMapper.searchProductCategory(code_type, code_value);
 	}
 
@@ -177,6 +177,16 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map) {
 		return productMapper.getHistoryProduct(history_Map);
+	}
+
+	@Override
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map) {
+		return productMapper.getMainRecommendList(search_Map);
+	}
+
+	@Override
+	public List<PBoardVO> getRecommendBoardList() {
+		return productMapper.getRecommendBoardList();
 	}
 
 

@@ -79,4 +79,8 @@ public interface ProductService {
 	public int insertCode(String code_type, String code_value);
 
 	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map);
+
+	List<ProductVO> getMainRecommendList(Map<String, Object> search_Map);
+
+	List<PBoardVO> getRecommendBoardList();
 }

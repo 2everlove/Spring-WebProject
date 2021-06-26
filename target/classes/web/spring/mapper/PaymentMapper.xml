@@ -16,8 +16,8 @@
 	
 	<insert id="insertOrder">
 		<selectKey resultType="String" order="BEFORE" keyProperty="order_id"> select order_sequence.nextval from dual </selectKey>
-		insert into order_board (order_id, order_address, order_name, order_status, product_id, user_id, order_totalprice, order_totalcount, pboard_unit_no)
-		values (#{order_id}, #{order_address}, #{order_name}, '1', #{product_id}, #{user_id}, #{order_totalprice}, #{order_totalcount}, #{pboard_unit_no})
+		insert into order_board (order_id, order_address, order_name, order_status, product_id, user_id, order_totalprice, order_totalcount, pboard_unit_no, pboard_user_id)
+		values (#{order_id}, #{order_address}, #{order_name}, '1', #{product_id}, #{user_id}, #{order_totalprice}, #{order_totalcount}, #{pboard_unit_no}, #{pboard_user_id})
 	</insert>
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
@@ -26,6 +26,14 @@
 	
 	<select id="getOrderListTotal" resultType="int">
 		select count(*) from order_board where user_id = #{user_id}
+	</select>
+	
+	<select id="getOrderComList" resultType="web.spring.vo.OrderVO">
+		select order_board.* from (select rownum num, order_board.* from order_board where pboard_user_id = #{pboard_user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+	</select>
+	
+	<select id="getOrderComListTotal" resultType="int">
+		select count(*) from order_board where pboard_user_id = #{pboard_user_id}
 	</select>
 	
 	<select id="getOrderAllList" resultType="web.spring.vo.OrderVO">
