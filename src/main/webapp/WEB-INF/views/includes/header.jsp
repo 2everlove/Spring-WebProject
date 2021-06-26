@@ -99,7 +99,7 @@ async function initMap() {
 		
 			
 		window.onload = function(){
-			if(his!=null || his!='undifined' || history!=null){
+			if(his!=null && his!='undifined' && history!=null){
 				historyFunction(his);
 			}
 				
