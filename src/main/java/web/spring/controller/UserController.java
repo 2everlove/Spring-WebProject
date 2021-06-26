@@ -69,15 +69,22 @@ public class UserController {
 	}
 	
 	@GetMapping( "/userUpdate" )
-	public String userUpdate(@ModelAttribute("user") UserVO user, Model model) {
-		System.out.println(user.getUser_regdate());
+	public String userUpdate(@ModelAttribute("user") UserVO user, Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		UserVO sessionUser = (UserVO)session.getAttribute("user");
+		if(sessionUser != null) {
+			UserVO userVO = userService.getUser(sessionUser.getUser_id());
+			model.addAttribute("user", userVO);
+			System.out.println(user.getUser_regdate());
+		} else {
+			return "redirect:/login";
+		}
 		/*
 		 * if(user!=null) { System.out.println(user.getUser_birth());
 		 * user.setUser_birth(user.getUser_birth().toString().substring(0, 10));
 		 * System.out.println(user); }
 		 */
-		if (user == null)
-			return "redirect:/login";
+			
 		
 		return "/member/userUpdate";
 	}

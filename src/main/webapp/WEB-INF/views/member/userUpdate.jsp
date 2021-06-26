@@ -144,11 +144,11 @@ $(document).ready(function(){
             <fieldset class="parent">
                 <div class="register-group div1">
                 	<p id="errorMsgArea"></p>
-                	<label>ID<br><input type="text" name="User_id" value="${sessionScope.user.user_id}"readonly></label>
+                	<label>ID<br><input type="text" name="User_id" value="${user.user_id}"readonly></label>
                 </div>
                 <div class="register-group div2">
                 	<p></p>
-                	<label>NAME<br><input type="text" name="User_name" value="${sessionScope.user.user_name}"readonly></label>
+                	<label>NAME<br><input type="text" name="User_name" value="${user.user_name}"readonly></label>
                 </div>
                 <div class="register-group div3">
                 	<label>TMP PASSWORD</label>
@@ -157,7 +157,7 @@ $(document).ready(function(){
                 </div>
                 <div class="register-group div4">
                 	<label>EMAIL</label><br>
-                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${sessionScope.user.user_email}" required>
+                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${user.user_email}" required>
                 </div>
                 <div class="register-group div5">
                 	
@@ -172,62 +172,62 @@ $(document).ready(function(){
                 	</select>
                 </div >
                 <div class="register-group div7">
-                	<label>유저타입:</label><input type="hidden" name="User_type" value="${sessionScope.user.user_type}"><br>
-                	<c:if test="${sessionScope.user.user_type ==2}">
+                	<label>유저타입:</label><input type="hidden" name="User_type" value="${user.user_type}"><br>
+                	<c:if test="${user.user_type ==2}">
                 	<input type="text"placeholder="고객회원" readonly><br>
                 	</c:if>
-                	<c:if test="${sessionScope.user.user_type ==1}">
+                	<c:if test="${user.user_type ==1}">
                 	<input type="text" placeholder="기업회원" readonly><br>
                 	</c:if>
-                	<c:if test="${sessionScope.user.user_type ==0}">
+                	<c:if test="${user.user_type ==0}">
                 	<input type="text" placeholder="어드민" readonly><br>
                 	</c:if>
-                	<!-- 유저이용상황(벤처리): --><input type="hidden" name="User_enabled" value="${sessionScope.user.user_enabled}">
+                	<!-- 유저이용상황(벤처리): --><input type="hidden" name="User_enabled" value="${user.user_enabled}">
                 </div>
                 <div class="register-group div8">
                 	<label>BIRTH</label><br>
-                	<input type="date" name="User_birth" value="${sessionScope.user.user_birth }">
-                	<input type="hidden" name="User_regdate" value="${sessionScope.user.user_regdate }">
+                	<input type="date" name="User_birth" value="${user.user_birth }">
+                	<input type="hidden" name="User_regdate" value="${user.user_regdate }">
                 </div>
                 <div class="register-group div9">
                 	<label>CONTACT</label><br>
-                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${sessionScope.user.user_contact}" required>
+                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${user.user_contact}" required>
                 </div>
                 <div class="register-group div10">
    					<label class="interesting-label">
 	               		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="tablet" 
-	               			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿
+	               			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿
 	               	</label>
     				<label class="interesting-label">
     					<input class="user_interestingCB" type="checkbox" name="User_interesting" value="desktop" 
-    						<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'desktop'}">checked</c:if></c:forTokens>>컴퓨터
+    						<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'desktop'}">checked</c:if></c:forTokens>>컴퓨터
     				</label>
                 	<label class="interesting-label">
                 		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="notebook" 
-                			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'notebook'}">checked</c:if></c:forTokens>>노트북
+                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'notebook'}">checked</c:if></c:forTokens>>노트북
                 	</label>
                	
                 	<label class="interesting-label">
                 		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="life" 
-                			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'life'}">checked</c:if></c:forTokens>>생활가전
+                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'life'}">checked</c:if></c:forTokens>>생활가전
                 	</label>
                 	<label class="interesting-label">
                 		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="video" 
-                			<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'video'}">checked</c:if></c:forTokens>>영상가전
+                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'video'}">checked</c:if></c:forTokens>>영상가전
                 	</label>
                 	
                 	<label class="interesting-label">
                			<input class="user_interestingCB" type="checkbox" name="User_interesting" value="sound" 
-               				<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'sound'}">checked</c:if></c:forTokens>>음향가전
+               				<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'sound'}">checked</c:if></c:forTokens>>음향가전
                		</label>
                 	<label class="interesting-label">
                			<input class="user_interestingCB" type="checkbox" name="User_interesting" value="software" 
-               				<c:forTokens items="${sessionScope.user.user_interesting}" delims="," var="item"><c:if test="${item == 'software'}">checked</c:if></c:forTokens>>소프트웨어
+               				<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'software'}">checked</c:if></c:forTokens>>소프트웨어
                		</label>
                 </div>
                 <div class="register-group div11">
                 <label>ADDRESS</label><br>
-                	<input type="text" name="User_address" value="${sessionScope.user.user_address}">
+                	<input type="text" name="User_address" value="${user.user_address}">
                 	<!-- 파일관련 hidden -->
 					<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
 					<input type="hidden" class="file_name" name="file_name" id="file_name">

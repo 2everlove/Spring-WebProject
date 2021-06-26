@@ -81,8 +81,10 @@ public class AdminAjaxController {
 			System.out.println(userVO);
 			userVO.setUser_address(userVO.getUser_address().trim());
 			int res = userService.updateUserByAdmin(userVO);
-			if(res>0)
+			if(res>0) {
 				map.put("result","success");
+				
+			}
 		} else {
 			map.put("result", "fail");
 		}
