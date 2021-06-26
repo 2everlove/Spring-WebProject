@@ -66,8 +66,8 @@ $(document).ready(function(){
 	}); */
 	$('.footer').css({height:'600px'});
 	$('#map').on('mouseover', function(){
-		$('#map').css({width:'550px', height:'350px'});
-		$('.footer').css({height:'600px'});
+		$('#map').css({width:'800px', height:'300px'});
+		$('.footer').css({height:'550px'});
 	});
 	$('#map').on('mouseout', function(){
 		$('#map').css({width:'500px',height:'300px'});
