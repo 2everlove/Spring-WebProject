@@ -51,4 +51,15 @@ public class NBoardServiceImpl implements NBoardService {
 		return mapper.nboardLock(vo);
 	}
 
+	@Override
+	public List <NBoardVO> getOpendList(Criteria cri) {
+		return mapper.getOpendList(cri);
+	}
+
+	@Override
+	public int getOpendTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getOpendTotal(cri);
+	}
+
 }

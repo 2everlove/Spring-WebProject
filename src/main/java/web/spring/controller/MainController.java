@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import web.spring.service.FileService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.FileVO;
+import web.spring.vo.NBoardVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
 import web.spring.vo.UserVO;
@@ -36,19 +40,41 @@ public class MainController {
 	
 	//main
 	@GetMapping("/main")
-	public void getMain(Model model) {
+	public void getMain(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO sessionUser = (UserVO)session.getAttribute("user");
 		List<PBoardVO> pBoardList = productService.getMainPBoardList();
+		List<PBoardVO> pBoardRecommendList = productService.getMainRecommendPBoardList();
 		List<ProductVO> productList = productService.getMainProductList();
 		List<FileVO> fileList = fileService.getMainListFile();
 		List<UserVO> userList = userService.getUserList();
+		
 		if(pBoardList != null)
 			model.addAttribute("pBoardList", pBoardList);
+			model.addAttribute("pBoardRecommendList", pBoardRecommendList);
 		if(productList!=null)
 			model.addAttribute("productList", productList);
 		if(fileList!=null)
 			model.addAttribute("fileList", fileList);
 		if(userList!=null)
 			model.addAttribute("userList", userList);
+		if(sessionUser!=null) {
+			if(sessionUser.getUser_interesting()!="") {
+				UserVO user = userService.getUser(sessionUser.getUser_id());
+				Map<String, Object> interest_Map = new HashMap<String, Object>();
+				String[] interestArr = user.getUser_interesting().split("\\,");
+				ArrayList<String> interestList = new ArrayList<String>();
+				for(String keyWord : interestArr) {
+					interestList.add(keyWord);
+				}
+				log.info(interestArr);
+				interest_Map.put("interest_Map", interestList);
+				log.info(interest_Map.get("interest_Map"));
+				List<ProductVO> recommendList = productService.getMainRecommendList(interest_Map);
+				log.info("recommendList"+recommendList);
+				model.addAttribute("recommendList",recommendList);
+			}
+		}
 		log.info("main...........");
 	}
 	
@@ -57,6 +83,14 @@ public class MainController {
 	public String getMyPage() {
 		log.info("mypage.....");
 		return "/myPage/myPage";
+	}
+	
+	@GetMapping("/popup")
+	public String getPopup(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		NBoardVO vo = (NBoardVO)session.getAttribute("noticeFlag");
+		model.addAttribute("vo", vo);
+		return "/includes/popup";
 	}
 	
 	/*
@@ -88,27 +122,62 @@ public class MainController {
 		List<ProductVO> pList = productService.getSearchProductList(search_Map);
 		List<PBoardVO> pBList = productService.getSearchBoardList(search_Map);
 		List<FileVO> fileList = fileService.getSearchListFile(search_Map);
+		List<UserVO> userList = userService.getUserList();
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("search", tmp);
+		model.addAttribute("userList", userList);
 		return "/product/typeList";
 	}
 	
 	//new,sale,event
 	@GetMapping("/cond/{pboard_unit_condition}")
-	public String getType(@PathVariable("pboard_unit_condition") String pboard_unit_condition, Model model) {
+	public String getType(@PathVariable("pboard_unit_condition") String pboard_unit_condition, Model model, HttpServletRequest request) {
 		log.info("type.....");
-		productService.getTypeList(pboard_unit_condition);
-		List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
-		List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
-		List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
-		log.info("pList...."+pList);
-		log.info("pBList...."+pBList);
-		log.info("fileList...."+fileList);
-		model.addAttribute("pList", pList);
-		model.addAttribute("pBList", pBList);
-		model.addAttribute("fileList", fileList);
+		if(pboard_unit_condition!=null) {
+			if(Integer.parseInt(pboard_unit_condition)<3) {
+				productService.getTypeList(pboard_unit_condition);
+				List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
+				List<PBoardVO> pBList = productService.getPBoardList();
+				List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
+				List<UserVO> userList = userService.getUserList();
+				log.info("pList...."+pList);
+				log.info("pBList...."+pBList);
+				log.info("fileList...."+fileList);
+				model.addAttribute("userList", userList);
+				model.addAttribute("pList", pList);
+				model.addAttribute("pBList", pBList);
+				model.addAttribute("fileList", fileList);
+			} else {
+				HttpSession session = request.getSession();
+				UserVO user = (UserVO)session.getAttribute("user");
+				List<PBoardVO> pBoardList = productService.getRecommendBoardList();
+				List<FileVO> fileList = fileService.getMainListFile();
+				List<UserVO> userList = userService.getUserList();
+				
+				if(pBoardList != null)
+					model.addAttribute("pBList", pBoardList);
+				if(fileList!=null)
+					model.addAttribute("fileList", fileList);
+				if(userList!=null)
+					model.addAttribute("userList", userList);
+				if(user!=null) {
+					if(user.getUser_interesting()!="") {
+						Map<String, Object> interest_Map = new HashMap<String, Object>();
+						String[] interestArr = user.getUser_interesting().split("\\,");
+						ArrayList<String> interestList = new ArrayList<String>();
+						for(String keyWord : interestArr) {
+							interestList.add(keyWord);
+						}
+						interest_Map.put("interest_Map", interestList);
+						List<ProductVO> recommendList = productService.getMainRecommendList(interest_Map);
+						log.info("recommendList"+recommendList);
+						model.addAttribute("pList",recommendList);
+					}
+				}
+			}
+		} 
 		if(pboard_unit_condition.equals("0")) {
 			model.addAttribute("search", "New");
 		} else if (pboard_unit_condition.equals("1")) {

@@ -39,7 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
 		System.out.println("interceptor===================user : "+user);
-		System.out.println("useCookie======================"+request.getAttribute("useCookie"));
+		System.out.println("useCookie======================"+request.getParameter("useCookie"));
 		
 		//로그인 성공했다면 자동로그인 쿠키 생성 getAttribute아님 파라메터값을 가지고옴
 		if(user!=null&&request.getParameter("useCookie")!=null) {
@@ -60,11 +60,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			
 			response.addCookie(loginCookie);
 			
-			String tmpUri = (String)session.getAttribute("tmpUri");
 			
-			if(!StringUtils.isEmpty(tmpUri)) {
-				response.sendRedirect(tmpUri);
-			}
+		}
+		String tmpUri ="";
+		if(user!=null) {
+			tmpUri = (String)session.getAttribute("tmpUri");
+			System.out.println("loginInter"+tmpUri);
+		} else {
+			tmpUri ="/login";
+		}
+		
+		
+		if(!StringUtils.isEmpty(tmpUri)) {
+			System.out.println("tmpUri");
+			response.sendRedirect(tmpUri);
 		}
 	}
 }

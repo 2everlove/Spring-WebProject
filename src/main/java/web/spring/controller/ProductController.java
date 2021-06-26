@@ -1,6 +1,12 @@
 package web.spring.controller;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +23,7 @@ import web.spring.service.UserService;
 import web.spring.vo.FileVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 @Controller
 @Log4j
@@ -31,6 +38,8 @@ public class ProductController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	static LinkedList<String> linkedList = new LinkedList<String>();
+	
 	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
@@ -39,9 +48,11 @@ public class ProductController {
 		List<ProductVO> pList = productService.getTypeList(product_category);
 		List<PBoardVO> pBList = productService.getTypeBoardList(product_category);
 		List<FileVO> fileList = fileService.getTypeListFile(product_category);
+		List<UserVO> userList = userService.getUserList();
 		log.info("pList...."+pList);
 		log.info("pBList...."+pBList);
 		log.info("fileList...."+fileList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pBList", pBList);
 		model.addAttribute("fileList", fileList);
@@ -51,9 +62,32 @@ public class ProductController {
 	
 	//product detail page
 	@GetMapping("/pDetail/{no}")
-	public String getDetail(@PathVariable("no") String no, Model model) {
+	public String getDetail(@PathVariable("no") String no, Model model, HttpServletResponse res, HttpServletRequest req) {
 		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
+		
+		if(linkedList.size()<6) {
+			linkedList.addFirst(no);
+			linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
+		} else {
+			linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
+			if(linkedList.size()==6) {
+				linkedList.addFirst(no);
+			}
+			if(linkedList.size()>6) {
+				linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
+				if(linkedList.size()>6) {
+					linkedList.removeLast();
+				}
+			}
+		}
+		
+		String tmp ="";
+		for(String tmp1 : linkedList) {
+			tmp+=tmp1+".";
+		}
+		//System.out.println(tmp);
+		HttpSession session = req.getSession();
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
 			List<FileVO> fileThumList = fileService.getPDetailThum(pBoard.getPboard_unit_no());
@@ -64,6 +98,9 @@ public class ProductController {
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
 				model.addAttribute("fileThumList", fileThumList);
 				model.addAttribute("fileDescList", fileDescList);
+				if(linkedList.size()>0) {
+					session.setAttribute("history_product_no", tmp);
+				}
 				return "/product/pDetail";
 			} else {
 				return "/error";
@@ -78,7 +115,7 @@ public class ProductController {
 	public String insertPBoard(PBoardVO pBoardVO) {
 		log.info(pBoardVO);
 		productService.inserPBoard(pBoardVO);
-		return "redirect:../myPage/myPage";
+		return "redirect:/myPage";
 	}
 	
 	//상품 등록 페이지

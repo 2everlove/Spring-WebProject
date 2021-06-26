@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.spring.mapper.InquiryBoardMapper;
+import web.spring.vo.Criteria;
 import web.spring.vo.InquiryBoardVO;
 
 @Service
@@ -16,8 +17,8 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	
 	//문의사항 리스트
 	@Override
-	public List<InquiryBoardVO> getInquiryBoardList() {
-		return mapper.getInquiryBoardList();
+	public List<InquiryBoardVO> getInquiryBoardList(Criteria cri) {
+		return mapper.getInquiryBoardList(cri);
 	}
 
 	//문의사항 등록
@@ -37,6 +38,12 @@ public class InquiryBoardServiceImpl implements InquiryBoardService{
 	public int deleteInquiry(int iboard_no) {
 		return mapper.deleteInquiry(iboard_no);
 	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
+	}
+
 	
 	
 	

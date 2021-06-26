@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class OrderVO {
 	
+	String num;
 	String order_id;
 	String order_address;
 	String order_name;
@@ -16,7 +17,6 @@ public class OrderVO {
 	String pboard_unit_no;
 	String order_totalcount;
 	String order_totalprice;
-
-	
+	String pboard_user_id;
 	
 }

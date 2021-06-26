@@ -11,7 +11,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryBoardService;
+import web.spring.service.InquiryReplyService;
+import web.spring.vo.Criteria;
 import web.spring.vo.InquiryBoardVO;
+import web.spring.vo.PageNavi;
 
 @Controller
 @Log4j
@@ -19,16 +22,20 @@ public class InquiryController {
 
 	@Autowired
 	InquiryBoardService service;
+	InquiryReplyService replyService;
 
 	/**
 	 * @author 문의사항 리스트 불러오기
 	 *
 	 */
 	@GetMapping("/inquiry")
-	public String getInquiryBoardList(Model model) {
-		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList();
-		if(inquiryList!=null) {
+	public String getInquiryBoardList(Criteria cri, Model model) {
+		List<InquiryBoardVO> inquiryList = service.getInquiryBoardList(cri);
+		
+
+		if (inquiryList != null) {
 			model.addAttribute("inquiryList", inquiryList);
+			model.addAttribute("pageNavi", new PageNavi(cri, service.getTotal(cri)));
 		}
 		log.info("inquiry.....");
 		return "/inquiry/inquiry";
@@ -53,7 +60,7 @@ public class InquiryController {
 		service.insertInquiry(vo);
 		String resMsg = "게시글이 등록되었습니다.";
 		rttr.addFlashAttribute("resMsg", resMsg);
-		return "redirect:/inquiry/inquiry";
+		return "redirect:/inquiry";
 	}
 
 	/**
@@ -63,7 +70,9 @@ public class InquiryController {
 	public String detailInquiry(String iboard_no, InquiryBoardVO vo, Model model) {
 
 		vo = service.detailInquiry(iboard_no);
+		
 		model.addAttribute("inquiry_detail", vo);
+
 		log.info("inquiry detail...." + iboard_no);
 		return "/inquiry/inquiry_detail";
 	}
@@ -73,6 +82,15 @@ public class InquiryController {
 	 */
 	@PostMapping("/inquiry_delete")
 	public String deleteInquiry(InquiryBoardVO vo, RedirectAttributes rttr) {
+
+//		int replyCount = replyService.inquiryReplyCount(vo.getIboard_no());
+//		
+//		log.info(replyCount);
+		
+//		if (replyCount > 0) {
+//			replyService.deleteReply(vo.getIboard_no());
+//		}
+		
 		int res = service.deleteInquiry(vo.getIboard_no());
 		String resMsg = "";
 		if (res > 0) {
@@ -82,7 +100,7 @@ public class InquiryController {
 		} else {
 			resMsg = "오류가 발생했습니다.";
 			rttr.addFlashAttribute("resMsg", resMsg);
-			return "redirect:/inquiry/inquiry_detail";
+			return "redirect:/inquiry";
 		}
 
 	}

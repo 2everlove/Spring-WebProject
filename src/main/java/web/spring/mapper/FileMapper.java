@@ -13,6 +13,10 @@ public interface FileMapper {
 	
 	public List<FileVO> getListFile(String file_pictureId);
 	
+	public List<FileVO> getListFileAdmin(Map<String, Object> product_Map);
+	
+	public List<FileVO> getListFileProduct(String product_id);
+	
 	public List<FileVO> getPDetailThum(String pboard_unit_no);//pBoard no로 product의 이미지
 	
 	public List<FileVO> getPDetailDesc(String pboard_unit_no);//pBoard no로 board의 상세이미지

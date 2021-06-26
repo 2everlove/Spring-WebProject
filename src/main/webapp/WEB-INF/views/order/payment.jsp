@@ -1,58 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
+<link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 <!DOCTYPE html>
 <html>
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		console.log(count);
-	});
-</script>
-<style>
-.order {
-	text-align: center;
-}
-
-fieldset {
-	text-align: left;
-	width: 70%;
-	margin: 30px auto;
-}
-
-.content2 {
-	padding: 10px;
-}
-
-.content {
-	padding: 150px;
-}
-
-.button {
-	background-color: transparent;
-	cursor: pointer;
-	border: none;
-	outline: none;
-}
-
-.view {
-	font-size: 0.9em;
-}
-</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body class="order">
+<section class="order">
 	<div class="content">
 		<h2>결제/주문</h2>
 		<form role="form" action="/productOrder" method="post" class="payment_form">
 			<fieldset>
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input class="view" name="user_id" value="${pBoard.user_id}">
+					<input class="view" type="hidden" name="pboard_user_id" value="${pBoard.user_id}">
+					<input class="view" type="hidden" name="pboard_unit_no" value="${cvo.pboard_unit_no}">
+					<input class="view" type="hidden" name="cart_id" value="${cvo.cart_id}">
+					<input class="view" type="hidden" name="user_id" value="${sessionScope.user.user_id}">
 					<label>이름</label>
 					<input class="view" name="order_name" value="${uvo.user_name}">
 				</div>
@@ -64,6 +34,10 @@ fieldset {
 			<fieldset>
 				<label>결제 정보</label>
 				<div class="content2">
+					<label>상품 아이디</label>
+					<input class="view" name="product_id" value="${productVO.product_id}">
+				</div>
+				<div class="content2">
 					<label>상품 이름</label>
 					<input class="view" name="product_name" value="${productVO.product_name}">
 				</div>
@@ -73,14 +47,17 @@ fieldset {
 				</div>
 				<div class="content2">
 					<label>총 결제 금액</label>
-					<input class="view" name="order_totalprice" value="${pBoard.pboard_unit_price * param.order_totalcount}">
+					<input class="view" name="order_totalprice" value="${param.order_totalprice}">
+				</div>
+				<div class="content2">
+					<label>재고수</label>
+					<input class="view" name="pboard_unit_stocks" value="${cvo.pboard_unit_stocks}">
 				</div>
 			</fieldset>
-			<button type="submit" id="button">결제</button>
-			<input class="button" type="button" value="장바구니"
-				onclick="location.href='cart'">
+			<button type="submit" id="button" class="detail__btn payment">결제</button>
+			<button type="button" id="button" class="detail__btn payment" onclick="location.href='main'">취소</button>
 		</form>
 	</div>
-</body>
+</section>
 </html>
 <%@include file="../includes/footer.jsp"%>

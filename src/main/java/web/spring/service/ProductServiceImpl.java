@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import web.spring.mapper.ProductMapper;
+import web.spring.vo.CodeVO;
+import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
+import web.spring.vo.UserVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -18,8 +21,8 @@ public class ProductServiceImpl implements ProductService{
 	private ProductMapper productMapper;
 	
 	@Override
-	public List<ProductVO> getProductList() {
-		return productMapper.getProductList();
+	public List<ProductVO> getProductList(Criteria cri) {
+		return productMapper.getProductList(cri);
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<String> searchProductCategory(String code_type, String code_value) {
+	public List<ProductVO> searchProductCategory(String code_type, String code_value) {
 		return productMapper.searchProductCategory(code_type, code_value);
 	}
 
@@ -109,6 +112,86 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductVO> getMainProductList() {
 		return productMapper.getMainProductList();
+	}
+
+	@Override
+	public List<PBoardVO> getAllPBoardList(Criteria cri) {
+		return productMapper.getAllPBoardList(cri);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return productMapper.getTotal(cri);
+	}
+
+	@Override
+	public int updatepBoard(PBoardVO pBoardVO) {
+		return productMapper.updatepBoard(pBoardVO);
+	}
+
+	@Override
+	public int getProductTotal(Criteria cri) {
+		return productMapper.getProductTotal(cri);
+	}
+
+	@Override
+	public List<ProductVO> getProductAllList() {
+		return productMapper.getProductAllList();
+	}
+
+	@Override
+	public int updateProduct(ProductVO productVO) {
+		return productMapper.updateProduct(productVO);
+	}
+
+	@Override
+	public List<PBoardVO> getUserPBoardList(String user_id, Criteria cri) {
+		return productMapper.getUserPBoardList(user_id, cri.getPageNo(), cri.getAmount(), cri.getOrderby());
+	}
+
+	@Override
+	public int getPboardUserTotal(String user_id, Criteria cri) {
+		return productMapper.getPboardUserTotal(user_id, cri.getPageNo(), cri.getAmount());
+	}
+
+	@Override
+	public CodeVO getCode(String code_type, String code_value) {
+		return productMapper.getCode(code_type, code_value);
+	}
+
+	@Override
+	public int insertCode(String code_type, String code_value) {
+		return productMapper.insertCode(code_type, code_value);
+	}
+
+	@Override
+	public String getProductSeq() {
+		return productMapper.getProductSeq();
+	}
+
+	@Override
+	public int productInfoInsert(ProductVO productVO) {
+		return productMapper.productInfoInsert(productVO);
+	}
+
+	@Override
+	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map) {
+		return productMapper.getHistoryProduct(history_Map);
+	}
+
+	@Override
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map) {
+		return productMapper.getMainRecommendList(search_Map);
+	}
+
+	@Override
+	public List<PBoardVO> getRecommendBoardList() {
+		return productMapper.getRecommendBoardList();
+	}
+
+	@Override
+	public List<PBoardVO> getMainRecommendPBoardList() {
+		return productMapper.getMainRecommendPBoardList();
 	}
 
 

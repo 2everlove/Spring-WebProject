@@ -5,11 +5,8 @@
     <footer class="footer"> 
     	<div class="footer__wrapper">
 	    	<div class="footer__site">
-	    		<a href="#">이용약관</a>
-	    		<a href="#">입점안내</a>
-	    		<a href="#">쇼핑윈도 노출안내</a>
-	    		<a href="#">쇼핑파트너 센터</a>
-	    		<a href="#">고객센터</a>
+	    		<a href="/nboard/nboardList">공지사항</a>
+	    		<a href="/inquiry">고객센터</a>
 	    	</div>
 	    	<div class="footer__company">
 	    		<p><strong>(주)Widele</strong>는 상품판매와 직접적인 관련이 없으며, 모든 상거래의 책임은 구매자와 판매자에게 있습니다.
@@ -21,7 +18,7 @@
 	    	<div class="footer__map">
 	    		 <div id="map"></div>
 	    	</div>
-	    	<div class="footer__language">
+	    	<!-- <div class="footer__language">
 	    		<label><i class="fas fa-globe"></i>
 		    		<select aria-label="원하시는 언어를 선택하세요.">
 	                    <option value="korean">한국어</option>
@@ -29,7 +26,7 @@
 	                    <option value="japanese">Japanese</option>
 	                </select>
                 </label>
-	    	</div>
+	    	</div> -->
 	    	<div class="footer__copyright">
 		    	Copyright © <strong>Widele</strong> Co., Ltd. All Rights
 				Reserved.
@@ -67,9 +64,10 @@ $(document).ready(function(){
 		$('#map').animate({width:'500px',height:'300px'},300);
 		$('.footer').animate({height:'550px'});
 	}); */
- 		$('#map').on('mouseover', function(){
-		$('#map').css({width:'800px', height:'500px'});
-		$('.footer').css({height:'750px'});
+	$('.footer').css({height:'600px'});
+	$('#map').on('mouseover', function(){
+		$('#map').css({width:'550px', height:'350px'});
+		$('.footer').css({height:'600px'});
 	});
 	$('#map').on('mouseout', function(){
 		$('#map').css({width:'500px',height:'300px'});
