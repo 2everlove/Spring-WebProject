@@ -125,7 +125,7 @@
 			success : function(datas){
 				console.log("success");
 				console.log(datas);
-				alert(datas.count+"개가 업로드 되었습니다.");
+				//alert(datas.count+"개가 업로드 되었습니다.");
 				viewFile(datas.file_pictureId, btn);
 				if(formData.get('product_name')!=null){
 					$('#file_pictureId').val(datas.file_pictureId);
