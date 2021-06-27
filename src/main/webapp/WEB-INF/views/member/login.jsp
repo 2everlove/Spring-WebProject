@@ -10,6 +10,7 @@
 
 	$(document).ready(function(e){
 		let msg = "${msg}";
+		let resMsg ="${resMsg}";
 		if(msg!=''){
 			console.log(msg);
 			//alert('${msg}');
@@ -29,7 +30,11 @@
 				alert(msg+"된 계정입니다.");
 			}
 		}
-			
+		
+		if(resMsg!=""){
+			alert(resMsg);
+		}
+		
 		$("#btnSearchId").on("click",function(){
 			console.log("btnSearchId","click");
 			let idVo={
