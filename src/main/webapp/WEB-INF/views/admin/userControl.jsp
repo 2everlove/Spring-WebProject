@@ -135,11 +135,17 @@
 		//저장 버튼
 		$(".updateBtn").click(function(){
 			let tr = $(this).closest("tbody");
+			let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+			if (tr.find('.user_email').val() == '' || !re.test(tr.find('.user_email').val())) {
+				alert("올바른 이메일 주소를 입력하세요")
+				return false;
+			}
 			if(tr.find('.user_email').val()==""){
 				tr.find('.user_email').select();
 				return false;
 			}
-			if(tr.find('.user_contact').val().length<=10){
+			if(tr.find('.user_contact').val().length<=9){
 				tr.find('.user_contact_clone').select();
 				return false;
 			}
