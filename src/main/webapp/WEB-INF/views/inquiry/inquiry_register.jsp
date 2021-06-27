@@ -10,7 +10,6 @@
 <script>
 	$(document).ready(function() {
 		$("#button").click(function() {
-			var result = confirm('게시글을 등록하시겠습니까? 등록 후 수정이 불가합니다.');
 			$("select[name=iboard_category]").val();
 			$("input:radio[name=iboard_public]").is(':checked()');
 
@@ -29,7 +28,7 @@
 				return false;
 			}
 			
-			if(result){
+			if(confirm('게시글을 등록하시겠습니까? 등록 후 수정이 불가합니다.')){
 				$("#inquiryForm").submit();
 			}
 			else{

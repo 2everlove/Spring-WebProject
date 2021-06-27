@@ -24,9 +24,17 @@ $(document).ready(function() {
 		let tempcount = $("input[name=order_totalcount]").val();
 		let totalcount = Number(tempcount) + 1;
 		var stock = '${pBoard.pboard_unit_stocks}';
+		var stockCompare = $("input[name=pboard_unit_stocks]").val();
 		var price = '${pBoard.pboard_unit_price}';
+		let stocks = 0;
+		if(Number(stockCompare)>0){
+			stocks = stock - Number(totalcount);
+		}
+		if(Number(stockCompare)<=0){
+			alert("재고가 없습니다");
+			totalcount = stock;
+		}
 		let totalprice = Number(totalcount) * price;
-		let stocks = stock - Number(totalcount);
 		$("input[name=order_totalcount]").val(totalcount);
 		$("input[name=order_totalprice]").val(totalprice);
 		$(".pboard_unit_stocks").val(stocks);

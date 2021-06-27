@@ -30,7 +30,7 @@ function detail(nboard_no){
 </script>
 
 <section class="section__content">
-
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 	<div id="nboard-wrapper">
 		<h2 class="page_title">공지 게시판</h2>
 		<div id="nboard_upper"></div>
