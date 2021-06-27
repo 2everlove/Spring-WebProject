@@ -40,7 +40,7 @@ function page(page){
 						<td class="center">${ovo.order_id}</a></td>
 						<td class="center">${ovo.order_name}</td>
 						<td class="center">${ovo.order_address}</td>
-						<td class="center">${ovo.product_id}</td>
+						<td class="center">${ovo.product_name}</td>
 						<td class="center">${ovo.order_totalprice}</td>
 						<td class="center">${ovo.order_totalcount}</td>
 						<td>

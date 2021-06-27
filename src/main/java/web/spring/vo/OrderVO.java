@@ -14,6 +14,7 @@ public class OrderVO {
 	private String order_status;
 	private String user_id;
 	private String product_id;
+	private String product_name;
 	private String pboard_unit_no;
 	private String order_totalcount;
 	private String order_totalprice;
