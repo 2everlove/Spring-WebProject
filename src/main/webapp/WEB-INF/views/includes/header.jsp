@@ -120,6 +120,49 @@ async function initMap() {
 			
 			
 		};
+		if(window.location.pathname=="/main"){
+			document.querySelector('[data-link="#new"]').classList.add('active');
+		}
+		if(window.location.pathname!="/main"){
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/login")!="-1"){
+			document.querySelector('[data-link="#login"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/member")!="-1"){
+			document.querySelector('[data-link="#member"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/myPage")!="-1" || window.location.pathname.search("/product")!="-1" || window.location.pathname.search("/userUpdate")!="-1"||window.location.pathname.search("/orderList")!="-1"){
+			document.querySelector('[data-link="#myPage"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/cart")!="-1"||window.location.pathname.search("/payment")!="-1"){
+			document.querySelector('[data-link="#cart"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/admin")!="-1"){
+			document.querySelector('[data-link="#myPage"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		console.log(window.location.pathname);
+		if(window.location.pathname==="/cond/0"){
+			let menu_item = document.querySelector('[data-link="#new"]');
+			menu_item.classList.add('active');
+		} else if(window.location.pathname==="/cond/1"){
+			let menu_item = document.querySelector('[data-link="#sale"]');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+			menu_item.classList.add('active');
+		} else if(window.location.pathname==="/cond/2"){
+			let menu_item = document.querySelector('[data-link="#event"]');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+			menu_item.classList.add('active');
+		} else if(window.location.pathname==="/cond/3"){
+			let menu_item = document.querySelector('[data-link="#recommend"]');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+			menu_item.classList.add('active');
+		};
 		
 		const pathName = window.location.pathname;
 	
@@ -219,11 +262,11 @@ async function initMap() {
 		            <div class="navbar__menu-right">
 		            <c:choose>
 		            	<c:when test="${empty sessionScope.user}">
-			            	<a href="/login"><button class="navbar__menu__item-login"><i class="fas fa-sign-in-alt"></i>  로그인</button></a>
-			                <a href="/member"><button class="navbar__menu__item-login"><i class="fas fa-users"></i>  회원가입</button></a>
-			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
-		                	<a href="/cart"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
-		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
+			            	<a href="/login"><button class="navbar__menu__item-login" data-link="#login"><i class="fas fa-sign-in-alt"></i>  로그인</button></a>
+			                <a href="/member"><button class="navbar__menu__item-login" data-link="#member"><i class="fas fa-users"></i>  회원가입</button></a>
+			                <a href="/myPage"><button class="navbar__menu__item-member" data-link="#myPage"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
+		                	<a href="/cart"><button class="navbar__menu__item-member" data-link="#cart"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<button class="navbar__menu__item" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
 			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
@@ -231,9 +274,9 @@ async function initMap() {
 		            	</c:when>
 		            	<c:otherwise>
 			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
-			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
-		                	<a href="/cartList"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
-		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
+			                <a href="/myPage"><button class="navbar__menu__item-member" data-link="#myPage"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
+		                	<a href="/cartList"><button class="navbar__menu__item-member" data-link="#cart"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<button class="navbar__menu__item" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
 			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
