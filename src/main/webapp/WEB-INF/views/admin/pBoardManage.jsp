@@ -95,41 +95,42 @@
 	
 	//자릿수 (,) 찍기
 	function inputNumberAutoComma(obj) {
-	     
-	      // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
-	      var deleteComma = obj.value.replace(/\,/g, "");
-	      let str = obj.value;
-			console.log(str)
-			str = "" + str;
-			if(blankCheck(str)){
-				str = str.replace(/[^0-9]/g, "");
-			}else{
-				str = null;
-			}
-			
-       	 obj.value = str;
+     
+		// 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+		var deleteComma = obj.value.replace(/\,/g, "");
+		let str = obj.value;
+		//console.log(str)
+		str = "" + str;
+		if(blankCheck(str)){
+			str = str.replace(/[^0-9]/g, "");
+		}else{
+			str = null;
+		}
+		
+		obj.value = str;
+		
+		   
+		// 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+		obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	}
 	
-	     
-	      // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
-	      obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
-	  }
-	 function inputNumberWithComma(str) {
-
-	        str = String(str);
-	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
-	    }
+	function inputNumberWithComma(str) {
+	
+		str = String(str);
+		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	}
 	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
-    function inputNumberRemoveComma(str) {
-
-        str = String(str);
-        return str.replace(/[^\d]+/g, "");
-    }
+	function inputNumberRemoveComma(str) {
 	
-    function blankCheck(str){
+		str = String(str);
+		return str.replace(/[^\d]+/g, "");
+	}
+	
+	function blankCheck(str){
 		if(str == null || str == "null"
-			   || str == undefined || str == "undefined"
-			   || str == '' || str == "" || str.length == 0
-		   ){
+			|| str == undefined || str == "undefined"
+			|| str == '' || str == "" || str.length == 0
+		){
 			return null;
 		}else{
 			return str;

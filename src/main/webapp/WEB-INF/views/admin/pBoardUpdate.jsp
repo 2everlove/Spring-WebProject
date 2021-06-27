@@ -102,7 +102,7 @@
 	      // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
 	      var deleteComma = obj.value.replace(/\,/g, "");
 	      let str = obj.value;
-			console.log(str)
+			//console.log(str)
 			str = "" + str;
 			if(blankCheck(str)){
 				str = str.replace(/[^0-9]/g, "");

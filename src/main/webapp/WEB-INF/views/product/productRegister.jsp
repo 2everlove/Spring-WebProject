@@ -100,6 +100,13 @@
 			viewFile($('#file_pictureId').val());
 		});//
 		
+		$(".pboard_unit_price_clone").change(function(){
+			$(".pboard_unit_price").val(inputNumberRemoveComma($(".pboard_unit_price_clone").val()));
+		});
+		$(".pboard_unit_stock_clone").change(function(){
+			$(".pboard_unit_stock").val(inputNumberRemoveComma($(".pboard_unit_stock_clone").val()));
+		});
+		
 		
 		$('#pRegisterBtn').click(function(){
 			if($('input[name=product_id]').val()==""){
@@ -115,11 +122,11 @@
 				return false;
 			}
 			if($('input[name=pboard_unit_price]').val()==""){
-				$('input[name=pboard_unit_price]').select();
+				$('.pboard_unit_price_clone').select();
 				return false;
 			}
 			if($('input[name=pboard_unit_stocks]').val()==""){
-				$('input[name=pboard_unit_stocks]').select();
+				$('.pboard_unit_stocks_clone').select();
 				return false;
 			}
 			if($('input[name=product_name]').val()==""){
@@ -404,6 +411,50 @@
 		});
 	}//
 	
+	//자릿수 (,) 찍기
+	function inputNumberAutoComma(obj) {
+     
+		// 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+		var deleteComma = obj.value.replace(/\,/g, "");
+		let str = obj.value;
+		//console.log(str)
+		str = "" + str;
+		if(blankCheck(str)){
+			str = str.replace(/[^0-9]/g, "");
+		}else{
+			str = null;
+		}
+		
+		obj.value = str;
+		
+		   
+		// 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+		obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	}
+	
+	function inputNumberWithComma(str) {
+	
+		str = String(str);
+		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	}
+	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+	function inputNumberRemoveComma(str) {
+	
+		str = String(str);
+		return str.replace(/[^\d]+/g, "");
+	}
+	
+	function blankCheck(str){
+		if(str == null || str == "null"
+			|| str == undefined || str == "undefined"
+			|| str == '' || str == "" || str.length == 0
+		){
+			return null;
+		}else{
+			return str;
+		}
+	}
+	
 	
 	
 
@@ -451,10 +502,14 @@
 				    			<label>event<input type="radio" name="pboard_unit_condition" value="2"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>가격 <input type="number" name="pboard_unit_price"></label>
+				    			<label>가격 <input type="text" class="pboard_unit_price_clone" onKeyup="inputNumberAutoComma(this);">
+				    					<input type="hidden" class="pboard_unit_price" name="pboard_unit_price">
+				    			</label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>재고 <input type="number" name="pboard_unit_stocks"></label>
+				    			<label>재고 <input type="text" class="pboard_unit_stocks_clone" onKeyup="inputNumberAutoComma(this);">
+				    					<input type="hidden" class="pboard_unit_stocks" name="pboard_unit_stocks">
+				    			</label>
 				    		</div>
 				    		<div class="search__input">
 				    			<label>작성자 <input type="hidden" name="user_id" value="${sessionScope.user.user_id}"><input type="text" value="${sessionScope.user.user_id}" disabled></label>
