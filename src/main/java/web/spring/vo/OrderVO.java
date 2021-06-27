@@ -5,18 +5,18 @@ import lombok.Data;
 @Data
 public class OrderVO {
 	
-	String num;
-	String order_id;
-	String order_address;
-	String order_name;
-	String order_regdate;
-	String order_canceldate;
-	String order_status;
-	String user_id;
-	String product_id;
-	String pboard_unit_no;
-	String order_totalcount;
-	String order_totalprice;
-	String pboard_user_id;
+	private String num;
+	private String order_id;
+	private String order_address;
+	private String order_name;
+	private String order_regdate;
+	private String order_canceldate;
+	private String order_status;
+	private String user_id;
+	private String product_id;
+	private String pboard_unit_no;
+	private String order_totalcount;
+	private String order_totalprice;
+	private String pboard_user_id;
 	
 }

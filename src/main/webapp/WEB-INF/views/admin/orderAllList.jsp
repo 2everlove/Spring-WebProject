@@ -38,6 +38,7 @@ $(document).ready(function(){
 });
 
 function updateOrderList(formData, btn){
+	let status = formData.get('order_status');
 	$.ajax({
 		url : '/admin/updateOrderList',
 		method : 'POST',
@@ -46,8 +47,20 @@ function updateOrderList(formData, btn){
 		contentType : false,
 		data : formData,
 		success : function(){
-			console.log(formData.get('order_status'));
-			btn.closest("tr").find('.torder_status').html(formData.get('order_status'));
+			let order_status_pic = "";
+			if(status == "1"){
+				order_status_pic = "<i class='fas fa-credit-card fa-4x' style='color:#e2e2e2;'></i>"
+			} else if(status == "2"){
+				order_status_pic = "<i class='fas fa-box fa-4x' style='color:#e2e2e2;'></i>"
+			} else if(status == "3"){
+				order_status_pic = "<i class='fas fa-truck-loading fa-4x' style='color:#e2e2e2;'></i>"
+			} else if(status == "4"){
+				order_status_pic = "<i class='fas fa-shipping-fast fa-6x' style='color:#e2e2e2;'></i>"
+			} else {
+				order_status_pic = "<i class='fas fa-check fa-4x' style='color:#e2e2e2;'></i>"
+			}
+			btn.closest("tr").find(".torder_status").html(order_status_pic);
+			order_status_pic
 			alert(formData.get('order_id')+"번 주문이 수정되었습니다.");
 		},
 		error : function(errorThrown){
@@ -81,7 +94,25 @@ function updateOrderList(formData, btn){
 						<%-- <c:if test="${sessionScope.user.user_id == ovo.pboard_user_id}"> --%>
 							<tr>
 								<td>${ovo.order_id}</td>
-								<td><span class="torder_status">${ovo.order_status}</span>
+								<td><span class="torder_status">
+									<c:choose>
+									<c:when test="${ovo.order_status eq 1}">
+										<i class="fas fa-credit-card fa-4x"></i>
+									</c:when>
+									<c:when test="${ovo.order_status eq 2}">
+										<i class="fas fa-box fa-4x"></i>
+									</c:when>
+									<c:when test="${ovo.order_status eq 3}">
+										<i class="fas fa-truck-loading fa-4x"></i>
+									</c:when>
+									<c:when test="${ovo.order_status eq 4}">
+										<i class="fas fa-shipping-fast fa-6x"></i>
+									</c:when>
+									<c:otherwise>
+										<i class="fas fa-check fa-4x"></i>
+									</c:otherwise>
+								</c:choose>
+								</span>
 	 							<select class="order_status" name="selectStatus">
 									<option value="0"<c:if test="${ovo.order_status == 0}">selected</c:if>>주문 취소</option>
 									<option value="1"<c:if test="${ovo.order_status == 1}">selected</c:if>>주문 완료</option>

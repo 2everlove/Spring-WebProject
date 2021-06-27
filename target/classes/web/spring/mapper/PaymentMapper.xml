@@ -21,7 +21,9 @@
 	</insert>
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
-		select order_board.* from (select rownum num, order_board.* from order_board where user_id = #{user_id}) order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		select order_board.* from (
+			select rownum num, order_board.* from order_board where user_id = #{user_id} order by order_regdate desc) 
+		order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
 	<select id="getOrderListTotal" resultType="int">
