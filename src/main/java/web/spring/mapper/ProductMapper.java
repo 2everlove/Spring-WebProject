@@ -9,7 +9,6 @@ import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
-import web.spring.vo.UserVO;
 
 public interface ProductMapper {
 	
@@ -17,9 +16,9 @@ public interface ProductMapper {
 	
 	public List<ProductVO> getProductList(Criteria cri); // 상품 전체 조회
 	
-	public List<PBoardVO> getAllPBoardList(Criteria cri); // 상세페이지 전체 조회(전체)
+	public List<PBoardVO> getAllPBoardList(Criteria cri, @Param("keyword") String keyword, @Param("orderby") String orderby, @Param("type") String type, @Param("pageNo") int pagneNo, @Param("amount") int amount); // 상세페이지 전체 조회(전체)
 	
-	public List<PBoardVO> getUserPBoardList(@Param("user_id") String user_id, @Param("pageNo") int pageNo, @Param("amount") int amount, @Param("orderby") String orderby); // 상세페이지 전체 조회(전체)
+	public List<PBoardVO> getUserPBoardList(@Param("user_id")String user_id, Criteria cri, @Param("keyword") String keyword, @Param("orderby") String orderby, @Param("type") String type, @Param("pageNo") int pagneNo, @Param("amount") int amount); // 상세페이지 전체 조회(전체)
 	
 	public int getTotal(Criteria cri);//페이지 총 수
 	

@@ -45,7 +45,7 @@ public class FileAjaxController {
 	
 	@GetMapping("/fileDisplay")
 	public ResponseEntity<byte[]> fileDisplay(@Param("file_name") String file_name){
-		log.info("fileDisplay...."+file_name);
+		//log.info("fileDisplay...."+file_name);
 		HttpHeaders headers = new HttpHeaders();
 		File file = new File(ROOT_DIR+file_name);
 		//log.info(file);

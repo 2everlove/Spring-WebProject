@@ -106,14 +106,64 @@
 				    		<thead>
 				    			<tr class="tr__head">
 				    				<th></th>
-				    				<th class="orderby" data-type="pboard_unit_enabled" data-sort=${pageNavi.cri.orderby }>활성화</th>
-				    				<th class="orderby" data-type="pboard_unit_condition" data-sort=${pageNavi.cri.orderby }>new,sale,event</th>
-				    				<th class="orderby" data-type="pboard_unit_stocks" data-sort=${pageNavi.cri.orderby }>재고</th>
-				    				<th class="orderby" data-type="pboard_unit_price" data-sort=${pageNavi.cri.orderby }>가격</th>
-				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일</th>
-				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일</th>
-				    				<th>수정일</th>
-				    				<th>제조사 > 카테고리 > 상품명</th>
+				    				<th class="orderby" data-type="pboard_unit_enabled" data-sort=${pageNavi.cri.orderby }>활성화 <c:choose>
+			    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_enabled_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_enabled_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose></th>
+				    				<th>
+				    					<span class="orderby" data-type="pboard_unit_condition_n" data-sort=${pageNavi.cri.orderby }>new 
+				    						<c:choose>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_n_asc'}"><i class="fas fa-angle-up"></i> </c:when>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_n_desc'}"><i class="fas fa-angle-down"></i> </c:when>
+					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i> </c:otherwise>
+				    						</c:choose>
+				    					</span> 
+				    					<span span class="orderby" data-type="pboard_unit_condition_s" data-sort=${pageNavi.cri.orderby }> sale 
+				    						<c:choose>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_s_asc'}"><i class="fas fa-angle-up"></i> </c:when>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_s_desc'}"><i class="fas fa-angle-down"></i> </c:when>
+					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i> </c:otherwise>
+				    						</c:choose>
+				    					</span>
+				    					<span span class="orderby" data-type="pboard_unit_condition_e" data-sort=${pageNavi.cri.orderby }> event
+				    						<c:choose>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_e_asc'}"><i class="fas fa-angle-up"></i></c:when>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_e_desc'}"><i class="fas fa-angle-down"></i></c:when>
+					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+				    						</c:choose>
+				    					</span>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_stocks" data-sort=${pageNavi.cri.orderby }>재고 
+			    						<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_stocks_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_stocks_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_price" data-sort=${pageNavi.cri.orderby }>가격 
+				    					<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_price_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_price_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일 
+				    					<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_regdate_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_regdate_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일 
+				    					<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_updateDate_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_updateDate_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th style="width: 300px;">카테고리 > 제조사 > 상품명</th>
+				    				<th style="display: none;">수정일</th>
 				    				<th>저장</th>
 				    				<th>보기</th>
 				    			</tr>
@@ -156,16 +206,15 @@
 								    						<option value="2" selected>Event</option>
 							    						</c:if>
 							    					</select></td>
-							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}"></td>
-							    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}"></td>
+							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}" style="width: 70px;"></td>
+					    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;"></td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
 							    				<td>${regdate}</td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
 							    				<td>${updateDate}</td>
 								  				<c:forEach var="product" items="${productList}">
 								    				<c:if test="${product.product_id == pBoard.product_id}">
-								    					<td>
-								    					${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+								    					<td style="display: none;">${product.product_category } > ${product.product_manufacturer } > ${product.product_name }</td>
 							    					</c:if>
 									   			</c:forEach>
 					    					
@@ -192,12 +241,10 @@
 		    	</div>
 	    	</div>
 	    	<!-- 페이징 소스 -->
-	    	<form method=get action="/admin/pBoardControl" name="listForm">
+	    	<form method=get action="/product/pBoardUpdate" name="listForm">
                  <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
                  <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
                  <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
-                 <input type=hidden name=type value=${pageNavi.cri.type }> 
                  <!-- 상세보기 검색 유지용 끝 -->
                  <div class="form-inline">
 					<select class="form-control" name=type>

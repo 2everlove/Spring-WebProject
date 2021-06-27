@@ -142,7 +142,7 @@ public class MainController {
 			if(Integer.parseInt(pboard_unit_condition)<3) {
 				productService.getTypeList(pboard_unit_condition);
 				List<ProductVO> pList = productService.getCondList(pboard_unit_condition);
-				List<PBoardVO> pBList = productService.getPBoardList();
+				List<PBoardVO> pBList = productService.getCondBoardList(pboard_unit_condition);
 				List<FileVO> fileList = fileService.getCondListFile(pboard_unit_condition);
 				List<UserVO> userList = userService.getUserList();
 				log.info("pList...."+pList);
