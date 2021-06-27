@@ -22,11 +22,11 @@
 
 	<select id="getOrderList" resultType="web.spring.vo.OrderVO">
 		select order_board.* from (
-			select rownum num, o.*, p.product_name from (select * from order_board where user_id = '1' order by order_regdate desc) o
+			select rownum num, o.*, p.product_name from (select * from order_board where user_id = '1' ) o
 			left join products_info p 
 			on o.product_id = p.product_id 
 			where o.product_id is not null) 
-		order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
+		order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} order by order_board.order_regdate desc
 	</select>
 	
 	<select id="getOrderListTotal" resultType="int">
