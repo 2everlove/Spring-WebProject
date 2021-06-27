@@ -9,7 +9,6 @@ import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
-import web.spring.vo.UserVO;
 
 public interface ProductMapper {
 	
@@ -17,9 +16,9 @@ public interface ProductMapper {
 	
 	public List<ProductVO> getProductList(Criteria cri); // 상품 전체 조회
 	
-	public List<PBoardVO> getAllPBoardList(Criteria cri); // 상세페이지 전체 조회(전체)
+	public List<PBoardVO> getAllPBoardList(Criteria cri, @Param("keyword") String keyword, @Param("orderby") String orderby, @Param("type") String type, @Param("pageNo") int pagneNo, @Param("amount") int amount); // 상세페이지 전체 조회(전체)
 	
-	public List<PBoardVO> getUserPBoardList(@Param("user_id") String user_id, @Param("pageNo") int pageNo, @Param("amount") int amount, @Param("orderby") String orderby); // 상세페이지 전체 조회(전체)
+	public List<PBoardVO> getUserPBoardList(@Param("user_id")String user_id, Criteria cri, @Param("keyword") String keyword, @Param("orderby") String orderby, @Param("type") String type, @Param("pageNo") int pagneNo, @Param("amount") int amount); // 상세페이지 전체 조회(전체)
 	
 	public int getTotal(Criteria cri);//페이지 총 수
 	
@@ -53,6 +52,8 @@ public interface ProductMapper {
 	
 	public List<PBoardVO> getCondBoardList(String pboard_unit_condition); //cond 검색 해당 상세페이지 1~5출력
 	
+	public List<PBoardVO> getRecommendBoardList(); //cond(recommend) 검색 해당 상세페이지 1~5출력
+	
 	public PBoardVO getProduct(String no);//product_no로 상세페이지 조회
 	
 	public ProductVO getProductInfo(String product_id); //상세페이지 내에 있는 product_id로 상품 조회
@@ -61,7 +62,7 @@ public interface ProductMapper {
 	
 	public int productInfoDelete(ProductVO productVO); //상품 삭제
 	
-	public List<String> searchProductCategory(@Param("code_type")String code_type, @Param("code_value") String code_value);
+	public List<ProductVO> searchProductCategory(@Param("code_type")String code_type, @Param("code_value") String code_value);
 	
 	public int insertCodeInfo(@Param("code_type")String code_type, @Param("code_value") String code_value);
 	
@@ -83,5 +84,9 @@ public interface ProductMapper {
 	//main 페이지------------
 	public List<PBoardVO> getMainPBoardList();
 	
+	public List<PBoardVO> getMainRecommendPBoardList();
+	
 	public List<ProductVO> getMainProductList();
+	
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map); //recommend
 }

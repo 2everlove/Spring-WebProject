@@ -7,6 +7,19 @@
 <jsp:include page="../includes/header.jsp"/>
 <script type="text/javascript">
 function registerSubmit(){
+	
+	if($("input[name=nboard_title]").val()==""){
+		alert("제목을 입력해주세요.");
+		$("input[name=nboard_title]").select();
+		return false;
+	}
+	if($("input[name=nboard_content]").val()==""){
+		alert("내용을 입력해주세요.");
+		$("input[name=nboard_content]").select();
+		return false;
+	}
+	
+	
 	document.registerForm.submit();
 }
 $(document).ready(

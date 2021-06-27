@@ -50,7 +50,7 @@ public class ProductAjaxController {
 		List<ProductVO> list = productService.searchProductManuCate(product_name);
 		log.info(list);
 		if(list != null) {
-			if(list.size()>0) {
+			if(list.size()>=0) {
 				map.put("result", list);
 			} else {
 				map.put("result", "error");
@@ -80,23 +80,37 @@ public class ProductAjaxController {
 	public Map<String, Object> AjaxInsetCodeInfo(@PathVariable("code_type")String code_type, @PathVariable("code_value")String code_value) {
 		log.info(code_type+"\n"+code_value);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
-		if(list != null) {
-			if(list.size()>0) {
-				map.put("result", list);
+		if(code_type.toLowerCase().equals("manufacturer")) {
+			List<ProductVO> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
+			if(list != null) {
+				if(list.size()>0) {
+					map.put("result", list);
+				} else {
+					map.put("result", "error");
+				}
 			} else {
 				map.put("result", "error");
 			}
 		} else {
-			map.put("result", "error");
+			List<ProductVO> list = productService.searchProductCategory(code_type.toLowerCase(), code_value.toLowerCase());
+			if(list != null) {
+				if(list.size()>0) {
+					map.put("result", list);
+				} else {
+					map.put("result", "error");
+				}
+			} else {
+				map.put("result", "error");
+			}
 		}
+		
 		return map;
 	}
 	
 	//history
 	@GetMapping("/getProductByHistory/{history}")
 	public Map<String, Object> AjaxGetHistoryPb(@PathVariable("history")String history) {
-		log.info(history);
+		//log.info(history);
 		String hist = history;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("histotyList", "error");
@@ -107,15 +121,15 @@ public class ProductAjaxController {
 		if(historyArr!=null) {
 			for(int i=0; i<historyArr.length; i++) {
 				history_list.add(historyArr[i]);
-				System.out.println(historyArr[i]);
+				//System.out.println(historyArr[i]);
 			}
 		}
 		history_Map.put("history_Map", history_list);
 		history_Map.put("history_sort", history_list);
-		log.info("history_list"+history_list);
+		//log.info("history_list"+history_list);
 		if(history_list.size()!=0) {
 			List<PBoardVO> pBoardList = productService.getHistoryProduct(history_Map);
-			log.info(pBoardList);
+			//log.info(pBoardList);
 			if(pBoardList != null) {
 				if(pBoardList.size()>0) {
 					map.put("histotyList", pBoardList);

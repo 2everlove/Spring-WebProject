@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@include file="../includes/header.jsp" %> --%>
+<%@include file="../includes/header.jsp" %>
 <head>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/inquiry_register.css">
@@ -10,7 +10,6 @@
 <script>
 	$(document).ready(function() {
 		$("#button").click(function() {
-			var result = confirm('게시글을 등록하시겠습니까? 등록 후 수정이 불가합니다.');
 			$("select[name=iboard_category]").val();
 			$("input:radio[name=iboard_public]").is(':checked()');
 
@@ -29,7 +28,7 @@
 				return false;
 			}
 			
-			if(result){
+			if(confirm('게시글을 등록하시겠습니까? 등록 후 수정이 불가합니다.')){
 				$("#inquiryForm").submit();
 			}
 			else{
@@ -125,4 +124,4 @@
 </body>
 </html>
 
-<%-- <%@include file="../includes/footer.jsp" %> --%>
+<%@include file="../includes/footer.jsp" %>

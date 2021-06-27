@@ -38,16 +38,16 @@
 	let u = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPW8y4NCtrRYMFsO3xFYEAFoGuPIILqWI&";
 	let country = "region='"+window.navigator.language.substring(3,5)+"'";
 	let lang = "&language='"+window.navigator.language.substring(0,2)+"'";
-	console.log(u);
-	console.log(country);
-	console.log(lang);
+	//console.log(u);
+	//console.log(country);
+	//console.log(lang);
 	let callback = "&callback=initMap&libraries=places";
 	var script = document.createElement("script");
 	script.src = (u+country+lang+callback);
 	document.head.appendChild(script);
 </script>
-<script id="googleMap" defer>
-function initMap() {
+<script id="googleMap">
+async function initMap() {
 	  // The location of Uluru
 	  const lat1= parseFloat(37.4851619);
 	  const lng1= parseFloat(126.8987031);
@@ -84,7 +84,7 @@ function initMap() {
 		  map.addListener("mouseout", () => {
 		    infowindow.close();
 		  });
-	}
+	};
 </script>
 <script type="text/javascript">
 
@@ -92,57 +92,23 @@ function initMap() {
 		myStorage = window.localStorage;
 
 		let history = "${sessionScope.history_product_no}";
+		let resMsgHis = "${resMsgHis}"
 		if(history!=""){
 			localStorage.setItem('his', history);
 		}
 		let his = localStorage.getItem('his');
-
-		window.onload = function(){
-			$.ajax({
-				url : "/getProductByHistory/"+his,
-				method : 'get',
-				dataType : 'json',
-				async:false,
-				success : function(datas){
-					let htmlContent = "";
-					$.each(datas.histotyList, function(index, hdata) {
-						//console.log("data"+index+": "+hdata.pboard_unit_no);
-						$.ajax({
-							url:'/fileUploadAjax/'+hdata.masterImg,
-							method : 'get',
-							dataType : 'json',
-							async:false,
-							success : function(datas){
-								let result ="";
-								$.each(datas, function(i, data){
-									//console.log(data);
-									//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
-									
-									let file_savePath = encodeURIComponent(data.file_savePath);
-									//console.log(data.file_s_savePath);
-									
-									htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
-										+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_savePath+" style=' width: 100px; height: 100px; object-fit: cover;'>"
-										+"</a>";
-									$(".navbar__menu__item-history").html(htmlContent);
-								
-								});
-							},
-							error : function(errorThrown){
-								console.log(errorThrown);
-							}
-						});
-					
-					});
-					
-				},
-				error : function(errorThrown){
-					console.log(errorThrown);
-				}
-			});
+		console.log(resMsgHis);
 		
-			console.log("star");
-			if($(".starGet_") != null){
+			
+		window.onload = function(){
+			if(his!=null && his!='undifined' && history!=null){
+				historyFunction(his);
+			}
+			if(resMsgHis!=""){
+				localStorage.removeItem('his');
+				$(".navbar__menu__item-history").html("History");
+			}	
+			if(document.getElementsByClassName('jq-stars').length>0){
 				for (let i = 0; i < 30; i++) {
 					$(".starGet_" + i).starRating({
 						readOnly : true,
@@ -151,6 +117,7 @@ function initMap() {
 					});
 				}
 			}
+			
 			
 		};
 		
@@ -177,6 +144,50 @@ function initMap() {
 			});
 		}
 	});
+	function historyFunction(his){
+		$.ajax({
+			url : "/getProductByHistory/"+his,
+			method : 'get',
+			dataType : 'json',
+			async:false,
+			success : function(datas){
+				let htmlContent = "";
+				$.each(datas.histotyList, function(index, hdata) {
+					//console.log("data"+index+": "+hdata.pboard_unit_no);
+					$.ajax({
+						url:'/fileUploadAjax/'+hdata.masterImg,
+						method : 'get',
+						dataType : 'json',
+						async:false,
+						success : function(datas){
+							let result ="";
+							$.each(datas, function(i, data){
+								//console.log(data);
+								//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+								
+								let file_s_savePath = encodeURIComponent(data.file_s_savePath);
+								//console.log(data.file_s_savePath);
+								
+								htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
+									+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 90px; height: 90px; object-fit: cover;'>"
+									+"</a>";
+								$(".navbar__menu__item-history").html(htmlContent);
+							
+							});
+						},
+						error : function(errorThrown){
+							console.log(errorThrown);
+						}
+					});
+				
+				});
+				
+			},
+			error : function(errorThrown){
+				console.log(errorThrown);
+			}
+		});
+	}
 	
 	
 </script>
@@ -215,7 +226,8 @@ function initMap() {
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
-			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
+			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
+			                <div class="navbar__menu__item-history">History</div>
 		            	</c:when>
 		            	<c:otherwise>
 			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
@@ -224,6 +236,7 @@ function initMap() {
 		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
+			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
 			                <div class="navbar__menu__item-history" style="vertical-align: middle;">History</div>
 		            	</c:otherwise>
 		            </c:choose>

@@ -28,13 +28,13 @@
 		    		<div class="product__wrapper">
 				    	<div class="type__product">
 				    	<c:forEach var="files" items="${fileList }">
-				    	<c:if test="${products.file_pictureId == files.file_pictureId }">
-				    	
-				    	<c:url value="/fileDisplay" var="url">
-				    		<c:param name="file_name" value="${files.file_s_savePath}"></c:param>
-				    	</c:url>
-					        <img src="${url}" class="thumnail__products-type" >
-				    	</c:if>
+					    	<c:if test="${products.file_pictureId == files.file_pictureId }">
+					    	
+					    	<c:url value="/fileDisplay" var="url">
+					    		<c:param name="file_name" value="${files.file_s_savePath}"></c:param>
+					    	</c:url>
+						        <img src="${url}" class="thumnail__products-type" >
+					    	</c:if>
 				    	</c:forEach>
 					        <div class="type__detail">
 						        <h1 class="type__title">${products.product_name}</h1>
@@ -57,7 +57,7 @@
 									        <h2 class="type__price"><span>${commonPrice}</span>원</h2>
 									        <c:forEach var="user" items="${userList}">
 									        	<c:if test="${user.user_id == productSellers.user_id }">
-									        		<a href="/pDetail/${productSellers.pboard_unit_no}" class="type__shops">${user.user_name }</a>
+									        		<a href="/pDetail/${productSellers.pboard_unit_no}" class="type__shops">${user.user_name}(${user.user_id})</a>
 								        		</c:if>
 									        </c:forEach>
 								        </c:if>

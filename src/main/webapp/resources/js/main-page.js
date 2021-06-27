@@ -10,7 +10,7 @@ navbarMenu.addEventListener('click', (event)=>{
     scrollIntoviews(link);
 });
 
-const sectionIds = ['#new', '#sale', '#event'];
+const sectionIds = ['#new', '#sale', '#event', '#recommend'];
 const sections = sectionIds.map(id => document.querySelector(id));
 let navItems = sectionIds.map(id => document.querySelector('[data-link="'+id+'"]'));
 
@@ -58,6 +58,8 @@ window.addEventListener('scroll', () => {
         selectedNavIndex = 0;
     } else if (Math.round(window.scrollY + window.innerHeight) === document.body.clientHeight){
         selectedNavIndex = navItems.length - 1;
+    } else if(Math.round(window.scrollY + window.innerHeight) > document.body.clientHeight) {
+    	 selectedNavIndex = 3;
     }
     selectNavItem(navItems[selectedNavIndex]);
 })

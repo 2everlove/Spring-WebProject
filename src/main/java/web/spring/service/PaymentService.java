@@ -25,6 +25,10 @@ public interface PaymentService {
 	
 	public int getOrderListTotal(String user_id, Criteria cri);
 	
+	public List<OrderVO> getOrderComList(String pboard_user_id, Criteria cri);
+	
+	public int getOrderComListTotal(String pboard_user_id, Criteria cri);
+	
 	public List<OrderVO> getOrderAllList(Criteria cri);
 	
 	public int getOrderAllListTotal(Criteria cri);

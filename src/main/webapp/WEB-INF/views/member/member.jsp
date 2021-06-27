@@ -3,10 +3,60 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="../../../resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
-
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4e6bac257a0b73cfaf15255dbb453d5f&libraries=services"></script>
+<script src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'></script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+		//지도 api
+		$('.user_address_search').click(function(){
+			let tr = $(this).closest("div");
+			var mapContainer = tr.find('#kmap')[0], // 지도를 표시할 div
+			mapOption = {
+			    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+			    level: 5 // 지도의 확대 레벨
+			};
+			
+			//지도를 미리 생성
+			var map = new daum.maps.Map(mapContainer, mapOption);
+			//주소-좌표 변환 객체를 생성
+			var geocoder = new daum.maps.services.Geocoder();
+			//마커를 미리 생성
+			var marker = new daum.maps.Marker({
+			    position: new daum.maps.LatLng(37.537187, 127.005476),
+			    map: map
+			});
+			
+			new daum.Postcode({
+	            oncomplete: function(data) {
+	                var addr = data.address; // 최종 주소 변수
+	                tr.find('#kmap').show();
+	                // 주소 정보를 해당 필드에 넣는다.
+	                tr.find('.user_address').val(addr+" ");
+	                // 주소로 상세 정보를 검색
+	                geocoder.addressSearch(data.address, function(results, status) {
+	                    // 정상적으로 검색이 완료됐으면
+	                    if (status === daum.maps.services.Status.OK) {
+
+	                        var result = results[0]; //첫번째 결과의 값을 활용
+
+	                        // 해당 주소에 대한 좌표를 받아서
+	                        var coords = new daum.maps.LatLng(result.y, result.x);
+	                        // 지도를 보여준다.
+	                        mapContainer.style.display = "block";
+	                        map.relayout();
+	                        // 지도 중심을 변경한다.
+	                        map.setCenter(coords);
+	                        // 마커를 결과값으로 받은 위치로 옮긴다.
+	                        marker.setPosition(coords)
+	                    }
+	                });
+	            }
+	        }).open();
+			tr.find('.user_address').select();
+		});
+		
 		
 		$("input[name=User_id]").on("change",function(){
 			//중복체크 다시 진행
@@ -95,16 +145,39 @@
 			let User_name=$("input[name=User_name]").val();
 			let User_email=$("input[name=User_email]").val();
 			let User_contact=$("input[name=User_contact]").val();
-			if($.isEmptyObject(User_password)){
-				alert("비밀번호를 입력해주세요.");
-				return false;
-			}
-			if($.isEmptyObject(pwdCheck)){
-				alert("비밀번호 확인란을 입력해주세요.");
-				return false;
-			}
+			
 			if(!$("input[name=User_id]").prop("dataValue")){
-				alert("id 중복검사");
+				alert("id 중복검사를 해주세요.");
+				return false;
+			}
+			if($("input[name=User_password]").val()==""){
+				alert("비밀번호를 입력해주세요.");
+				$("input[name=User_password]").select();
+				return false;
+			}
+			if($("input[name=pwdCheck]").val()==""){
+				alert("비밀번호 확인란을 입력해주세요.");
+				$("input[name=pwdCheck]").select();
+				return false;
+			}
+			if($("input[name=User_name]").val()==""){
+				alert("이름을 입력해주세요.");
+				$("input[name=User_name]").select();
+				return false;
+			}
+			if($("input[name=User_email]").val()==""){
+				alert("email을 입력해주세요.");
+				$("input[name=User_email]").select();
+				return false;
+			}
+			if($("input[name=User_contact").val()==""){
+				alert("연락처를 입력해주세요.");
+				$("input[name=User_contact]").select();
+				return false;
+			}
+			if($("input[name=User_birth").val()==""){
+				alert("생일을 입력해주세요.");
+				$("input[name=User_birth]").select();
 				return false;
 			}
 			//비밀번호 체크
@@ -205,7 +278,7 @@
                 	<label>GENDER</label><br>
                 	<select name="User_gender">
                 		<option value="M">남</option>
-                		<option value="F">여</option>
+                		<option value="W">여</option>
                 	</select>
                 </div>
                  <div class="register-group div7">
@@ -225,14 +298,18 @@
                 <div class="register-group div10">
                 	<label>관심분야</label>
                 	<br>
-                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="컴퓨터">컴퓨터</label>
-                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="노트북">노트북</label>
-                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="가전제품">가전제품</label>
-               		<label class="interesting-label"><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
-	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="태블릿">태블릿</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="tablet">태블릿</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="desktop">컴퓨터</label>
+                	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="notebook">노트북</label>
+               		<label class="interesting-label"><input type="checkbox" name="User_interesting" value="life">생활가전</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="video">영상가전</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="sound">음향가전</label>
+	               	<label class="interesting-label"><input type="checkbox" name="User_interesting" value="software">소프트웨어</label>
                 </div>
                 <div class="register-group div11"><p style="text-align:center;color: var(--color-pink);line-height: 20px;font-size: 20px;">ADDRESS</p><br>
-                	<textarea name="User_address" style="margin-left:5%;width:80%; height:10vh;"></textarea>
+                	<input type="text" name="user_address" class="user_address">
+					<input type="button" class="user_address_search" value="주소 검색"><br>
+					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
                 	<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
                 	<input type="hidden" class="file_name" name="file_name" id="file_name"></div>
                 <div class="register-group div12"><button type="button" class="login-button" id="registerBtn" >회원가입</button></div>

@@ -2,6 +2,7 @@ package web.spring.controller;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,7 +43,6 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
-
 	
 	//회원등록 페이지
 	@GetMapping("/member")
@@ -69,15 +69,22 @@ public class UserController {
 	}
 	
 	@GetMapping( "/userUpdate" )
-	public String userUpdate(@ModelAttribute("user") UserVO user, Model model) {
-		System.out.println(user.getUser_regdate());
+	public String userUpdate(@ModelAttribute("user") UserVO user, Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		UserVO sessionUser = (UserVO)session.getAttribute("user");
+		if(sessionUser != null) {
+			UserVO userVO = userService.getUser(sessionUser.getUser_id());
+			model.addAttribute("user", userVO);
+			System.out.println(user.getUser_regdate());
+		} else {
+			return "redirect:/login";
+		}
 		/*
 		 * if(user!=null) { System.out.println(user.getUser_birth());
 		 * user.setUser_birth(user.getUser_birth().toString().substring(0, 10));
 		 * System.out.println(user); }
 		 */
-		if (user == null)
-			return "redirect:/login";
+			
 		
 		return "/member/userUpdate";
 	}
@@ -88,20 +95,17 @@ public class UserController {
 		String resMsg="회원정보가 수정되었습니다.";
 		if (update == true) { // userService에서 기존 비밀번호와 복호화된 db의 비밀번호가 일치하면 db값을 수정하고 true를 넘겨받음.
 			// 세션과 쿠키를 다시 처리하는
-			HttpSession session = req.getSession();
 			userService.login(user); // 다시 로그인
-			session.setAttribute("user", user); // 다시 session처리
 			Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
 			if (loginCookie != null) {
 				loginCookie.setMaxAge(60*60*24*7);	//갱신할지 그대로 둘지 상담
 				loginCookie.setPath("/");
 			}
-
 		} else {
 			resMsg="회원수정 오류입니다.";
 		}
 		rttr.addFlashAttribute("resMsg",resMsg);
-		return "redirect:/getUser" ;
+		return "redirect:/userUpdate" ;
 	}
 
 	@GetMapping("/login")
@@ -127,7 +131,7 @@ public class UserController {
 	
 
 	@GetMapping({ "/logout" })
-	public String logout(HttpServletRequest req, HttpServletResponse res) {
+	public String logout(HttpServletRequest req, HttpServletResponse res, RedirectAttributes rttr) {
 		HttpSession session = req.getSession();
 		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
 		if (loginCookie != null) {
@@ -136,6 +140,8 @@ public class UserController {
 			res.addCookie(loginCookie);
 		}
 		session.invalidate();
+		ProductController.linkedList = new LinkedList<String>();
+		rttr.addFlashAttribute("resMsgHis", "removeHistory");
 		return "redirect:/main";
 	}
 

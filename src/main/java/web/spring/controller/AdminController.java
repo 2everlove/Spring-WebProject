@@ -43,19 +43,27 @@ public class AdminController {
 	private PaymentService paymentService;
 	
 	//주문관리
-		@GetMapping("/admin/orderAllList")
-		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
-			HttpSession session = rq.getSession();
-			UserVO user = (UserVO)session.getAttribute("user");
-			if(user != null) {
+	@GetMapping("/admin/orderAllList")
+	public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri, UserVO uvo, PBoardVO pBoard) {
+		HttpSession session = rq.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user != null) {
+			if(user.getUser_type().equals("1")) { 
+				List<OrderVO> list = paymentService.getOrderComList(user.getUser_id(), cri);
+				log.info(list);
+				model.addAttribute("list", list);
+				model.addAttribute("pageNavi", new PageNavi(cri, paymentService.getOrderComListTotal(user.getUser_id(), cri)));
+				System.out.println("pboard_user_id============" + user.getUser_id());
+			} else {
 				List<OrderVO> list = paymentService.getOrderAllList(cri);
 				model.addAttribute("list", list);
 				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
-				return "/admin/orderAllList";
 			}
-			return "/member/login";
+			
+			return "/admin/orderAllList";
 		}
-	
+		return "/member/login";
+	}
 	
 	//상품관리
 	@GetMapping("/admin/productControl")
@@ -70,9 +78,11 @@ public class AdminController {
 		 * for(String a : product_list) { System.out.println(a); }
 		 */
 		product_Map.put("product_Map", product_list);
-		List<FileVO> fileList = fileService.getListFileAdmin(product_Map);
-		model.addAttribute("fileList", fileList);
-		log.info(fileList);
+		if(productList.size()>0) {
+			List<FileVO> fileList = fileService.getListFileAdmin(product_Map);
+			model.addAttribute("fileList", fileList);
+			log.info(fileList);
+		}
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageNavi",new PageNavi(cri, productService.getProductTotal(cri)));
 		return "/admin/productManage";
@@ -114,6 +124,7 @@ public class AdminController {
 				log.info("기업"+cri.getOrderby());
 				List<ProductVO> productList = productService.getProductAllList();
 				List<PBoardVO> PBoardList = productService.getUserPBoardList(user.getUser_id(), cri);
+				log.info("PBoardList"+PBoardList);
 				if(PBoardList!=null) {
 					model.addAttribute("PBoardList", PBoardList);
 					model.addAttribute("productList", productList);
@@ -122,7 +133,7 @@ public class AdminController {
 				}
 			} 
 		} 
-		return "/login";
+		return "member/login";
 	}//
 	
 	//유저관리
@@ -138,7 +149,7 @@ public class AdminController {
 			user_Map.put("product_Map", user_list);
 			List<FileVO> fileList = fileService.getListFileAdmin(user_Map);
 			List<UserVO> userList = userService.getAllUserList(cri);
-			if(userList!=null) {
+			if(userList.size()>0) {
 				log.info("userAd"+userList);
 				model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
 				model.addAttribute("userList", userList);

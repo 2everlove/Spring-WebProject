@@ -15,7 +15,9 @@
         	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
         	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
 		from common_file
-		where file_pictureId=#{file_pictureId}
+		<where>
+			file_pictureId=#{file_pictureId}
+		</where>
 	</select>
 	
 		<select id="getListFileAdmin" parameterType="hashmap" resultType="web.spring.vo.FileVO">
@@ -23,10 +25,11 @@
         	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
         	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
 		from common_file
-		where
-		<foreach collection="product_Map" item="item" separator="or">
-			file_pictureId = #{item}
-		</foreach>
+		<where>
+			<foreach collection="product_Map" item="item" separator="or">
+				file_pictureId = #{item}
+			</foreach>
+		</where>
 	</select>
 	
 	<select id="getTypeListFile" resultType="web.spring.vo.FileVO">
@@ -105,7 +108,9 @@
         	, file_uploadPath||file_uuid|| '_' ||file_name as file_savepath
         	, file_uploadPath||'s_'||file_uuid|| '_' ||file_name as file_s_savepath
 		from common_file
-		where file_pictureId=#{file_pictureId}
+		<where>
+			file_pictureId=#{file_pictureId}
+		</where>
 	</select>
 	
 	<delete id="fileDelete">

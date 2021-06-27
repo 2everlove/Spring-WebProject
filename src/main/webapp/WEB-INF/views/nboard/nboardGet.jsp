@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!-- nboard css -->
 <link rel="stylesheet" href="../../../resources/css/nboard.css">
@@ -96,15 +97,20 @@
 									</tr>
 									<tr>
 										<th class="nboardGet_th">작성일/수정일</th>
-										<td>${vo.nboard_regDate}/${vo.nboard_updateDate}</td>
+										
+										<fmt:parseDate value="${vo.nboard_regDate}" pattern="yyyy-MM-dd" var="nboard_regDate" />
+										<fmt:parseDate value="${vo.nboard_updateDate}" pattern="yyyy-MM-dd" var="nboard_updateDate" />
+										<fmt:formatDate value="${nboard_regDate}" pattern="yyyy-MM-dd" var="regDate"/>
+										<fmt:formatDate value="${nboard_updateDate}" pattern="yyyy-MM-dd" var="updateDate"/>
+										<td>${regDate} / ${updateDate}</td>
 									</tr>
 									<tr style="min-height: 40vw;">
 										<th class="vertical_t">내용
 											<p id="nboard_content_wordcount">(0 / 500자)</p>
 										</th>
-										<td colspan="3"><textarea id="nboard_content"
-												name="nboard_content" wrap="hard"
-												style="width: 65vw; height: 30vh;" readonly>${vo.nboard_content}</textarea></td>
+										<td colspan="3">
+												<div class="request_data" style="white-space:pre;line-height: 32px;"><c:out value="${vo.nboard_content}"/></div>
+												</td>
 									</tr>
 								</c:otherwise>
 							</c:choose>

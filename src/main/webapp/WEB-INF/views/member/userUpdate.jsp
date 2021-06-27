@@ -1,13 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="../../../resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4e6bac257a0b73cfaf15255dbb453d5f&libraries=services"></script>
+<script src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'></script>
 <script type="text/javascript">
 if('${updateErrorMsg}' != ''){
 	$("#errorMsgArea").text('${updateErrorMsg}');	
 }
 $(document).ready(function(){
+	
+	let resMsg = "${resMsg}";
+	if(resMsg!="" && resMsg!=" "){
+		alert(resMsg);
+	}
+	
+	//지도 api
+	$('.user_address_search').click(function(){
+		let tr = $(this).closest("div");
+		var mapContainer = tr.find('#kmap')[0], // 지도를 표시할 div
+		mapOption = {
+		    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+		    level: 5 // 지도의 확대 레벨
+		};
+		
+		//지도를 미리 생성
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		//주소-좌표 변환 객체를 생성
+		var geocoder = new daum.maps.services.Geocoder();
+		//마커를 미리 생성
+		var marker = new daum.maps.Marker({
+		    position: new daum.maps.LatLng(37.537187, 127.005476),
+		    map: map
+		});
+		
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+                tr.find('#kmap').show();
+                // 주소 정보를 해당 필드에 넣는다.
+                tr.find('.user_address').val(addr+" ");
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+		tr.find('.user_address').select();
+	});
+
+	
 	
 	//사진 id
 	let file_pictureId = ${sessionScope.user.file_pictureId};
@@ -49,7 +107,6 @@ $(document).ready(function(){
 		}
 		
 		$("#userUpdateForm").submit();
-		alert(resMsg);
 	});//userUpdateBtn
 	
 	 $("#uploadBtn").on("click",function(){
@@ -144,11 +201,11 @@ $(document).ready(function(){
             <fieldset class="parent">
                 <div class="register-group div1">
                 	<p id="errorMsgArea"></p>
-                	<label>ID<br><input type="text" name="User_id" value="${sessionScope.user.user_id}"readonly></label>
+                	<label>ID<br><input type="text" name="User_id" value="${user.user_id}"readonly></label>
                 </div>
                 <div class="register-group div2">
                 	<p></p>
-                	<label>NAME<br><input type="text" name="User_name" value="${sessionScope.user.user_name}"readonly></label>
+                	<label>NAME<br><input type="text" name="User_name" value="${user.user_name}"readonly></label>
                 </div>
                 <div class="register-group div3">
                 	<label>TMP PASSWORD</label>
@@ -157,7 +214,7 @@ $(document).ready(function(){
                 </div>
                 <div class="register-group div4">
                 	<label>EMAIL</label><br>
-                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${sessionScope.user.user_email}" required>
+                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${user.user_email}" required>
                 </div>
                 <div class="register-group div5">
                 	
@@ -172,38 +229,66 @@ $(document).ready(function(){
                 	</select>
                 </div >
                 <div class="register-group div7">
-                	<label>유저타입:</label><input type="hidden" name="User_type" value="${sessionScope.user.user_type}"><br>
-                	<c:if test="${sessionScope.user.user_type ==2}">
+                	<label>유저타입:</label><input type="hidden" name="User_type" value="${user.user_type}"><br>
+                	<c:if test="${user.user_type ==2}">
                 	<input type="text"placeholder="고객회원" readonly><br>
                 	</c:if>
-                	<c:if test="${sessionScope.user.user_type ==1}">
+                	<c:if test="${user.user_type ==1}">
                 	<input type="text" placeholder="기업회원" readonly><br>
                 	</c:if>
-                	<c:if test="${sessionScope.user.user_type ==0}">
+                	<c:if test="${user.user_type ==0}">
                 	<input type="text" placeholder="어드민" readonly><br>
                 	</c:if>
-                	<!-- 유저이용상황(벤처리): --><input type="hidden" name="User_enabled" value="${sessionScope.user.user_enabled}">
+                	<!-- 유저이용상황(벤처리): --><input type="hidden" name="User_enabled" value="${user.user_enabled}">
                 </div>
                 <div class="register-group div8">
                 	<label>BIRTH</label><br>
-                	<input type="date" name="User_birth" value="${sessionScope.user.user_birth }">
-                	<input type="hidden" name="User_regdate" value="${sessionScope.user.user_regdate }">
+                	<fmt:parseDate value = "${user.user_birth}"  pattern="yyyy-MM-dd" var="date"/>
+                	<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="birth"/>
+                	<input type="date" name="User_birth" value="${birth }">
+                	<input type="hidden" name="User_regdate" value="${user.user_regdate }">
                 </div>
                 <div class="register-group div9">
                 	<label>CONTACT</label><br>
-                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${sessionScope.user.user_contact}" required>
+                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${user.user_contact}" required>
                 </div>
                 <div class="register-group div10">
-                	<label>User_interesting</label><br>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="컴퓨터" >컴퓨터</label>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="노트북" >노트북</label>
-                	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="가전제품" >가전제품</label>
-               		<label class="interenting-label"><input type="checkbox" name="User_interesting" value="핸드폰">핸드폰</label>
-	               	<label class="interenting-label"><input type="checkbox" name="User_interesting" value="태블릿" >태블릿</label>
+   					<label class="interesting-label">
+	               		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="tablet" 
+	               			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿
+	               	</label>
+    				<label class="interesting-label">
+    					<input class="user_interestingCB" type="checkbox" name="User_interesting" value="desktop" 
+    						<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'desktop'}">checked</c:if></c:forTokens>>컴퓨터
+    				</label>
+                	<label class="interesting-label">
+                		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="notebook" 
+                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'notebook'}">checked</c:if></c:forTokens>>노트북
+                	</label>
+               	
+                	<label class="interesting-label">
+                		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="life" 
+                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'life'}">checked</c:if></c:forTokens>>생활가전
+                	</label>
+                	<label class="interesting-label">
+                		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="video" 
+                			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'video'}">checked</c:if></c:forTokens>>영상가전
+                	</label>
+                	
+                	<label class="interesting-label">
+               			<input class="user_interestingCB" type="checkbox" name="User_interesting" value="sound" 
+               				<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'sound'}">checked</c:if></c:forTokens>>음향가전
+               		</label>
+                	<label class="interesting-label">
+               			<input class="user_interestingCB" type="checkbox" name="User_interesting" value="software" 
+               				<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'software'}">checked</c:if></c:forTokens>>소프트웨어
+               		</label>
                 </div>
                 <div class="register-group div11">
                 <label>ADDRESS</label><br>
-                	<input type="text" name="User_address" value="${sessionScope.user.user_address}">
+                	<input type="text" name="user_address" class="user_address" value="${user.user_address}">
+					<input type="button" class="user_address_search" value="주소 검색"><br>
+					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
                 	<!-- 파일관련 hidden -->
 					<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
 					<input type="hidden" class="file_name" name="file_name" id="file_name">

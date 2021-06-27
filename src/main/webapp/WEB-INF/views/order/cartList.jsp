@@ -77,7 +77,7 @@ $(document).ready(function(){
 			<table width="80%">
 				<thead>
 					<tr>
-						<th><input type="checkbox" id="allCheck"></th>
+						<th><input type="checkbox" id="allCheck">카트 아이디</th>
 						<th>받는 사람 이름</th>
 						<th>받는 사람 주소</th>
 						<th>상품 이름</th>
@@ -98,7 +98,7 @@ $(document).ready(function(){
 							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
-							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cvo.pboard_unit_stocks}&pboard_unit_no=${cvo.pboard_unit_no}'>
+							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cvo.pboard_unit_stocks}&pboard_unit_no=${cvo.pboard_unit_no}&user_address=${cvo.user_address}'>
 								<button type="button" id="orderBtn">주문</button></a>
 							</td>
 							<input type="hidden" name="pBoard_unit_stocks" value="${cvo.pboard_unit_stocks}">

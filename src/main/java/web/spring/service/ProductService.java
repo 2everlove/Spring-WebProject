@@ -46,11 +46,15 @@ public interface ProductService {
 	
 	public List<PBoardVO> getCondBoardList(String pboard_unit_condition); //cond 검색 해당 상세페이지 1~5출력
 	
+	public List<PBoardVO> getMainRecommendPBoardList();
+	
+	public List<PBoardVO> getRecommendBoardList(); //cond(recommend) 검색 해당 상세페이지 1~5출력
+	
 	public PBoardVO getProduct(String no);
 	
 	public ProductVO getProductInfo(String product_id);
 	
-	public List<String> searchProductCategory(String code_type, String code_value);
+	public List<ProductVO> searchProductCategory(String code_type, String code_value);
 	
 	public int insertCodeInfo(String code_type, String code_value);
 	
@@ -78,5 +82,7 @@ public interface ProductService {
 	
 	public int insertCode(String code_type, String code_value);
 
-	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map);
+	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map); //history
+	
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map);
 }

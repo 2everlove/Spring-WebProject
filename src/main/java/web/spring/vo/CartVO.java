@@ -5,17 +5,17 @@ import lombok.Data;
 @Data
 public class CartVO {
 
-	String num;
-	String stocks;
-	String cart_id;
-	String user_id;
-	String user_name;
-	String product_id;
-	String product_name;
-	String pboard_unit_no;
-	String cart_totalprice;
-	String cart_totalcount;
-	String user_address;
-	String pboard_unit_stocks;
+	private String num;
+	private String stocks;
+	private String cart_id;
+	private String user_id;
+	private String user_name;
+	private String product_id;
+	private String product_name;
+	private String pboard_unit_no;
+	private String cart_totalprice;
+	private String cart_totalcount;
+	private String user_address;
+	private String pboard_unit_stocks;
 	
 }

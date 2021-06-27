@@ -210,7 +210,6 @@
 					alert(datas.result.num+"번 글이 수정되었습니다.");
 				} else {
 					alert("글이 등록되었습니다.");
-					history.go(0);
 				}
 				
 			},
@@ -348,7 +347,7 @@
 				    				<td><input type="text" name="product_description"></td>
 				    				<td><div class="colorPickSelector"></div><input type="hidden" name="product_color"></td>
 				    				<td><img id="thum" src="#" style="width: 100px; height: 100px;"></td>
-			    					<td><input type="file" name="uploadFile" id="imgUpload"><input id="file_pictureId" type="hidden" name="file_pictureId"><input type="hidden" name="file_usingType" value="3"></td>
+			    					<td><input type="file" name="uploadFile" id="imgUpload" accept="image/*"><input id="file_pictureId" type="hidden" name="file_pictureId"><input type="hidden" name="file_usingType" value="3"></td>
 				    				<td><button type="button" id="registerBtn">저장</button>
 				    			</tr>
 			    			</thead>
@@ -420,7 +419,7 @@
 		}
         let formData = new FormData($('#fileRegis')[0]);
 		updateProduct(formData, $(this));
-		
+		history.go(0);
 	});
 
 </script>

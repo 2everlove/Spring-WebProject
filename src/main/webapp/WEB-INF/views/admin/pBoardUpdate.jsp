@@ -106,15 +106,64 @@
 				    		<thead>
 				    			<tr class="tr__head">
 				    				<th></th>
-				    				<th><input type="checkbox"></th>
-				    				<th class="orderby" data-type="pboard_unit_enabled" data-sort=${pageNavi.cri.orderby }>활성화</th>
-				    				<th class="orderby" data-type="pboard_unit_condition" data-sort=${pageNavi.cri.orderby }>new,sale,event</th>
-				    				<th class="orderby" data-type="pboard_unit_stocks" data-sort=${pageNavi.cri.orderby }>재고</th>
-				    				<th class="orderby" data-type="pboard_unit_price" data-sort=${pageNavi.cri.orderby }>가격</th>
-				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일</th>
-				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일</th>
-				    				<th>수정일</th>
-				    				<th>제조사 > 카테고리 > 상품명</th>
+				    				<th class="orderby" data-type="pboard_unit_enabled" data-sort=${pageNavi.cri.orderby }>활성화 <c:choose>
+			    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_enabled_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_enabled_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose></th>
+				    				<th>
+				    					<span class="orderby" data-type="pboard_unit_condition_n" data-sort=${pageNavi.cri.orderby }>new 
+				    						<c:choose>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_n_asc'}"><i class="fas fa-angle-up"></i> </c:when>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_n_desc'}"><i class="fas fa-angle-down"></i> </c:when>
+					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i> </c:otherwise>
+				    						</c:choose>
+				    					</span> 
+				    					<span span class="orderby" data-type="pboard_unit_condition_s" data-sort=${pageNavi.cri.orderby }> sale 
+				    						<c:choose>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_s_asc'}"><i class="fas fa-angle-up"></i> </c:when>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_s_desc'}"><i class="fas fa-angle-down"></i> </c:when>
+					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i> </c:otherwise>
+				    						</c:choose>
+				    					</span>
+				    					<span span class="orderby" data-type="pboard_unit_condition_e" data-sort=${pageNavi.cri.orderby }> event
+				    						<c:choose>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_e_asc'}"><i class="fas fa-angle-up"></i></c:when>
+					    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_condition_e_desc'}"><i class="fas fa-angle-down"></i></c:when>
+					    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+				    						</c:choose>
+				    					</span>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_stocks" data-sort=${pageNavi.cri.orderby }>재고 
+			    						<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_stocks_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_stocks_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_price" data-sort=${pageNavi.cri.orderby }>가격 
+				    					<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_price_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_price_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_regdate" data-sort=${pageNavi.cri.orderby }>게시일 
+				    					<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_regdate_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_regdate_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th class="orderby" data-type="pboard_unit_updateDate" data-sort=${pageNavi.cri.orderby }>수정일 
+				    					<c:choose>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_updateDate_asc'}"><i class="fas fa-angle-up"></i></c:when>
+				    						<c:when test="${pageNavi.cri.orderby == 'pboard_unit_updateDate_desc'}"><i class="fas fa-angle-down"></i></c:when>
+				    						<c:otherwise><i class="fas fa-arrows-alt-v"></i></c:otherwise>
+			    						</c:choose>
+				    				</th>
+				    				<th style="width: 300px;">카테고리 > 제조사 > 상품명</th>
+				    				<th style="display: none;">수정일</th>
 				    				<th>저장</th>
 				    				<th>보기</th>
 				    			</tr>
@@ -123,8 +172,8 @@
 				    				<c:if test="${not loop}">
 				    					<c:if test="${pBoard.user_id == sessionScope.user.user_id or sessionScope.user.user_type == 0 and !empty pBoard.no}">
 							    			<tr class="tr__desc">
-							    				<td>${pBoard.num }</td>
-							    				<td><input type="checkbox" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
+							    				<td>${pBoard.num }<input type="hidden" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
+							    				
 							    				<td>
 						    						<c:if test="${pBoard.pboard_unit_enabled eq 0}">
 								    					<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: green;">
@@ -157,21 +206,20 @@
 								    						<option value="2" selected>Event</option>
 							    						</c:if>
 							    					</select></td>
-							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}"></td>
-							    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}"></td>
+							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}" style="width: 70px;"></td>
+					    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;"></td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
 							    				<td>${regdate}</td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
 							    				<td>${updateDate}</td>
 								  				<c:forEach var="product" items="${productList}">
 								    				<c:if test="${product.product_id == pBoard.product_id}">
-								    					<td>
-								    					${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+								    					<td>${product.product_category } > ${product.product_manufacturer } > ${product.product_name }</td>
 							    					</c:if>
 									   			</c:forEach>
 					    					
 							    			
-							    				<td>${pBoard.file_pictureId}</td>
+							    				<td style="display: none;">${pBoard.file_pictureId}</td>
 							    				<td><button class="updateBtn" type="button">저장</button></td>
 							    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
 							    			</tr>
@@ -193,6 +241,22 @@
 		    	</div>
 	    	</div>
 	    	<!-- 페이징 소스 -->
+	    	<form method=get action="/product/pBoardUpdate" name="listForm">
+                 <!-- 상세보기 검색 유지용 -->
+                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
+                 <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
+                 <!-- 상세보기 검색 유지용 끝 -->
+                 <div class="form-inline">
+					<select class="form-control" name=type>
+						<option value="product_manufacturer" <c:if test="${pageNavi.cri.type == 'product_manufacturer'}">selected</c:if>>제조사</option>
+						<option value="product_category" <c:if test="${pageNavi.cri.type == 'product_category'}">selected</c:if>>카테고리</option>
+						<option value="product_name" <c:if test="${pageNavi.cri.type == 'product_name'}">selected</c:if>>상품명</option>
+											</select> 
+					<input class="form-control" name=keyword
+						value=${pageNavi.cri.keyword }>
+					<button type="submit" onClick="page(1)">검색</button>
+				</div>
+			</form>
 			<div id="pagination-box">
 				<nav>
 					<ul class="pagination" style="text-align: center; margin: 0 auto;">
@@ -216,13 +280,7 @@
 				</nav>
 			</div>
 			<!-- 페이징 끝 -->
-			<form method=get action="/admin/pBoardControl" name="listForm">
-                 <!-- 상세보기 검색 유지용 -->
-                 ${pageNavi.cri.type }
-                 <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
-                 <input type=hidden name=orderby value=${pageNavi.cri.orderby }> 
-                 <!-- 상세보기 검색 유지용 끝 -->
-			</form>
+			
     	</div>
    	</section>
 

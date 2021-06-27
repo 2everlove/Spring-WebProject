@@ -16,18 +16,37 @@ $(document).ready(function() {
 			history.back();
 		}
 	}
+	$(".detail__count-input").change(function(){
+		if($(".detail__count-input").val() > ${pBoard.pboard_unit_stocks}){
+			alert("재고가 없습니다.");
+			$(".detail__count-input").val(${pBoard.pboard_unit_stocks});
+			$(".pboard_unit_stocks").val(0);
+			$("input[name=pboard_unit_stocks]").val(0);
+			$(".detail__count-input").select();
+		}
+	});
 	if ($("input[name=order_totalcount]").val() == 1) {
+		$(".pboard_unit_stocks").val('${pBoard.pboard_unit_stocks}'-1);
 		$("input[name=pboard_unit_stocks]").val('${pBoard.pboard_unit_stocks}'-1);
 	}
 	$(".up-button").click(function() {
 		let tempcount = $("input[name=order_totalcount]").val();
 		let totalcount = Number(tempcount) + 1;
 		var stock = '${pBoard.pboard_unit_stocks}';
+		var stockCompare = $("input[name=pboard_unit_stocks]").val();
 		var price = '${pBoard.pboard_unit_price}';
+		let stocks = 0;
+		if(Number(stockCompare)>0){
+			stocks = stock - Number(totalcount);
+		}
+		if(Number(stockCompare)<=0){
+			alert("재고가 없습니다");
+			totalcount = stock;
+		}
 		let totalprice = Number(totalcount) * price;
-		let stocks = stock - Number(totalcount);
 		$("input[name=order_totalcount]").val(totalcount);
 		$("input[name=order_totalprice]").val(totalprice);
+		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
 	$(".down-button").click(function() {
@@ -44,6 +63,7 @@ $(document).ready(function() {
 		let stocks = stock - Number(totalcount);
 		$("input[name=order_totalcount]").val(totalcount);
 		$("input[name=order_totalprice]").val(totalprice);
+		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
 	
@@ -89,10 +109,14 @@ $(document).ready(function() {
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span><input type="text" value="${stocks}" name="pboard_unit_stocks"></span>
+							재고 <span><input type="text" value="${stocks}" class="pboard_unit_stocks" disabled>
+									<input type="hidden" value="${stocks}" name="pboard_unit_stocks">
+							</span>
 						<p>
 							<span class="detail__count"><input type="text"
-								name="order_totalcount" class="detail__count-input" value="1">
+								name="order_totalcount" class="detail__count-input" value="1"
+								min="0" max="${stocks}"
+								>
 								<span>
 									<button type="button" class="up-button">
 										<i class="fas fa-chevron-up"></i>
@@ -116,19 +140,21 @@ $(document).ready(function() {
 			</div>
 			<div class="detail__var">
 				<ul role="menuitem">
-					<li><a href="javascript:void(0)" role="presentation">상세정보</a></li>
-					<li><a href="javascript:void(0)" role="presentation">리뷰</a></li>
+					<li><a href="#description" role="presentation">상세정보</a></li>
+					<li><a href="#review" role="presentation">리뷰</a></li>
 				</ul>
 			</div>
 			<div class="detail__description">
-				<ul id="fileList">
-					<c:forEach var="fileDesc" items="${fileDescList }">
-						<c:url value="/fileDisplay" var="urlDesc">
-							<c:param name="file_name" value="${fileDesc.file_savePath}"></c:param>
-						</c:url>
-						<img src="${urlDesc}" class='detail__description-img'>
-					</c:forEach>
-				</ul>
+				<div id="description">
+					<ul id="fileList">
+						<c:forEach var="fileDesc" items="${fileDescList }">
+							<c:url value="/fileDisplay" var="urlDesc">
+								<c:param name="file_name" value="${fileDesc.file_savePath}"></c:param>
+							</c:url>
+							<img src="${urlDesc}" class='detail__description-img'>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 			<%@include file="reviewproduct.jsp"%>
 		</div>

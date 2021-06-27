@@ -34,7 +34,7 @@
 				//////
 				$("#insertProductReview").on("click", function() {
 					ajaxInsert();
-				});
+				});ajaxInsert
 				getAjaxList();
 				//star
 				$(".star").starRating({
@@ -213,17 +213,18 @@
 
 	//추가
 	function ajaxInsert() {
+		if ($("#text").val() == '') {
+			alert("내용을 입력해주세요");
+			return false;
+		}
+
+		if ($("#review_rate").val() == '') {
+			alert("별점을 선택해주세요");
+			return false;
+		}
 		if (confirm("리뷰를 등록하시겠습니까? 등록 후 수정이 불가합니다.") == true) {
 
-			if ($("#text").val() == '') {
-				alert("내용을 입력해주세요");
-				return false;
-			}
-
-			if ($("#review_rate").val() == '') {
-				alert("별점을 선택해주세요");
-				return false;
-			}
+			
 
 			var replyData = {
 				pboard_unit_no : $("#unit_no").val(),
@@ -265,7 +266,7 @@
 </script>
 </head>
 <body>
-
+	<div id="review">
 	<input type="hidden" name="pboard_unit_no"
 		value="${pBoard.pboard_unit_no}" id="unit_no">
 
@@ -277,6 +278,7 @@
 	</div>
 	
 	<hr style="width:60%;">
+	</div>
 	</div>
 	
 	

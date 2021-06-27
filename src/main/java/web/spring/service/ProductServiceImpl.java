@@ -12,7 +12,6 @@ import web.spring.vo.CodeVO;
 import web.spring.vo.Criteria;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.ProductVO;
-import web.spring.vo.UserVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -52,7 +51,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<String> searchProductCategory(String code_type, String code_value) {
+	public List<ProductVO> searchProductCategory(String code_type, String code_value) {
 		return productMapper.searchProductCategory(code_type, code_value);
 	}
 
@@ -116,7 +115,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<PBoardVO> getAllPBoardList(Criteria cri) {
-		return productMapper.getAllPBoardList(cri);
+		return productMapper.getAllPBoardList(cri, cri.getKeyword(), cri.getOrderby(), cri.getType(), cri.getPageNo(), cri.getAmount());
 	}
 
 	@Override
@@ -146,7 +145,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<PBoardVO> getUserPBoardList(String user_id, Criteria cri) {
-		return productMapper.getUserPBoardList(user_id, cri.getPageNo(), cri.getAmount(), cri.getOrderby());
+		return productMapper.getUserPBoardList(user_id, cri, cri.getKeyword(), cri.getOrderby(), cri.getType(), cri.getPageNo(), cri.getAmount());
 	}
 
 	@Override
@@ -177,6 +176,21 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map) {
 		return productMapper.getHistoryProduct(history_Map);
+	}
+
+	@Override
+	public List<ProductVO> getMainRecommendList(Map<String, Object> search_Map) {
+		return productMapper.getMainRecommendList(search_Map);
+	}
+
+	@Override
+	public List<PBoardVO> getRecommendBoardList() {
+		return productMapper.getRecommendBoardList();
+	}
+
+	@Override
+	public List<PBoardVO> getMainRecommendPBoardList() {
+		return productMapper.getMainRecommendPBoardList();
 	}
 
 

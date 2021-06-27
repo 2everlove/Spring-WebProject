@@ -38,10 +38,7 @@ public class InquiryController {
 			model.addAttribute("pageNavi", new PageNavi(cri, service.getTotal(cri)));
 		}
 		log.info("inquiry.....");
-		log.info(inquiryList);
-		log.info(cri);
 		return "/inquiry/inquiry";
-		
 	}
 
 	/**
