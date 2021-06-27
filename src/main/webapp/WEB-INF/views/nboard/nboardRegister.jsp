@@ -13,7 +13,7 @@ function registerSubmit(){
 		$("input[name=nboard_title]").select();
 		return false;
 	}
-	if($("input[name=nboard_content]").val()==null){
+	if($("input[name=nboard_content]").val()==""){
 		alert("내용을 입력해주세요.");
 		$("input[name=nboard_content]").select();
 		return false;
