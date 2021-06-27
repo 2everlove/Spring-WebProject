@@ -80,7 +80,7 @@
 				</div>
 				<div class="content2">
 					<label>주소</label>
-					<input type="text" name="order_address" class="user_address" value="${uvo.user_address}">
+					<input type="text" name="order_address" class="user_address" value="${cvo.user_address}">
 					<input type="button" class="user_address_search" value="주소 검색"><br>
 					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
 					
