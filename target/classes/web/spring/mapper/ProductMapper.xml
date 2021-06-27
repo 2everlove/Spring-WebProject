@@ -164,7 +164,7 @@
 	<!-- 카테고리 불러오기 -->
 	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+			select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled = '0' and product_id in(
         			select product_id from products_info where product_category=#{product_category}) 
         		) board
@@ -174,7 +174,7 @@
 	<!-- new, event 등 불러옴 -->
 	<select id="getCondBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+			select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info where pboard_unit_condition=#{pboard_unit_condition}) 
         		) board
@@ -183,7 +183,7 @@
 	
 	<select id="getRecommendBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+			select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info) 
         		) board
@@ -272,7 +272,7 @@
 	<!-- search -->
    <select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
       select rownum num, pboard.* from (
-         select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+         select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
              select * from product_board where pboard_unit_enabled = '0' and product_id in(
                  select product_id from products_info 
       where product_id in (

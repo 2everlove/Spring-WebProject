@@ -25,8 +25,8 @@
 			select rownum num, o.*, p.product_name from (select * from order_board where user_id = '${user_id}') o
 			left join products_info p 
 			on o.product_id = p.product_id 
-			where o.product_id is not null order by o.order_regdate desc) 
-		order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+			where o.product_id is not null order by to_number(o.order_id) desc) 
+		order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
 	<select id="getOrderListTotal" resultType="int">
@@ -43,8 +43,8 @@
 					on o.pboard_unit_no = p.pboard_unit_no 
 					where o.pboard_unit_no is not null 
 					and p.user_id= #{pboard_user_id}
-				) orderb order by orderb.order_regdate desc
-			)order_board left join products_info pi on order_board.product_id = pi.product_id 
+				) orderb
+			)order_board left join products_info pi on order_board.product_id = pi.product_id order by to_number(order_board.order_id) desc
 		) ob
 		where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 
@@ -56,10 +56,10 @@
 	
 	<select id="getOrderAllList" resultType="web.spring.vo.OrderVO">
 		select order_board.* from (
-			select rownum num, o.*, p.product_name from (select * from order_board order by order_regdate desc) o
+			select rownum num, o.*, p.product_name from (select * from order_board) o
 			left join products_info p 
 			on o.product_id = p.product_id 
-			where o.product_id is not null) 
+			where o.product_id is not null order by to_number(o.order_id) desc) 
 		order_board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
