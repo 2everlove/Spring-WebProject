@@ -307,27 +307,16 @@
 					    				<td><input type="email" name="user_email" class="user_email" value="${user.user_email}"></td>
 					    				<td><input type="text" name="user_contact" class="user_contact" value="${user.user_contact}"></td>
 					    				<td>
-						    				<c:if test="${user.user_enabled==0}">
-						    					<select class="user_enabled" name="user_enabled" style="color: black;">
-						    						<option value="0" selected style="color: black;">블럭</option>
-						    						<option value="1" style="color: green;">활성</option>
-						    						<option value="2" style="color: red;">탈퇴</option>
-				    							</select>
-				    						</c:if>
-						    				<c:if test="${user.user_enabled==1}">
-						    					<select class="user_enabled" name="user_enabled" style="color: green;">
-						    						<option value="0" style="color: black;">블럭</option>
-						    						<option value="1" selected style="color: green;">활성</option>
-						    						<option value="2" style="color: red;">탈퇴</option>
-				    							</select>
-				    						</c:if>
-						    				<c:if test="${user.user_enabled==2}">
-						    					<select class="user_enabled" name="user_enabled" style="color: red;">
-						    						<option value="0" style="color: black;">블럭</option>
-						    						<option value="1" style="color: green;">활성</option>
-						    						<option value="2" selected style="color: red;">탈퇴</option>
-				    							</select>
-				    						</c:if>
+					    					<select class="user_enabled" name="user_enabled" 
+					    						<c:if test="${user.user_enabled==2}">style="color: red;"</c:if>
+					    						<c:if test="${user.user_enabled==1}">style="color: green;"</c:if>
+					    						<c:if test="${user.user_enabled==0}">style="color: black;"</c:if>
+					    						>
+					    						<option value="0" <c:if test="${user.user_enabled==0}">selected</c:if>style="color: black;">블럭</option>
+					    						<option value="1" <c:if test="${user.user_enabled==1}">selected</c:if> style="color: green;">활성</option>
+					    						<option value="2" <c:if test="${user.user_enabled==2}"> selected </c:if> style="color: red;">탈퇴</option>
+			    							</select>
+				    						
 					    				</td>
 					    				<td>
 					    					

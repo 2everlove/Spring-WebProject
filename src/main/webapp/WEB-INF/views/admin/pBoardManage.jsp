@@ -164,18 +164,13 @@
 					    			<tr class="tr__desc">
 					    				<td>${pBoard.num }<input type="hidden" class='pboard_unit_no' name="pboard_unit_no" value="${pBoard.pboard_unit_no }"></td>
 					    				<td>
-				    						<c:if test="${pBoard.pboard_unit_enabled eq 0}">
-						    					<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: green;">
-						    						<option value="0" selected style="color: green;">활성화</option>
-						    						<option value="1" style="color: red;">비활성화</option>
-				    							</select>
-				    						</c:if>
-				    						<c:if test="${pBoard.pboard_unit_enabled eq 1}">
-					    						<select class="pboard_unit_enabled" name="pboard_unit_enabled" style="color: red;">
-						    						<option value="0" selected style="color: green;">활성화</option>
-						    						<option value="1" selected style="color: red;">비활성화</option>
-						    					</select>
-				    						</c:if>
+				    						<select class="pboard_unit_enabled" name="pboard_unit_enabled" 
+				    						<c:if test="${pBoard.pboard_unit_enabled eq 1}">style="color: red;"</c:if>
+				    						<c:if test="${pBoard.pboard_unit_enabled eq 0}">style="color: green;"</c:if>>
+					    						<option value="0" <c:if test="${pBoard.pboard_unit_enabled eq 0}"> selected </c:if> style="color: green;">활성화</option>
+					    						<option value="1"<c:if test="${pBoard.pboard_unit_enabled eq 1}"> selected </c:if>style="color: red;">비활성화</option>
+					    					</select>
+				    						
 					    				</td>
 					    				<td>
 					    					<select class="pboard_unit_condition" name="pboard_unit_condition">
