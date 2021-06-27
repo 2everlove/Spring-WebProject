@@ -80,7 +80,14 @@
 				</div>
 				<div class="content2">
 					<label>주소</label>
-					<input type="text" name="order_address" class="user_address" value="${cvo.user_address}">
+					<c:choose>
+						<c:when test="${cvo.user_address eq ''} ">
+							<input type="text" name="order_address" class="user_address" value="${cvo.user_address}">
+						</c:when>
+						<c:otherwise>
+							<input type="text" name="order_address" class="user_address" value="${uvo.user_address}">
+						</c:otherwise>
+					</c:choose>
 					<input type="button" class="user_address_search" value="주소 검색"><br>
 					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
 					
@@ -102,7 +109,10 @@
 				</div>
 				<div class="content2">
 					<label>총 결제 금액</label>
-					<input class="view" name="order_totalprice" value="${param.order_totalprice}">
+					<fmt:formatNumber type="number" maxFractionDigits="3"
+					value="${param.order_totalprice}" var="price"></fmt:formatNumber>
+					<input class="view" id="order_totalprice" value="${price}" readonly>
+					<input type="hidden" class="view" name="order_totalprice" value="${param.order_totalprice}">
 				</div>
 				<div class="content2">
 					<label>재고수</label>

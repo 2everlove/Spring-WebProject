@@ -17,9 +17,9 @@ $(document).ready(function() {
 		}
 	}
 	$(".detail__count-input").change(function(){
-		if($(".detail__count-input").val() > ${pBoard.pboard_unit_stocks}){
+		if($(".detail__count-input").val() > "${pBoard.pboard_unit_stocks}"){
 			alert("재고가 없습니다.");
-			$(".detail__count-input").val(${pBoard.pboard_unit_stocks});
+			$(".detail__count-input").val("${pBoard.pboard_unit_stocks}");
 			$(".pboard_unit_stocks").val(0);
 			$("input[name=pboard_unit_stocks]").val(0);
 			$(".detail__count-input").select();
@@ -43,9 +43,12 @@ $(document).ready(function() {
 			alert("재고가 없습니다");
 			totalcount = stock;
 		}
-		let totalprice = Number(totalcount) * price;
+		
+		let totalprice = (Number(totalcount) * price).toString();
+		console.log(totalprice.replace(/,/g,""));
 		$("input[name=order_totalcount]").val(totalcount);
-		$("input[name=order_totalprice]").val(totalprice);
+		$(".order_totalprice").val(totalprice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+		$("input[name=order_totalprice]").val();
 		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
@@ -59,10 +62,12 @@ $(document).ready(function() {
 		} else {
 			totalcount = Number(tempcount) - 1;
 		}
-		let totalprice = Number(totalcount) * price;
+		let totalprice = (Number(totalcount) * price).toString();
 		let stocks = stock - Number(totalcount);
+		console.log(totalprice.split(',').join(""));
 		$("input[name=order_totalcount]").val(totalcount);
-		$("input[name=order_totalprice]").val(totalprice);
+		$(".order_totalprice").val(totalprice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+		$("input[name=order_totalprice]").val(totalprice.split(',').join(""));
 		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
@@ -88,7 +93,7 @@ $(document).ready(function() {
 						<input type="hidden" value="${pBoard.pboard_unit_no}"
 							name="pboard_unit_no"> <input type="hidden"
 							value="${pBoard.file_pictureId}" name="file_pictureId">
-						<input type="hidden" value="${pBoard.pboard_unit_price}"
+						<input type="hidden" value="${pBoard.pboard_unit_price}pboard_unit_price"
 							name="pboard_unit_price">
 						<input type="hidden" value="${pBoard.product_id}"
 							name="product_id"> <input type="hidden"
@@ -109,7 +114,9 @@ $(document).ready(function() {
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span><input type="text" value="${stocks}" class="pboard_unit_stocks" disabled>
+							재고 <span>
+							
+								<input type="text" value="${stocks}" class="pboard_unit_stocks" disabled>
 									<input type="hidden" value="${stocks}" name="pboard_unit_stocks">
 							</span>
 						<p>
@@ -127,7 +134,10 @@ $(document).ready(function() {
 								</span>
 							</span>
 						<p>
-							총금액 <span><input type="text" value="${price}" name="order_totalprice" readonly></span>
+							총금액 <span>
+								<input type="text" value="${price}" class="order_totalprice" readonly>
+								<input type="hidden" value="${price}" name="order_totalprice" readonly>
+							</span>
 						<p>
 							등록일 <span>${regdate}</span>
 						<p>

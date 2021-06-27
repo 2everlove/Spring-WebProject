@@ -9,13 +9,15 @@
 	$(document).ready(function(){
 		$(".search__select").hide();
 		
-		$("select[name=category]").change(function(){
+		$("select[name=category]").click(function(){
 			let parentElement = $(this).closest("div");
 			//$(parentElement).find('select').hide();
 			//$(parentElement).find('option').remove();
 			$(this).prop('data');
 			if($(this).val()!=""){
 				checkProductName($(this).attr("name"),  $(this).find('option:selected').val(), parentElement);
+			} else {
+				checkProductName($(this).attr("name"),  "tablet", parentElement);
 			}
 			//console.log(document.getElementById('manufacturer').selectedIndex);
 			
@@ -31,7 +33,7 @@
 				}
 			});//
 		}
-		
+				
 		if(document.getElementById('pn').selectedIndex<0){
 			$("select[name=pn]").click(function(){
 				$('input[name=product_name]').val($(this).find('option:selected').val());
@@ -124,12 +126,16 @@
 				$('input[name=product_name]').select();
 				return false;
 			}
-			if($('input[name=file_pictureId]').val()==""){
-				$('input[name=uploadFile]').select();
+			if($('input[name=file_pictureIdClone]').val()==""){
+				$('input[name=uploadFile]').click();
 				return false;
 			}
-			if($('input[name=file_pictureIdClone]').val()==""){
-				$('input[name=uploadFile]').select();
+			if($('#fileUpload').val()==""){
+				$("#uploadBtn").click();
+				return false;
+			}
+			if($('input[name=file_pictureId]').val()==""){
+				$("#uploadBtn").click();
 				return false;
 			}
 			$("form[name=pBoardForm]").submit(); 
@@ -157,7 +163,7 @@
 				success : function(datas){
 					//console.log("success");
 					//console.log(datas);
-					alert(datas.count+"개가 업로드 되었습니다.");
+					//alert(datas.count+"개가 업로드 되었습니다.");
 					let file_pictureId = "";
 					//$('#attachNo').val(datas.attachNo);
 					/* $("") 태그 $("#") id $(".") class */
@@ -210,14 +216,8 @@
 					
 				});
 				if(datas.length == 0){
-					if(confirm(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색을 원하시면 확인, \n'+file_pictureId+'번에 데이터를 저장하시려면 취소를 눌러주세요')){
-						$('#file_pictureId').val("");
-						$('#fileUpload').val("");
-						$('#file_pictureId').select();
-					} else {
-						$('#fileUpload').val("");
-						$('#fileUpload').click();
-					}
+					$('#fileUpload').val("");
+					$('#fileUpload').click();
 				}
 				$('#fileList').html(result);
 				if($(location).attr('pathname').match('/board/get')){
@@ -446,7 +446,7 @@
 				    			<label><input type="hidden" name="product_id"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>new<input type="radio" name="pboard_unit_condition" value="0" checked;></label>
+				    			<label>new<input type="radio" name="pboard_unit_condition" value="0" checked></label>
 				    			<label>sale<input type="radio" name="pboard_unit_condition" value="1"></label>
 				    			<label>event<input type="radio" name="pboard_unit_condition" value="2"></label>
 				    		</div>

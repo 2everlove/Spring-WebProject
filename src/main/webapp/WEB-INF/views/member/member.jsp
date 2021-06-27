@@ -145,16 +145,39 @@
 			let User_name=$("input[name=User_name]").val();
 			let User_email=$("input[name=User_email]").val();
 			let User_contact=$("input[name=User_contact]").val();
-			if($.isEmptyObject(User_password)){
-				alert("비밀번호를 입력해주세요.");
-				return false;
-			}
-			if($.isEmptyObject(pwdCheck)){
-				alert("비밀번호 확인란을 입력해주세요.");
-				return false;
-			}
+			
 			if(!$("input[name=User_id]").prop("dataValue")){
-				alert("id 중복검사");
+				alert("id 중복검사를 해주세요.");
+				return false;
+			}
+			if($("input[name=User_password]").val()==""){
+				alert("비밀번호를 입력해주세요.");
+				$("input[name=User_password]").select();
+				return false;
+			}
+			if($("input[name=pwdCheck]").val()==""){
+				alert("비밀번호 확인란을 입력해주세요.");
+				$("input[name=pwdCheck]").select();
+				return false;
+			}
+			if($("input[name=User_name]").val()==""){
+				alert("이름을 입력해주세요.");
+				$("input[name=User_name]").select();
+				return false;
+			}
+			if($("input[name=User_email]").val()==""){
+				alert("email을 입력해주세요.");
+				$("input[name=User_email]").select();
+				return false;
+			}
+			if($("input[name=User_contact").val()==""){
+				alert("연락처를 입력해주세요.");
+				$("input[name=User_contact]").select();
+				return false;
+			}
+			if($("input[name=User_birth").val()==""){
+				alert("생일을 입력해주세요.");
+				$("input[name=User_birth]").select();
 				return false;
 			}
 			//비밀번호 체크

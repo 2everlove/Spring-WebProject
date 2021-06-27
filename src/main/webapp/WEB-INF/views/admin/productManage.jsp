@@ -42,6 +42,10 @@
 				currentRow.find('.product_category').select();
 				return false;
 			}
+			if(currentRow.find('.product_name').val()==""){
+				currentRow.find('.product_name').select();
+				return false;
+			}
 			if(currentRow.find('.product_color').val()==""){
 				currentRow.find('.product_color').select();
 				return false;

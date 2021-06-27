@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../includes/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
 <!DOCTYPE html>
@@ -43,7 +43,10 @@ function page(page){
 						<td class="center">${ovo.order_name}</td>
 						<td class="center">${ovo.order_address}</td>
 						<td class="center">${ovo.product_name}</td>
-						<td class="center">${ovo.order_totalprice}</td>
+						<td class="center">
+							<fmt:formatNumber type="number" maxFractionDigits="3" value="${ovo.order_totalprice}" var="price"></fmt:formatNumber>
+							${price}
+						</td>
 						<td class="center">${ovo.order_totalcount}</td>
 						<td class="center">
 						<fmt:parseDate value="${ovo.order_regdate}" pattern="yyyy-MM-dd" var="order_regdate" />
