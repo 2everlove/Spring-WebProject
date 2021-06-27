@@ -2,6 +2,7 @@ package web.spring.controller;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,7 +43,6 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
-
 	
 	//회원등록 페이지
 	@GetMapping("/member")
@@ -131,7 +131,7 @@ public class UserController {
 	
 
 	@GetMapping({ "/logout" })
-	public String logout(HttpServletRequest req, HttpServletResponse res) {
+	public String logout(HttpServletRequest req, HttpServletResponse res, RedirectAttributes rttr) {
 		HttpSession session = req.getSession();
 		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
 		if (loginCookie != null) {
@@ -140,6 +140,8 @@ public class UserController {
 			res.addCookie(loginCookie);
 		}
 		session.invalidate();
+		ProductController.linkedList = new LinkedList<String>();
+		rttr.addFlashAttribute("resMsgHis", "removeHistory");
 		return "redirect:/main";
 	}
 

@@ -38,7 +38,7 @@ public class ProductController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
-	static LinkedList<String> linkedList = new LinkedList<String>();
+	public static LinkedList<String> linkedList = new LinkedList<String>();
 	
 	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")

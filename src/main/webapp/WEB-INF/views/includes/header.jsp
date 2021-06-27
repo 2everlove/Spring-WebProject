@@ -92,17 +92,22 @@ async function initMap() {
 		myStorage = window.localStorage;
 
 		let history = "${sessionScope.history_product_no}";
+		let resMsgHis = "${resMsgHis}"
 		if(history!=""){
 			localStorage.setItem('his', history);
 		}
 		let his = localStorage.getItem('his');
+		console.log(resMsgHis);
 		
 			
 		window.onload = function(){
 			if(his!=null && his!='undifined' && history!=null){
 				historyFunction(his);
 			}
-				
+			if(resMsgHis!=""){
+				localStorage.removeItem('his');
+				$(".navbar__menu__item-history").html("History");
+			}	
 			if(document.getElementsByClassName('jq-stars').length>0){
 				for (let i = 0; i < 30; i++) {
 					$(".starGet_" + i).starRating({
