@@ -17,6 +17,7 @@ $(document).ready(function() {
 		}
 	}
 	if ($("input[name=order_totalcount]").val() == 1) {
+		$(".pboard_unit_stocks").val('${pBoard.pboard_unit_stocks}'-1);
 		$("input[name=pboard_unit_stocks]").val('${pBoard.pboard_unit_stocks}'-1);
 	}
 	$(".up-button").click(function() {
@@ -28,6 +29,7 @@ $(document).ready(function() {
 		let stocks = stock - Number(totalcount);
 		$("input[name=order_totalcount]").val(totalcount);
 		$("input[name=order_totalprice]").val(totalprice);
+		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
 	$(".down-button").click(function() {
@@ -44,6 +46,7 @@ $(document).ready(function() {
 		let stocks = stock - Number(totalcount);
 		$("input[name=order_totalcount]").val(totalcount);
 		$("input[name=order_totalprice]").val(totalprice);
+		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
 	
@@ -89,7 +92,9 @@ $(document).ready(function() {
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span><input type="text" value="${stocks}" name="pboard_unit_stocks"></span>
+							재고 <span><input type="text" value="${stocks}" class="pboard_unit_stocks" disabled>
+									<input type="hidden" value="${stocks}" name="pboard_unit_stocks">
+							</span>
 						<p>
 							<span class="detail__count"><input type="text"
 								name="order_totalcount" class="detail__count-input" value="1">
