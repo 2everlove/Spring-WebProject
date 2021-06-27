@@ -17,9 +17,9 @@ $(document).ready(function() {
 		}
 	}
 	$(".detail__count-input").change(function(){
-		if($(".detail__count-input").val() > "${pBoard.pboard_unit_stocks}"){
-			alert("재고가 없습니다.");
-			$(".detail__count-input").val("${pBoard.pboard_unit_stocks}");
+		if($(".detail__count-input").val() > ${pBoard.pboard_unit_stocks}){
+			alert(${pBoard.pboard_unit_stocks}+"개 이하로 구매할 수 있습니다.");
+			$(".detail__count-input").val(${pBoard.pboard_unit_stocks});
 			$(".pboard_unit_stocks").val(0);
 			$("input[name=pboard_unit_stocks]").val(0);
 			$(".detail__count-input").select();

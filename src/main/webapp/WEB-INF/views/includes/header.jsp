@@ -164,6 +164,35 @@ async function initMap() {
 			menu_item.classList.add('active');
 		};
 		
+		/* $("#navbar__search__iput").change(function(){
+			$.ajax({
+				url:'/fileUploadAjax/'+hdata.masterImg,
+				method : 'get',
+				dataType : 'json',
+				async:false,
+				success : function(datas){
+					let result ="";
+					$.each(datas, function(i, data){
+						//console.log(data);
+						//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+						
+						let file_s_savePath = encodeURIComponent(data.file_s_savePath);
+						//console.log(data.file_s_savePath);
+						
+						htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
+							+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 90px; height: 90px; object-fit: cover;'>"
+							+"</a>";
+						$(".navbar__menu__item-history").html(htmlContent);
+					
+					});
+				},
+				error : function(errorThrown){
+					console.log(errorThrown);
+				}
+			});
+				
+		}); */
+		
 		const pathName = window.location.pathname;
 	
 		//console.log(pathName);
