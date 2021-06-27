@@ -286,7 +286,7 @@
                 <div class="register-group div11"><p style="text-align:center;color: var(--color-pink);line-height: 20px;font-size: 20px;">ADDRESS</p><br>
                 	<input type="text" name="user_address" class="user_address">
 					<input type="button" class="user_address_search" value="주소 검색"><br>
-					<div id="kmap" style="width:100px;height:100px;margin-top:10px;display:none"></div>
+					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
                 	<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
                 	<input type="hidden" class="file_name" name="file_name" id="file_name"></div>
                 <div class="register-group div12"><button type="button" class="login-button" id="registerBtn" >회원가입</button></div>

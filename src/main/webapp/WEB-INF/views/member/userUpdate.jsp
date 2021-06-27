@@ -288,7 +288,7 @@ $(document).ready(function(){
                 <label>ADDRESS</label><br>
                 	<input type="text" name="user_address" class="user_address" value="${user.user_address}">
 					<input type="button" class="user_address_search" value="주소 검색"><br>
-					<div id="kmap" style="width:100px;height:100px;margin-top:10px;display:none"></div>
+					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
                 	<!-- 파일관련 hidden -->
 					<input type="hidden" class="file_pictureId" name="file_pictureId" id="file_pictureIdClone">
 					<input type="hidden" class="file_name" name="file_name" id="file_name">
