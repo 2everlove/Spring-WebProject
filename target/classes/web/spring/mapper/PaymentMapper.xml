@@ -11,7 +11,7 @@
 	</select>
 	
 	<update id="updateStocks">
-		update product_board set pboard_unit_stocks = #{pboard_unit_stocks} where product_id = #{product_id}
+		update product_board set pboard_unit_stocks = #{pboard_unit_stocks} where pboard_unit_no = #{pboard_unit_no}
 	</update>
 	
 	<insert id="insertOrder">

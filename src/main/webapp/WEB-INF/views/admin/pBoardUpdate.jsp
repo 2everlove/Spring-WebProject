@@ -214,12 +214,12 @@
 							    				<td>${updateDate}</td>
 								  				<c:forEach var="product" items="${productList}">
 								    				<c:if test="${product.product_id == pBoard.product_id}">
-								    					<td style="display: none;">${product.product_category } > ${product.product_manufacturer } > ${product.product_name }</td>
+								    					<td>${product.product_category } > ${product.product_manufacturer } > ${product.product_name }</td>
 							    					</c:if>
 									   			</c:forEach>
 					    					
 							    			
-							    				<td>${pBoard.file_pictureId}</td>
+							    				<td style="display: none;">${pBoard.file_pictureId}</td>
 							    				<td><button class="updateBtn" type="button">저장</button></td>
 							    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
 							    			</tr>
