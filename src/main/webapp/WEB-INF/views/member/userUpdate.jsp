@@ -19,7 +19,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		console.log("${updateResultMsg}");
 		
-		let User_gender=$("select[User_gender]").val();
+		/* let User_gender=$("select[User_gender]").val();
 		let User_type=$("select[User_type]").val();
 		let User_enabled=$("select[User_enabled]").val();	
 		let User_id=$("input[name=User_id]").val();
@@ -28,22 +28,32 @@ $(document).ready(function(){
 		let pwdCheck=$("input[name=pwdCheck]").val();
 		let User_name=$("input[name=User_name]").val();
 		let User_email=$("input[name=User_email]").val();
-		let User_contact=$("input[name=User_contact]").val();
-		
-		if($.isEmptyObject(tmp_password)){
-			alert("기존 패스워드를 입력해주세요."); //required tag로 작업 가능
+		let User_contact=$("input[name=User_contact]").val(); */
+		if($("input[name=tmp_password").val()==""){
+			alert("비밀번호를 입력해주세요.");
+			$("input[name=tmp_password]").select();
 			return false;
 		}
 		if($.isEmptyObject(User_password)){
-			alert("새로운 패스워드를 입력해주세요.");
+			alert("새로운 비밀번호를 입력해주세요.");
 			return false;
 		}
 		if($.isEmptyObject(pwdCheck)){
 			alert("비밀번호 확인란을 입력해주세요.");
 			return false;
 		}
+		if($("input[name=User_contact").val()==""){
+			alert("연락처를 입력해주세요.");
+			$("input[name=User_contact]").select();
+			return false;
+		}
+		if($("input[name=User_email]").val()==""){
+			alert("email을 입력해주세요.");
+			$("input[name=User_email]").select();
+			return false;
+		}
 		
-		if(pwdCheck!=User_password){
+		if($("input[name=User_password").val()!=$("input[name=pwdCheck").val()){
 	 		alert("새로운 비밀번호가 일치하지 않습니다.");
 	 		return false;
 		}
@@ -151,7 +161,7 @@ $(document).ready(function(){
                 	<label>NAME<br><input type="text" name="User_name" value="${sessionScope.user.user_name}"readonly></label>
                 </div>
                 <div class="register-group div3">
-                	<label>TMP PASSWORD</label>
+                	<label>Please enter your Password</label>
                     <input placeholder="Password" id="tmp_password" name="tmp_password" type="password"  minlength="4" maxlength="16"
                     pattern = "[0-9A-Za-z!@#$%^&*()]{4,}"><br>
                 </div>
@@ -161,14 +171,14 @@ $(document).ready(function(){
                 </div>
                 <div class="register-group div5">
                 	
-                    <label>NEW PASSWORD</label><input type="password" placeholder="NewPassword" id="User_password" name="User_password" maxlength="16" pattern="[0-9A-Za-z!@#$%^&*()]{4,}"><br>
-                    <label>NEW PASSCHECK</label><input placeholder="passwordCheck" name="pwdCheck" type="password" id="pwdCheck" maxlength="16"><br>
+                    <label>enter NEW Password</label><input type="password" placeholder="NewPassword" id="User_password" name="User_password" maxlength="16" pattern="[0-9A-Za-z!@#$%^&*()]{4,}"><br>
+                    <label>Password Check</label><input placeholder="passwordCheck" name="pwdCheck" type="password" id="pwdCheck" maxlength="16"><br>
                 </div>
                 <div class="register-group div6">
                 	<label>GENDER</label><br>
                 	<select name="User_gender">
                 		<option value="M">남</option>
-                		<option value="W">여</option>
+                		<option value="F">여</option>
                 	</select>
                 </div >
                 <div class="register-group div7">

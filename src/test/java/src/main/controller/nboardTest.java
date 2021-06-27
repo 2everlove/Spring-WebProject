@@ -31,7 +31,7 @@ public class nboardTest {
 		vo.setNboard_content(i+"번 테스트입니다.");
 		vo.setNboard_public("0");
 		vo.setNboard_title(i+"번 테스트입니다.");
-		vo.setUser_id("testuser01");
+		vo.setUser_id("admin");
 		vo.setFile_pictureId("1");
 		nboardService.insertNboard(vo);
 		}

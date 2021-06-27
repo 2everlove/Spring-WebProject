@@ -61,7 +61,7 @@
 							if(data.file_type=='Y'){
 								result = "<li>"
 											+"<img src=/fileDisplay?file_name="+file_savePath+" style=' width: 100px; height: 100px; object-fit: cover;'>"
-											+"<input id='file_id' value='"+data.file_pictureId+"'>"
+											+"<input id='file_id' type='hidden' value='"+data.file_pictureId+"'>"
 											+"</li>";
 							} else {
 								//이미지가 아니면 파일이름을 출력
@@ -95,6 +95,11 @@
 			let User_name=$("input[name=User_name]").val();
 			let User_email=$("input[name=User_email]").val();
 			let User_contact=$("input[name=User_contact]").val();
+			if($("input[name=User_name]").val()==""){
+				alert("이름을 입력해주세요.");
+				$("input[name=User_name]").select();
+				return false;
+			}
 			if($.isEmptyObject(User_password)){
 				alert("비밀번호를 입력해주세요.");
 				return false;
@@ -103,8 +108,18 @@
 				alert("비밀번호 확인란을 입력해주세요.");
 				return false;
 			}
+			if($("input[name=User_contact").val()==""){
+				alert("연락처를 입력해주세요.");
+				$("input[name=User_contact]").select();
+				return false;
+			}
+			if($("input[name=User_email]").val()==""){
+				alert("email을 입력해주세요.");
+				$("input[name=User_email]").select();
+				return false;
+			}
 			if(!$("input[name=User_id]").prop("dataValue")){
-				alert("id 중복검사");
+				alert("id 중복검사를 해주세요.");
 				return false;
 			}
 			//비밀번호 체크
@@ -170,10 +185,10 @@
                 	<label>ID</label><br>
                 	<c:choose>
                 		<c:when test="${!empty user }">
-                			<input type="text" value="${user.user_id}" name="User_id"  pattern="[0-9A-Za-z]{6,20}"autofocus required>
+                			<input type="text" value="${user.user_id}" name="User_id"  pattern="[0-9A-Za-z]{6,20}"autofocus>
                 		</c:when>
                 		<c:otherwise>
-                			<input type="text" name="User_id"  pattern="[0-9A-Za-z]{6,20}"autofocus required>
+                			<input type="text" name="User_id" placeholder="ID" pattern="[0-9A-Za-z]{6,20}"autofocus>
                 		</c:otherwise>
                 	</c:choose>
                 	            
@@ -189,23 +204,23 @@
                 <div class="register-group div3">
                 	<label>이름</label><br>
                 	<c:if test="${user!=null}">
-                    <input class="form-control" value="${user.user_name}" name="User_name" required></c:if>
-                    <c:if test="${user==null}"><input class="form-control" placeholder="name" name="User_name" required></c:if>
+                    <input class="form-control" value="${user.user_name}" name="User_name"></c:if>
+                    <c:if test="${user==null}"><input class="form-control" placeholder="name" name="User_name"></c:if>
                 </div>
                 <div class="register-group div4">
                 	<label>EMAIL</label><br>
-                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${user.user_email}" required>
+                    <input class="form-control" placeholder="email" name="User_email" type="email" value="${user.user_email}">
                 </div>
                 <div class="register-group div5">
                 	<label>CONTACT</label><br>
-                    <input class="form-control" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
+                    <input class="form-control" name="User_contact" type="text" required="required" placeholder="000-0000-0000" pattern="^[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}$" maxlength="13">
 
                 </div>
                 <div class="register-group div6">
                 	<label>GENDER</label><br>
                 	<select name="User_gender">
                 		<option value="M">남</option>
-                		<option value="W">여</option>
+                		<option value="F">여</option>
                 	</select>
                 </div>
                  <div class="register-group div7">

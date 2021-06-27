@@ -2,7 +2,6 @@ package web.spring.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,16 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.FileService;
+import web.spring.service.PaymentService;
 import web.spring.service.ProductService;
 import web.spring.service.UserService;
 import web.spring.vo.Criteria;
 import web.spring.vo.FileVO;
+import web.spring.vo.OrderVO;
 import web.spring.vo.PBoardVO;
 import web.spring.vo.PageNavi;
 import web.spring.vo.ProductVO;
@@ -40,6 +39,24 @@ public class AdminController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	@Autowired
+	private PaymentService paymentService;
+	
+	//주문관리
+		@GetMapping("/admin/orderAllList")
+		public String orderAllList(Model model, HttpServletRequest rq, OrderVO ovo, Criteria cri) {
+			HttpSession session = rq.getSession();
+			UserVO user = (UserVO)session.getAttribute("user");
+			if(user != null) {
+				List<OrderVO> list = paymentService.getOrderAllList(cri);
+				model.addAttribute("list", list);
+				model.addAttribute("pageNavi",new PageNavi(cri, paymentService.getOrderAllListTotal(cri)));
+				return "/admin/orderAllList";
+			}
+			return "/member/login";
+		}
+	
+	
 	//상품관리
 	@GetMapping("/admin/productControl")
 	public String getProductList(Criteria cri, Model model) {
@@ -53,9 +70,12 @@ public class AdminController {
 		 * for(String a : product_list) { System.out.println(a); }
 		 */
 		product_Map.put("product_Map", product_list);
-		List<FileVO> fileList = fileService.getListFileAdmin(product_Map);
+		List<FileVO> fileList = null;
+		if(productList!=null) {
+			fileList = fileService.getListFileAdmin(product_Map);
+			log.info(fileList);
+		}
 		model.addAttribute("fileList", fileList);
-		log.info(fileList);
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageNavi",new PageNavi(cri, productService.getProductTotal(cri)));
 		return "/admin/productManage";
@@ -114,11 +134,20 @@ public class AdminController {
 		HttpSession session = req.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
 		if(user.getUser_type().equals("0")) {
-			//List<UserVO> userList = userService.getAllUserList(cri);
-			//model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
-			//model.addAttribute("userList", userList);
+			List<UserVO> userArr = userService.getAllUser();
+			ArrayList<String> user_list = new ArrayList<String>();
+			Map<String, Object> user_Map = new HashMap<String, Object>();
+			(userArr).forEach(a->user_list.add(a.getFile_pictureId()));
+			user_Map.put("product_Map", user_list);
+			List<FileVO> fileList = fileService.getListFileAdmin(user_Map);
+			List<UserVO> userList = userService.getAllUserList(cri);
+			if(userList!=null) {
+				log.info("userAd"+userList);
+				model.addAttribute("pageNavi", new PageNavi(cri, userService.getUserTotal(cri)));
+				model.addAttribute("userList", userList);
+				model.addAttribute("fileList", fileList);
+			}
 			return "/admin/userControl";
-			
 		}
 		return "/login";
 	}

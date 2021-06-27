@@ -86,7 +86,7 @@ function detail(nboard_no){
 											<c:if test="${vo.nboard_category=='2' }"><label>기타</label></c:if></td>
 											<td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }
 											</a><p style="font-weight:bold;"><i class="fas fa-lock" style="color:#272b2b;"></i></p></td>
-											<td>${vo.nboard_content}</td>
+											<td><p>${vo.nboard_content}</p></td>
 											<td>${vo.user_id }</td>
 											<td class="center">${vo.nboard_regDate }</td>
 										</tr>

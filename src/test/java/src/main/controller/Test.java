@@ -29,6 +29,7 @@ public class Test {
 	@Autowired
 	SqlSessionFactory factory;
 	
+	
 	@Autowired
 	Mapper tm;
 	
@@ -72,5 +73,4 @@ public class Test {
 	public void searchUserByEmail() {
 		userService.searchUserByEmail("dreamingskywhale@gmail.com");
 	}
-	
 }

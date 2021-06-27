@@ -14,6 +14,15 @@
 	if ('${resMsg}' != '') {
 		alert('${resMsg}');
 	}
+	
+	function page(page){
+		document.listForm.action="/inquiry";
+		console.log("페이지",page);
+		document.listForm.pageNo.value=page;
+		document.listForm.submit();
+		
+	}
+	
 /* 	window.onpageshow = function(event) {
 	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
 	       history.pushState(null, document.title, location.href);
@@ -77,10 +86,10 @@
 					<table class="list">
 						<colgroup>
 							<col style="width: 200px">
-							<col style="width: auto">
+							<col style="width: 400px">
 							<col style="width: 250px">
 							<col style="width: 150px">
-							<col style="width: 100px">
+							<col style="width: auto">
 						</colgroup>
 						<thead>
 							<tr>
@@ -124,7 +133,44 @@
 					</table>
 					<!-- list -->
 				<span style="display: none">${sessionScope.user.user_id}</span> <!-- 유저 아이디 히든처리 -->
-					<div class="paging_wrap">
+				 <nav aria-label="...">
+							  
+							  	<!-- 페이징 소스 -->
+					<div id="pagination-box">
+						<nav style="display: table-cell; vertical-align: middle; ">
+							<ul class="pagination centered" style="height:15px;">
+								<c:if test="${pageNavi.prev}">
+									<li onClick="javascript:page(${pageNavi.startPage-1});"><a href="#" tabindex="-1">&lt;</a></li>
+								</c:if>
+								<c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
+									<c:choose>
+										<c:when test="${page eq pageNavi.cri.pageNo }">
+											<li onClick="page(${page })"><a href="#" style="background-color: #A19AFD;">${page }</a></li> <!-- 현재페이지 -->
+										</c:when>
+										<c:otherwise>
+											<li onClick="page(${page })"><a href="#">${page }</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${pageNavi.next}">
+									<li onClick="page(${pageNavi.endPage+1});"><a href="#">&gt;</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
+					<!-- 페이징 끝 -->
+					
+					<!-- 검색 -->
+							<form method=get action=/nboard/nboardList name=listForm>
+	                            <!-- 상세보기 검색 유지용 -->
+	                            ${pageNavi.cri.type }
+	                            <input type=hidden name=nboard_no>
+	                            <input type=hidden name=pageNo value=${pageNavi.cri.pageNo }> 
+	                            <!-- 상세보기 검색 유지용 끝 -->
+							</form>
+							<!-- 검색 끝 -->
+						    <!-- 페이지끝 -->
+<!-- 					<div class="paging_wrap">
 						<div class="paging">
 							<div>
 								<ol class="pagination">
@@ -133,7 +179,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- table_data -->
 				<p class="btn_pop_page">
 					 <button type="button" class="inquiry_button">문의하기</button> 

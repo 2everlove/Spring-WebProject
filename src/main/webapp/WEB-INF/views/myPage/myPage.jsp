@@ -17,12 +17,13 @@
         	<div class="section__myPage">
         		<!-- 고객 -->
 		    	<a href="/userUpdate"><button class="navbar__menu__item"><i class="fas fa-user-cog"></i> 회원정보 수정</button></a>
-		    	<a href="#"><button class="navbar__menu__item"><i class="fas fa-cart-arrow-down"></i> 주문 내역</button></a>
+		    	<a href="/orderList"><button class="navbar__menu__item"><i class="fas fa-cart-arrow-down"></i> 주문 내역</button></a>
 		    	<c:if test="${sessionScope.user.user_type<=1}">
 			    	<!-- 기업,관리자 -->
 			    	<a href="/product/productRegister"><button class="navbar__menu__item"><i class="fas fa-plus-square"></i> 상품 게시글 등록</button></a>
 			    	<c:if test="${sessionScope.user.user_type>0}">
 				    	<a href="/product/pBoardUpdate"><button class="navbar__menu__item"><i class="fas fa-server"></i> 상품 게시글 수정</button></a>
+				    	<a href="/admin/orderAllList"><button class="navbar__menu__item"><i class="fas fa-shopping-bag"></i> 주문 관리</button></a>
 			    	</c:if>
 		    	</c:if>
 	    	</div>
@@ -32,6 +33,7 @@
 			    	<a href="/admin/productControl"><button class="navbar__menu__item"><i class="fas fa-chalkboard"></i> 상품 관리</button></a>
 			    	<a href="/admin/pBoardControl"><button class="navbar__menu__item"><i class="far fa-newspaper"></i> 상품 게시글 관리</button></a>
 			    	<a href="/admin/userControl"><button class="navbar__menu__item"><i class="fas fa-chalkboard-teacher"></i> 회원 관리</button></a>
+			    	<a href="/admin/orderAllList"><button class="navbar__menu__item"><i class="fas fa-shopping-bag"></i> 주문 관리</button></a>
 		    	</div>
     		</c:if>
     	</div>

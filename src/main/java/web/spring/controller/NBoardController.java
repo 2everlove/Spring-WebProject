@@ -15,7 +15,6 @@ import web.spring.service.FileService;
 import web.spring.service.NBoardService;
 import web.spring.service.UserService;
 import web.spring.vo.Criteria;
-import web.spring.vo.FileVO;
 import web.spring.vo.NBoardVO;
 import web.spring.vo.PageNavi;
 import web.spring.vo.UserVO;

@@ -34,6 +34,18 @@
 		$('#thum').hide();
 		$('.updateBtn').click(function(){
 			let currentRow = $(this).closest('tr');
+			if(currentRow.find('.product_manufacturer').val()==""){
+				currentRow.find('.product_manufacturer').select();
+				return false;
+			}
+			if(currentRow.find('.product_category').val()==""){
+				currentRow.find('.product_category').select();
+				return false;
+			}
+			if(currentRow.find('.product_color').val()==""){
+				currentRow.find('.product_color').select();
+				return false;
+			}
 			let Formproduct_manufacturer = currentRow.find('.product_manufacturer').val();
 			let Formproduct_category = currentRow.find('.product_category').val();
 			let Formproduct_name = currentRow.find('.product_name').val();
@@ -79,6 +91,7 @@
 
 				attachFile(formData, $(this));
 				updateFileId(Formfile_pictureId,Formproduct_id, $(this).closest('tr'));
+				$(this).closest('td').find('input[type=file]').val("");
 				$(this).closest('td').find('input[type=file]').hide();
 				$(this).closest('td').find('.updatePicBtn').show();
 				$(this).closest('td').find('.updateFileBtn').hide();
@@ -147,6 +160,8 @@
 					//만약 이미지면 이미지 보여줌
 				btn.closest('tr').find('img').attr('src', "/fileDisplay?file_name="+file_savePath);
 				btn.closest('tr').find('.fileUpload').val("");
+				btn.closest('tr').find('.file_uuid').val(data.file_uuid);
+				
 				});
 			},
 			error : function(errorThrown){
@@ -172,7 +187,7 @@
 		return rtn;
 	}//
 	
-	
+	//상품 업데이트
 	function updateProduct(formData, btn){
 		let url = '/admin/productUpdate';
 		console.log(formData);
@@ -191,13 +206,21 @@
 				currentRow.find('.product_name').val(datas.result.product_name);
 				currentRow.find('.product_description').val(datas.result.product_description);
 				currentRow.find('.pboard_unit_price').val(datas.result.pboard_unit_price);
-				alert(datas.result.num+"번 글이 수정되었습니다.");
+				if(formData.get("product_id")!=null){
+					alert(datas.result.num+"번 글이 수정되었습니다.");
+				} else {
+					alert("글이 등록되었습니다.");
+					history.go(0);
+				}
+				
 			},
 			error : function(errorThrown){
 				console.log(errorThrown);
 			}
 		});
 	}//
+	
+	//파일 업데이트
 	function updateFileId(Formfile_pictureId, Formproduct_id, btn){
 		let url = '/admin/productUpdate';
 		let formData = new FormData();
@@ -236,7 +259,6 @@
 			    		<thead>
 			    			<tr class="tr__head">
 			    				<th style="width: 30px;"></th>
-			    				<th><input type="checkbox"></th>
 			    				<th>제조사</th>
 			    				<th>카테고리</th>
 			    				<th>제품명</th>
@@ -249,33 +271,45 @@
 			    			</tr>
 			    			<c:forEach var="product" items="${productList}">
 			    			<tr class="tr__desc">
-			    				<td style="width: 30px;">${product.num}</td>
-			    				<td><input type="checkbox" name="product_id" class="product_id" value="${product.product_id}"></td>
+			    				<td style="width: 30px;">${product.num}<input type="hidden" name="product_id" class="product_id" value="${product.product_id}"></td>
+			    				
 			    				<td><input type="text" name="product_manufacturer" class="product_manufacturer" value="${product.product_manufacturer}"></td>
-			    				<td><input type="text" name="product_category" class="product_category" value="${product.product_category}"></td>
+			    				<td>
+			    					<select name="product_category" class="product_category">
+			    						<option value="tablet" <c:if test="${product.product_category == 'tablet'}">selected</c:if>>태블릿</option>
+			    						<option value="desktop" <c:if test="${product.product_category == 'desktop'}">selected</c:if>>컴퓨터</option>
+			    						<option value="notebook" <c:if test="${product.product_category == 'notebook'}">selected</c:if>>노트북</option>
+			    						<option value="life" <c:if test="${product.product_category == 'life'}">selected</c:if>>생활가전</option>
+			    						<option value="video" <c:if test="${product.product_category == 'video'}">selected</c:if>>영상가전</option>
+			    						<option value="sound" <c:if test="${product.product_category == 'sound'}">selected</c:if>>음향가전</option>
+			    						<option value="software" <c:if test="${product.product_category == 'software'}">selected</c:if>>소프트웨어</option>
+			    					</select>
+			    				</td>
 			    				<td><input type="text" name="product_name" class="product_name" value="${product.product_name}"></td>
 			    				<td><input type="text" name="product_description" class="product_description" value="${product.product_description}"></td>
-			    				<td><input type="text" name="product_color" class="product_color" value="${product.product_color}"></td>
+			    				<td><input type="text" name="product_color" class="product_color" value="${product.product_color}" style="width: 70px;"></td>
 			    				<td><button class="updateBtn" type="button">저장</button></td>
 			    				<fmt:formatDate value="${product.product_regdate}" pattern="yy-MM-dd" var="regDate"/>
 			    				<td>${regDate}</td>
-			    				<c:forEach var="fileThum" items="${fileList}">
-				    				<c:if test="${product.file_pictureId == fileThum.file_pictureId}">
-					    				<c:url value="/fileDisplay" var="urlThum">
-								    		<c:param name="file_name" value="${fileThum.file_savePath}"></c:param>
-								    	</c:url>
-				    					<td><img src="${urlThum}" style="width: 80px; height: 80px;"></td>
-		    						<td class="file_column"><button class="updatePicBtn" type="button" style="display: block;">사진변경</button>
-		    						<form name="uploadForm" action="/uploadFile" method="post" enctype="multipart/form-data">
-			    						<input type="file" name="uploadFile" class="fileUpload" accept="image/*" style="display: block;">
-			    						<input type="hidden" class="file_usingType" name="file_usingType" class="file_usingType" value="3">
-										<input type="hidden" class="file_pictureId" name="file_pictureId" class="file_pictureId" value="${fileThum.file_pictureId}">
-										<input type="hidden" class="file_uuid" name="file_uuid" class="file_uuid" value="${fileThum.file_uuid}">
-										<button class="updateFileBtn" type="button">업로드</button>
-									</form>
-		    						</td>
-				    				</c:if>
-			    				</c:forEach>
+			    				<c:if test="${!empty fileList}">
+				    				<c:forEach var="fileThum" items="${fileList}">
+					    				<c:if test="${product.file_pictureId == fileThum.file_pictureId}">
+						    				<c:url value="/fileDisplay" var="urlThum">
+									    		<c:param name="file_name" value="${fileThum.file_savePath}"></c:param>
+									    	</c:url>
+					    					<td><img src="${urlThum}" style="width: 80px; height: 80px;"></td>
+			    						<td class="file_column"><button class="updatePicBtn" type="button" style="display: block;">사진변경</button>
+			    						<form name="uploadForm" action="/uploadFile" method="post" enctype="multipart/form-data">
+				    						<input type="file" name="uploadFile" class="fileUpload" accept="image/*" style="display: block;">
+				    						<input type="hidden" class="file_usingType" name="file_usingType" class="file_usingType" value="3">
+											<input type="hidden" class="file_pictureId" name="file_pictureId" class="file_pictureId" value="${fileThum.file_pictureId}">
+											<input type="hidden" class="file_uuid" name="file_uuid" value="${fileThum.file_uuid}">
+											<button class="updateFileBtn" type="button">업로드</button>
+										</form>
+			    						</td>
+					    				</c:if>
+				    				</c:forEach>
+			    				</c:if>
 			    			</tr>
 			    			</c:forEach>
 			    		</thead>
@@ -301,7 +335,17 @@
 				    			</tr>
 				    			<tr>
 				    				<td><input type="text" name="product_manufacturer"></td>
-				    				<td><input type="text" name="product_category"></td>
+				    				<td>
+				    					<select name="product_category">
+				    						<option value="tablet">태블릿</option>
+				    						<option value="desktop">컴퓨터</option>
+				    						<option value="notebook">노트북</option>
+				    						<option value="life">생활가전</option>
+				    						<option value="video">영상가전</option>
+				    						<option value="sound">음향가전</option>
+				    						<option value="software">소프트웨어</option>
+				    					</select>
+				    				</td>
 				    				<td><input type="text" name="product_name"></td>
 				    				<td><input type="text" name="product_description"></td>
 				    				<td><div class="colorPickSelector"></div><input type="hidden" name="product_color"></td>
@@ -363,9 +407,22 @@
         attachFile(formData, $(this));
     });
 	$('#registerBtn').click(function(){
+		let tr = $(this).closest('tr');
+		if(tr.find("input[name='product_manufacturer']").val()==""){
+			tr.find('input[name="product_manufacturer"]').select();
+			return false;
+		}
+		if(tr.find("input[name='product_name']").val()==""){
+			tr.find('input[name="product_name"]').select();
+			return false;
+		}
+		if(tr.find("input[name='uploadFile']").val()==""){
+			tr.find('input[name="uploadFile"]').click();
+			return false;
+		}
         let formData = new FormData($('#fileRegis')[0]);
 		updateProduct(formData, $(this));
-		Location.reload();
+		
 	});
 
 </script>

@@ -1,6 +1,13 @@
 package web.spring.controller;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +39,8 @@ public class ProductController {
 	@Setter(onMethod_= @Autowired)
 	private FileService fileService;
 	
+	static LinkedList<String> linkedList = new LinkedList<String>();
+	
 	//category(tablet, computer etc)
 	@GetMapping("/type/{type}")
 	public String getType(@PathVariable("type") String product_category, Model model) {
@@ -54,9 +63,38 @@ public class ProductController {
 	
 	//product detail page
 	@GetMapping("/pDetail/{no}")
-	public String getDetail(@PathVariable("no") String no, Model model) {
+	public String getDetail(@PathVariable("no") String no, Model model, HttpServletResponse res, HttpServletRequest req) {
 		log.info("pDetail.....");
 		PBoardVO pBoard = productService.getProduct(no);
+		
+		if(linkedList.size()<6) {
+			linkedList.addFirst(no);
+			linkedList = linkedList.stream()
+			        .distinct()
+			        .collect(Collectors.toCollection(LinkedList::new));
+		} else {
+			linkedList = linkedList.stream()
+			        .distinct()
+			        .collect(Collectors.toCollection(LinkedList::new));
+			if(linkedList.size()==6) {
+				linkedList.addFirst(no);
+			}
+			if(linkedList.size()>6) {
+				linkedList = linkedList.stream()
+				        .distinct()
+				        .collect(Collectors.toCollection(LinkedList::new));
+				if(linkedList.size()>6) {
+					linkedList.removeLast();
+				}
+			}
+		}
+		
+		String tmp ="";
+		for(String tmp1 : linkedList) {
+			tmp+=tmp1+".";
+		}
+		System.out.println(tmp);
+		HttpSession session = req.getSession();
 		if(pBoard !=null) {
 			ProductVO productVO = productService.getProductInfo(pBoard.getProduct_id());
 			List<FileVO> fileThumList = fileService.getPDetailThum(pBoard.getPboard_unit_no());
@@ -67,6 +105,7 @@ public class ProductController {
 				model.addAttribute("sellerVO", userService.getUser(pBoard.getUser_id()));
 				model.addAttribute("fileThumList", fileThumList);
 				model.addAttribute("fileDescList", fileDescList);
+				session.setAttribute("history_product_no", tmp);
 				return "/product/pDetail";
 			} else {
 				return "/error";
@@ -81,7 +120,7 @@ public class ProductController {
 	public String insertPBoard(PBoardVO pBoardVO) {
 		log.info(pBoardVO);
 		productService.inserPBoard(pBoardVO);
-		return "redirect:/myPage/myPage";
+		return "redirect:/myPage";
 	}
 	
 	//상품 등록 페이지

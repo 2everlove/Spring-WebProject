@@ -158,14 +158,15 @@
 							    						</c:if>
 							    					</select></td>
 							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}"></td>
-							    				<td><input type="text" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}"></td>
+							    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}"></td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
 							    				<td>${regdate}</td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
 							    				<td>${updateDate}</td>
 								  				<c:forEach var="product" items="${productList}">
 								    				<c:if test="${product.product_id == pBoard.product_id}">
-								    					<td>${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
+								    					<td>
+								    					${product.product_manufacturer } > ${product.product_category } > ${product.product_name }</td>
 							    					</c:if>
 									   			</c:forEach>
 					    					

@@ -7,19 +7,36 @@
 	<!-- 문의사항 리스트 불러오기 -->
  	<select id="getInquiryBoardList"
 		resultType="web.spring.vo.InquiryBoardVO">
-		select iboard_no, iboard_title, iboard_category,
+		select i.* from (select iboard_no, iboard_title, iboard_category,
 		iboard_public, iboard_regdate_new, user_id,
-		(case
+        (case
 		when to_char(sysdate,'yyyyMMdd') =
 		to_char(iboard_regdate,'yyyyMMdd')
 		then
-		to_char(iboard_regdate,'hh24:mm:ss')
+		to_char(iboard_regdate,'hh:mm:ss')
 		else
 		to_char(iboard_regdate,'yyyy-MM-dd')
 		end) iboard_regdate,
-		(select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount
+		(select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount, rownum num
 		from
-		inquiry_board board order by iboard_no desc
+		inquiry_board board order by iboard_no desc) i where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+        
+       <!--  select iboard_no, iboard_title, iboard_category,
+		iboard_public, iboard_regdate_new, user_id,
+        (case
+		when to_char(sysdate,'yyyyMMdd') =
+		to_char(iboard_regdate,'yyyyMMdd')
+		then
+		to_char(iboard_regdate,'hh:mm:ss')
+		else
+		to_char(iboard_regdate,'yyyy-MM-dd')
+		end) iboard_regdate
+		
+		from
+		(select ROW_NUMBER() OVER (ORDER BY iboard_no desc) row_num, board.* from inquiry_board board)
+        where row_num between 1 and 20; -->
+		
+		<!-- (select count(*) from inquiry_reply reply where reply.iboard_no = board.iboard_no) replycount -->
 	</select>  
 
 	<!-- 문의사항 리스트 불러오기 끝 -->
@@ -52,6 +69,10 @@
 		delete from INQUIRY_BOARD where iboard_no=#{iboard_no}
 	</delete>
 	<!-- 문의사항 삭제 끝 -->
+	
+		<select id="getTotal" resultType="int">
+	select count(*) from INQUIRY_BOARD
+	</select>
 
 
 

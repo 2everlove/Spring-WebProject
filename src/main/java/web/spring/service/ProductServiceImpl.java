@@ -174,6 +174,11 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.productInfoInsert(productVO);
 	}
 
+	@Override
+	public List<PBoardVO> getHistoryProduct(Map<String, Object> history_Map) {
+		return productMapper.getHistoryProduct(history_Map);
+	}
+
 
 	
 }

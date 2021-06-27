@@ -393,7 +393,7 @@
 				    			<label>재고 <input type="number" name="pboard_unit_stocks"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>작성자 <input type="text" name="user_id" value="${sessionScope.user.user_id}"></label>
+				    			<label>작성자 <input type="hidden" name="user_id" value="${sessionScope.user.user_id}"><input type="text" value="${sessionScope.user.user_id}" disabled></label>
 				    		</div>
 				    		
 			    		</form>

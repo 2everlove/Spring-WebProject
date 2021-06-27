@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import web.spring.service.InquiryReplyService;
-import web.spring.service.ProductService;
 import web.spring.vo.InquiryReplyVO;
-import web.spring.vo.ProductVO;
 
 @RestController
 @Log4j

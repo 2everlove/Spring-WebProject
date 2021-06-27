@@ -6,9 +6,12 @@
 	<select id="getProductList" resultType="web.spring.vo.ProductVO">
 		select product.* from (select rownum num, p.* from products_info p) product where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
+	
 	<select id="getProductAllList" resultType="web.spring.vo.ProductVO">
 		select product.* from (select rownum num, p.* from products_info p) product
 	</select>
+	
+	<!-- admin 상품게시글 관리 -->
 	<select id="getAllPBoardList" resultType="web.spring.vo.PBoardVO">
 		select board.* from (select rownum num, pboard.* from (select * from product_board 
 		<trim prefix="order by">
@@ -26,8 +29,9 @@
 			<if test="orderby=='pboard_unit_updateDate_desc'">pboard_unit_updateDate desc</if>
 		</trim>
 		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
-		
 	</select>
+	
+	<!-- 기업회원 상품 게시글 관리 -->
 	<select id="getUserPBoardList" resultType="web.spring.vo.PBoardVO">
 		select board.* from (select rownum num, pboard.* from (select * from product_board where user_id = #{user_id}
 		<trim prefix="order by">
@@ -46,23 +50,51 @@
 		</trim>
 		) pboard)board where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
+	
+	<!-- history -->
+	<select id="getHistoryProduct" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
+		select p.file_pictureId masterImg, b.* from (select * 
+		from product_board 
+		<where>
+			<foreach collection="history_Map" index="0" item="item" separator="or">
+				pboard_unit_no = #{item}
+			</foreach>
+		</where>
+		) b full outer join products_info p on b.product_id = p.product_id where b.pboard_unit_no is not null
+		order by
+		DECODE(pboard_unit_no,
+		<foreach collection="history_sort" index="index" close=")" item="item" separator=",">
+			 #{item}, ${index}
+		</foreach>
+	</select>
+	
+	<!-- paging amount for product_board -->
 	<select id="getTotal" resultType="int">
 		select count(*) from product_board
 	</select>
+	
+	<!-- paging amount for products_info -->
 	<select id="getProductTotal" resultType="int">
 		select count(*) from products_info
 	</select>
+	
+	<!-- paging amount for product_board by user_id -->
 	<select id="getPboardUserTotal" resultType="int">
 		select count(*) from product_board where user_id = #{user_id}
 	</select>
+	
+	<!-- Searching manu, category on productRegister -->
 	<select id="getCode" resultType="web.spring.vo.CodeVO">
 		select * from code_info where code_type = #{code_type} and code_value = #{code_value}
 	</select>
 	
+	<!-- nope Searching manu, cate  -->
 	<insert id="insertCode">
 		insert into code_info(code_no, code_type, code_value) values(code_sequence.nextval, #{code_type}, #{code_value})
 	</insert>
 	
+	
+	<!-- update product_board by admin  -->
 	<update id="updatepBoard">
 		update product_board
 		<set>
@@ -74,6 +106,8 @@
 		</set>
 		where pboard_unit_no = #{pboard_unit_no} 
 	</update>
+	
+	<!-- update products_info by admin  -->
 	<update id="updateProduct">
 		update products_info
 		<set>
@@ -98,6 +132,7 @@
         	) pboard where each_rank between 1 and 5
 	</select>
 	
+	<!-- new, event 등 불러옴 -->
 	<select id="getCondBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
 			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
@@ -107,60 +142,74 @@
         	) pboard where each_rank between 1 and 5 
 	</select>
 	
+	<!-- 활성화 된 글인지 확인 후 뿌려줌  -->
 	<select id="getPBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, board.* from (select pboard.* from product_board pboard where pboard_unit_enabled = '0' order by TO_NUMBER(pboard_unit_price) asc) board
 	</select>
 	
+	<!-- 메인 네비 카테고리 클릭 시 검색 -->
 	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
-		select * from products_info where product_category=#{product_category}
+		select distinct p_i.* from (select * from products_info where product_category=#{product_category}) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
 	</select>
 	
+	<!-- 메인 네비 new,event... 클릭 시 검색 -->
 	<select id="getCondList" resultType="web.spring.vo.ProductVO">
 		select * from products_info where product_id in (select product_id from product_board where pboard_unit_condition = #{pboard_unit_condition})
 	</select>
 	
+	<!-- pboard_unit_no에 따른 rownum을 가진 product_board로 반환  -->
 	<select id="getProduct" resultType="web.spring.vo.PBoardVO">
 		select board.* from (select rownum num, pboard.* from product_board pboard)board where pboard_unit_no=#{pboard_unit_no}
 	</select>
+	
+	<!-- product_id에 따른 rownum을 가진 products_info로 반환  -->
 	<select id="getProductInfo" resultType="web.spring.vo.ProductVO">
 		select product.* from (select rownum num, p.* from products_info p)product where product_id=#{product_id}
 	</select>
 	
+	<!-- insert products_info -->
 	<insert id="productInfoInsert">
 		insert into products_info(product_id, file_pictureId, product_manufacturer, product_name, product_category, product_color, product_description) 
 		values (products_sequence.nextval, #{file_pictureId}, #{product_manufacturer}, #{product_name}, #{product_category}, #{product_color, jdbcType=VARCHAR}, #{product_description, jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- product_id로 상품 삭제 - 마스터 상품이라 지우는건 미구현 -->
 	<delete id="productInfoDelete">
 		delete from products_info where product_id=#{product_id}
 	</delete>
 	
+	<!-- productRegister 시 code_type(manufacturer, category)의 code_value를 검색 -->
 	<select id="searchProductCategory" resultType="String">
 		select distinct code_value from code_info where code_type = #{code_type} and code_value like '%'||#{code_value}||'%'
 	</select>
 	
+	<!-- admin 상품 등록 시 없는 코드는 추가 -->
 	<insert id="insertCodeInfo">
 		insert into code_info(code_no, code_type, code_value) values(code_sequence.nextval, #{code_type}, #{code_value})
 	</insert>
 	
+	<!-- productRegister시 제조사로 검색 시 상품 카테고리 검색 -->
 	<select id="searchManuCate" resultType="web.spring.vo.ProductVO">
 		select * 
 		from products_info 
-		where product_manufacturer=#{product_manufacturer} and product_category = #{product_category}
+		where LOWER(product_manufacturer)=#{product_manufacturer} and LOWER(product_category) = #{product_category}
 	</select>
 	
+	<!-- productRegister시 상품 이름으로 검색 시 제조사, 카테고리 검색 -->
 	<select id="searchProductManuCate" resultType="web.spring.vo.ProductVO">
 		select distinct product_category, product_manufacturer, product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
 		from products_info 
 		where product_name like '%'||#{product_name}||'%'
 	</select>
 	
+	<!-- productRegister시 product_id에 마스터 상품이 있는지 검색  -->
 	<select id="searchManufCategoty" resultType="web.spring.vo.ProductVO">
 		select distinct product_category, product_manufacturer, product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
 		from products_info 
 		where product_id = #{product_id}
 	</select>
 	
+	<!-- 기업회원 gt의 상품게시글 등록 -->
 	<insert id="inserPBoard">
 		insert into product_board(pboard_unit_no, pboard_unit_price, pboard_unit_condition, pboard_unit_stocks, product_id, user_id, file_pictureId, pboard_unit_enabled)
    		values(pboard_sequence.nextval, #{pboard_unit_price}, #{pboard_unit_condition}, #{pboard_unit_stocks}, #{product_id}, #{user_id}, #{file_pictureId}, '0')
@@ -196,7 +245,7 @@
 	</select>
 	
 	<select id="getSearchProductList" parameterType="hashmap" resultType="web.spring.vo.ProductVO">
-		select * from products_info 
+		select p_i.*  from (select * from products_info 
 		where product_id in (
 			select product_id from products_info 
 			where 
@@ -215,16 +264,24 @@
 			<foreach collection="search_Map" item="item" separator="or" index="0">
 				Lower(product_name) like '%'||#{item}||'%'
 			</foreach>
-		)
+		)) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
 	</select>
 	
 	
-	<!-- main -->
+	<!-- productBoard on main -->
 	
 	<select id="getMainPBoardList" resultType="web.spring.vo.PBoardVO">
-		select pboard.* from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank from product_board board where pboard_unit_enabled = '0') pboard where each_rank='1'
+		select nvl(r.review_rate,0) avg , b.* 
+		from (select pboard.* 
+			from (select board.*, row_number() over(partition by pboard_unit_condition, product_id order by dbms_random.random) each_rank 
+				from product_board board where pboard_unit_enabled = '0') pboard 
+			where each_rank='1') b 
+		full outer join (select round(avg(nvl(a.review_rate,0)),0) review_rate, a.pboard_unit_no 
+			from product_review a group by a.pboard_unit_no) r
+		on r.pboard_unit_no = b.pboard_unit_no
 	</select>
 	
+	<!-- master product on main -->
 	<select id="getMainProductList" resultType="web.spring.vo.ProductVO">
 		select * from products_info 
 			where product_id in (
@@ -234,6 +291,7 @@
 					pboard where each_rank='1')
 	</select>
 	
+	<!-- prduct_info's sequence -->
 	<select id="getProductSeq" resultType="String">
 		select products_sequence.nextval from dual
 	</select>

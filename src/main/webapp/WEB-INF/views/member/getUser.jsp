@@ -80,7 +80,7 @@ $(document).ready(function(){
                 	<c:url value="/fileDisplay" var="urlDesc">
 							<c:param name="file_name" value="${fileVO.file_savePath}"></c:param>
 						</c:url>
-                	<img name="file_pictureId" src="${urlDesc}">
+                	<img name="file_pictureId" src="${urlDesc}" style="width:10vw;height:10vh;">
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <div class="register-group div12"><a href="/userUpdate"><button type="button" class="login-button" >회원 수정</button></a></div>
