@@ -16,6 +16,15 @@ $(document).ready(function() {
 			history.back();
 		}
 	}
+	$(".detail__count-input").change(function(){
+		if($(".detail__count-input").val() > ${pBoard.pboard_unit_stocks}){
+			alert("재고가 없습니다.");
+			$(".detail__count-input").val(${pBoard.pboard_unit_stocks});
+			$(".pboard_unit_stocks").val(0);
+			$("input[name=pboard_unit_stocks]").val(0);
+			$(".detail__count-input").select();
+		}
+	});
 	if ($("input[name=order_totalcount]").val() == 1) {
 		$(".pboard_unit_stocks").val('${pBoard.pboard_unit_stocks}'-1);
 		$("input[name=pboard_unit_stocks]").val('${pBoard.pboard_unit_stocks}'-1);
@@ -105,7 +114,9 @@ $(document).ready(function() {
 							</span>
 						<p>
 							<span class="detail__count"><input type="text"
-								name="order_totalcount" class="detail__count-input" value="1">
+								name="order_totalcount" class="detail__count-input" value="1"
+								min="0" max="${stocks}"
+								>
 								<span>
 									<button type="button" class="up-button">
 										<i class="fas fa-chevron-up"></i>
