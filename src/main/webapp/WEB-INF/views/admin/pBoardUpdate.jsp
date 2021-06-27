@@ -95,6 +95,49 @@
 			}
 		});
 	}
+	
+	//자릿수 (,) 찍기
+	function inputNumberAutoComma(obj) {
+	     
+	      // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+	      var deleteComma = obj.value.replace(/\,/g, "");
+	      let str = obj.value;
+			console.log(str)
+			str = "" + str;
+			if(blankCheck(str)){
+				str = str.replace(/[^0-9]/g, "");
+			}else{
+				str = null;
+			}
+			
+       	 obj.value = str;
+	
+	     
+	      // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+	      obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	  }
+	 function inputNumberWithComma(str) {
+
+	        str = String(str);
+	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	    }
+	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+    function inputNumberRemoveComma(str) {
+
+        str = String(str);
+        return str.replace(/[^\d]+/g, "");
+    }
+	
+    function blankCheck(str){
+		if(str == null || str == "null"
+			   || str == undefined || str == "undefined"
+			   || str == '' || str == "" || str.length == 0
+		   ){
+			return null;
+		}else{
+			return str;
+		}
+	}
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
@@ -206,8 +249,16 @@
 								    						<option value="2" selected>Event</option>
 							    						</c:if>
 							    					</select></td>
-							    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}" style="width: 70px;"></td>
-					    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;"></td>
+							    				<td>
+							    					<fmt:formatNumber type="number" value="${pBoard.pboard_unit_stocks}" var="stock"></fmt:formatNumber>
+							    					<input type="text" class="pboard_unit_stocks_clone" name="pboard_unit_stocks" value="${stock}" onKeyup="inputNumberAutoComma(this);" style="width: 70px;">
+							    					<input type="hidden" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${stock}" style="width: 70px;">
+							    				</td>
+							    				<td>
+							    					<fmt:formatNumber type="number" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+							    					<input type="text" class="pboard_unit_price_clone" name="pboard_unit_price" value="${price}" style="width: 100px;" onKeyup="inputNumberAutoComma(this);">
+							    					<input type="hidden" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;">
+							    				</td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
 							    				<td>${regdate}</td>
 							    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>

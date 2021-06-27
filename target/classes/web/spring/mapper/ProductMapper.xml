@@ -24,8 +24,8 @@
 			<if test="orderby=='pboard_unit_condition_n_desc'">decode(pboard_unit_condition,'0', 1, '2', 2, '1', 3)</if>
 			<if test="orderby=='pboard_unit_condition_s_asc'">decode(pboard_unit_condition, '1', 1, '0', 2, '2', 3)</if>
 			<if test="orderby=='pboard_unit_condition_s_desc'">decode(pboard_unit_condition,'1', 1, '2', 2, '0', 3)</if>
-			<if test="orderby=='pboard_unit_condition_e_asc'">decode(pboard_unit_condition, '2', 1, '0', 2, '2', 3)</if>
-			<if test="orderby=='pboard_unit_condition_e_desc'">decode(pboard_unit_condition,'2', 1, '2', 2, '0', 3)</if>
+			<if test="orderby=='pboard_unit_condition_e_asc'">decode(pboard_unit_condition, '2', 1, '0', 2, '1', 3)</if>
+			<if test="orderby=='pboard_unit_condition_e_desc'">decode(pboard_unit_condition,'2', 1, '1', 2, '0', 3)</if>
 			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
 			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
 			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>

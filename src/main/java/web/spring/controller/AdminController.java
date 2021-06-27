@@ -101,6 +101,12 @@ public class AdminController {
 		List<UserVO> userList = userService.getUserList();
 		List<ProductVO> productList = productService.getProductAllList();
 		List<PBoardVO> PBoardList = productService.getAllPBoardList(cri);
+		ArrayList<String> board_list = new ArrayList<String>();
+		Map<String, Object> product_Map = new HashMap<String, Object>();
+		(PBoardList).forEach(a->board_list.add(a.getFile_pictureId()));
+		product_Map.put("product_Map", board_list);
+		List<FileVO> fileList = fileService.getListFileAdmin(product_Map);
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("PBoardList", PBoardList);
 		model.addAttribute("productList", productList);
 		model.addAttribute("userList", userList);

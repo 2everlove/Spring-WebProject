@@ -34,6 +34,13 @@
 			document.listForm.submit();
 		});
 		
+		$('.pboard_unit_price_clone').change(function(){
+			$(this).closest("td").find(".pboard_unit_price").val(inputNumberRemoveComma($(this).val()));
+		});
+		$('.pboard_unit_stocks_clone').change(function(){
+			$(this).closest("td").find(".pboard_unit_stocks").val(inputNumberRemoveComma($(this).val()));
+		});
+		
 		console.log($('select[name=pboard_unit_enabled]').find('option:selected').val());
 		$('select[name=pboard_unit_enabled]').change(function() {
 		    if($(this).find('option:selected').val()==0){
@@ -55,6 +62,7 @@
 		});
 		
 	});
+	
 	function updatePBoard(Formpboard_unit_no, Formpboard_unit_enabled, Formpboard_unit_condition, Formpboard_unit_stocks, Formpboard_unit_price, btn){
 		let url = '/admin/pBoardUpdate';
 		let formData = new FormData();
@@ -84,6 +92,51 @@
 			}
 		});
 	}
+	
+	//자릿수 (,) 찍기
+	function inputNumberAutoComma(obj) {
+	     
+	      // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+	      var deleteComma = obj.value.replace(/\,/g, "");
+	      let str = obj.value;
+			console.log(str)
+			str = "" + str;
+			if(blankCheck(str)){
+				str = str.replace(/[^0-9]/g, "");
+			}else{
+				str = null;
+			}
+			
+       	 obj.value = str;
+	
+	     
+	      // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+	      obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	  }
+	 function inputNumberWithComma(str) {
+
+	        str = String(str);
+	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	    }
+	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+    function inputNumberRemoveComma(str) {
+
+        str = String(str);
+        return str.replace(/[^\d]+/g, "");
+    }
+	
+    function blankCheck(str){
+		if(str == null || str == "null"
+			   || str == undefined || str == "undefined"
+			   || str == '' || str == "" || str.length == 0
+		   ){
+			return null;
+		}else{
+			return str;
+		}
+	}
+
+
 </script>
     <!-- 페이징, 목록, 가격, 정렬 -->
     <section class="section__content">
@@ -190,8 +243,16 @@
 						    						<option value="2" selected>Event</option>
 					    						</c:if>
 					    					</select></td>
-					    				<td><input type="number" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}" style="width: 70px;"></td>
-					    				<td><input type="number" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;"></td>
+					    				<td>
+					    					<fmt:formatNumber type="number" value="${pBoard.pboard_unit_stocks}" var="stock"></fmt:formatNumber>
+					    					<input type="text" class="pboard_unit_stocks_clone" name="pboard_unit_stocks" value="${stock}" onKeyup="inputNumberAutoComma(this);" style="width: 70px;">
+					    					<input type="hidden" class="pboard_unit_stocks" name="pboard_unit_stocks" value="${stock}" style="width: 70px;">
+					    				</td>
+					    				<td>
+					    					<fmt:formatNumber type="number" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
+					    					<input type="text" class="pboard_unit_price_clone" name="pboard_unit_price" value="${price}" style="width: 100px;" onKeyup="inputNumberAutoComma(this);">
+					    					<input type="hidden" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;">
+					    				</td>
 					    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
 					    				<td>${regdate}</td>
 					    				<fmt:formatDate value="${pBoard.pboard_unit_updateDate }" pattern="yy-MM-dd" var="updateDate"/>
@@ -206,7 +267,16 @@
 						    				<td>${userOb.user_id } (<span>${userOb.user_name }</span>)</td>
 					    				</c:if>
 				    				</c:forEach>
-					    				<td>${pBoard.file_pictureId}</td>
+					    				<td>
+					    				<c:forEach var="fileThum" items="${fileList}">
+					    					<c:if test="${pBoard.file_pictureId == fileThum.file_pictureId}">
+							    				<c:url value="/fileDisplay" var="urlThum">
+										    		<c:param name="file_name" value="${fileThum.file_s_savePath}"></c:param>
+										    	</c:url>
+						    					<img src="${urlThum}" style="width: 80px; height: 80px;">
+					    					</c:if>
+				    					</c:forEach>
+					    				</td>
 					    				<td><button class="updateBtn" type="button">저장</button></td>
 					    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
 					    			</tr>
