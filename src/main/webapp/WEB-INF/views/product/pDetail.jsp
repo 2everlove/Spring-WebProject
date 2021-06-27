@@ -71,9 +71,51 @@ $(document).ready(function() {
 		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
-	
 
 });
+
+	//자릿수 (,) 찍기
+	function inputNumberAutoComma(obj) {
+	     
+	      // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+	      var deleteComma = obj.value.replace(/\,/g, "");
+	      let str = obj.value;
+			//console.log(str)
+			str = "" + str;
+			if(blankCheck(str)){
+				str = str.replace(/[^0-9]/g, "");
+			}else{
+				str = null;
+			}
+			
+	   	 obj.value = str;
+	
+	     
+	      // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+	      obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	  }
+	function inputNumberWithComma(str) {
+	
+	       str = String(str);
+	       return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	}
+	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+	function inputNumberRemoveComma(str) {
+	
+	    str = String(str);
+	    return str.replace(/[^\d]+/g, "");
+	}
+	
+	function blankCheck(str){
+		if(str == null || str == "null"
+			   || str == undefined || str == "undefined"
+			   || str == '' || str == "" || str.length == 0
+		   ){
+			return null;
+		}else{
+			return str;
+		}
+	}
 </script>
 <!-- 페이징, 목록, 가격, 정렬 -->
 <section class="section__content">
@@ -116,13 +158,13 @@ $(document).ready(function() {
 						<p>
 							재고 <span>
 							
-								<input type="text" value="${stocks}" class="pboard_unit_stocks" disabled>
+								<input type="text" value="${stocks}" class="pboard_unit_stocks" disabled >
 									<input type="hidden" value="${stocks}" name="pboard_unit_stocks">
 							</span>
 						<p>
 							<span class="detail__count"><input type="text"
 								name="order_totalcount" class="detail__count-input" value="1"
-								min="0" max="${stocks}"
+								min="0" max="${stocks}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 								>
 								<span>
 									<button type="button" class="up-button">
