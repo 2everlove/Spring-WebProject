@@ -44,7 +44,7 @@
 					where o.pboard_unit_no is not null 
 					and p.user_id= #{pboard_user_id}
 				) orderb 
-			)order_board left join products_info pi on order_board.product_id = pi.product_id
+			)order_board left join products_info pi on order_board.product_id = pi.product_id 
 		) ob
 		where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} order by ob.order_regdate desc
 

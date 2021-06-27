@@ -177,7 +177,6 @@ function signOut(){
     	<div id="user_upper"></div>
 		<form class="login-form" role="form" action="/loginAction" method="post">
             <p id="errorMsgArea"></p>
-            	<h2>회원수정</h2>
                 <fieldset id="login">
                 	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><c:if test="${!empty sessionScope.user}"><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></c:if></div>
                     <div class="login-group">

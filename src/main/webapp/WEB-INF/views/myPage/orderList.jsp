@@ -39,7 +39,7 @@ function page(page){
 
 				<c:forEach var="ovo" items="${list}">
 					<tr>
-						<td class="center">${ovo.order_id}</a></td>
+						<td class="center">${ovo.num}</td>
 						<td class="center">${ovo.order_name}</td>
 						<td class="center">${ovo.order_address}</td>
 						<td class="center">${ovo.product_name}</td>
