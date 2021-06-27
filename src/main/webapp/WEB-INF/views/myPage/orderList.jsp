@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../includes/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
 <!DOCTYPE html>
@@ -28,11 +28,11 @@ function page(page){
 					<th>주문 아이디</th>
 					<th>받는 사람 이름</th>
 					<th>받는 사람 주소</th>
-					<th>상품 아이디</th>
+					<th>상품 이름</th>
 					<th>가격</th>
 					<th>개수</th>
 					<th>주문일</th>
-					<th style="width: 200px;">배송 현황</th>
+					<th>배송 현황</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -51,31 +51,8 @@ function page(page){
 						
 						${regDate}
 						</td>
-						<td>
-						<c:choose>
-							<c:when test="${ovo.order_status eq 1}">
-								<i class="fas fa-credit-card fa-4x" style="color:#e2e2e2;"></i>
-								<p>주문 완료</p>
-							</c:when>
-							<c:when test="${ovo.order_status eq 2}">
-								<i class="fas fa-box fa-4x" style="color:#e2e2e2;"></i>
-								<p>택배사 전달</p>
-							</c:when>
-							<c:when test="${ovo.order_status eq 3}">
-								<i class="fas fa-truck-loading fa-4x" style="color:#e2e2e2;"></i>
-								<p>배송 준비</p>
-							</c:when>
-							<c:when test="${ovo.order_status eq 4}">
-								<i class="fas fa-shipping-fast fa-6x"></i>
-								<p>배송중</p>
-							</c:when>
-							<c:otherwise>
-								<i class="fas fa-check fa-4x" style="color:#e2e2e2;"></i>
-								<p>배송 완료</p>
-							</c:otherwise>
-						</c:choose>
-						<input type="hidden" class="pboard_user_id" value="${ovo.pboard_user_id}"></td>
-						
+						<td><a href='/orderStatus?order_id=${ovo.order_id}'><button type="button">배송 현황</button></a></td>
+						<input type="hidden" class="pboard_user_id" value="${ovo.pboard_user_id}">
 					</tr>
 				</c:forEach>
 				<c:if test="${list.size() == 0 }">
