@@ -103,8 +103,8 @@
 		$(".pboard_unit_price_clone").change(function(){
 			$(".pboard_unit_price").val(inputNumberRemoveComma($(".pboard_unit_price_clone").val()));
 		});
-		$(".pboard_unit_stock_clone").change(function(){
-			$(".pboard_unit_stock").val(inputNumberRemoveComma($(".pboard_unit_stock_clone").val()));
+		$(".pboard_unit_stocks_clone").change(function(){
+			$(".pboard_unit_stocks").val(inputNumberRemoveComma($(".pboard_unit_stocks_clone").val()));
 		});
 		
 		

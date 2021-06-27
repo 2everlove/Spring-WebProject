@@ -70,11 +70,7 @@
 		//연락처 validation
 		$(".user_contact_clone").keyup(function(){
 			//console.log($(this).val().length);
-			if($(this).closest("td").find(".user_contact_clone").val().length<10){
-				$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
-			} else {
-				$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
-			}
+			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
 		});
 		$(".user_contact_clone").change(function(){
 			let str = $(this).val();
@@ -341,7 +337,7 @@
 					    				<td>
 					    					<fmt:formatNumber var="contact" value="${user.user_contact}" pattern="###,####,####"  type="number" minIntegerDigits="11"/>
 					    					<input type="text" class="user_contact_clone" value="<c:out value="${fn:replace(contact, ',', '-')}" />" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
-					    					<input type="hidden" name="user_contact" class="user_contact"  class="user_contact" value="${user.user_contact}" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
+					    					<input type="hidden" name="user_contact" class="user_contact" value="${user.user_contact}" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
 					    				
 					    				</td>
 					    				<td>

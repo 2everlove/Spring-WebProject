@@ -57,6 +57,15 @@
 			tr.find('.user_address').select();
 		});
 		
+		$("#user_contact_clone").keyup(function(){
+			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
+		});
+		$("#user_contact_clone").change(function(){
+			let str = $(this).val();
+			let tmp = str.replace(/\-/g,'');
+			$(this).closest("div").find("#user_contact").val(tmp);
+		});
+		
 		
 		$("input[name=User_id]").on("change",function(){
 			//중복체크 다시 진행
@@ -133,6 +142,8 @@
 			$('#file_pictureId').on("change", function(){
 				viewFile($('#file_pictureId').val());
 			});
+			
+		
 			
 		$("#registerBtn").on("click", function(){
 			let User_gender=$("select[User_gender]").val();
@@ -271,7 +282,8 @@
                 </div>
                 <div class="register-group div5">
                 	<label>CONTACT</label><br>
-                    <input class="form-control" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
+                    <input class="form-control" type="text" id="user_contact_clone"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
+                    <input class="form-control" name="User_contact" id="user_contact" type="hidden"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
 
                 </div>
                 <div class="register-group div6">
