@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="../../../resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
 <script type="text/javascript">
@@ -9,6 +10,10 @@ if('${updateErrorMsg}' != ''){
 }
 $(document).ready(function(){
 	
+	let resMsg = "${resMsg}";
+	if(resMsg!="" && resMsg!=" "){
+		alert(resMsg);
+	}
 	//사진 id
 	let file_pictureId = ${sessionScope.user.file_pictureId};
 	/*object 중 13번째 값  */
@@ -49,7 +54,6 @@ $(document).ready(function(){
 		}
 		
 		$("#userUpdateForm").submit();
-		alert(resMsg);
 	});//userUpdateBtn
 	
 	 $("#uploadBtn").on("click",function(){
@@ -186,7 +190,9 @@ $(document).ready(function(){
                 </div>
                 <div class="register-group div8">
                 	<label>BIRTH</label><br>
-                	<input type="date" name="User_birth" value="${user.user_birth }">
+                	<fmt:parseDate value = "${user.user_birth}"  pattern="yyyy-MM-dd" var="date"/>
+                	<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="birth"/>
+                	<input type="date" name="User_birth" value="${birth }">
                 	<input type="hidden" name="User_regdate" value="${user.user_regdate }">
                 </div>
                 <div class="register-group div9">

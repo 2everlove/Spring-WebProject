@@ -7,6 +7,17 @@
 <jsp:include page="../includes/header.jsp" />
 <script type="text/javascript">
 	function updateSubmit() {
+		
+		if($("input[name=nboard_title]").val()==""){
+			alert("제목을 입력해주세요.");
+			$("input[name=nboard_title]").select();
+			return false;
+		}
+		if($("input[name=nboard_content]").val()==null){
+			alert("내용을 입력해주세요.");
+			$("input[name=nboard_content]").select();
+			return false;
+		}
 		document.updateForm.submit();
 		$("select[nboard_category]").val();
 		$("select[nboard_public]").val();

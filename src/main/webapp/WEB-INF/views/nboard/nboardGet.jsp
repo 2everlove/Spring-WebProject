@@ -102,9 +102,9 @@
 										<th class="vertical_t">내용
 											<p id="nboard_content_wordcount">(0 / 500자)</p>
 										</th>
-										<td colspan="3"><textarea id="nboard_content"
-												name="nboard_content" wrap="hard"
-												style="width: 65vw; height: 30vh;" readonly>${vo.nboard_content}</textarea></td>
+										<td colspan="3">
+												<div class="request_data" style="white-space:pre;line-height: 32px;"><c:out value="${vo.nboard_content}"/></div>
+												</td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
