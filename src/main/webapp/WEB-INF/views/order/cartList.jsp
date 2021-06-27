@@ -84,8 +84,8 @@ $(document).ready(function(){
 						<th>상품 이름</th>
 						<th>가격</th>
 						<th>개수</th>
-						<th></th>
-						<th></th>
+						<th <c:if test="${list.size() == 0 }"> style="display: none;"</c:if>></th>
+						<th <c:if test="${list.size() == 0 }"> style="display: none;"</c:if>></th>
 					</tr>
 				</thead>
 				<tbody>

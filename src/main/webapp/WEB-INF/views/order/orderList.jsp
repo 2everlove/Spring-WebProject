@@ -83,7 +83,7 @@ function page(page){
 				</c:forEach>
 				<c:if test="${list.size() == 0 }">
 					<tr>
-						<td colspan='6' align="center">주문이 존재하지 않습니다.</td>
+						<td colspan='8' align="center">주문이 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 

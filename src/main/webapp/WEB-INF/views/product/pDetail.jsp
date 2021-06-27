@@ -93,7 +93,7 @@ $(document).ready(function() {
 						<input type="hidden" value="${pBoard.pboard_unit_no}"
 							name="pboard_unit_no"> <input type="hidden"
 							value="${pBoard.file_pictureId}" name="file_pictureId">
-						<input type="hidden" value="${pBoard.pboard_unit_price}pboard_unit_price"
+						<input type="hidden" value="${pBoard.pboard_unit_price}"
 							name="pboard_unit_price">
 						<input type="hidden" value="${pBoard.product_id}"
 							name="product_id"> <input type="hidden"
@@ -136,7 +136,7 @@ $(document).ready(function() {
 						<p>
 							총금액 <span>
 								<input type="text" value="${price}" class="order_totalprice" readonly>
-								<input type="hidden" value="${price}" name="order_totalprice" readonly>
+								<input type="hidden" value="${pBoard.pboard_unit_price}" name="order_totalprice" readonly>
 							</span>
 						<p>
 							등록일 <span>${regdate}</span>

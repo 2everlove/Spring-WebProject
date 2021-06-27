@@ -52,11 +52,11 @@ function updateOrderList(formData, btn){
 			if(status == "1"){
 				order_status_pic = "<i class='fas fa-credit-card fa-4x' style='color:#e2e2e2;'></i>"
 			} else if(status == "2"){
-				order_status_pic = "<i class='fas fa-box fa-4x' style='color:#e2e2e2;'></i>"
+				order_status_pic = "<i class='fas fa-box fa-4x'></i>"
 			} else if(status == "3"){
-				order_status_pic = "<i class='fas fa-truck-loading fa-4x' style='color:#e2e2e2;'></i>"
+				order_status_pic = "<i class='fas fa-truck-loading fa-4x'></i>"
 			} else if(status == "4"){
-				order_status_pic = "<i class='fas fa-shipping-fast fa-6x' style='color:#e2e2e2;'></i>"
+				order_status_pic = "<i class='fas fa-shipping-fast fa-6x'></i>"
 			} else {
 				order_status_pic = "<i class='fas fa-check fa-4x' style='color:#e2e2e2;'></i>"
 			}
@@ -102,14 +102,14 @@ function updateOrderList(formData, btn){
 									<c:when test="${ovo.order_status eq 1}">
 										<i class="fas fa-credit-card fa-4x"></i>
 									</c:when>
-									<c:when test="${ovo.order_status eq 2}">
-										<i class="fas fa-box fa-4x"></i>
+									<c:when test="${ovo.order_status eq 2}" >
+										<i class="fas fa-box fa-4x" style="color:#e2e2e2;"></i>
 									</c:when>
 									<c:when test="${ovo.order_status eq 3}">
-										<i class="fas fa-truck-loading fa-4x"></i>
+										<i class="fas fa-truck-loading fa-4x" style="color:#e2e2e2;"></i>
 									</c:when>
 									<c:when test="${ovo.order_status eq 4}">
-										<i class="fas fa-shipping-fast fa-6x"></i>
+										<i class="fas fa-shipping-fast fa-6x" style="color:#e2e2e2;"></i>
 									</c:when>
 									<c:otherwise>
 										<i class="fas fa-check fa-4x"></i>
