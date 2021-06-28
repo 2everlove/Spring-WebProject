@@ -128,7 +128,10 @@ function updateOrderList(formData, btn){
 								<td class="torder_name">${ovo.order_name}</td>
 								<td class="torder_address">${ovo.order_address}</td>
 								<td class="tproduct_id">${ovo.product_name}</td>
-								<td class="torder_totalprice">${ovo.order_totalprice}</td>
+								
+									<fmt:formatNumber type="number" maxFractionDigits="3"
+							value="${ovo.order_totalprice}" var="price"></fmt:formatNumber>
+								<td class="torder_totalprice">${price}</td>
 								<td class="torder_totalcount">${ovo.order_totalcount}</td>
 								<td class="center">
 									<fmt:parseDate value="${ovo.order_regdate}" pattern="yyyy-MM-dd" var="order_regdate" />

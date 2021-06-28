@@ -181,12 +181,12 @@ function signOut(){
                 	<div style="display:inline; "><a href="/member"class="loginUpperBtn">&nbsp;회원가입</a></div><div style="float:right; "><c:if test="${!empty sessionScope.user}"><a href="/getUser" class="loginUpperBtn" >회원상세보기&nbsp;</a></c:if></div>
                     <div class="login-group">
                     	<label>아이디</label>
-                        <input class="login-box" placeholder="id" name="User_id" value="testuser01" autofocus>
+                        <input class="login-box" placeholder="id" name="User_id" autofocus>
                     </div>
                    
                     <div class="login-group">
                     	<label>비밀번호</label>
-                        <input class="login-box" placeholder="Password" name="User_password" type="password" value="1234">
+                        <input class="login-box" placeholder="Password" name="User_password" type="password" >
                     </div>
                     
                     <!-- Change this to a button or input when using this as a form -->
