@@ -8,7 +8,10 @@
 }
 #user_upper{
 	width:100%;
-	height: 20%;
+	height: 8%;
+}
+.section__content{
+	height: 1300px;
 }
 #errorMsgArea{
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -145,7 +148,7 @@
 
 .parent {
 	width: 55rem;
-	height: 800px;
+	height: 1000px;
     margin: 0 auto;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -160,10 +163,10 @@
 .div6 { grid-area: 5 / 3 / 4 / 5; }
 .div7 { grid-area: 7 / 1 / 5 / 3; }
 .div8 { grid-area: 7 / 3 / 5 / 5; }
-.div9 { grid-area: 12 / 1 / 7 / 3; }
-.div10 { grid-area: 12 / 3 / 7 / 5; }
-.div11 { grid-area: 20 / 1 / 12 / 7; }
-.div12 { grid-area: 25 / 1 / 25 / 5; }
+.div9 { grid-area: 9 / 1 / 7 / 3; }
+.div10 { grid-area: 9 / 3 / 7 / 5; }
+.div11 { grid-area: 12 / 1 / 12 / 7; }
+.div12 { grid-area: 16 / 1 / 25 / 5; }
 
 
 #userUpdateForm{

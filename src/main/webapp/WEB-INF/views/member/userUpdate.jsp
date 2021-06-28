@@ -266,6 +266,8 @@ $(document).ready(function(){
    					<input type="hidden" name="user_contact" class="user_contact" value="${user.user_contact}" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
                 </div>
                 <div class="register-group div10">
+	                <label>관심분야</label>
+	                	<br>
    					<label class="interesting-label">
 	               		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="tablet" 
 	               			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿

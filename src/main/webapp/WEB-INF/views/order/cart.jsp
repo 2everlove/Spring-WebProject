@@ -72,7 +72,7 @@ $(document).ready(function(){
 				<input class="view" name="pboard_unit_no" type="hidden" value="${pBoard.pboard_unit_no}">
 				<label>받는 사람 정보</label>
 				<div class="content2">
-					<input name="user_id" type="hidden" value="${sessionScope.user.user_id}">
+					<input name="user_id" type="hidden" value="${sessionScope.user.user_id}" readonly>
 					<label>주소</label> 
 					<input type="text" name="user_address" class="user_address" value="${uvo.user_address}" readonly>
 				</div>
