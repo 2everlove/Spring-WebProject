@@ -157,7 +157,7 @@ function onSignIn(googleUser) {
 		  console.log('Image URL: ' + profile.getImageUrl());
 		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 		checkEmailbyGoogle(profile.getEmail(),profile.getId());
-			/* location.reload(); */
+		location.reload(); 
 		}//onSignIn
 	};
 function signOut(){

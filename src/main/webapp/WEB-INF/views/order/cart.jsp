@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -68,7 +69,7 @@ $(document).ready(function(){
 			<h2>주문/결제 사항</h2>
 			<form role="form" action="/cartAction" method="post" class="payment_form" id="cartForm">
 			<fieldset>
-				<input class="view" name="pboard_unit_no" type="text" value="${pBoard.pboard_unit_no}">
+				<input class="view" name="pboard_unit_no" type="hidden" value="${pBoard.pboard_unit_no}">
 				<label>받는 사람 정보</label>
 				<div class="content2">
 					<input name="user_id" type="hidden" value="${sessionScope.user.user_id}">
@@ -86,21 +87,28 @@ $(document).ready(function(){
 				<label>결제 정보</label>
 				<div class="content2">
 					<label>상품 이름</label>
+					
+					<input name="pboard_unit_price" type="hidden" value="${pBoard.pboard_unit_price}">
 					<input name="pboard_unit_price" type="hidden" value="${pBoard.pboard_unit_price}">
 					<input class="view" name="product_id" type="hidden" value="${pBoard.product_id}">
-					<input class="view" name="product_name" value="${productVO.product_name}">
+					<input class="view" name="product_name" value="${productVO.product_name}" readonly>
 				</div>
 				<div class="content2">
 					<label>상품 개수</label> <input class="view" name="cart_totalcount"
-						value="${param.order_totalcount}">
+						value="${param.order_totalcount}" readonly>
 				</div>
 				<div class="content2">
-					<label>총 결제 금액</label> <input class="view" name="cart_totalprice"
-						value="${pBoard.pboard_unit_price * param.order_totalcount}">
+					<label>총 결제 금액</label> 
+					<fmt:formatNumber type="number" maxFractionDigits="3"
+							value="${pBoard.pboard_unit_price * param.order_totalcount}" var="price"></fmt:formatNumber>
+					<input class="view" name="cart_totalprice" type="hidden"
+						value="${pBoard.pboard_unit_price * param.order_totalcount}" readonly>
+					<input type="text"
+						value="${price}" readonly>
 				</div>
 				<div class="content2">
 					<label>재고수</label>
-					<input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}">
+					<input class="view" name="pboard_unit_stocks" value="${pBoard.pboard_unit_stocks}" readonly>
 				</div>
 			</fieldset>
 			<button type="submit" class="detail__btn cart">장바구니 담기</button>
