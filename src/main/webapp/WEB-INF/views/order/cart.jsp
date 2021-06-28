@@ -13,7 +13,7 @@ $(document).ready(function(){
 	$("#cartForm").submit(function(){
 		alert('장바구니에 추가합니다.');
 	});
-	//지도 api
+	/* //지도 api
 	$('.user_address_search').click(function(){
 		let tr = $(this).closest("div");
 		var mapContainer = tr.find('#kmap')[0], // 지도를 표시할 div
@@ -59,7 +59,7 @@ $(document).ready(function(){
             }
         }).open();
 		tr.find('.user_address').select();
-	});
+	}); */
 	
 });
 </script>
@@ -74,9 +74,7 @@ $(document).ready(function(){
 				<div class="content2">
 					<input name="user_id" type="hidden" value="${sessionScope.user.user_id}">
 					<label>주소</label> 
-					<input type="text" name="user_address" class="user_address" value="${uvo.user_address}">
-					<input type="button" class="user_address_search" value="주소 검색"><br>
-					<div id="kmap" style="width:200px;height:200px;margin-top:10px;display:none"></div>
+					<input type="text" name="user_address" class="user_address" value="${uvo.user_address}" readonly>
 				</div>
 				<div class="content2">
 					<label>이름</label> <input class="view" name="user_name"
