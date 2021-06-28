@@ -251,7 +251,7 @@
 					    				</td>
 					    				<td>
 					    					<fmt:formatNumber type="number" value="${pBoard.pboard_unit_price}" var="price"></fmt:formatNumber>
-					    					<input type="text" class="pboard_unit_price_clone" name="pboard_unit_price" value="${price}" style="width: 100px;" onKeyup="inputNumberAutoComma(this);">
+					    					<input type="text" class="pboard_unit_price_clone" value="${price}" style="width: 100px;" onKeyup="inputNumberAutoComma(this);">
 					    					<input type="hidden" class="pboard_unit_price" name="pboard_unit_price" value="${pBoard.pboard_unit_price}" style="width: 100px;">
 					    				</td>
 					    				<fmt:formatDate value="${pBoard.pboard_unit_regdate }" pattern="yy-MM-dd" var="regdate"/>
