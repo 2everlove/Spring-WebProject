@@ -271,8 +271,8 @@
 					    					
 							    			
 							    				<td style="display: none;">${pBoard.file_pictureId}</td>
-							    				<td><button class="updateBtn" type="button">저장</button></td>
 							    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
+							    				<td><button class="updateBtn" type="button">저장</button></td>
 							    			</tr>
 					    				</c:if>
 					    				<c:if test="${empty pBoard.num}">

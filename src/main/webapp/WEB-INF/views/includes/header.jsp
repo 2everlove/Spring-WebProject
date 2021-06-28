@@ -302,7 +302,7 @@ async function initMap() {
 			                <div class="navbar__menu__item-history">History</div>
 		            	</c:when>
 		            	<c:otherwise>
-			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
+			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}/${sessionScope.user.user_name}]</b> 로그아웃</button></a>
 			                <a href="/myPage"><button class="navbar__menu__item-member" data-link="#myPage"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
 		                	<a href="/cartList"><button class="navbar__menu__item-member" data-link="#cart"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
 		                	<button class="navbar__menu__item" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
@@ -328,7 +328,7 @@ async function initMap() {
 	             	<div class="navbar__menu-left">
 	             		<ul class="category__list">
 	             			<li class="list"><a href="/type/tablet" >태블릿</a></li>
-	             			<li class="list"><a href="/type/computer">컴퓨터</a></li>
+	             			<li class="list"><a href="/type/desktop">컴퓨터</a></li>
 	             			<li class="list"><a href="/type/notebook">노트북</a></li>
 	             			<li class="list"><a href="/type/life">생활가전</a></li>
 	             			<li class="list"><a href="/type/video">영상가전</a></li>

@@ -210,8 +210,8 @@
 				    				
 				    				<th style="width: 200px;">게시자</th>
 				    				<th>이미지 파일</th>
-				    				<th>저장</th>
 				    				<th>보기</th>
+				    				<th>저장</th>
 				    			</tr>
 				    				
 				    			<c:forEach var="pBoard" items="${PBoardList}">
@@ -278,8 +278,8 @@
 					    					</c:if>
 				    					</c:forEach>
 					    				</td>
-					    				<td><button class="updateBtn" type="button">저장</button></td>
 					    				<td><a href="/pDetail/${pBoard.pboard_unit_no }"><button class="viewBtn" type="button">보기</button></a></td>
+					    				<td><button class="updateBtn" type="button">저장</button></td>
 					    			</tr>
 				    			</c:forEach>
 				    		</thead>

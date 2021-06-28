@@ -141,10 +141,6 @@
 				$("#uploadBtn").click();
 				return false;
 			}
-			if($('input[name=file_pictureId]').val()==""){
-				$("#uploadBtn").click();
-				return false;
-			}
 			$("form[name=pBoardForm]").submit(); 
 		});
 
