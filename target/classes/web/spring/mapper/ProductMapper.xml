@@ -244,16 +244,16 @@
 	
 	<!-- productRegister시 제조사로 검색 시 상품 카테고리 검색 -->
 	<select id="searchManuCate" resultType="web.spring.vo.ProductVO">
-		select * 
+		select product_id, LOWER(product_manufacturer) product_manufacturer, LOWER(product_name) product_name, product_description, LOWER(product_category) product_category, product_color, product_regdate, file_pictureId
 		from products_info 
 		where LOWER(product_manufacturer)=#{product_manufacturer} and LOWER(product_category) = #{product_category}
 	</select>
 	
 	<!-- productRegister시 상품 이름으로 검색 시 제조사, 카테고리 검색 -->
 	<select id="searchProductManuCate" resultType="web.spring.vo.ProductVO">
-		select distinct product_category, product_manufacturer, product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
+		select distinct LOWER(product_category) as product_category, LOWER(product_manufacturer) as product_manufacturer, LOWER(product_name) as product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
 		from products_info 
-		where product_name like '%'||#{product_name}||'%'
+		where LOWER(product_name) like '%'||#{product_name}||'%'
 	</select>
 	
 	<!-- productRegister시 product_id에 마스터 상품이 있는지 검색  -->

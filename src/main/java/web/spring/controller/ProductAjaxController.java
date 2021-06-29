@@ -47,10 +47,10 @@ public class ProductAjaxController {
 	public Map<String, Object> AjaxgetProductInfo(@PathVariable("product_name")String product_name) {
 		log.info("AjaxgetProductInfo"+product_name);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<ProductVO> list = productService.searchProductManuCate(product_name);
+		List<ProductVO> list = productService.searchProductManuCate(product_name.toLowerCase());
 		log.info(list);
 		if(list != null) {
-			if(list.size()>=0) {
+			if(list.size()>=1) {
 				map.put("result", list);
 			} else {
 				map.put("result", "error");

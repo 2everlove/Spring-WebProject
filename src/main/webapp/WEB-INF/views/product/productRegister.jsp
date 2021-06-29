@@ -347,6 +347,7 @@
 				let result ="";
 				//console.log(datas);
 				if(datas.result != "error"){
+					console.log(datas.result);
 					$(parentElement).children('select').show();
 					$.each(datas.result, function(i, data){
 						result += "<option name='search__value' value='"+data.product_name+"' data-category='"+data.product_category+"' data-manufacturer="+data.product_manufacturer+" data-id="+data.product_id+">"+data.product_name+"</option>"
