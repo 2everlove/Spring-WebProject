@@ -1,29 +1,37 @@
 # Spring-WebProject [Shopping Mall]<br><sub>주최 [主催] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></sub>
-초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>><br>
-초기 DB Modeling [初期データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>><br>
-DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>><br>
-최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><br>
+<ul>
+<li>초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>></li><br>
+<li>초기 DB Modeling [初期データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>></li><br>
+<li>DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>></li><br>
+<li>최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>></li><br>
+</ul>
 <hr>
   <h2>Team member 소개 [Team memberをご紹介]</h2>
-  <p><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
+  </ul>
+  <li><p><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
   맡은 직책[引き受けた職責] : 팀장 [チームリーダー]<br>
   맡은 업무[受け持った業務] : 메인&상품&관리자(제품, 회원 관리) 페이지 [メイン&商品&管理者(商品、会員管理)のページ]
+  </li>
   <br>
   <br>
-  <p><b><a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
+  <li><p><b><a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
   맡은 직책[引き受けた職責] : 팀원 [チーム員]<br>
   맡은 업무[受け持った業務] : 문의사항, 제품 리뷰 페이지 [お問い合わせ、製品レビューページ]
+  </li>
   <br>
   <br>
-  <p><b><a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
+  <li><p><b><a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
   맡은 직책[引き受けた職責] : 팀원 [チーム員]<br>
-  맡은 업무[受け持った業務] : 구매 관리 (장바구니, 결제화면) [購入管理 (買い物かご、決済画面)] 
+  맡은 업무[受け持った業務] : 구매 관리 (장바구니, 결제화면) [購入管理 (買い物かご、決済画面)]
+  </li>
   <br>
   <br>
-  <p><b><a href="https://github.com/pescatorio" target='_blank'>pescatorio(Jeon J-Y)</a></b></p>
+  <li><p><b><a href="https://github.com/pescatorio" target='_blank'>pescatorio(Jeon J-Y)</a></b></p>
   맡은 직책[引き受けた職責] : 팀원 [チーム員]<br>
   맡은 업무[受け持った業務] : 회원가입, 공지사항 [会員登録、お知らせ]
+  </li>
   <br>
+  </ul>
   
 <hr>
   <h2>Web Project 목적 [Web Projectを目的]</h2>
