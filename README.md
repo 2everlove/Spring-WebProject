@@ -6,7 +6,7 @@
   <br>
 <hr>
   <h2>Web project 소개[Web projectをご紹介]</h2>
-  <p><b>Main page - 2everlove(Ahn M-S)</b></p>
+  <p><b>Main page - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
   <ul>
   <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
   </li>
@@ -19,7 +19,7 @@
   </ul>
   <br>
   
-  <p><b>Login page - pescatorio(Jeon J-Y)</b></p>
+  <p><b>Login page - <a href="https://github.com/pescatorio" target='_blank'>pescatorio(Jeon J-Y)</a></b></p>
   <ul>
   <li>login&join<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/login.gif">
   </li>
@@ -28,11 +28,11 @@
   </ul>
   <br>
   
-  <p><b>Review page - Azerbaijan-Baku(Kim T-M)</b></p>
+  <p><b>Review page - <a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/review.gif">
   <br>
   
-  <p><b>Order Page - skqlgpdls(Kim H-Y)</b></p>
+  <p><b>Order Page - <a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/order.gif">
   <br>
   
