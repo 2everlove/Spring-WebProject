@@ -33,7 +33,7 @@
   <br>
   
   <p><b>Order Page - <a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
-  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/order.gif">
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/order1.gif">
   <br>
   
   
