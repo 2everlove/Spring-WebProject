@@ -7,7 +7,7 @@
 </ul>
 <hr>
   <h2>Team member 소개 [Team memberをご紹介]</h2>
-  </ul>
+  <ul>
   <li><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b><br>
   맡은 직책[引き受けた職責] : 팀장 [チームリーダー]<br>
   맡은 업무[受け持った業務] : 메인&상품&관리자(제품, 회원 관리) 페이지 [メイン&商品&管理者(商品、会員管理)のページ]
