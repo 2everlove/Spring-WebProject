@@ -50,7 +50,13 @@
   </ul>
     
   <p><b>Admin page(user fn - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a>)</b>
-  manage user of admin<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/user.gif">
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/user.gif">
+  <br>
+    
+  <p><b>Review page - <a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/qa.gif">
+  <br>
+    
   
   <br>
     
