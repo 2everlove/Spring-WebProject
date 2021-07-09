@@ -68,16 +68,14 @@
 
 		
 		//연락처 validation
-		$(".user_contact").change(function(){
+		$(".user_contact_clone").keyup(function(){
+			//console.log($(this).val().length);
+			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
+		});
+		$(".user_contact_clone").change(function(){
 			let str = $(this).val();
-			console.log(str)
-			str = "" + str;
-			if(blankCheck(str)){
-				str = str.replace(/[^0-9]/g, "");
-			}else{
-				str = null;
-			}
-			$(this).val(str);
+			let tmp = str.replace(/\-/g,'');
+			$(this).closest("td").find(".user_contact").val(tmp);
 		});
 		
 		//타입 색상
@@ -132,8 +130,39 @@
 		
 		//저장 버튼
 		$(".updateBtn").click(function(){
-			let formData = new FormData();
 			let tr = $(this).closest("tbody");
+			let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+			if (tr.find('.user_email').val() == '' || !re.test(tr.find('.user_email').val())) {
+				alert("올바른 이메일 주소를 입력하세요")
+				return false;
+			}
+			if(tr.find('.user_email').val()==""){
+				tr.find('.user_email').select();
+				return false;
+			}
+			if(tr.find('.user_contact').val().length<=9){
+				tr.find('.user_contact_clone').select();
+				return false;
+			}
+			if(tr.find('.user_enabled').val()==""){
+				tr.find('.user_enabled').select();
+				return false;
+			}
+			if(tr.find('.user_type').val()==""){
+				tr.find('.user_type').select();
+				return false;
+			}
+			if(tr.find('.user_birth').val()==""){
+				tr.find('.user_birth').select();
+				return false;
+			}
+			if(tr.find('.user_address').val()==""){
+				tr.find('.user_address').select();
+				return false;
+			}
+			
+			let formData = new FormData();
 			let formUser_id = tr.find(".user_id").val();
 			let formUser_email = tr.find(".user_email").val();
 			let formUser_contact = tr.find(".user_contact").val();
@@ -303,9 +332,14 @@
 				    				<tr data-num="1">
 				    					<td rowspan="2" style="width: 30px;">${user.num}</td>
 					    				<td rowspan="2"><button type="button" class="pwdChaBtn">비밀번호 변경</button></td>
-					    				<td><input disabled="disabled" type="text" value="${user.user_id}"><input type="hidden" name="user_id" class="user_id" value="${user.user_id}"></td>
+					    				<td><input disabled="disabled" type="text" value="${user.user_id}" style="width: 80px;"><input type="hidden" name="user_id" class="user_id" value="${user.user_id}"></td>
 					    				<td><input type="email" name="user_email" class="user_email" value="${user.user_email}"></td>
-					    				<td><input type="text" name="user_contact" class="user_contact" value="${user.user_contact}"></td>
+					    				<td>
+					    					<fmt:formatNumber var="contact" value="${user.user_contact}" pattern="###,####,####"  type="number" minIntegerDigits="11"/>
+					    					<input type="text" class="user_contact_clone" value="<c:out value="${fn:replace(contact, ',', '-')}" />" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
+					    					<input type="hidden" name="user_contact" class="user_contact" value="${user.user_contact}" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
+					    				
+					    				</td>
 					    				<td>
 					    					<select class="user_enabled" name="user_enabled" 
 					    						<c:if test="${user.user_enabled==2}">style="color: red;"</c:if>
@@ -405,7 +439,7 @@
 							    					<input type="hidden" class="user_interesting" name="user_interesting" value="${user.user_interesting}" onload="interesting(${user.user_interesting})">
 							    				
 							    				</td>
-					    				<td><input type="text" name="user_enabledContent" class="user_enabledContent" value="${user.user_enabledContent}"></td>
+					    				<td><input type="text" name="user_enabledContent" class="user_enabledContent" value="${user.user_enabledContent}" style="width: 70px; height: 50px;"></td>
 					    				<c:forEach var="file" items="${fileList}">
 				    						<c:if test="${user.file_pictureId eq file.file_pictureId}">
 				    							<c:url value="/fileDisplay" var="urlThum">

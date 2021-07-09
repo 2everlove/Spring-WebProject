@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<jsp:useBean id="now" class="java.util.Date" />
 
 <!-- nboard css -->
 <link rel="stylesheet" href="../../../resources/css/nboard.css">
@@ -30,7 +30,7 @@ function detail(nboard_no){
 </script>
 
 <section class="section__content">
-
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 	<div id="nboard-wrapper">
 		<h2 class="page_title">공지 게시판</h2>
 		<div id="nboard_upper"></div>
@@ -72,6 +72,7 @@ function detail(nboard_no){
 											<c:if test="${vo.nboard_category=='1' }"><label>이벤트</label></c:if>
 											<c:if test="${vo.nboard_category=='2' }"><label>기타</label></c:if></td>
 											<td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }
+											<c:if test="${today <= vo.nboard_regDate_new}"><i class="fas fa-plus-square" style="color:#272b2b;"></i></c:if>
 											</a></td>
 											<td>${vo.nboard_content}</td>
 											<td>${vo.user_id }</td>
@@ -85,6 +86,7 @@ function detail(nboard_no){
 											<c:if test="${vo.nboard_category=='1' }"><label>이벤트</label></c:if>
 											<c:if test="${vo.nboard_category=='2' }"><label>기타</label></c:if></td>
 											<td onClick=detail(${vo.nboard_no})><a href="#">${vo.nboard_title }
+											<c:if test="${today <= vo.nboard_regDate_new}"><i class="fas fa-plus-square" style="color:#272b2b;"></i></c:if>
 											</a><p style="font-weight:bold;"><i class="fas fa-lock" style="color:#272b2b;"></i></p></td>
 											<td>${vo.nboard_content}</td>
 											<td>${vo.user_id }</td>

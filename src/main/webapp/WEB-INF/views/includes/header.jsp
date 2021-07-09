@@ -92,17 +92,22 @@ async function initMap() {
 		myStorage = window.localStorage;
 
 		let history = "${sessionScope.history_product_no}";
+		let resMsgHis = "${resMsgHis}"
 		if(history!=""){
 			localStorage.setItem('his', history);
 		}
 		let his = localStorage.getItem('his');
+		console.log(resMsgHis);
 		
 			
 		window.onload = function(){
 			if(his!=null && his!='undifined' && history!=null){
 				historyFunction(his);
 			}
-				
+			if(resMsgHis!=""){
+				localStorage.removeItem('his');
+				$(".navbar__menu__item-history").html("History");
+			}	
 			if(document.getElementsByClassName('jq-stars').length>0){
 				for (let i = 0; i < 30; i++) {
 					$(".starGet_" + i).starRating({
@@ -115,6 +120,78 @@ async function initMap() {
 			
 			
 		};
+		if(window.location.pathname=="/main"){
+			document.querySelector('[data-link="#new"]').classList.add('active');
+		}
+		if(window.location.pathname!="/main"){
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/login")!="-1"){
+			document.querySelector('[data-link="#login"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/member")!="-1"){
+			document.querySelector('[data-link="#member"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/myPage")!="-1" || window.location.pathname.search("/product")!="-1" || window.location.pathname.search("/userUpdate")!="-1"||window.location.pathname.search("/orderList")!="-1"){
+			document.querySelector('[data-link="#myPage"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/cart")!="-1"||window.location.pathname.search("/payment")!="-1"){
+			document.querySelector('[data-link="#cart"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		if(window.location.pathname.search("/admin")!="-1"){
+			document.querySelector('[data-link="#myPage"]').classList.add('active');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+		}
+		console.log(window.location.pathname);
+		if(window.location.pathname==="/cond/0"){
+			let menu_item = document.querySelector('[data-link="#new"]');
+			menu_item.classList.add('active');
+		} else if(window.location.pathname==="/cond/1"){
+			let menu_item = document.querySelector('[data-link="#sale"]');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+			menu_item.classList.add('active');
+		} else if(window.location.pathname==="/cond/2"){
+			let menu_item = document.querySelector('[data-link="#event"]');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+			menu_item.classList.add('active');
+		} else if(window.location.pathname==="/cond/3"){
+			let menu_item = document.querySelector('[data-link="#recommend"]');
+			document.querySelector('[data-link="#new"]').classList.remove('active');
+			menu_item.classList.add('active');
+		};
+		
+		/* $("#navbar__search__iput").change(function(){
+			$.ajax({
+				url:'/fileUploadAjax/'+hdata.masterImg,
+				method : 'get',
+				dataType : 'json',
+				async:false,
+				success : function(datas){
+					let result ="";
+					$.each(datas, function(i, data){
+						//console.log(data);
+						//이미지 썸네일의 경로를 인코딩 처리해서 서버에 보냄
+						
+						let file_s_savePath = encodeURIComponent(data.file_s_savePath);
+						//console.log(data.file_s_savePath);
+						
+						htmlContent +="<a href='/pDetail/"+hdata.pboard_unit_no+"'>"
+							+"<img data-sort="+index+" src=/fileDisplay?file_name="+file_s_savePath+" style=' width: 90px; height: 90px; object-fit: cover;'>"
+							+"</a>";
+						$(".navbar__menu__item-history").html(htmlContent);
+					
+					});
+				},
+				error : function(errorThrown){
+					console.log(errorThrown);
+				}
+			});
+				
+		}); */
 		
 		const pathName = window.location.pathname;
 	
@@ -214,21 +291,21 @@ async function initMap() {
 		            <div class="navbar__menu-right">
 		            <c:choose>
 		            	<c:when test="${empty sessionScope.user}">
-			            	<a href="/login"><button class="navbar__menu__item-login"><i class="fas fa-sign-in-alt"></i>  로그인</button></a>
-			                <a href="/member"><button class="navbar__menu__item-login"><i class="fas fa-users"></i>  회원가입</button></a>
-			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
-		                	<a href="/cart"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
-		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
+			            	<a href="/login"><button class="navbar__menu__item-login" data-link="#login"><i class="fas fa-sign-in-alt"></i>  로그인</button></a>
+			                <a href="/member"><button class="navbar__menu__item-login" data-link="#member"><i class="fas fa-users"></i>  회원가입</button></a>
+			                <a href="/myPage"><button class="navbar__menu__item-member" data-link="#myPage"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
+		                	<a href="/cart"><button class="navbar__menu__item-member" data-link="#cart"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<button class="navbar__menu__item" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
 			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
 			                <div class="navbar__menu__item-history">History</div>
 		            	</c:when>
 		            	<c:otherwise>
-			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}]</b> 로그아웃</button></a>
-			                <a href="/myPage"><button class="navbar__menu__item-member"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
-		                	<a href="/cartList"><button class="navbar__menu__item-member"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
-		                	<button class="navbar__menu__item active" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
+			            	<a href="/logout"><button class="navbar__menu__item-logout"><i class="fas fa-sign-in-alt"></i>  <b>[${sessionScope.user.user_id}/${sessionScope.user.user_name}]</b> 로그아웃</button></a>
+			                <a href="/myPage"><button class="navbar__menu__item-member" data-link="#myPage"><i class="fas fa-user-alt"></i> 마이페이지</button></a>
+		                	<a href="/cartList"><button class="navbar__menu__item-member" data-link="#cart"><i class="fas fa-shopping-cart"></i> 장바구니  /  배송조회</button></a>
+		                	<button class="navbar__menu__item" data-link="#new"><i class="fas fa-hand-sparkles"></i> New</button>
 			                <button class="navbar__menu__item" data-link="#sale"><i class="fas fa-dollar-sign"></i>  Sale</button>
 			                <button class="navbar__menu__item" data-link="#event"><i class="far fa-smile"></i>  Event</button>
 			                <button class="navbar__menu__item" data-link="#recommend"><i class="far fa-thumbs-up"></i>  Recommend</button>
@@ -251,7 +328,7 @@ async function initMap() {
 	             	<div class="navbar__menu-left">
 	             		<ul class="category__list">
 	             			<li class="list"><a href="/type/tablet" >태블릿</a></li>
-	             			<li class="list"><a href="/type/computer">컴퓨터</a></li>
+	             			<li class="list"><a href="/type/desktop">컴퓨터</a></li>
 	             			<li class="list"><a href="/type/notebook">노트북</a></li>
 	             			<li class="list"><a href="/type/life">생활가전</a></li>
 	             			<li class="list"><a href="/type/video">영상가전</a></li>

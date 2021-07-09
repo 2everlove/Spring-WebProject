@@ -4,11 +4,11 @@
 <mapper namespace="web.spring.mapper.ProductMapper">
 	<!-- 상품관리 -->
 	<select id="getProductList" resultType="web.spring.vo.ProductVO">
-		select product.* from (select rownum num, p.* from products_info p) product where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+		select product.* from (select rownum num, p.* from (select * from products_info order by product_regdate desc) p) product where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount}
 	</select>
 	
 	<select id="getProductAllList" resultType="web.spring.vo.ProductVO">
-		select product.* from (select rownum num, p.* from products_info p) product
+		select product.* from (select rownum num, p.* from (select * from products_info order by product_regdate desc) p) product order by product.product_regdate desc
 	</select>
 	
 	<!-- admin 상품게시글 관리 -->
@@ -24,8 +24,8 @@
 			<if test="orderby=='pboard_unit_condition_n_desc'">decode(pboard_unit_condition,'0', 1, '2', 2, '1', 3)</if>
 			<if test="orderby=='pboard_unit_condition_s_asc'">decode(pboard_unit_condition, '1', 1, '0', 2, '2', 3)</if>
 			<if test="orderby=='pboard_unit_condition_s_desc'">decode(pboard_unit_condition,'1', 1, '2', 2, '0', 3)</if>
-			<if test="orderby=='pboard_unit_condition_e_asc'">decode(pboard_unit_condition, '2', 1, '0', 2, '2', 3)</if>
-			<if test="orderby=='pboard_unit_condition_e_desc'">decode(pboard_unit_condition,'2', 1, '2', 2, '0', 3)</if>
+			<if test="orderby=='pboard_unit_condition_e_asc'">decode(pboard_unit_condition, '2', 1, '0', 2, '1', 3)</if>
+			<if test="orderby=='pboard_unit_condition_e_desc'">decode(pboard_unit_condition,'2', 1, '1', 2, '0', 3)</if>
 			<if test="orderby=='pboard_unit_stocks_asc'">TO_NUMBER(pboard_unit_stocks)</if>
 			<if test="orderby=='pboard_unit_stocks_desc'">TO_NUMBER(pboard_unit_stocks) desc</if>
 			<if test="orderby=='pboard_unit_regdate_asc'">pboard_unit_regdate</if>
@@ -164,30 +164,30 @@
 	<!-- 카테고리 불러오기 -->
 	<select id="getTypeBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+			select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled = '0' and product_id in(
         			select product_id from products_info where product_category=#{product_category}) 
         		) board
-        	) pboard where each_rank between 1 and 5
+        	) pboard where each_rank between 1 and 5 order by pboard.pboard_unit_price
 	</select>
 	
 	<!-- new, event 등 불러옴 -->
 	<select id="getCondBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+			select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info where pboard_unit_condition=#{pboard_unit_condition}) 
         		) board
-        	) pboard where each_rank between 1 and 5 
+        	) pboard where each_rank between 1 and 5 order by pboard.pboard_unit_price
 	</select>
 	
 	<select id="getRecommendBoardList" resultType="web.spring.vo.PBoardVO">
 		select rownum num, pboard.* from (
-			select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+			select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
     			select * from product_board where pboard_unit_enabled ='0' and product_id in(
         			select product_id from products_info) 
         		) board
-        	) pboard where each_rank between 1 and 5 
+        	) pboard where each_rank between 1 and 5 order by pboard.pboard_unit_price
 	</select>
 	
 	<!-- 활성화 된 글인지 확인 후 뿌려줌  -->
@@ -197,7 +197,7 @@
 	
 	<!-- 메인 네비 카테고리 클릭 시 검색 -->
 	<select id="getTypeList" resultType="web.spring.vo.ProductVO">
-		select distinct p_i.* from (select * from products_info where product_category=#{product_category}) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null
+		select distinct p_i.* from (select * from products_info where product_category=#{product_category}) p_i left join product_board p_b on p_i.product_id = p_b.product_id where p_b.product_id is not null and p_b.pboard_unit_enabled = '0'
 	</select>
 	
 	<!-- 메인 네비 new,event... 클릭 시 검색 -->
@@ -244,16 +244,16 @@
 	
 	<!-- productRegister시 제조사로 검색 시 상품 카테고리 검색 -->
 	<select id="searchManuCate" resultType="web.spring.vo.ProductVO">
-		select * 
+		select product_id, LOWER(product_manufacturer) product_manufacturer, LOWER(product_name) product_name, product_description, LOWER(product_category) product_category, product_color, product_regdate, file_pictureId
 		from products_info 
 		where LOWER(product_manufacturer)=#{product_manufacturer} and LOWER(product_category) = #{product_category}
 	</select>
 	
 	<!-- productRegister시 상품 이름으로 검색 시 제조사, 카테고리 검색 -->
 	<select id="searchProductManuCate" resultType="web.spring.vo.ProductVO">
-		select distinct product_category, product_manufacturer, product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
+		select distinct LOWER(product_category) as product_category, LOWER(product_manufacturer) as product_manufacturer, LOWER(product_name) as product_name, product_id, file_pictureId, product_color, product_regdate, product_description 
 		from products_info 
-		where product_name like '%'||#{product_name}||'%'
+		where LOWER(product_name) like '%'||#{product_name}||'%'
 	</select>
 	
 	<!-- productRegister시 product_id에 마스터 상품이 있는지 검색  -->
@@ -272,7 +272,7 @@
 	<!-- search -->
    <select id="getSearchBoardList" parameterType="hashmap" resultType="web.spring.vo.PBoardVO">
       select rownum num, pboard.* from (
-         select board.*, rank() over(partition by product_id order by pboard_unit_price, pboard_unit_regdate desc) each_rank from (
+         select board.*, rank() over(partition by product_id order by to_number(pboard_unit_price), pboard_unit_regdate desc) each_rank from (
              select * from product_board where pboard_unit_enabled = '0' and product_id in(
                  select product_id from products_info 
       where product_id in (

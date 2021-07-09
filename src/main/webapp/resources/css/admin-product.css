@@ -1,9 +1,7 @@
 @charset "UTF-8";
-.section__admin{
+.section__content{
 	margin: 0 auto; 
 	text-align: center; 
-	height: 480px; 
-	min-width: 1200px;
 }
 .section__admin-product{
 	margin: 0 auto; 
@@ -15,6 +13,7 @@
 .table__wrapper{
 	padding-top: 80px;
 }
+
 .table-product{
 	width: 1000px;
 	padding: 5px;

@@ -42,6 +42,10 @@
 				currentRow.find('.product_category').select();
 				return false;
 			}
+			if(currentRow.find('.product_name').val()==""){
+				currentRow.find('.product_name').select();
+				return false;
+			}
 			if(currentRow.find('.product_color').val()==""){
 				currentRow.find('.product_color').select();
 				return false;
@@ -121,7 +125,7 @@
 			success : function(datas){
 				console.log("success");
 				console.log(datas);
-				alert(datas.count+"개가 업로드 되었습니다.");
+				//alert(datas.count+"개가 업로드 되었습니다.");
 				viewFile(datas.file_pictureId, btn);
 				if(formData.get('product_name')!=null){
 					$('#file_pictureId').val(datas.file_pictureId);
@@ -347,7 +351,7 @@
 				    				<td><input type="text" name="product_description"></td>
 				    				<td><div class="colorPickSelector"></div><input type="hidden" name="product_color"></td>
 				    				<td><img id="thum" src="#" style="width: 100px; height: 100px;"></td>
-			    					<td><input type="file" name="uploadFile" id="imgUpload"><input id="file_pictureId" type="hidden" name="file_pictureId"><input type="hidden" name="file_usingType" value="3"></td>
+			    					<td><input type="file" name="uploadFile" id="imgUpload" accept="image/*"><input id="file_pictureId" type="hidden" name="file_pictureId"><input type="hidden" name="file_usingType" value="3"></td>
 				    				<td><button type="button" id="registerBtn">저장</button>
 				    			</tr>
 			    			</thead>

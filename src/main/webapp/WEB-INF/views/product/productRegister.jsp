@@ -9,13 +9,15 @@
 	$(document).ready(function(){
 		$(".search__select").hide();
 		
-		$("select[name=category]").change(function(){
+		$("select[name=category]").click(function(){
 			let parentElement = $(this).closest("div");
 			//$(parentElement).find('select').hide();
 			//$(parentElement).find('option').remove();
 			$(this).prop('data');
 			if($(this).val()!=""){
 				checkProductName($(this).attr("name"),  $(this).find('option:selected').val(), parentElement);
+			} else {
+				checkProductName($(this).attr("name"),  "tablet", parentElement);
 			}
 			//console.log(document.getElementById('manufacturer').selectedIndex);
 			
@@ -31,7 +33,7 @@
 				}
 			});//
 		}
-		
+				
 		if(document.getElementById('pn').selectedIndex<0){
 			$("select[name=pn]").click(function(){
 				$('input[name=product_name]').val($(this).find('option:selected').val());
@@ -98,6 +100,13 @@
 			viewFile($('#file_pictureId').val());
 		});//
 		
+		$(".pboard_unit_price_clone").change(function(){
+			$(".pboard_unit_price").val(inputNumberRemoveComma($(".pboard_unit_price_clone").val()));
+		});
+		$(".pboard_unit_stocks_clone").change(function(){
+			$(".pboard_unit_stocks").val(inputNumberRemoveComma($(".pboard_unit_stocks_clone").val()));
+		});
+		
 		
 		$('#pRegisterBtn').click(function(){
 			if($('input[name=product_id]').val()==""){
@@ -113,23 +122,23 @@
 				return false;
 			}
 			if($('input[name=pboard_unit_price]').val()==""){
-				$('input[name=pboard_unit_price]').select();
+				$('.pboard_unit_price_clone').select();
 				return false;
 			}
 			if($('input[name=pboard_unit_stocks]').val()==""){
-				$('input[name=pboard_unit_stocks]').select();
+				$('.pboard_unit_stocks_clone').select();
 				return false;
 			}
 			if($('input[name=product_name]').val()==""){
 				$('input[name=product_name]').select();
 				return false;
 			}
-			if($('input[name=file_pictureId]').val()==""){
-				$('input[name=uploadFile]').select();
+			if($('input[name=file_pictureIdClone]').val()==""){
+				$('input[name=uploadFile]').click();
 				return false;
 			}
-			if($('input[name=file_pictureIdClone]').val()==""){
-				$('input[name=uploadFile]').select();
+			if($('#fileUpload').val()==""){
+				$("#uploadBtn").click();
 				return false;
 			}
 			$("form[name=pBoardForm]").submit(); 
@@ -157,7 +166,7 @@
 				success : function(datas){
 					//console.log("success");
 					//console.log(datas);
-					alert(datas.count+"개가 업로드 되었습니다.");
+					//alert(datas.count+"개가 업로드 되었습니다.");
 					let file_pictureId = "";
 					//$('#attachNo').val(datas.attachNo);
 					/* $("") 태그 $("#") id $(".") class */
@@ -210,14 +219,8 @@
 					
 				});
 				if(datas.length == 0){
-					if(confirm(file_pictureId+'번에 해당하는 데이터가 없습니다. 다시 검색을 원하시면 확인, \n'+file_pictureId+'번에 데이터를 저장하시려면 취소를 눌러주세요')){
-						$('#file_pictureId').val("");
-						$('#fileUpload').val("");
-						$('#file_pictureId').select();
-					} else {
-						$('#fileUpload').val("");
-						$('#fileUpload').click();
-					}
+					$('#fileUpload').val("");
+					$('#fileUpload').click();
 				}
 				$('#fileList').html(result);
 				if($(location).attr('pathname').match('/board/get')){
@@ -344,6 +347,7 @@
 				let result ="";
 				//console.log(datas);
 				if(datas.result != "error"){
+					console.log(datas.result);
 					$(parentElement).children('select').show();
 					$.each(datas.result, function(i, data){
 						result += "<option name='search__value' value='"+data.product_name+"' data-category='"+data.product_category+"' data-manufacturer="+data.product_manufacturer+" data-id="+data.product_id+">"+data.product_name+"</option>"
@@ -404,6 +408,50 @@
 		});
 	}//
 	
+	//자릿수 (,) 찍기
+	function inputNumberAutoComma(obj) {
+     
+		// 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+		var deleteComma = obj.value.replace(/\,/g, "");
+		let str = obj.value;
+		//console.log(str)
+		str = "" + str;
+		if(blankCheck(str)){
+			str = str.replace(/[^0-9]/g, "");
+		}else{
+			str = null;
+		}
+		
+		obj.value = str;
+		
+		   
+		// 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+		obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	}
+	
+	function inputNumberWithComma(str) {
+	
+		str = String(str);
+		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	}
+	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+	function inputNumberRemoveComma(str) {
+	
+		str = String(str);
+		return str.replace(/[^\d]+/g, "");
+	}
+	
+	function blankCheck(str){
+		if(str == null || str == "null"
+			|| str == undefined || str == "undefined"
+			|| str == '' || str == "" || str.length == 0
+		){
+			return null;
+		}else{
+			return str;
+		}
+	}
+	
 	
 	
 
@@ -446,15 +494,19 @@
 				    			<label><input type="hidden" name="product_id"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>new<input type="radio" name="pboard_unit_condition" value="0" checked;></label>
+				    			<label>new<input type="radio" name="pboard_unit_condition" value="0" checked></label>
 				    			<label>sale<input type="radio" name="pboard_unit_condition" value="1"></label>
 				    			<label>event<input type="radio" name="pboard_unit_condition" value="2"></label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>가격 <input type="number" name="pboard_unit_price"></label>
+				    			<label>가격 <input type="text" class="pboard_unit_price_clone" onKeyup="inputNumberAutoComma(this);">
+				    					<input type="hidden" class="pboard_unit_price" name="pboard_unit_price">
+				    			</label>
 				    		</div>
 				    		<div class="search__input">
-				    			<label>재고 <input type="number" name="pboard_unit_stocks"></label>
+				    			<label>재고 <input type="text" class="pboard_unit_stocks_clone" onKeyup="inputNumberAutoComma(this);">
+				    					<input type="hidden" class="pboard_unit_stocks" name="pboard_unit_stocks">
+				    			</label>
 				    		</div>
 				    		<div class="search__input">
 				    			<label>작성자 <input type="hidden" name="user_id" value="${sessionScope.user.user_id}"><input type="text" value="${sessionScope.user.user_id}" disabled></label>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
@@ -38,6 +39,7 @@ $(document).ready(function(){
 });
 
 function updateOrderList(formData, btn){
+	let status = formData.get('order_status');
 	$.ajax({
 		url : '/admin/updateOrderList',
 		method : 'POST',
@@ -46,8 +48,20 @@ function updateOrderList(formData, btn){
 		contentType : false,
 		data : formData,
 		success : function(){
-			console.log(formData.get('order_status'));
-			btn.closest("tr").find('.torder_status').html(formData.get('order_status'));
+			let order_status_pic = "";
+			if(status == "1"){
+				order_status_pic = "<i class='fas fa-credit-card fa-4x' style='color:#e2e2e2;'></i>"
+			} else if(status == "2"){
+				order_status_pic = "<i class='fas fa-box fa-4x'></i>"
+			} else if(status == "3"){
+				order_status_pic = "<i class='fas fa-truck-loading fa-4x'></i>"
+			} else if(status == "4"){
+				order_status_pic = "<i class='fas fa-shipping-fast fa-6x'></i>"
+			} else {
+				order_status_pic = "<i class='fas fa-check fa-4x' style='color:#e2e2e2;'></i>"
+			}
+			btn.closest("tr").find(".torder_status").html(order_status_pic);
+			order_status_pic
 			alert(formData.get('order_id')+"번 주문이 수정되었습니다.");
 		},
 		error : function(errorThrown){
@@ -73,6 +87,7 @@ function updateOrderList(formData, btn){
 						<th>상품 아이디</th>
 						<th>가격</th>
 						<th>개수</th>
+						<th>주문일</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -81,7 +96,26 @@ function updateOrderList(formData, btn){
 						<%-- <c:if test="${sessionScope.user.user_id == ovo.pboard_user_id}"> --%>
 							<tr>
 								<td>${ovo.order_id}</td>
-								<td><span class="torder_status">${ovo.order_status}</span>
+								
+								<td><span class="torder_status">
+									<c:choose>
+									<c:when test="${ovo.order_status eq 1}">
+										<i class="fas fa-credit-card fa-4x"></i>
+									</c:when>
+									<c:when test="${ovo.order_status eq 2}" >
+										<i class="fas fa-box fa-4x" style="color:#e2e2e2;"></i>
+									</c:when>
+									<c:when test="${ovo.order_status eq 3}">
+										<i class="fas fa-truck-loading fa-4x" style="color:#e2e2e2;"></i>
+									</c:when>
+									<c:when test="${ovo.order_status eq 4}">
+										<i class="fas fa-shipping-fast fa-6x" style="color:#e2e2e2;"></i>
+									</c:when>
+									<c:otherwise>
+										<i class="fas fa-check fa-4x"></i>
+									</c:otherwise>
+								</c:choose>
+								</span>
 	 							<select class="order_status" name="selectStatus">
 									<option value="0"<c:if test="${ovo.order_status == 0}">selected</c:if>>주문 취소</option>
 									<option value="1"<c:if test="${ovo.order_status == 1}">selected</c:if>>주문 완료</option>
@@ -93,9 +127,18 @@ function updateOrderList(formData, btn){
 								</td>
 								<td class="torder_name">${ovo.order_name}</td>
 								<td class="torder_address">${ovo.order_address}</td>
-								<td class="tproduct_id">${ovo.product_id}</td>
-								<td class="torder_totalprice">${ovo.order_totalprice}</td>
+								<td class="tproduct_id">${ovo.product_name}</td>
+								
+									<fmt:formatNumber type="number" maxFractionDigits="3"
+							value="${ovo.order_totalprice}" var="price"></fmt:formatNumber>
+								<td class="torder_totalprice">${price}</td>
 								<td class="torder_totalcount">${ovo.order_totalcount}</td>
+								<td class="center">
+									<fmt:parseDate value="${ovo.order_regdate}" pattern="yyyy-MM-dd" var="order_regdate" />
+									<fmt:formatDate value="${order_regdate}" pattern="yyyy-MM-dd" var="regDate"/>
+									
+									${regDate}
+								</td>
 								<td class="center"><button type="button" class="button">저장</button></td>
 								<input type="hidden" class="order_id" value="${ovo.order_id}">
 								<input type="hidden" class="order_status" value="${ovo.order_status}">

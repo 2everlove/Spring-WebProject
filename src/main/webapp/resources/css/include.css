@@ -257,7 +257,7 @@ p{
 	z-index: 10;
 }
 
-.navbar__menu__item.active, .navbar__menu__item:hover, .navbar__menu__item-member:hover, .navbar__menu__item-login:hover, .navbar__menu__item-history:hover, .navbar__menu__item-logout:hover{
+.navbar__menu__item.active,.navbar__menu__item:hover, .navbar__menu__item-member:hover, .navbar__menu__item-member.active, .navbar__menu__item-login.active,.navbar__menu__item-login:hover, .navbar__menu__item-history:hover, .navbar__menu__item-logout:hover{
 	border: 2px solid var(--color-dark-pink);
 	border-radius: var(--size-border-radius);
 	color: var(--color-white);

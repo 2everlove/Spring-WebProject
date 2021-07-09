@@ -12,7 +12,7 @@
 	
 	<!-- admin 전체 목록 불러오기 -->
 	<select id="getAllUser" resultType="web.spring.vo.UserVO">
-		select * from user_info
+		select * from user_info order by user_regdate desc
 	</select>
 	
 	<update id="updateUserByAdmin">
@@ -58,7 +58,7 @@
 				<if test="type=='user_email' and keyword != null">
 					u.user_email like '%'  || #{keyword}  ||  '%'
 				</if>
-			</where>) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
+			</where> order by u.user_regdate desc) us where num between #{pageNo} * #{amount}-9 and #{pageNo} * #{amount} 
 	</select>
 	
 	<select id="getUserTotal" resultType="int">

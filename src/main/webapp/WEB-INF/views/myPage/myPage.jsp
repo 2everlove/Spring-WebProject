@@ -11,6 +11,13 @@
 </script>
 <script type="text/javascript">
 	document.title='마이페이지 : widele';
+	
+	$(document).ready(function(){
+		let resMsg = "${resMsg}";
+		if(resMsg != "" && resMsg == "success"){
+			alert("상품이 등록되었습니다.");
+		}
+	})
 </script>
     <section class="section__content">
         <div class="section__wrapper">

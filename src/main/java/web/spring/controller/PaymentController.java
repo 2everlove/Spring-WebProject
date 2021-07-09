@@ -79,6 +79,7 @@ public class PaymentController {
 			ProductVO productVO = productService.getProductInfo(pBoardVO.getProduct_id());
 			model.addAttribute("uvo", userVO);
 			model.addAttribute("pBoard", pBoard);
+			log.info(pBoard);
 			model.addAttribute("productVO", productVO);
 			return "/order/cart";
 		} else {

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../includes/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/nboard.css">
+<%@include file="../includes/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,8 +84,8 @@ $(document).ready(function(){
 						<th>상품 이름</th>
 						<th>가격</th>
 						<th>개수</th>
-						<th></th>
-						<th></th>
+						<th <c:if test="${list.size() == 0 }"> style="display: none;"</c:if>></th>
+						<th <c:if test="${list.size() == 0 }"> style="display: none;"</c:if>></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -95,10 +96,14 @@ $(document).ready(function(){
 							<td class="center" id="order_name">${cvo.user_name}</td>
 							<td class="center" id="order_address">${cvo.user_address}</td>
 							<td class="center">${cvo.product_name}</td>
-							<td class="center" id="order_totalprice">${cvo.cart_totalprice}</td>
+							<td class="center" id="order_totalprice">
+							<fmt:formatNumber type="number" maxFractionDigits="3" value="${cvo.cart_totalprice}" var="price"></fmt:formatNumber>
+							${price}
+							
+							</td>
 							<td class="center" id="order_totalcount">${cvo.cart_totalcount}</td>
 							<td class="center"><a href='/deleteCart?cart_id=${cvo.cart_id}'><button type="button" id="deleteBtn">삭제</button></a></td>
-							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cvo.pboard_unit_stocks}&pboard_unit_no=${cvo.pboard_unit_no}'>
+							<td class="center"><a href='/payment?cart_id=${cvo.cart_id}&product_id=${cvo.product_id}&order_totalcount=${cvo.cart_totalcount}&order_totalprice=${cvo.cart_totalprice}&pboard_unit_stocks=${cvo.pboard_unit_stocks}&pboard_unit_no=${cvo.pboard_unit_no}&user_address=${cvo.user_address}'>
 								<button type="button" id="orderBtn">주문</button></a>
 							</td>
 							<input type="hidden" name="pBoard_unit_stocks" value="${cvo.pboard_unit_stocks}">

@@ -16,18 +16,40 @@ $(document).ready(function() {
 			history.back();
 		}
 	}
+	$(".detail__count-input").change(function(){
+		if($(".detail__count-input").val() > ${pBoard.pboard_unit_stocks}){
+			alert(${pBoard.pboard_unit_stocks}+"개 이하로 구매할 수 있습니다.");
+			$(".detail__count-input").val(${pBoard.pboard_unit_stocks});
+			$(".pboard_unit_stocks").val(0);
+			$("input[name=pboard_unit_stocks]").val(0);
+			$(".detail__count-input").select();
+		}
+	});
 	if ($("input[name=order_totalcount]").val() == 1) {
+		$(".pboard_unit_stocks").val('${pBoard.pboard_unit_stocks}'-1);
 		$("input[name=pboard_unit_stocks]").val('${pBoard.pboard_unit_stocks}'-1);
 	}
 	$(".up-button").click(function() {
 		let tempcount = $("input[name=order_totalcount]").val();
 		let totalcount = Number(tempcount) + 1;
 		var stock = '${pBoard.pboard_unit_stocks}';
+		var stockCompare = $("input[name=pboard_unit_stocks]").val();
 		var price = '${pBoard.pboard_unit_price}';
-		let totalprice = Number(totalcount) * price;
-		let stocks = stock - Number(totalcount);
+		let stocks = 0;
+		if(Number(stockCompare)>0){
+			stocks = stock - Number(totalcount);
+		}
+		if(Number(stockCompare)<=0){
+			alert("재고가 없습니다");
+			totalcount = stock;
+		}
+		
+		let totalprice = (Number(totalcount) * price).toString();
+		console.log(totalprice.replace(/,/g,""));
 		$("input[name=order_totalcount]").val(totalcount);
-		$("input[name=order_totalprice]").val(totalprice);
+		$(".order_totalprice").val(totalprice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+		$("input[name=order_totalprice]").val();
+		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
 	$(".down-button").click(function() {
@@ -40,15 +62,60 @@ $(document).ready(function() {
 		} else {
 			totalcount = Number(tempcount) - 1;
 		}
-		let totalprice = Number(totalcount) * price;
+		let totalprice = (Number(totalcount) * price).toString();
 		let stocks = stock - Number(totalcount);
+		console.log(totalprice.split(',').join(""));
 		$("input[name=order_totalcount]").val(totalcount);
-		$("input[name=order_totalprice]").val(totalprice);
+		$(".order_totalprice").val(totalprice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+		$("input[name=order_totalprice]").val(totalprice.split(',').join(""));
+		$(".pboard_unit_stocks").val(stocks);
 		$("input[name=pboard_unit_stocks]").val(stocks);
 	});
-	
 
 });
+
+	//자릿수 (,) 찍기
+	function inputNumberAutoComma(obj) {
+	     
+	      // 콤마( , )의 경우도 문자로 인식되기때문에 콤마를 따로 제거한다.
+	      var deleteComma = obj.value.replace(/\,/g, "");
+	      let str = obj.value;
+			//console.log(str)
+			str = "" + str;
+			if(blankCheck(str)){
+				str = str.replace(/[^0-9]/g, "");
+			}else{
+				str = null;
+			}
+			
+	   	 obj.value = str;
+	
+	     
+	      // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+	      obj.value=inputNumberWithComma(inputNumberRemoveComma(obj.value));
+	  }
+	function inputNumberWithComma(str) {
+	
+	       str = String(str);
+	       return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+	}
+	// 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+	function inputNumberRemoveComma(str) {
+	
+	    str = String(str);
+	    return str.replace(/[^\d]+/g, "");
+	}
+	
+	function blankCheck(str){
+		if(str == null || str == "null"
+			   || str == undefined || str == "undefined"
+			   || str == '' || str == "" || str.length == 0
+		   ){
+			return null;
+		}else{
+			return str;
+		}
+	}
 </script>
 <!-- 페이징, 목록, 가격, 정렬 -->
 <section class="section__content">
@@ -89,10 +156,16 @@ $(document).ready(function() {
 						<p>
 							가격 <span>${price}</span>
 						<p>
-							재고 <span><input type="text" value="${stocks}" name="pboard_unit_stocks"></span>
+							재고 <span>
+							
+								<input type="text" value="${stocks}" class="pboard_unit_stocks" disabled >
+									<input type="hidden" value="${stocks}" name="pboard_unit_stocks">
+							</span>
 						<p>
 							<span class="detail__count"><input type="text"
-								name="order_totalcount" class="detail__count-input" value="1">
+								name="order_totalcount" class="detail__count-input" value="1"
+								min="0" max="${stocks}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								>
 								<span>
 									<button type="button" class="up-button">
 										<i class="fas fa-chevron-up"></i>
@@ -103,7 +176,10 @@ $(document).ready(function() {
 								</span>
 							</span>
 						<p>
-							총금액 <span><input type="text" value="${price}" name="order_totalprice" readonly></span>
+							총금액 <span>
+								<input type="text" value="${price}" class="order_totalprice" readonly>
+								<input type="hidden" value="${pBoard.pboard_unit_price}" name="order_totalprice" readonly>
+							</span>
 						<p>
 							등록일 <span>${regdate}</span>
 						<p>

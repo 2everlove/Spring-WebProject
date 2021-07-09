@@ -57,6 +57,15 @@
 			tr.find('.user_address').select();
 		});
 		
+		$("#user_contact_clone").keyup(function(){
+			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
+		});
+		$("#user_contact_clone").change(function(){
+			let str = $(this).val();
+			let tmp = str.replace(/\-/g,'');
+			$(this).closest("div").find("#user_contact").val(tmp);
+		});
+		
 		
 		$("input[name=User_id]").on("change",function(){
 			//중복체크 다시 진행
@@ -134,6 +143,8 @@
 				viewFile($('#file_pictureId').val());
 			});
 			
+		
+			
 		$("#registerBtn").on("click", function(){
 			let User_gender=$("select[User_gender]").val();
 			let User_type=$("select[User_type]").val();
@@ -145,16 +156,39 @@
 			let User_name=$("input[name=User_name]").val();
 			let User_email=$("input[name=User_email]").val();
 			let User_contact=$("input[name=User_contact]").val();
-			if($.isEmptyObject(User_password)){
-				alert("비밀번호를 입력해주세요.");
-				return false;
-			}
-			if($.isEmptyObject(pwdCheck)){
-				alert("비밀번호 확인란을 입력해주세요.");
-				return false;
-			}
+			
 			if(!$("input[name=User_id]").prop("dataValue")){
-				alert("id 중복검사");
+				alert("id 중복검사를 해주세요.");
+				return false;
+			}
+			if($("input[name=User_password]").val()==""){
+				alert("비밀번호를 입력해주세요.");
+				$("input[name=User_password]").select();
+				return false;
+			}
+			if($("input[name=pwdCheck]").val()==""){
+				alert("비밀번호 확인란을 입력해주세요.");
+				$("input[name=pwdCheck]").select();
+				return false;
+			}
+			if($("input[name=User_name]").val()==""){
+				alert("이름을 입력해주세요.");
+				$("input[name=User_name]").select();
+				return false;
+			}
+			if($("input[name=User_email]").val()==""){
+				alert("email을 입력해주세요.");
+				$("input[name=User_email]").select();
+				return false;
+			}
+			if($("input[name=User_contact").val()==""){
+				alert("연락처를 입력해주세요.");
+				$("input[name=User_contact]").select();
+				return false;
+			}
+			if($("input[name=User_birth").val()==""){
+				alert("생일을 입력해주세요.");
+				$("input[name=User_birth]").select();
 				return false;
 			}
 			//비밀번호 체크
@@ -248,7 +282,8 @@
                 </div>
                 <div class="register-group div5">
                 	<label>CONTACT</label><br>
-                    <input class="form-control" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
+                    <input class="form-control" type="text" id="user_contact_clone"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
+                    <input class="form-control" name="User_contact" id="user_contact" type="hidden"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" required>
 
                 </div>
                 <div class="register-group div6">

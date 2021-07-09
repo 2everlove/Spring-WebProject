@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="../../../resources/css/user.css">
 <%@include file="../includes/header.jsp" %>
@@ -11,6 +12,16 @@ if('${updateErrorMsg}' != ''){
 	$("#errorMsgArea").text('${updateErrorMsg}');	
 }
 $(document).ready(function(){
+	
+	//숫자 하이픈(-)
+	$(".user_contact_clone").keyup(function(){
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") );
+	});
+	$(".user_contact_clone").change(function(){
+		let str = $(this).val();
+		let tmp = str.replace(/\-/g,'');
+		$(this).closest("div").find(".user_contact").val(tmp);
+	});
 	
 	let resMsg = "${resMsg}";
 	if(resMsg!="" && resMsg!=" "){
@@ -250,9 +261,13 @@ $(document).ready(function(){
                 </div>
                 <div class="register-group div9">
                 	<label>CONTACT</label><br>
-                    <input class="form-control" placeholder="contact" name="User_contact" type="text"  placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${user.user_contact}" required>
+                	<fmt:formatNumber var="contact" value="${user.user_contact}" pattern="###,####,####"  type="number" minIntegerDigits="11"/>
+   					<input type="text" class="user_contact_clone" value="<c:out value="${fn:replace(contact, ',', '-')}" />" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
+   					<input type="hidden" name="user_contact" class="user_contact" value="${user.user_contact}" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
                 </div>
                 <div class="register-group div10">
+	                <label>관심분야</label>
+	                	<br>
    					<label class="interesting-label">
 	               		<input class="user_interestingCB" type="checkbox" name="User_interesting" value="tablet" 
 	               			<c:forTokens items="${user.user_interesting}" delims="," var="item"><c:if test="${item == 'tablet'}">checked</c:if></c:forTokens>>태블릿
