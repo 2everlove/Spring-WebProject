@@ -45,7 +45,7 @@
    <li>create product for B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product.gif">       </li>
    <li>register product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product2.gif">
     </li>
-  <li>manage product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product3.gif">
+  <li>manage product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product4.gif">
   </li>
   <br>
     
