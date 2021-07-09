@@ -6,7 +6,7 @@
   <br>
 <hr>
   <h2>Web project 소개[Web projectをご紹介]</h2>
-  <p><br>Main page - 2everlove(Ahn M-S)</br></p>
+  <p><b>Main page - 2everlove(Ahn M-S)</b></p>
   <ul>
   <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
   </li>
@@ -19,7 +19,7 @@
   </ul>
   <br>
   
-  <p><br>Login page - pescatorio(Jeon J-Y)</br></p>
+  <p><b>Login page - pescatorio(Jeon J-Y)</b></p>
   <ul>
   <li>login&join<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/login.gif">
   </li>
@@ -28,11 +28,11 @@
   </ul>
   <br>
   
-  <p><br>Review page - Azerbaijan-Baku(Kim T-M)</br></p>
+  <p><b>Review page - Azerbaijan-Baku(Kim T-M)</b></p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/review.gif">
   <br>
   
-  <p><br>Order Page - skqlgpdls(Kim H-Y)</br></p>
+  <p><b>Order Page - skqlgpdls(Kim H-Y)</b></p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/order.gif">
   <br>
   
