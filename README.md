@@ -47,8 +47,11 @@
     </li>
   <li>manage product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product4.gif">
   </li>
-  <li>manage user of admin<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/user.gif">
-  </li>
+  </ul>
+    
+  <p><b>Admin page(user fn - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a>)</b>
+  manage user of admin<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/user.gif">
+  
   <br>
     
     
