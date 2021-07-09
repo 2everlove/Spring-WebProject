@@ -6,7 +6,8 @@
   <br>
 <hr>
   <h2>Web project 소개[Web projectをご紹介]</h2>
-  <p></p>
+  <p>main</p>
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
   
   <br>
 <hr>
