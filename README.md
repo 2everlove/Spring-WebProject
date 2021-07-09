@@ -1,7 +1,7 @@
 # Spring-WebProject
 <sub>World Job Friends Team Work <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><sub>
 <hr>
-  <h2>Web Project 목적</h2>
+  <h2>Web Project 목적[Web Projectを目的]</h2>
   <p>전자 제품에 관련한 Web Service 제공[電化製品ショッピングに関するWebサービスを提供]</p>
   <br>
 <hr>
