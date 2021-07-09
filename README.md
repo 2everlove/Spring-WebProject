@@ -11,7 +11,7 @@
   
   
   <p>Login page - pescatorio(Jeon J-Y)</p>
-  <img src="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/login.gif">
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/login.gif">
   
   <br>
 <hr>
