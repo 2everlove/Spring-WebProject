@@ -7,7 +7,12 @@
 <hr>
   <h2>Web project 소개[Web projectをご紹介]</h2>
   <p>Main page - 2everlove(Ahn M-S)</p>
-  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
+  <ul>
+  <li><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
+    main</li>
+  <li><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/recommend.gif">
+    recommend</li>
+  </ul>
   
   
   <p>Login page - pescatorio(Jeon J-Y)</p>
