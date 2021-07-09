@@ -4,7 +4,7 @@
 DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>><br>
 최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><br>
 <hr>
-  <h2>Team member 소개Team memberをご紹介]</h2>
+  <h2>Team member 소개 [Team memberをご紹介]</h2>
   <p><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
   맡은 직책[引き受けた職責] : 팀장 [チームリーダー]<br>
   맡은 업무[受け持った業務] : 메인&상품&관리자(제품, 회원 관리) 페이지 [メイン&商品&管理者(商品、会員管理)のページ]
@@ -26,11 +26,11 @@ DB Querry [データベースクエリー] <<a href="https://github.com/2everlov
   <br>
   
 <hr>
-  <h2>Web Project 목적[Web Projectを目的]</h2>
+  <h2>Web Project 목적 [Web Projectを目的]</h2>
   <p>전자 제품에 관련한 Web Service 제공[電化製品ショッピングに関するWebサービスを提供]</p>
   <br>
 <hr>
-  <h2>Web project 소개[Web projectをご紹介]</h2>
+  <h2>Web project 소개 [Web projectをご紹介]</h2>
   <p><b>Main page - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
   <ul>
   <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
@@ -93,7 +93,7 @@ DB Querry [データベースクエリー] <<a href="https://github.com/2everlov
     
   <br>
 <hr>
-  <h2>Configuration[開発環境]</h2>
+  <h2>Configuration [開発環境]</h2>
   <ul>
     <li>Java: jdk1.8.0_281</li>
     <li>JQuery: 3.6.0</li>
@@ -104,7 +104,7 @@ DB Querry [データベースクエリー] <<a href="https://github.com/2everlov
   
   <br>
 <hr>
-  <h3>References[参考にしたAPI]</h3>
+  <h3>References [参考にしたAPI]</h3>
   <ul>
     <li>Font: Google Fonts<sub><<a href="https://fonts.google.com/">Link</a>><sub></li>
     <li>Icon: Font Awesome<sub><<a href="https://fontawesome.com/icons">Link</a>><sub></li>
