@@ -22,6 +22,9 @@
   <p>Login page - pescatorio(Jeon J-Y)</p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/login.gif">
   
+  <p> review page - Azerbaijan-Baku(Kim T-M)</p>
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/review.gif">
+  
   <br>
 <hr>
   <h2>Configuration[開発環境]</h2>
