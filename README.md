@@ -42,7 +42,7 @@
     
   <p><b>Admin page(product fn - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a>)</b>
   <ul>
-   <li>create product for B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product1.gif">       </li>
+   <li>create product for B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product.gif">       </li>
    <li>register product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product2.gif">
     </li>
   <br>
