@@ -14,6 +14,8 @@
   </li>
   <li>history<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/history.gif">
   </li>
+  <li>search<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/search.gif">
+  </li>
   </ul>
   
   
