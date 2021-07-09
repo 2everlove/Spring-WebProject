@@ -1,4 +1,4 @@
-# Spring-WebProject [Shopping Mall]<sub>World Job Friends Team Work</sub>
+# Spring-WebProject [Shopping Mall]<sub>주최 [主催] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></sub>
 초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>><br>
 초기 DB Modeling [初期データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>><br>
 DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>><br>
