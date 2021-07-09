@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class CodeVO {
+public class CodeVO { //안씀
 	private String code_no;
 	private String code_type;
 	private String code_value;
