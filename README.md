@@ -1,8 +1,8 @@
 # Spring-WebProject [Shopping Mall]<sub>World Job Friends Team Work</sub>
-<sub>초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>><sub>
-<sub>DB Modeling [データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>><sub>
-<sub>DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>><sub>
-<sub>최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><sub>
+<sub>초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>><sub><br>
+<sub>DB Modeling [データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>><sub><br>
+<sub>DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>><sub><br>
+<sub>최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><sub><br>
 <hr>
   <h2>Team member 소개Team memberをご紹介]</h2>
   <p><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
