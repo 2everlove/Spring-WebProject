@@ -53,8 +53,12 @@
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/user.gif">
   <br>
     
-  <p><b>Review page - <a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
+  <p><b>Q&A page - <a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/qa.gif">
+  <br>
+  
+  <p><b>Notice page - <a href="https://github.com/pescatorio" target='_blank'>pescatorio(Jeon J-Y)</a></b></p>
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/notice.gif">
   <br>
     
   
