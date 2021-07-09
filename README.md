@@ -47,6 +47,8 @@
     </li>
   <li>manage product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product4.gif">
   </li>
+  <li>manage user of admin<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/user.gif">
+  </li>
   <br>
     
     
