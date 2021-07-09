@@ -103,7 +103,7 @@
   
   <br>
 <hr>
-  <h3>References[参考にしたAPI]</h3>
+  <h2>References[参考にしたAPI]</h2>
   <ul>
     <li>Font: Google Fonts<sub><<a href="https://fonts.google.com/">Link</a>><sub></li>
     <li>Icon: Font Awesome<sub><<a href="https://fontawesome.com/icons">Link</a>><sub></li>
