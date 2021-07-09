@@ -32,11 +32,22 @@
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/review.gif">
   <br>
   
-  <p><b>Order Page - <a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
+  <p><b>Purchase Page - <a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
   <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/order1.gif">
   <br>
   
-  
+  <p><b>Admin page(Order fn - <a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a>)</b>
+  <img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/order2.gif">
+  <br>
+    
+  <p><b>Admin page(product fn - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a>)</b>
+  <ul>
+   <li>create product for B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product1.gif">       </li>
+   <li>register product of B.C(Business Client)<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/product2.gif">
+    </li>
+  <br>
+    
+    
   <br>
 <hr>
   <h2>Configuration[開発環境]</h2>
