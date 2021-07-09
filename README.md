@@ -8,10 +8,10 @@
   <h2>Web project 소개[Web projectをご紹介]</h2>
   <p>Main page - 2everlove(Ahn M-S)</p>
   <ul>
-  <li><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
-    main</li>
-  <li><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/recommend.gif">
-    recommend</li>
+  <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
+    </li>
+  <li>recommend<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/recommend.gif">
+    </li>
   </ul>
   
   
