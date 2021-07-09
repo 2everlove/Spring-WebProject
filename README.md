@@ -9,9 +9,11 @@
   <p>Main page - 2everlove(Ahn M-S)</p>
   <ul>
   <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
-    </li>
+  </li>
   <li>recommend<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/recommend.gif">
-    </li>
+  </li>
+  <li>history<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/history.gif">
+  </li>
   </ul>
   
   
