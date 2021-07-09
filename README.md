@@ -1,5 +1,8 @@
-# Spring-WebProject
-<sub>World Job Friends Team Work <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><sub>
+# Spring-WebProject [Shopping Mall]<br><sub>주최 [主催] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></sub>
+초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>><br>
+초기 DB Modeling [初期データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>><br>
+DB Querry [データベースクエリー] <<a href="https://github.com/2everlove/dbWorks/blob/main/spring/webProject.sql" target='_blank'>document</a>><br>
+최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>><br>
 <hr>
   <h2>Team member 소개Team memberをご紹介]</h2>
   <p><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
@@ -24,10 +27,8 @@
   
 <hr>
   <h2>Web Project 목적[Web Projectを目的]</h2>
-  <p>교육기간 동안의 학습 내용을 바탕으로 프로젝트 목표 설정 [教育期間中の学習内容を基にプロジェクト目標を設定]</p>
-  <p>실무에서 적용할 수 있는 기술을 토대로 프로젝트를 제작 [実務で適用できる技術を基にプロジェクトを制作]</p>
-  <p>전자상 거래 비중이 지속적으로 상승 되는 가운데, 온라인 쇼핑몰에 대한 수요 또한 커지고 있어 제작하게 되었음 [電子商取引の割合が持続的に上昇する中、オンラインショッピングモールに対する需要も大きくなっているため製作]</p>
-  <p>타 사이트의 내용을 그대로 가져오는 것이 아닌, 독창적인 웹사이트를 만듦 [他のサイトの内容をそのまま持ってくるのではなく、独創的なウェブサイトを製作]</p>
+  <p>전자 제품에 관련한 Web Service 제공[電化製品ショッピングに関するWebサービスを提供]</p>
+  <br>
 <hr>
   <h2>Web project 소개[Web projectをご紹介]</h2>
   <p><b>Main page - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
@@ -103,7 +104,7 @@
   
   <br>
 <hr>
-  <h2>References[参考にしたAPI]</h2>
+  <h3>References[参考にしたAPI]</h3>
   <ul>
     <li>Font: Google Fonts<sub><<a href="https://fonts.google.com/">Link</a>><sub></li>
     <li>Icon: Font Awesome<sub><<a href="https://fontawesome.com/icons">Link</a>><sub></li>
