@@ -6,13 +6,16 @@
   맡은 직책[引き受けた職責] : 팀장 [チーム長]
   맡은 업무[受け持った業務] : 메인&상품&관리자(제품, 회원 관리) 페이지 [メイン&商品&管理者(商品、会員管理)のページ]
   <br>
+  <br>
   <p><b><a href="https://github.com/Azerbaijan-Baku" target='_blank'>Azerbaijan-Baku(Kim T-M)</a></b></p>
   맡은 직책[引き受けた職責] : 팀원 [チーム員]
   맡은 업무[受け持った業務] : 문의사항, 제품 리뷰 페이지 [お問い合わせ、製品レビューページ]
   <br>
+  <br>
   <p><b><a href="https://github.com/skqlgpdls" target='_blank'>skqlgpdls(Kim H-Y)</a></b></p>
   맡은 직책[引き受けた職責] : 팀원 [チーム員]
   맡은 업무[受け持った業務] : 구매 관리 (장바구니, 결제화면) [購入管理 (買い物かご、決済画面)] 
+  <br>
   <br>
   <p><b><a href="https://github.com/pescatorio" target='_blank'>pescatorio(Jeon J-Y)</a></b></p>
   맡은 직책[引き受けた職責] : 팀원 [チーム員]
