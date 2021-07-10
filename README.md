@@ -6,7 +6,7 @@
 <li>최종 발표 문서 [最終発表文書] <<a href="https://drive.google.com/file/d/1HF8VxupFD-ICQhthzbbTji9Bx5bPrbsJ/view?usp=sharing" target='_blank'>document</a>></li><br>
 </ul>
 <hr>
-  <h2>Team member 소개 [Team memberをご紹介]</h2>
+  <h2>Team member 소개 [Team memberの紹介]</h2>
   <ul>
   <li><b><a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b><br>
   맡은 직책[引き受けた職責] : 팀장 [チームリーダー]<br>
@@ -34,7 +34,7 @@
   </ul>
   
 <hr>
-  <h2>Web Project 목적 [Web Projectを目的]</h2>
+  <h2>Web Project 목적 [Web Projectの目的]</h2>
   <ul>
   <li><p>교육기간 동안의 학습 내용을 바탕으로 프로젝트 목표 설정 [教育期間中の学習内容を基にプロジェクト目標を設定]</p></li>
   <li><p>실무에서 적용할 수 있는 기술을 토대로 프로젝트를 제작 [実務で適用できる技術を基にプロジェクトを制作]</p></li>
@@ -43,7 +43,7 @@
   </ul>
   <br>
 <hr>
-  <h2>Web project 소개 [Web projectをご紹介]</h2>
+  <h2>Web project 소개 [Web projectの紹介]</h2>
   <p><b>Main page - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
   <ul>
   <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
