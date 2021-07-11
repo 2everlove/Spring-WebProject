@@ -5,7 +5,7 @@
     <br>
     <li>개발 기간 [開発期間] : 21.05.17(月) ~ 21.06.25(金) (約 1ヶ月 以内)</li>
     <br>
-    <li>발표일 [発表日] : 21.06.28(月) <sub>[<a href="https://youtu.be/POPP0Yx1UDg">view</a>]</sub></li>
+    <li>발표일 [発表日] : 21.06.28(月) <sub>[<a href="https://youtu.be/POPP0Yx1UDg" target='_blank'>view</a>]</sub></li>
   </ul>
 </p>
 <br>
