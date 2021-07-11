@@ -1,4 +1,4 @@
-# Spring-WebProject [Shopping Mall]<br><br><sub><ul><li>주최 [主催] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></li><br><li>개발 기간 [開発期間] : 21.05.17(月) ~ 21.06.25(金)</li><br><li>발표일 [発表日] : 21.06.28(月)</li></ul></sub>
+# Spring-WebProject [Shopping Mall]<br><br><ul><sub><li>주최 [主催] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></li><br><li>개발 기간 [開発期間] : 21.05.17(月) ~ 21.06.25(金)</li><br><li>발표일 [発表日] : 21.06.28(月)</li></sub></ul>
 <ul>
 <li>초기 설계 문서 [初期設計文書] <<a href="https://drive.google.com/file/d/1HunL8UZx51LkjAB5cX24Ls9Xg41VtUrQ/view?usp=sharing" target='_blank'>document</a>></li><br>
 <li>초기 DB Modeling [初期データベースモデリング] <<a href="https://drive.google.com/file/d/1pzqYkLt0lyVhYfdmtYy_Bef24RBfWx8U/view?usp=sharing" target='_blank'>document</a>></li><br>
