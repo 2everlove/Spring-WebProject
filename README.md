@@ -1,7 +1,7 @@
 # Spring-WebProject [Shopping Mall]<br>
 <p>
   <ul>
-    <li>주최 [主催] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></li>
+    <li>주관 [主管] : <a href = "http://www.worldjobf.com/">월드잡 프렌즈 [World Job Friends]</a></li>
     <br>
     <li>개발 기간 [開発期間] : 21.05.17(月) ~ 21.06.25(金) (約 1ヶ月 以内)</li>
     <br>
