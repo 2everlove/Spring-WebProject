@@ -70,6 +70,7 @@ public class ProductController {
 		if(linkedList.size()<6) {
 			linkedList.addFirst(no);
 			linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
+			//stream<string> => LinkedList<String>
 		} else {
 			linkedList = linkedList.stream().distinct().collect(Collectors.toCollection(LinkedList::new));
 			if(linkedList.size()==6) {
