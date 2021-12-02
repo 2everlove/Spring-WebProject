@@ -59,12 +59,24 @@
   <p><b>Main page - <a href="https://github.com/2everlove" target='_blank'>2everlove(Ahn M-S)</a></b></p>
   <ul>
   <li>main<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/main.gif">
+     <br>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/java/web/spring/controller/MainController.java#L42">Controller</a>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/resources/web/spring/mapper/ProductMapper.xml#L332">MyBatis(SQL)</a>
   </li>
   <li>search<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/search.gif">
+     <br>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/java/web/spring/controller/MainController.java#L114">Controller</a>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/resources/web/spring/mapper/ProductMapper.xml#L277">MyBatis(SQL)</a>
   </li>
   <li>history<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/history.gif">
+     <br>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/java/web/spring/controller/ProductController.java#L66">Controller</a>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/resources/web/spring/mapper/ProductMapper.xml#L98">MyBatis(SQL)</a>
   </li>
   <li>recommend<br><img src ="http://mika.ipdisk.co.kr:8000/list/HDD1/data/Host/List/practiceApps/mikaWorld/Elect%20project%20pic/recommend.gif">
+     <br>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/java/web/spring/controller/MainController.java#L138">Controller</a>
+    <a href="https://github.com/2everlove/Spring-WebProject/blob/d9890fc5a82a1ca39fc6f18e0b7f8da00064d40f/src/main/resources/web/spring/mapper/ProductMapper.xml#L355">MyBatis(SQL)</a>
   </li>
   
   
