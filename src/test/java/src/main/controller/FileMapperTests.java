@@ -54,7 +54,7 @@ public class FileMapperTests {
 	}
 	@Test
 	public void getSearchListFile() {
-		String str = "samsung ipad";
+		String str = "nin";
 		String[] strList = str.split(" ");
 		
 		ArrayList<String> arr = new ArrayList<String>();

@@ -85,7 +85,9 @@ public class ProductMapperTests {
 	public void getMainProductList() {
 		log.info(productMapper.getMainProductList());
 	}
-
+	
+	
+	//search category Test
 	@Test
 	public void getSearchCategory() {
 		String str = "samsung ipad";
@@ -101,6 +103,8 @@ public class ProductMapperTests {
 		List<ProductVO> list = productMapper.getSearchProductList(map);
 		log.info(list);
 	}
+	
+	//search Test
 	@Test
 	public void getSearchBo() {
 		String str = "samsung ipad";
